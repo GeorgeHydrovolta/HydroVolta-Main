@@ -231,6 +231,10 @@ h3{font-size:1.2rem}
 .footer__grid p{font-size:.86rem;margin-bottom:.75rem}
 .footer__bottom{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;flex-wrap:wrap;gap:.75rem}
 .footer__bottom p{font-size:.79rem;color:rgba(255,255,255,.27)}
+.footer__social{display:flex;align-items:center;gap:.85rem;margin-top:.25rem}
+.footer__social a{display:flex;align-items:center;gap:.4rem;font-size:.79rem;color:rgba(255,255,255,.32);transition:color .2s;text-decoration:none}
+.footer__social a:hover{color:rgba(255,255,255,.75)}
+.footer__social svg{flex-shrink:0}
 
 /* Reveal animations */
 .rv{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
