@@ -1,4 +1,4 @@
-/* Hydrovolta site.js */
+/* Hydrovolta site.js v2 */
 (function(){
   // Auto year
   document.querySelectorAll('[data-year]').forEach(el => {
