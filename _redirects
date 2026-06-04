@@ -1,0 +1,21 @@
+# Hydrovolta — legacy URL redirects
+# Cloudflare Pages enforces these as 301 permanent redirects
+
+/brine-mining-mineral-recovery/         /brine-valorization.html        301
+/brine-mining-mineral-recovery          /brine-valorization.html        301
+/carbon-capture-co2-valorisation/       /technology.html                301
+/carbon-capture-co2-valorisation        /technology.html                301
+/seawater-desalination/                 /brine-valorization.html        301
+/seawater-desalination                  /brine-valorization.html        301
+/water-desalination/                    /groundwater.html               301
+/water-desalination                     /groundwater.html               301
+/about-us/                              /about.html                     301
+/about-us                               /about.html                     301
+/sonixed-technology/                    /technology.html                301
+/sonixed-technology                     /technology.html                301
+/case-studies/                          /projects.html                  301
+/case-studies                           /projects.html                  301
+/mineral-recovery/                      /brine-valorization.html        301
+/mineral-recovery                       /brine-valorization.html        301
+/co2-valorisation/                      /technology.html                301
+/co2-valorisation                       /technology.html                301
