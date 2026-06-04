@@ -26,8 +26,23 @@
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  // Fallback: reveal anything still hidden after 1.5s (handles edge cases)
+  setTimeout(() => {
+    document.querySelectorAll('.rv:not(.in)').forEach(el => el.classList.add('in'));
+  }, 1500);
+
+  // Hero slideshow
+  const heroSlides = document.querySelectorAll('.hero__visual img');
+  if (heroSlides.length > 1) {
+    let cur = 0;
+    setInterval(() => {
+      heroSlides[cur].classList.remove('active');
+      cur = (cur + 1) % heroSlides.length;
+      heroSlides[cur].classList.add('active');
+    }, 5000);
+  }
 
   // Active nav link highlight
   const path = window.location.pathname.split('/').pop() || 'index.html';
