@@ -260,9 +260,9 @@ h3{font-size:1.2rem}
 
 
 /* ── HERO SPLIT (full-bleed image, text constrained) ──────── */
-.hero--split{padding:0;display:grid;grid-template-columns:1fr 1fr;min-height:660px;border-bottom:1px solid var(--b);overflow:hidden;background:var(--w)}
-.hero__copy{padding:5.5rem 3rem 5.5rem 2rem;display:flex;flex-direction:column;justify-content:center;background:var(--w)}
-.hero__visual{position:relative;overflow:hidden;min-height:660px}
+.hero--split{padding:0;display:grid;grid-template-columns:1fr 1fr;min-height:500px;border-bottom:1px solid var(--b);overflow:hidden;background:var(--w)}
+.hero__copy{padding:3.5rem 3rem 3.5rem 2rem;display:flex;flex-direction:column;justify-content:center;background:var(--w)}
+.hero__visual{position:relative;overflow:hidden;min-height:500px}
 .hero__visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% center;opacity:0;transition:opacity 1s ease}
 .hero__visual img.active{opacity:1}
 .hero__visual--right img{object-position:center center}

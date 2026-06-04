@@ -36,11 +36,20 @@
   // Hero slideshow
   const heroSlides = document.querySelectorAll('.hero__visual img');
   if (heroSlides.length > 1) {
+    // Force-load all slides immediately (browsers may defer opacity:0 images)
+    heroSlides.forEach(img => {
+      if (img.dataset.src) { img.src = img.dataset.src; }
+      img.style.willChange = 'opacity';
+    });
     let cur = 0;
     setInterval(() => {
-      heroSlides[cur].classList.remove('active');
+      const prev = cur;
       cur = (cur + 1) % heroSlides.length;
-      heroSlides[cur].classList.add('active');
+      // Remove active first, then add on next frame so CSS transition fires cleanly
+      heroSlides[prev].classList.remove('active');
+      requestAnimationFrame(() => {
+        heroSlides[cur].classList.add('active');
+      });
     }, 5000);
   }
 
