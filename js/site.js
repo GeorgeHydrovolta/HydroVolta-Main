@@ -55,9 +55,9 @@
   }
 
   // Active nav link highlight
-  const path = window.location.pathname.split('/').pop() || 'index.html';
+  const path = window.location.pathname.split('/').pop().replace(/\.html$/, '') || 'index';
   document.querySelectorAll('.nav__links a[href]').forEach(a => {
-    const href = a.getAttribute('href').split('/').pop();
+    const href = a.getAttribute('href').split('/').pop().replace(/\.html$/, '');
     if (href === path) a.setAttribute('aria-current', 'page');
   });
 })();
