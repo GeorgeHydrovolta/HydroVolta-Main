@@ -6,19 +6,19 @@
   });
 
   // Mobile navigation
+  const nav = document.querySelector('.nav');
   const btn = document.getElementById('menu-btn');
   const links = document.getElementById('nav-links');
-  if (btn && links) {
-    let skipClose = false;
+  if (nav && btn && links) {
     btn.addEventListener('click', function() {
-      skipClose = true;
       const isOpen = links.classList.toggle('open');
       btn.setAttribute('aria-expanded', String(isOpen));
     });
-    document.addEventListener('click', function() {
-      if (skipClose) { skipClose = false; return; }
-      links.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
+    document.addEventListener('click', function(e) {
+      if (!nav.contains(e.target)) {
+        links.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
     });
   }
 
