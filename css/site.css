@@ -1,4 +1,11 @@
 /* Hydrovolta site.css v2 */
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:300;font-display:swap;src:url('../fonts/plus-jakarta-sans-latin-300-normal.woff2') format('woff2')}
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/plus-jakarta-sans-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Plus Jakarta Sans';font-style:italic;font-weight:400;font-display:swap;src:url('../fonts/plus-jakarta-sans-latin-400-italic.woff2') format('woff2')}
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/plus-jakarta-sans-latin-500-normal.woff2') format('woff2')}
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/plus-jakarta-sans-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/plus-jakarta-sans-latin-700-normal.woff2') format('woff2')}
+@font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:800;font-display:swap;src:url('../fonts/plus-jakarta-sans-latin-800-normal.woff2') format('woff2')}
 :root{
   --n1:#001933;--n2:#002e5a;--n3:#003d78;
   --g:#c9a22a;--gl:#e8c84a;--gxl:#f5e9b8;
@@ -367,3 +374,15 @@ h3{font-size:1.2rem}
   .hero{padding:3.5rem 2rem}
   .section{padding:4rem 2rem}
 }
+
+/* ── COOKIE BANNER ───────────────────────────────────── */
+#cookie-banner{position:fixed;bottom:0;left:0;right:0;background:var(--n1);color:rgba(255,255,255,.85);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;z-index:2000;box-shadow:0 -4px 24px rgba(0,0,0,.25);transition:transform .3s ease}
+#cookie-banner p{margin:0;font-size:.83rem;line-height:1.5}
+#cookie-banner a{color:var(--gl)}
+.cookie-actions{display:flex;gap:.75rem;flex-shrink:0}
+.cookie-banner--hidden{transform:translateY(100%)}
+.yt-placeholder{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;background:#001933;box-shadow:0 8px 32px rgba(0,25,51,0.15)}
+.yt-placeholder-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;color:rgba(255,255,255,.7);text-align:center;padding:2rem}
+.yt-placeholder-inner p{font-size:.9rem;margin:0;max-width:32ch}
+.yt-placeholder-inner .btn{font-size:.85rem}
+@media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;padding:1rem 1.25rem}.cookie-actions{width:100%}.cookie-actions .btn{flex:1;text-align:center}}
