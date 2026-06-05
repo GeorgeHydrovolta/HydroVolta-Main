@@ -1,0 +1,66 @@
+# Hydrovolta
+
+> Hydrovolta NV is a Belgian water technology company (founded 2016, Leuven, Belgium) that develops high-recovery desalination and brine valorization systems for brackish groundwater, hard water, and saline sources. KBO: BE0652996179.
+
+## What Hydrovolta does
+
+Hydrovolta's core product is SonixED™ — a patented electrodialysis reversal (EDR) system enhanced with ultrasound anti-scaling technology and selective ion-exchange membranes. It is designed for difficult water sources in the 1,500–20,000 ppm TDS range where conventional reverse osmosis (RO) fails due to silica fouling, high hardness, or brine disposal constraints.
+
+Key differentiators vs. RO:
+- Water recovery up to 98% (vs. RO 50–75%)
+- Energy consumption 0.19–0.7 kWh/m³ (vs. RO 2.0–4.0 kWh/m³)
+- Selective nitrate and sodium removal while retaining calcium and magnesium
+- 50–90% reduction in chemical cleaning (CIP) in validated contexts
+- Residual brine 2–5% vs. RO 25–50% — dramatically reduces disposal burden
+
+Hydrovolta also offers downstream brine valorization: recovering Mg(OH)₂, Ca(OH)₂, and other mineral compounds from concentrated brine streams. This enables a near-zero liquid discharge pathway for inland sites.
+
+## Systems
+
+- **SalinBloc™**: Containerised modular treatment units (20 ft and 40 ft ISO containers) for pilots, agricultural sites, utility pilots, and remote communities. Cloud telemetry and automated operation from day one.
+- **Large-scale skid-mounted systems**: Project-engineered process trains for municipal, industrial, and agro-industrial applications. Full SCADA integration.
+
+## Active projects and references
+
+- **Morocco (2025–2028, Active)**: First commercial demonstration of integrated SonixED™ desalination + brine valorization. Seawater-intruded coastal aquifer ~7,000 ppm TDS. Funded by Flanders Climate Action Program.
+- **Perth, Australia (Active pilot)**: Water Corporation Perth — selective nitrate and salinity removal across three public utility sites. Contracted after 18-month technical appraisal. Cloud telemetry and regulatory compliance logging active.
+- **Germany (Completed pilot, Feb–May 2023)**: Cooling tower blowdown at a chemical industry facility. Head-to-head comparison vs. RO and EDR: SonixED™ achieved 90–98% recovery, $0.30–0.40/m³ treatment cost vs. RO $0.60–1.00/m³. Case study PDF available.
+- **Brazil (LOI signed)**: Remote groundwater remediation, nitrate and salinity co-contamination.
+- **Saudi Arabia (MOU signed)**: Selective ion recovery from deep brackish groundwater; Mg(OH)₂ and Ca(OH)₂ valorization for permeate remineralisation.
+
+## Funding and institutional backing
+
+- EIC Accelerator grant: €2.2M awarded
+- Flanders Climate Action Program
+- Partners: VITO, CNR, De Watergroep, Farys, Water Europe, GSTIC, Aquatech
+
+## Technology patent
+
+SonixED™ patent granted 2021. The ultrasound anti-scaling mechanism prevents silica nucleation before deposit formation — a specific failure mode of conventional membranes in high-silica and high-hardness groundwater.
+
+## Target applications
+
+Brackish groundwater treatment, selective nitrate removal, hard water treatment, cooling tower blowdown recovery, seawater RO brine valorization, agricultural water supply, municipal drinking water compliance (EU nitrate limit 50 mg/l NO₃⁻, deadline December 2027).
+
+## Who Hydrovolta works with
+
+Water utilities, municipal authorities, agro-industrial operators, mining and chemical industry facilities with challenging process water.
+
+## Contact
+
+- Website: https://hydrovolta.com
+- Email: info@hydrovolta.com
+- LinkedIn: https://be.linkedin.com/company/hydrovolta
+- Address: Leuven, Belgium
+
+## Site pages
+
+- Homepage: https://hydrovolta.com/
+- Groundwater treatment: https://hydrovolta.com/groundwater
+- Brine valorization: https://hydrovolta.com/brine-valorization
+- Technology (SonixED™ detail): https://hydrovolta.com/technology
+- Systems (SalinBloc™): https://hydrovolta.com/systems
+- Applications: https://hydrovolta.com/applications
+- Projects and references: https://hydrovolta.com/projects
+- About: https://hydrovolta.com/about
+- Contact: https://hydrovolta.com/contact
