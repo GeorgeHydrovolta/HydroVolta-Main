@@ -5,8 +5,8 @@
   --w:#fff;--s:#f4f7fb;--s2:#e8eef7;
   --b:rgba(0,46,90,.1);--bd:rgba(255,255,255,.1);
   --t:#0b1c2e;--m:#4f6070;--l:#8a9bac;
-  --fd:'Barlow Condensed',sans-serif;
-  --fb:'Barlow',sans-serif;
+  --fd:'Plus Jakarta Sans',sans-serif;
+  --fb:'Plus Jakarta Sans',sans-serif;
   --mx:1160px;
   --ease:cubic-bezier(.4,0,.2,1);
   --tr:.25s var(--ease);
