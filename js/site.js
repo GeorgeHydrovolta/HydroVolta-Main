@@ -54,13 +54,12 @@
     }, 5000);
   }
 
-  // Active nav link highlight — use canonical URL, reliable across all Cloudflare URL formats
-  const canonical = document.querySelector('link[rel="canonical"]');
-  const activePage = canonical
-    ? canonical.href.replace(/\/$/, '').split('/').pop().replace(/\.html$/, '') || 'index'
-    : window.location.pathname.replace(/\/$/, '').split('/').pop().replace(/\.html$/, '') || 'index';
-  document.querySelectorAll('.nav__links a[href]').forEach(a => {
-    const href = a.getAttribute('href').replace(/\.html$/, '');
-    if (href === activePage) a.setAttribute('aria-current', 'page');
-  });
+  // Active nav link highlight — read data-page attribute set directly on <body>
+  const activePage = document.body.getAttribute('data-page');
+  if (activePage) {
+    document.querySelectorAll('.nav__links a[href]').forEach(a => {
+      const href = a.getAttribute('href').replace(/\.html$/, '');
+      if (href === activePage) a.setAttribute('aria-current', 'page');
+    });
+  }
 })();
