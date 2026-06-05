@@ -55,7 +55,7 @@ h3{font-size:1.2rem}
 .brand__mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--n2),var(--n3));display:flex;align-items:center;justify-content:center;color:var(--gl)}
 .nav__links{display:flex;align-items:center;gap:1.5rem}
 .nav__links a{font-size:.86rem;font-weight:600;color:var(--m);transition:var(--tr);white-space:nowrap}
-.nav__links a:hover,.nav__links a[aria-current="page"]{color:var(--n2)}
+.nav__links a:hover,.nav__links a[aria-current="page"]{color:var(--g)}
 .nav__links a[aria-current="page"]{border-bottom:2px solid var(--g);padding-bottom:2px}
 .menu{display:none;padding:.5rem;color:var(--n2)}
 
