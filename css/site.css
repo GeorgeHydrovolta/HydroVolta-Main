@@ -49,7 +49,7 @@ h3{font-size:1.2rem}
 .topbar{background:var(--n1);color:rgba(255,255,255,.68);font-family:var(--fd);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.6rem 2rem;text-align:center;border-bottom:1px solid rgba(255,255,255,.07)}
 
 /* Nav */
-.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--b)}
+.nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--b)}
 .nav__in{max-width:var(--mx);margin:0 auto;padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
 .brand{display:flex;align-items:center;gap:.65rem;font-family:var(--fd);font-size:1.45rem;font-weight:800;color:var(--n1);letter-spacing:-.01em;flex-shrink:0}
 .brand__mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--n2),var(--n3));display:flex;align-items:center;justify-content:center;color:var(--gl)}
@@ -278,13 +278,13 @@ h3{font-size:1.2rem}
 /* ── RESPONSIVE ─────────────────────────────────────────────── */
 @media(max-width:900px){
   /* Nav — show hamburger, hide links until open */
-  .menu{display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;z-index:110}
-  .nav__links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);flex-direction:column;align-items:flex-start;gap:0;padding:1rem 2rem 1.5rem;border-bottom:2px solid var(--g);box-shadow:0 8px 32px rgba(0,0,0,.08);z-index:100}
+  .menu{display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;z-index:1010;position:relative}
+  .nav__links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);flex-direction:column;align-items:flex-start;gap:0;padding:1rem 2rem 1.5rem;border-bottom:2px solid var(--g);box-shadow:0 8px 32px rgba(0,0,0,.08);z-index:999}
   .nav__links.open{display:flex}
   .nav__links a{font-size:1rem;padding:.7rem 0;width:100%;border-bottom:1px solid var(--b);color:var(--n1)}
   .nav__links a:last-child{border-bottom:none}
   .nav__links .btn{margin-top:.75rem;width:100%;text-align:center}
-  .nav{position:sticky;top:0;z-index:100}
+  .nav{position:sticky;top:0;z-index:1000}
   .nav__in{position:relative}
 
   /* Hero — stack vertically */
