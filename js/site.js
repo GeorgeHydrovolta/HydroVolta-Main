@@ -9,24 +9,17 @@
   const btn = document.getElementById('menu-btn');
   const links = document.getElementById('nav-links');
   if (btn && links) {
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const open = links.classList.toggle('open');
-      btn.setAttribute('aria-expanded', String(open));
-    });
-    links.addEventListener('click', function(e) {
-      e.stopPropagation();
+    let skipClose = false;
+    btn.addEventListener('click', function() {
+      skipClose = true;
+      const isOpen = links.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(isOpen));
     });
     document.addEventListener('click', function() {
+      if (skipClose) { skipClose = false; return; }
       links.classList.remove('open');
       btn.setAttribute('aria-expanded', 'false');
     });
-    document.addEventListener('touchstart', function(e) {
-      if (!btn.contains(e.target) && !links.contains(e.target)) {
-        links.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
-      }
-    }, { passive: true });
   }
 
   // Scroll reveal
