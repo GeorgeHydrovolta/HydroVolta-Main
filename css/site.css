@@ -291,6 +291,7 @@ h3{font-size:1.2rem}
   .menu{display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;z-index:1010;position:relative}
   .nav__links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);flex-direction:column;align-items:flex-start;gap:0;padding:1rem 2rem 1.5rem;border-bottom:2px solid var(--g);box-shadow:0 8px 32px rgba(0,0,0,.08);z-index:999}
   .nav__links.open{display:flex}
+  .nav__links .btn--navy{color:var(--w);background:var(--n2)}
   .nav__links a{font-size:1rem;padding:.7rem 0;width:100%;border-bottom:1px solid var(--b);color:var(--n1)}
   .nav__links a:last-child{border-bottom:none}
   .nav__links .btn{margin-top:.75rem;width:100%;text-align:center}
