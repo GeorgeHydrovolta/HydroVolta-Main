@@ -51,7 +51,7 @@ h3{font-size:1.2rem}
 .btn--gold{background:var(--g);color:var(--w);border-color:var(--g)}.btn--gold:hover{background:#a88320;border-color:#a88320}
 .btn--navy{background:var(--n2);color:var(--w);border-color:var(--n2)}.btn--navy:hover{background:var(--n1);border-color:var(--n1)}
 .btn--out{border-color:var(--n2);color:var(--n2)}.btn--out:hover{background:var(--n2);color:var(--w)}
-.btn--ghost{border-color:rgba(255,255,255,.35);color:var(--w)}.btn--ghost:hover{border-color:rgba(255,255,255,.65);background:rgba(255,255,255,.08)}
+.btn--ghost{border-color:rgba(255,255,255,.35);color:var(--w)}.btn--ghost:hover{border-color:var(--w);background:var(--w);color:var(--n1)}
 .btn--sm{padding:.6rem 1.35rem;font-size:.84rem}
 .actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.75rem}
 
