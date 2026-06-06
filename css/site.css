@@ -67,6 +67,8 @@ h3{font-size:1.2rem}
 .nav__links a{font-size:.86rem;font-weight:600;color:var(--m);transition:var(--tr);white-space:nowrap}
 .nav__links a:hover,.nav__links a[aria-current="page"]{color:var(--g)}
 .nav__links a[aria-current="page"]{border-bottom:2px solid var(--g);padding-bottom:2px}
+.nav__links .btn--navy,.nav__links .btn--navy:visited{color:var(--w)}
+.nav__links .btn--navy:hover{color:var(--w);background:var(--g);border-color:var(--g)}
 .menu{display:none;padding:.5rem;color:var(--n2)}
 
 /* Hero */
