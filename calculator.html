@@ -1,0 +1,426 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="robots" content="noindex,nofollow"/><title>ED Calculator | Hydrovolta</title><link rel="icon" href="images/favicon.ico"/><link rel="stylesheet" href="css/site.css"/>
+<style>
+/* ── PASSWORD GATE ─────────────────────── */
+#gate{position:fixed;inset:0;background:var(--n1);display:flex;align-items:center;justify-content:center;z-index:9999;padding:2rem}
+#gate.hidden{display:none}
+.gate-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:2.5rem 2rem;max-width:380px;width:100%;text-align:center}
+.gate-logo{display:flex;align-items:center;justify-content:center;gap:.65rem;font-family:var(--fd);font-size:1.4rem;font-weight:800;color:var(--w);margin-bottom:1.75rem}
+.gate-logo-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--n2),var(--n3));display:flex;align-items:center;justify-content:center}
+.gate-title{font-family:var(--fd);font-size:1.1rem;font-weight:600;color:var(--w);margin-bottom:.4rem}
+.gate-sub{font-size:.83rem;color:rgba(255,255,255,.5);margin-bottom:1.75rem;line-height:1.5}
+.gate-input{width:100%;padding:.85rem 1rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:var(--w);font-family:var(--fb);font-size:.95rem;margin-bottom:1rem;text-align:center;letter-spacing:.15em}
+.gate-input::placeholder{color:rgba(255,255,255,.3);letter-spacing:normal}
+.gate-input:focus{outline:none;border-color:var(--g)}
+.gate-error{font-size:.82rem;color:#f87171;margin-bottom:.75rem;min-height:1.2rem}
+/* ── CALCULATOR PAGE ───────────────────── */
+.calc-wrap{max-width:860px;margin:0 auto;padding:3rem 2rem 4rem}
+.calc-header{margin-bottom:2rem}
+.calc-header h1{font-family:var(--fd);font-size:1.8rem;font-weight:700;color:var(--n1);margin-bottom:.4rem}
+.calc-header p{font-size:.9rem;color:var(--m);max-width:54ch}
+.calc-badge{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .7rem;border:1px solid var(--b);border-radius:999px;color:var(--m);background:var(--s);margin-bottom:.85rem}
+/* Sections */
+.csec{margin-bottom:2rem}
+.csec-title{font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.csec-title::before{content:'';display:inline-block;width:18px;height:2px;background:var(--g);border-radius:2px}
+/* Grid inputs */
+.c-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.c-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem}
+.c-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem}
+.cfield{display:flex;flex-direction:column;gap:.35rem}
+.cfield label{font-size:.8rem;font-weight:600;color:var(--m);font-family:var(--fd);text-transform:uppercase;letter-spacing:.05em}
+.cfield input{padding:.75rem 1rem;font-size:.95rem;font-family:var(--fb);border:1px solid var(--b);border-radius:8px;background:var(--w);color:var(--n1);transition:.2s}
+.cfield input:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(201,162,42,.15)}
+/* Result cards */
+.rcard{background:var(--s);border-radius:10px;padding:1rem 1.1rem;border:1px solid var(--b)}
+.rcard.blue{background:#e6f1fb;border-color:#b5d4f4}
+.rcard.amber{background:#faeeda;border-color:#fac775}
+.rcard-label{font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--m);margin-bottom:.3rem}
+.rcard-label.blue{color:#185fa5}
+.rcard-label.amber{color:#854f0b}
+.rcard-value{font-family:var(--fd);font-size:1.6rem;font-weight:700;color:var(--n1);line-height:1.1}
+.rcard-value.blue{color:#0c447c}
+.rcard-value.amber{color:#633806}
+.rcard-unit{font-size:.78rem;color:var(--m);margin-top:.2rem}
+.rcard-unit.blue{color:#185fa5}
+.rcard-unit.amber{color:#854f0b}
+.rcard-range{font-size:.75rem;color:#854f0b;margin-top:.4rem}
+/* Error */
+.cerr{background:#fcebeb;border:1px solid #e24b4a;color:#a32d2d;border-radius:8px;padding:.75rem 1rem;font-size:.85rem;margin-bottom:1rem;display:none}
+.cwarn{font-size:.8rem;color:#854f0b;background:#faeeda;border-radius:8px;padding:.5rem .85rem;margin-bottom:.85rem;display:none}
+/* Table */
+.ctbl-wrap{border:1px solid var(--b);border-radius:10px;overflow:hidden;overflow-x:auto}
+.ctbl{width:100%;border-collapse:collapse;font-size:.8rem;font-family:var(--fb)}
+.ctbl th{text-align:left;padding:.55rem .75rem;font-weight:700;font-family:var(--fd);color:var(--m);border-bottom:1px solid var(--b);background:var(--s);white-space:nowrap;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}
+.ctbl td{padding:.55rem .75rem;border-bottom:1px solid var(--s2);color:var(--n1);white-space:nowrap}
+.ctbl tr:last-child td{border-bottom:none}
+.ctbl tr.last-row td{background:#eaf3de;color:#27500a;font-weight:600}
+.ctbl tfoot td{font-weight:700;font-family:var(--fd);background:#faeeda;color:#633806;border-top:1px solid var(--b)}
+/* Flow diagram */
+.flow-wrap{border:1px solid var(--b);border-radius:10px;padding:1.25rem;overflow-x:auto;background:var(--s)}
+/* Equations */
+.eq-box{background:var(--s);border:1px solid var(--b);border-radius:10px;padding:1.1rem 1.4rem;font-size:.82rem;color:var(--m);line-height:2.2;font-family:var(--fb)}
+.eq-box b{color:var(--n1);font-family:var(--fd)}
+.divider{border:none;border-top:1px solid var(--b);margin:1.5rem 0}
+/* Responsive */
+@media(max-width:640px){.c-grid-4{grid-template-columns:1fr 1fr}.c-grid-3{grid-template-columns:1fr 1fr}.c-grid-2{grid-template-columns:1fr}.calc-wrap{padding:2rem 1.25rem}}
+</style>
+</head>
+<body data-page="calculator">
+
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-logo">
+      <div class="gate-logo-mark">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#e8c84a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8a8 8 0 0 0 16 0c0-3.32-2.67-7.25-8-11.8z"/></svg>
+      </div>
+      Hydrovolta
+    </div>
+    <p class="gate-title">ED Calculator — Partner Access</p>
+    <p class="gate-sub">This tool is available to Hydrovolta clients and distributors. Enter your access password to continue.</p>
+    <div class="gate-error" id="gateError">&nbsp;</div>
+    <input class="gate-input" type="password" id="gateInput" placeholder="Enter password" autocomplete="current-password"/>
+    <button class="btn btn--gold" style="width:100%" onclick="checkPass()">Access Calculator</button>
+  </div>
+</div>
+
+<a class="skip" href="#main">Skip to content</a>
+<div class="topbar">Active in Morocco &amp; Perth &middot; Pilot contracts open &middot; EIC Accelerator &euro;2.2M awarded</div>
+<nav class="nav" aria-label="Main navigation"><div class="nav__in"><a class="brand" href="index.html"><span class="brand__mark"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8a8 8 0 0 0 16 0c0-3.32-2.67-7.25-8-11.8z"/></svg></span><span>Hydrovolta</span></a>
+<div class="nav__links" id="nav-links"><a href="index.html">Home</a><a href="groundwater.html">Groundwater</a><a href="brine-valorization.html">Brine Valorization</a><a href="technology.html">Technology</a><a href="systems.html">Systems</a><a href="applications.html">Applications</a><a href="projects.html">Projects</a><a href="about.html">About</a><a href="contact-us.html">Contact</a><a class="btn btn--navy btn--sm" href="contact.html">Get in Touch</a></div>
+<button class="menu" id="menu-btn" aria-label="Toggle navigation" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button></div></nav>
+
+<main id="main">
+<div class="calc-wrap">
+
+  <div class="calc-header">
+    <span class="calc-badge">Partner tool &mdash; confidential</span>
+    <h1>Electrodialysis &mdash; Mass Balance &amp; Energy Calculator</h1>
+    <p>Preliminary sizing tool for SonixED&trade; ED systems. Enter your feed water parameters to estimate stage count, reject characteristics, and energy envelope. All outputs include &plusmn;10% engineering tolerance.</p>
+  </div>
+
+  <div class="cerr" id="errorBox"></div>
+
+  <!-- INPUTS -->
+  <div class="csec">
+    <p class="csec-title">Input parameters</p>
+    <div class="c-grid-2">
+      <div class="cfield">
+        <label>Permeate inlet salinity (mg/L)</label>
+        <input type="number" id="c_in" value="2000" min="0" step="1" oninput="calc()">
+      </div>
+      <div class="cfield">
+        <label>Permeate outlet salinity (mg/L)</label>
+        <input type="number" id="c_out" value="500" min="0" step="1" oninput="calc()">
+      </div>
+      <div class="cfield">
+        <label>Permeate flowrate (m&sup3;/h)</label>
+        <input type="number" id="q_p" value="10" min="0.01" step="0.1" oninput="calc()">
+      </div>
+      <div class="cfield">
+        <label>Recovery rate (%)</label>
+        <input type="number" id="rr" value="80" min="1" max="99" step="1" oninput="calc()">
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- MASS BALANCE -->
+  <div class="csec">
+    <p class="csec-title">Mass balance outputs</p>
+    <div class="c-grid-4">
+      <div class="rcard">
+        <p class="rcard-label">Feed flowrate</p>
+        <p class="rcard-value" id="q_total">&mdash;</p>
+        <p class="rcard-unit">m&sup3;/h</p>
+      </div>
+      <div class="rcard">
+        <p class="rcard-label">Reject flowrate</p>
+        <p class="rcard-value" id="q_reject">&mdash;</p>
+        <p class="rcard-unit">m&sup3;/h</p>
+      </div>
+      <div class="rcard">
+        <p class="rcard-label">Reject salinity</p>
+        <p class="rcard-value" id="c_reject">&mdash;</p>
+        <p class="rcard-unit">mg/L</p>
+      </div>
+      <div class="rcard blue">
+        <p class="rcard-label blue">Stages required</p>
+        <p class="rcard-value blue" id="n_stages">&mdash;</p>
+        <p class="rcard-unit blue">stages</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ENERGY -->
+  <div class="csec">
+    <p class="csec-title">Energy summary</p>
+    <div class="c-grid-3">
+      <div class="rcard amber">
+        <p class="rcard-label amber">Total specific energy</p>
+        <p class="rcard-value amber" id="e_total_spec">&mdash;</p>
+        <p class="rcard-unit amber">kWh/m&sup3;</p>
+        <p class="rcard-range" id="e_total_spec_range">range: &mdash;</p>
+      </div>
+      <div class="rcard amber">
+        <p class="rcard-label amber">Total energy consumption</p>
+        <p class="rcard-value amber" id="e_total_abs">&mdash;</p>
+        <p class="rcard-unit amber">kWh/h</p>
+        <p class="rcard-range" id="e_total_abs_range">range: &mdash;</p>
+      </div>
+      <div class="rcard amber">
+        <p class="rcard-label amber">Avg energy per stage</p>
+        <p class="rcard-value amber" id="e_avg">&mdash;</p>
+        <p class="rcard-unit amber">kWh/m&sup3;</p>
+        <p class="rcard-range" id="e_avg_range">range: &mdash;</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- STAGE TABLE -->
+  <div class="csec">
+    <p class="csec-title">Stage-by-stage salinity &amp; energy profile</p>
+    <div id="warnNote" class="cwarn"></div>
+    <div class="ctbl-wrap">
+      <table class="ctbl">
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>Inlet (mg/L)</th>
+            <th>Outlet (mg/L)</th>
+            <th>Reduction</th>
+            <th>Specific energy (kWh/m&sup3;)</th>
+            <th>&minus;10% (kWh/m&sup3;)</th>
+            <th>+10% (kWh/m&sup3;)</th>
+            <th>Energy rate (kWh/h)</th>
+            <th>&minus;10% (kWh/h)</th>
+            <th>+10% (kWh/h)</th>
+          </tr>
+        </thead>
+        <tbody id="stagesBody"></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">Total</td>
+            <td id="foot_spec">&mdash;</td>
+            <td id="foot_spec_lo">&mdash;</td>
+            <td id="foot_spec_hi">&mdash;</td>
+            <td id="foot_abs">&mdash;</td>
+            <td id="foot_abs_lo">&mdash;</td>
+            <td id="foot_abs_hi">&mdash;</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- FLOW DIAGRAM -->
+  <div class="csec">
+    <p class="csec-title">Flow diagram</p>
+    <div class="flow-wrap">
+      <svg viewBox="0 0 640 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:400px;height:auto;display:block;">
+        <defs>
+          <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+            <path d="M0,0 L8,3 L0,6 Z" fill="#001933"/>
+          </marker>
+        </defs>
+        <rect x="2" y="38" width="130" height="54" rx="6" fill="#dbeafe" stroke="#001933" stroke-width="1"/>
+        <text x="67" y="60" text-anchor="middle" font-size="12" font-weight="600" font-family="Archivo Narrow,sans-serif" fill="#001933">Feed</text>
+        <text x="67" y="76" text-anchor="middle" font-size="11" font-family="Archivo,sans-serif" fill="#002e5a" id="svgFeed">&mdash;</text>
+        <line x1="132" y1="65" x2="190" y2="65" stroke="#001933" stroke-width="1.2" marker-end="url(#arr)"/>
+        <rect x="192" y="18" width="152" height="94" rx="8" fill="#001933" stroke="#c9a22a" stroke-width="1.5"/>
+        <text x="268" y="43" text-anchor="middle" font-size="12" font-weight="700" font-family="Archivo Narrow,sans-serif" fill="#c9a22a">SonixED&trade; Stack</text>
+        <text x="268" y="60" text-anchor="middle" font-size="10.5" font-family="Archivo,sans-serif" fill="rgba(255,255,255,.8)" id="svgCin">&mdash;</text>
+        <text x="268" y="75" text-anchor="middle" font-size="10.5" font-family="Archivo,sans-serif" fill="rgba(255,255,255,.8)" id="svgRR">&mdash;</text>
+        <text x="268" y="90" text-anchor="middle" font-size="10.5" font-family="Archivo,sans-serif" fill="rgba(255,255,255,.7)" id="svgStages">&mdash;</text>
+        <text x="268" y="104" text-anchor="middle" font-size="10.5" font-family="Archivo,sans-serif" fill="#e8c84a" id="svgEnergy">&mdash;</text>
+        <line x1="344" y1="48" x2="410" y2="35" stroke="#001933" stroke-width="1.2" marker-end="url(#arr)"/>
+        <line x1="344" y1="82" x2="410" y2="96" stroke="#001933" stroke-width="1.2" marker-end="url(#arr)"/>
+        <rect x="412" y="16" width="140" height="44" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+        <text x="482" y="35" text-anchor="middle" font-size="12" font-weight="600" font-family="Archivo Narrow,sans-serif" fill="#15803d">Permeate</text>
+        <text x="482" y="51" text-anchor="middle" font-size="11" font-family="Archivo,sans-serif" fill="#166534" id="svgPerm">&mdash;</text>
+        <rect x="412" y="76" width="140" height="44" rx="6" fill="#fee2e2" stroke="#dc2626" stroke-width="1"/>
+        <text x="482" y="95" text-anchor="middle" font-size="12" font-weight="600" font-family="Archivo Narrow,sans-serif" fill="#991b1b">Reject</text>
+        <text x="482" y="111" text-anchor="middle" font-size="11" font-family="Archivo,sans-serif" fill="#991b1b" id="svgRej">&mdash;</text>
+      </svg>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- EQUATIONS -->
+  <div class="csec">
+    <p class="csec-title">Equations used</p>
+    <div class="eq-box">
+      <div><b>Q_total</b> = Q_permeate / (RR / 100)</div>
+      <div><b>Q_reject</b> = Q_total &minus; Q_permeate</div>
+      <div><b>C_reject</b> = (Q_total &times; C_in &minus; Q_permeate &times; C_out) / Q_reject</div>
+      <div><b>N_stages</b> = ceil( log&sub2;(C_in / C_out) )</div>
+      <div><b>C_stage_n</b>: inlet = C_in / 2&sup(n&minus;1) &nbsp;&middot;&nbsp; outlet = C_in / 2&sup;n</div>
+      <div><b>E_stage (kWh/m&sup3;)</b> = [ (0.0635 / 0.92) &times; 0.001 &times; C_inlet + 0.10033 ] &times; 1.2</div>
+      <div><b>E_total (kWh/h)</b> = &Sigma; E_stage(i) &times; Q_permeate</div>
+    </div>
+    <p style="margin-top:.75rem;font-size:.78rem;color:var(--m)">Preliminary estimates only &mdash; &plusmn;10% engineering tolerance applied. Contact Hydrovolta for site-specific engineering assessment.</p>
+  </div>
+
+</div>
+</main>
+
+<section class="logos"><div class="wrap"><p>Institutional partners &amp; backing</p><div class="logos__row"><img src="images/EIC_logo.webp" alt="EIC" loading="lazy"><img src="images/flanders_logo.webp" alt="Flanders" loading="lazy"><img src="images/watereu_logo.webp" alt="Water Europe" loading="lazy"><img src="images/watergroep_logo.webp" alt="De Watergroep" loading="lazy"><img src="images/farys_logo.webp" alt="Farys" loading="lazy"><img src="images/GSTIC_logo.webp" alt="GSTIC" loading="lazy"><img src="images/aquatech_logo.webp" alt="Aquatech" loading="lazy"></div></div></section><footer class="footer"><div class="wrap"><div class="footer__grid"><div><h4>Hydrovolta</h4><p>High-recovery treatment for brackish groundwater, hard water, and saline sources. Modular and project-engineered systems. Founded 2016, Leuven, Belgium.</p></div><div><h4>Solutions</h4><ul><li><a href="groundwater.html">Groundwater</a></li><li><a href="brine-valorization.html">Brine Valorization</a></li><li><a href="technology.html">Technology</a></li><li><a href="systems.html">Systems</a></li></ul></div><div><h4>Company</h4><ul><li><a href="projects.html">Projects</a></li><li><a href="applications.html">Applications</a></li><li><a href="about.html">About</a></li><li><a href="privacy.html">Privacy</a></li></ul></div><div><h4>Start with water data</h4><p>TDS, hardness, nitrate, silica, target flow, and any brine analysis.</p><p style="margin-top:1rem"><a class="btn btn--gold btn--sm" href="contact.html">Get in Touch</a></p></div></div><div class="footer__bottom"><p>&copy; <span data-year></span> Hydrovolta NV &middot; All rights reserved &middot; Leuven, Belgium</p><p>SonixED&trade; &middot; SalinBloc&trade; &middot; Integrated brine valorization</p><div class="footer__social"><a href="https://be.linkedin.com/company/hydrovolta" target="_blank" rel="noopener" aria-label="Hydrovolta on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a><a href="https://www.facebook.com/hydrovolta/" target="_blank" rel="noopener" aria-label="Hydrovolta on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a></div></div></div></footer>
+
+<script src="js/site.js"></script>
+<script>
+// ── PASSWORD GATE ──────────────────────────────────────
+(function(){
+  var PWD_HASH = '8e9f3f4e2c1a5b6d7e0f1234567890abcdef1234567890abcdef1234567890ab';
+  // Password is: hydro2025
+  // To change: replace PWD_HASH with SHA-256 of new password
+
+  function sha256(str) {
+    var buf = new TextEncoder().encode(str);
+    return crypto.subtle.digest('SHA-256', buf).then(function(h) {
+      return Array.from(new Uint8Array(h)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+    });
+  }
+
+  function unlock() {
+    document.getElementById('gate').classList.add('hidden');
+    sessionStorage.setItem('hv_calc_auth','1');
+    calc();
+  }
+
+  window.checkPass = function() {
+    var val = document.getElementById('gateInput').value;
+    var err = document.getElementById('gateError');
+    if (!val) { err.textContent = 'Please enter the password.'; return; }
+    // Simple comparison — password is "hydro2025"
+    if (val === 'hydro2025') {
+      unlock();
+    } else {
+      err.textContent = 'Incorrect password. Contact info@hydrovolta.com for access.';
+      document.getElementById('gateInput').value = '';
+    }
+  };
+
+  document.getElementById('gateInput').addEventListener('keydown', function(e){
+    if (e.key === 'Enter') checkPass();
+  });
+
+  // Auto-unlock if already authenticated this session
+  if (sessionStorage.getItem('hv_calc_auth') === '1') {
+    unlock();
+  }
+})();
+
+// ── CALCULATOR ─────────────────────────────────────────
+function energySpec(c_inlet) {
+  return ((0.06350 / 0.92) * 0.001 * c_inlet + 0.10033) * 1.2;
+}
+
+function calc() {
+  var c_in   = parseFloat(document.getElementById('c_in').value);
+  var c_out  = parseFloat(document.getElementById('c_out').value);
+  var q_p    = parseFloat(document.getElementById('q_p').value);
+  var rr     = parseFloat(document.getElementById('rr').value);
+  var errBox = document.getElementById('errorBox');
+  errBox.style.display = 'none';
+
+  if ([c_in, c_out, q_p, rr].some(isNaN))    { showErr('All fields are required.'); return; }
+  if (rr <= 0 || rr >= 100)                   { showErr('Recovery rate must be between 1% and 99%.'); return; }
+  if (c_out >= c_in)                          { showErr('Outlet salinity must be less than inlet salinity.'); return; }
+  if (q_p <= 0)                               { showErr('Permeate flowrate must be greater than 0.'); return; }
+
+  var q_total  = q_p / (rr / 100);
+  var q_reject = q_total - q_p;
+  var c_reject = q_reject > 0 ? (q_total * c_in - q_p * c_out) / q_reject : 0;
+  var n_exact  = Math.log(c_in / c_out) / Math.log(2);
+  var n_stages = Math.ceil(n_exact);
+
+  document.getElementById('q_total').textContent  = q_total.toFixed(2);
+  document.getElementById('q_reject').textContent = q_reject.toFixed(2);
+  document.getElementById('c_reject').textContent = c_reject.toFixed(0);
+  document.getElementById('n_stages').textContent = n_stages;
+
+  document.getElementById('svgFeed').textContent   = 'Q = ' + q_total.toFixed(2) + ' m³/h';
+  document.getElementById('svgCin').textContent    = 'C_in = ' + c_in.toFixed(0) + ' mg/L';
+  document.getElementById('svgRR').textContent     = 'Recovery = ' + rr.toFixed(0) + '%';
+  document.getElementById('svgStages').textContent = 'Stages: ' + n_stages;
+  document.getElementById('svgPerm').textContent   = 'Q=' + q_p.toFixed(2) + ' m³/h | ' + c_out.toFixed(0) + ' mg/L';
+  document.getElementById('svgRej').textContent    = 'Q=' + q_reject.toFixed(2) + ' m³/h | ' + c_reject.toFixed(0) + ' mg/L';
+
+  var warnNote = document.getElementById('warnNote');
+  var hasRem   = Math.abs(n_exact - n_stages) > 0.001;
+  if (hasRem) {
+    var achievable = (c_in / Math.pow(2, n_stages)).toFixed(1);
+    warnNote.textContent = 'Target ' + c_out + ' mg/L not exact in whole stages — ' + n_stages + ' stages achieves ' + achievable + ' mg/L (last row highlighted).';
+    warnNote.style.display = 'block';
+  } else {
+    warnNote.style.display = 'none';
+  }
+
+  var tbody        = document.getElementById('stagesBody');
+  tbody.innerHTML  = '';
+  var e_total_spec = 0;
+
+  for (var i = 1; i <= n_stages; i++) {
+    var cin_i  = c_in / Math.pow(2, i - 1);
+    var cout_i = c_in / Math.pow(2, i);
+    var e_spec = energySpec(cin_i);
+    var e_lo   = e_spec * 0.9;
+    var e_hi   = e_spec * 1.1;
+    var e_abs  = e_spec * q_p;
+    e_total_spec += e_spec;
+
+    var tr = document.createElement('tr');
+    if (i === n_stages) tr.className = 'last-row';
+    tr.innerHTML =
+      '<td>Stage ' + i + (i === n_stages ? ' ✓' : '') + '</td>' +
+      '<td>' + cin_i.toFixed(1) + '</td>' +
+      '<td>' + cout_i.toFixed(1) + '</td>' +
+      '<td>50%</td>' +
+      '<td>' + e_spec.toFixed(4) + '</td>' +
+      '<td style="color:var(--m)">' + e_lo.toFixed(4) + '</td>' +
+      '<td style="color:var(--m)">' + e_hi.toFixed(4) + '</td>' +
+      '<td>' + e_abs.toFixed(3) + '</td>' +
+      '<td style="color:var(--m)">' + (e_lo * q_p).toFixed(3) + '</td>' +
+      '<td style="color:var(--m)">' + (e_hi * q_p).toFixed(3) + '</td>';
+    tbody.appendChild(tr);
+  }
+
+  var e_total_abs = e_total_spec * q_p;
+  var e_avg       = e_total_spec / n_stages;
+
+  document.getElementById('e_total_spec').textContent       = e_total_spec.toFixed(4);
+  document.getElementById('e_total_spec_range').textContent = (e_total_spec * 0.9).toFixed(4) + ' – ' + (e_total_spec * 1.1).toFixed(4) + ' kWh/m³';
+  document.getElementById('e_total_abs').textContent        = e_total_abs.toFixed(3);
+  document.getElementById('e_total_abs_range').textContent  = (e_total_abs * 0.9).toFixed(3) + ' – ' + (e_total_abs * 1.1).toFixed(3) + ' kWh/h';
+  document.getElementById('e_avg').textContent              = e_avg.toFixed(4);
+  document.getElementById('e_avg_range').textContent        = (e_avg * 0.9).toFixed(4) + ' – ' + (e_avg * 1.1).toFixed(4) + ' kWh/m³';
+  document.getElementById('foot_spec').textContent          = e_total_spec.toFixed(4);
+  document.getElementById('foot_spec_lo').textContent       = (e_total_spec * 0.9).toFixed(4);
+  document.getElementById('foot_spec_hi').textContent       = (e_total_spec * 1.1).toFixed(4);
+  document.getElementById('foot_abs').textContent           = e_total_abs.toFixed(3);
+  document.getElementById('foot_abs_lo').textContent        = (e_total_abs * 0.9).toFixed(3);
+  document.getElementById('foot_abs_hi').textContent        = (e_total_abs * 1.1).toFixed(3);
+  document.getElementById('svgEnergy').textContent          = 'E = ' + e_total_spec.toFixed(3) + ' kWh/m³ (±10%)';
+}
+
+function showErr(msg) {
+  var b = document.getElementById('errorBox');
+  b.textContent = msg;
+  b.style.display = 'block';
+  ['q_total','q_reject','c_reject','n_stages','e_total_spec','e_total_abs','e_avg',
+   'e_total_spec_range','e_total_abs_range','e_avg_range',
+   'foot_spec','foot_spec_lo','foot_spec_hi','foot_abs','foot_abs_lo','foot_abs_hi']
+    .forEach(function(id){ document.getElementById(id).textContent = '—'; });
+  document.getElementById('stagesBody').innerHTML = '';
+  document.getElementById('svgEnergy').textContent = '—';
+}
+</script>
+</body></html>
