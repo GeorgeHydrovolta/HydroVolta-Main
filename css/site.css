@@ -229,7 +229,7 @@ h3{font-size:1.2rem}
 /* Team cards */
 .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 .team-card{background:var(--w);border:1px solid var(--b);border-radius:var(--rl);overflow:hidden}
-.team-card img{width:100%;height:220px;object-fit:cover}
+.team-card img{width:160px;height:160px;object-fit:cover;border-radius:50%;display:block;margin:1.75rem auto 0}
 .team-card__body{padding:1.4rem 1.5rem}
 .team-card h3{font-family:var(--fd);font-size:1.1rem;font-weight:700;color:var(--n1);margin-bottom:.2rem}
 .team-card .role{font-size:.82rem;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.55rem}
