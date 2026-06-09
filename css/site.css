@@ -135,6 +135,9 @@ h3{font-size:1.2rem}
 .card--dark p{color:rgba(255,255,255,.6)}
 .card--image{padding:0;overflow:hidden}
 .card--image img{width:100%;height:200px;object-fit:cover}
+.card--linked{position:relative}
+.card--linked .stretched-link::after{content:'';position:absolute;inset:0;border-radius:var(--rl);z-index:0}
+.card--linked .btn{position:relative;z-index:1}
 .card__body{padding:1.5rem 1.75rem}
 .card__body h3{margin-bottom:.4rem}
 
