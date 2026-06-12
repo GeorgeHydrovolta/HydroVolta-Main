@@ -76,106 +76,113 @@
     <div class="rv" style="overflow-x:auto;-webkit-overflow-scrolling:touch">
       <svg viewBox="0 0 840 285" xmlns="http://www.w3.org/2000/svg" style="min-width:560px;width:100%;height:auto;font-family:'Archivo Narrow',sans-serif" aria-label="SonixED process flow from source water to clean supply and brine recovery">
         <defs>
-          <marker id="pfd-nv" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#001933"/></marker>
-          <marker id="pfd-gn" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#16a34a"/></marker>
-          <marker id="pfd-gd" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#c9a22a"/></marker>
-          <marker id="pfd-gy" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#94a3b8"/></marker>
+          <filter id="bx-sh" x="-8%" y="-10%" width="120%" height="130%">
+            <feDropShadow dx="0" dy="1.5" stdDeviation="2.5" flood-color="#001933" flood-opacity="0.09"/>
+          </filter>
+          <marker id="p-nv" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,7 3,0 6" fill="#001933"/></marker>
+          <marker id="p-gn" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,7 3,0 6" fill="#16a34a"/></marker>
+          <marker id="p-gd" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,7 3,0 6" fill="#c9a22a"/></marker>
+          <marker id="p-gy" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,7 3,0 6" fill="#7a8fa0"/></marker>
         </defs>
 
-        <!-- Stage labels -->
-        <text x="64"  y="13" text-anchor="middle" font-size="7.5" fill="#8a9bac" font-weight="700" letter-spacing="1.5">INPUT</text>
-        <text x="207" y="13" text-anchor="middle" font-size="7.5" fill="#8a9bac" font-weight="700" letter-spacing="1.5">PRE-TREATMENT</text>
-        <text x="389" y="13" text-anchor="middle" font-size="7.5" fill="#c9a22a" font-weight="700" letter-spacing="1.5">CORE TECHNOLOGY</text>
-        <text x="585" y="13" text-anchor="middle" font-size="7.5" fill="#8a9bac" font-weight="700" letter-spacing="1.5">PRIMARY OUTPUT</text>
-        <text x="744" y="13" text-anchor="middle" font-size="7.5" fill="#8a9bac" font-weight="700" letter-spacing="1.5">END USE</text>
-        <line x1="5" y1="18" x2="835" y2="18" stroke="#001933" stroke-width="0.75"/>
+        <!-- Outer frame + background -->
+        <rect x="1" y="1" width="838" height="283" rx="5" fill="#f8f9fb" stroke="#001933" stroke-width="1"/>
+        <!-- Header strip -->
+        <rect x="1" y="1" width="838" height="22" rx="5" fill="#001933"/>
+        <rect x="1" y="14" width="838" height="9" fill="#001933"/>
+        <!-- Stage labels in header -->
+        <text x="64"  y="15" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.6)" font-weight="700" letter-spacing="1.5">INPUT</text>
+        <text x="208" y="15" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.6)" font-weight="700" letter-spacing="1.5">PRE-TREATMENT</text>
+        <text x="389" y="15" text-anchor="middle" font-size="7.5" fill="#e8c84a"               font-weight="700" letter-spacing="1.5">CORE TECHNOLOGY</text>
+        <text x="584" y="15" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.6)" font-weight="700" letter-spacing="1.5">PRIMARY OUTPUT</text>
+        <text x="744" y="15" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.6)" font-weight="700" letter-spacing="1.5">END USE</text>
 
         <!-- Column dividers -->
-        <line x1="136" y1="18" x2="136" y2="205" stroke="#e2e8f0" stroke-width="0.5"/>
-        <line x1="271" y1="18" x2="271" y2="205" stroke="#e2e8f0" stroke-width="0.5"/>
-        <line x1="501" y1="18" x2="501" y2="205" stroke="#e2e8f0" stroke-width="0.5"/>
-        <line x1="671" y1="18" x2="671" y2="205" stroke="#e2e8f0" stroke-width="0.5"/>
+        <line x1="136" y1="23" x2="136" y2="212" stroke="#dde4ec" stroke-width="0.75"/>
+        <line x1="273" y1="23" x2="273" y2="212" stroke="#dde4ec" stroke-width="0.75"/>
+        <line x1="501" y1="23" x2="501" y2="212" stroke="#dde4ec" stroke-width="0.75"/>
+        <line x1="671" y1="23" x2="671" y2="212" stroke="#dde4ec" stroke-width="0.75"/>
 
-        <!-- 1. Input -->
-        <rect x="6" y="29" width="116" height="64" rx="3" fill="#fff" stroke="#001933" stroke-width="1.5"/>
-        <text x="64" y="54" text-anchor="middle" font-size="11" font-weight="700" fill="#001933">Brackish</text>
-        <text x="64" y="67" text-anchor="middle" font-size="11" font-weight="700" fill="#001933">Groundwater</text>
-        <text x="64" y="83" text-anchor="middle" font-size="8.5" fill="#4f6070">1,500&#8211;20,000 ppm TDS</text>
-        <line x1="122" y1="61" x2="149" y2="61" stroke="#001933" stroke-width="1.5" marker-end="url(#pfd-nv)"/>
+        <!-- 1. Brackish Groundwater -->
+        <rect x="8" y="33" width="114" height="58" rx="4" fill="#fff" stroke="#001933" stroke-width="1.5" filter="url(#bx-sh)"/>
+        <text x="65" y="56"  text-anchor="middle" font-size="11" font-weight="700" fill="#001933">Brackish</text>
+        <text x="65" y="69"  text-anchor="middle" font-size="11" font-weight="700" fill="#001933">Groundwater</text>
+        <text x="65" y="83"  text-anchor="middle" font-size="8"  fill="#4f6070">1,500&#8211;20,000 ppm TDS</text>
+        <line x1="122" y1="62" x2="150" y2="62" stroke="#001933" stroke-width="1.5" marker-end="url(#p-nv)"/>
 
         <!-- 2. Pre-Treatment -->
-        <rect x="151" y="45" width="112" height="32" rx="3" fill="#fff" stroke="#001933" stroke-width="1.5"/>
-        <text x="207" y="65" text-anchor="middle" font-size="10.5" font-weight="600" fill="#001933">Pre-Treatment</text>
-        <line x1="263" y1="61" x2="289" y2="61" stroke="#001933" stroke-width="1.5" marker-end="url(#pfd-nv)"/>
+        <rect x="152" y="47" width="113" height="30" rx="4" fill="#fff" stroke="#001933" stroke-width="1.5" filter="url(#bx-sh)"/>
+        <text x="208" y="66" text-anchor="middle" font-size="10.5" font-weight="600" fill="#001933">Pre-Treatment</text>
+        <line x1="265" y1="62" x2="289" y2="62" stroke="#001933" stroke-width="1.5" marker-end="url(#p-nv)"/>
 
-        <!-- 3. SonixED CORE -->
-        <rect x="291" y="25" width="196" height="83" rx="4" fill="#001933" stroke="#c9a22a" stroke-width="2"/>
-        <line x1="303" y1="46" x2="475" y2="46" stroke="rgba(201,162,42,.3)" stroke-width="0.75"/>
-        <text x="389" y="42" text-anchor="middle" font-size="13.5" font-weight="700" fill="#c9a22a" letter-spacing="0.4">SonixED&#8482;</text>
-        <text x="389" y="58" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.85)">Electrodialysis Reversal</text>
-        <text x="389" y="70" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.85)">+ Ultrasound Anti-scaling</text>
-        <text x="389" y="82" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.85)">+ Selective Membrane</text>
-        <text x="389" y="101" text-anchor="middle" font-size="7" fill="rgba(201,162,42,.55)" letter-spacing="0.3">Patent granted 2021</text>
+        <!-- 3. SonixED&#8482; — core technology -->
+        <rect x="291" y="27" width="194" height="80" rx="5" fill="#001933" stroke="#c9a22a" stroke-width="2" filter="url(#bx-sh)"/>
+        <line x1="303" y1="46" x2="473" y2="46" stroke="rgba(201,162,42,.22)" stroke-width="0.75"/>
+        <text x="388" y="43"  text-anchor="middle" font-size="14"  font-weight="700" fill="#c9a22a" letter-spacing="0.5">SonixED&#8482;</text>
+        <text x="388" y="58"  text-anchor="middle" font-size="9"   fill="rgba(255,255,255,.82)">Electrodialysis Reversal</text>
+        <text x="388" y="70"  text-anchor="middle" font-size="9"   fill="rgba(255,255,255,.82)">+ Ultrasound Anti-scaling</text>
+        <text x="388" y="82"  text-anchor="middle" font-size="9"   fill="rgba(255,255,255,.82)">+ Selective Membrane</text>
+        <text x="388" y="100" text-anchor="middle" font-size="7"   fill="rgba(201,162,42,.5)"  letter-spacing="0.4">Patent granted 2021</text>
 
-        <!-- Arrow 3&#8594;4 -->
-        <line x1="487" y1="61" x2="514" y2="61" stroke="#16a34a" stroke-width="1.75" marker-end="url(#pfd-gn)"/>
-        <text x="500" y="55" text-anchor="middle" font-size="8" font-weight="700" fill="#15803d">95&#8211;98%</text>
+        <!-- Arrow 3&#8594;4: 95&#8211;98% recovery -->
+        <line x1="485" y1="62" x2="513" y2="62" stroke="#16a34a" stroke-width="2" marker-end="url(#p-gn)"/>
+        <text x="499" y="56" text-anchor="middle" font-size="8" font-weight="700" fill="#16a34a">95&#8211;98%</text>
 
         <!-- 4. Clean Water -->
-        <rect x="516" y="29" width="136" height="64" rx="3" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
-        <text x="584" y="52" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">Clean Water</text>
-        <text x="584" y="66" text-anchor="middle" font-size="9" fill="#166534">Drinking &#183; Irrigation</text>
-        <text x="584" y="80" text-anchor="middle" font-size="9" fill="#166534">Agriculture &#183; Livestock</text>
-        <line x1="652" y1="61" x2="681" y2="61" stroke="#16a34a" stroke-width="1.5" marker-end="url(#pfd-gn)"/>
+        <rect x="515" y="33" width="138" height="58" rx="4" fill="#fff" stroke="#16a34a" stroke-width="1.5" filter="url(#bx-sh)"/>
+        <text x="584" y="55" text-anchor="middle" font-size="11" font-weight="700" fill="#166534">Clean Water</text>
+        <text x="584" y="68" text-anchor="middle" font-size="9"  fill="#166534">Drinking &#183; Irrigation</text>
+        <text x="584" y="81" text-anchor="middle" font-size="9"  fill="#166534">Agriculture &#183; Livestock</text>
+        <line x1="653" y1="62" x2="681" y2="62" stroke="#16a34a" stroke-width="1.5" marker-end="url(#p-gn)"/>
 
-        <!-- 5. Supply/Distribution -->
-        <rect x="683" y="45" width="122" height="32" rx="3" fill="#fff" stroke="#16a34a" stroke-width="1"/>
-        <text x="744" y="65" text-anchor="middle" font-size="10" font-weight="600" fill="#166534">Supply / Distribution</text>
+        <!-- 5. Supply / Distribution -->
+        <rect x="683" y="47" width="122" height="30" rx="4" fill="#fff" stroke="#16a34a" stroke-width="1" filter="url(#bx-sh)"/>
+        <text x="744" y="66" text-anchor="middle" font-size="10" font-weight="600" fill="#166534">Supply / Distribution</text>
 
-        <!-- Recovered water loop -->
-        <path d="M 805,170 L 826,170 L 826,61 L 805,61" fill="none" stroke="#16a34a" stroke-width="1" stroke-dasharray="4,2.5" marker-end="url(#pfd-gn)"/>
-        <text x="831" y="120" text-anchor="middle" font-size="7.5" fill="#16a34a" transform="rotate(90,831,120)">recovered water</text>
+        <!-- Recovered water (dashed loop) -->
+        <path d="M 805,167 L 826,167 L 826,62 L 805,62" fill="none" stroke="#16a34a" stroke-width="1" stroke-dasharray="4,2.5" marker-end="url(#p-gn)"/>
+        <text x="831" y="118" text-anchor="middle" font-size="7.5" fill="#16a34a" transform="rotate(90,831,118)">recovered water</text>
 
-        <!-- DOWN ARROW: SonixED &#8594; Brine -->
-        <line x1="389" y1="108" x2="389" y2="145" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#pfd-gy)"/>
-        <text x="404" y="130" font-size="8" fill="#64748b">2&#8211;5% brine</text>
+        <!-- DOWN ARROW: SonixED &#8594; Brine Concentrate -->
+        <line x1="388" y1="107" x2="388" y2="143" stroke="#7a8fa0" stroke-width="1.2" marker-end="url(#p-gy)"/>
+        <text x="402" y="128" font-size="8" fill="#64748b">2&#8211;5% brine</text>
 
         <!-- 6. Brine Concentrate -->
-        <rect x="291" y="147" width="196" height="46" rx="3" fill="#fff" stroke="#94a3b8" stroke-width="1.2"/>
-        <text x="389" y="167" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">Brine Concentrate</text>
-        <text x="389" y="183" text-anchor="middle" font-size="8.5" fill="#64748b">High ion concentration &#183; minimal volume</text>
+        <rect x="291" y="145" width="194" height="44" rx="4" fill="#fff" stroke="#94a3b8" stroke-width="1.2" filter="url(#bx-sh)"/>
+        <text x="388" y="164" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">Brine Concentrate</text>
+        <text x="388" y="179" text-anchor="middle" font-size="8.5"  fill="#64748b">High ion concentration &#183; minimal volume</text>
 
-        <!-- Arrow 6&#8594;7 -->
-        <line x1="487" y1="170" x2="514" y2="170" stroke="#c9a22a" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#pfd-gd)"/>
-        <text x="500" y="164" text-anchor="middle" font-size="7.5" fill="#c9a22a">if suitable</text>
+        <!-- Arrow 6&#8594;7: if chemistry suitable -->
+        <line x1="485" y1="167" x2="513" y2="167" stroke="#c9a22a" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#p-gd)"/>
+        <text x="499" y="161" text-anchor="middle" font-size="7.5" fill="#a07820">if suitable</text>
 
-        <!-- 7. Brine Valorization OPTIONAL -->
-        <rect x="516" y="147" width="136" height="46" rx="3" fill="#fffdf7" stroke="#c9a22a" stroke-width="1.2" stroke-dasharray="5,2.5"/>
-        <text x="535" y="159" font-size="6.5" fill="#c9a22a" font-weight="700" letter-spacing="0.8">OPTIONAL</text>
-        <text x="584" y="169" text-anchor="middle" font-size="10.5" font-weight="600" fill="#001933">Brine Valorization</text>
-        <text x="584" y="183" text-anchor="middle" font-size="8" fill="#c9a22a">HCl &#183; NaOH &#183; Mg(OH)&#8322; &#183; Ca(OH)&#8322;</text>
-        <line x1="652" y1="170" x2="681" y2="170" stroke="#c9a22a" stroke-width="1.2" marker-end="url(#pfd-gd)"/>
+        <!-- 7. Brine Valorization (OPTIONAL) -->
+        <rect x="515" y="145" width="138" height="44" rx="4" fill="#fffef5" stroke="#c9a22a" stroke-width="1.2" stroke-dasharray="5,2.5" filter="url(#bx-sh)"/>
+        <text x="530" y="157" font-size="6.5" fill="#c9a22a" font-weight="700" letter-spacing="0.8">OPTIONAL</text>
+        <text x="584" y="168" text-anchor="middle" font-size="10.5" font-weight="600" fill="#001933">Brine Valorization</text>
+        <text x="584" y="181" text-anchor="middle" font-size="8"    fill="#b08020">HCl &#183; NaOH &#183; Mg(OH)&#8322; &#183; Ca(OH)&#8322;</text>
+        <line x1="653" y1="167" x2="681" y2="167" stroke="#c9a22a" stroke-width="1.2" marker-end="url(#p-gd)"/>
 
         <!-- 8. Final Evaporation -->
-        <rect x="683" y="147" width="122" height="46" rx="3" fill="#fff" stroke="#c9a22a" stroke-width="1.2"/>
-        <text x="744" y="167" text-anchor="middle" font-size="10.5" font-weight="600" fill="#633806">Final Evaporation</text>
-        <text x="744" y="183" text-anchor="middle" font-size="8.5" fill="#854f0b">Zero Liquid Discharge</text>
-        <line x1="744" y1="193" x2="744" y2="213" stroke="#c9a22a" stroke-width="1.2" marker-end="url(#pfd-gd)"/>
+        <rect x="683" y="145" width="122" height="44" rx="4" fill="#fff" stroke="#c9a22a" stroke-width="1.2" filter="url(#bx-sh)"/>
+        <text x="744" y="165" text-anchor="middle" font-size="10.5" font-weight="600" fill="#633806">Final Evaporation</text>
+        <text x="744" y="179" text-anchor="middle" font-size="8.5"  fill="#854f0b">Zero Liquid Discharge</text>
+        <line x1="744" y1="189" x2="744" y2="207" stroke="#c9a22a" stroke-width="1.2" marker-end="url(#p-gd)"/>
 
-        <!-- 9. Dry Salts/Minerals -->
-        <rect x="683" y="215" width="122" height="32" rx="3" fill="#fff" stroke="#c9a22a" stroke-width="1"/>
-        <text x="744" y="234" text-anchor="middle" font-size="10" font-weight="600" fill="#633806">Dry Salts / Minerals</text>
+        <!-- 9. Dry Salts / Minerals -->
+        <rect x="683" y="209" width="122" height="30" rx="4" fill="#fff" stroke="#c9a22a" stroke-width="1" filter="url(#bx-sh)"/>
+        <text x="744" y="228" text-anchor="middle" font-size="10" font-weight="600" fill="#633806">Dry Salts / Minerals</text>
 
         <!-- LEGEND -->
-        <line x1="5" y1="256" x2="835" y2="256" stroke="#e2e8f0" stroke-width="0.5"/>
-        <rect x="5"   y="262" width="12" height="10" rx="2" fill="#fff"    stroke="#16a34a" stroke-width="1.2"/>
-        <text x="22"  y="271" font-size="8.5" fill="#4f6070">Treated-water stream</text>
-        <rect x="175" y="262" width="12" height="10" rx="2" fill="#fff"    stroke="#94a3b8" stroke-width="1.2"/>
-        <text x="192" y="271" font-size="8.5" fill="#4f6070">Brine stream</text>
-        <rect x="305" y="262" width="12" height="10" rx="2" fill="#fffdf7" stroke="#c9a22a" stroke-width="1.2" stroke-dasharray="4,2"/>
-        <text x="322" y="271" font-size="8.5" fill="#4f6070">Optional pathway</text>
-        <rect x="445" y="262" width="12" height="10" rx="2" fill="#001933" stroke="#c9a22a" stroke-width="1"/>
-        <text x="462" y="271" font-size="8.5" fill="#4f6070">Core technology (patented)</text>
+        <line x1="8" y1="249" x2="832" y2="249" stroke="#dde4ec" stroke-width="0.75"/>
+        <rect x="8"   y="256" width="12" height="10" rx="2" fill="#fff"    stroke="#16a34a" stroke-width="1.2"/>
+        <text x="25"  y="265" font-size="8.5" fill="#4f6070">Treated-water stream</text>
+        <rect x="178" y="256" width="12" height="10" rx="2" fill="#fff"    stroke="#94a3b8" stroke-width="1.2"/>
+        <text x="195" y="265" font-size="8.5" fill="#4f6070">Brine stream</text>
+        <rect x="305" y="256" width="12" height="10" rx="2" fill="#fffef5" stroke="#c9a22a" stroke-width="1.2" stroke-dasharray="4,2"/>
+        <text x="322" y="265" font-size="8.5" fill="#4f6070">Optional pathway</text>
+        <rect x="450" y="256" width="12" height="10" rx="2" fill="#001933" stroke="#c9a22a" stroke-width="1"/>
+        <text x="467" y="265" font-size="8.5" fill="#4f6070">Core technology &#8212; patent granted 2021</text>
       </svg>
     </div>
     <p class="rv" style="margin-top:1rem;font-size:.8rem;color:var(--m);text-align:center">Not sure where your source water fits? <a href="contact.html" style="color:var(--g)">Send us your water analysis &rarr;</a></p>
