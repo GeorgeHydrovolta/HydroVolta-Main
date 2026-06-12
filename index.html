@@ -74,7 +74,112 @@
   <div class="wrap">
     <div class="head" style="margin-bottom:1.5rem"><div class="rv"><span class="ey">How it works</span><h2>From difficult source water to clean supply &mdash; and optional resource recovery.</h2></div></div>
     <div class="rv">
-      <img src="images/process_flow_diagram.webp" alt="SonixED process flow: from difficult groundwater through Hydrovolta treatment to clean water (95–98% recovery) and optional brine valorization or zero liquid discharge" style="width:100%;height:auto;display:block;border-radius:12px" loading="lazy">
+      <svg viewBox="0 0 920 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" aria-label="Interactive Hydrovolta SonixED process flow diagram">
+        <defs>
+          <style>a.hv{cursor:pointer}a.hv:hover{opacity:.84}</style>
+          <filter id="sh" x="-8%" y="-12%" width="120%" height="135%"><feDropShadow dx="0" dy="2" stdDeviation="2.8" flood-color="#001933" flood-opacity="0.11"/></filter>
+          <marker id="m-nv" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,7 3,0 6" fill="#001933"/></marker>
+          <marker id="m-gn" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,7 3,0 6" fill="#16a34a"/></marker>
+          <marker id="m-gd" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,7 3,0 6" fill="#c9a22a"/></marker>
+          <marker id="m-gy" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,7 3,0 6" fill="#7a8fa0"/></marker>
+        </defs>
+        <!-- Frame + background -->
+        <rect x=".5" y=".5" width="919" height="259" rx="7" fill="#f8f9fb" stroke="#001933" stroke-width="1"/>
+        <!-- Header strip -->
+        <rect x=".5" y=".5" width="919" height="25" rx="7" fill="#001933"/>
+        <rect x=".5" y="18" width="919" height="7.5" fill="#001933"/>
+        <text x="79" y="16" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="7.5" fill="rgba(255,255,255,.5)" font-weight="700" letter-spacing="1.2">INPUT</text>
+        <text x="223" y="16" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="7.5" fill="rgba(255,255,255,.5)" font-weight="700" letter-spacing="1.2">PRE-TREATMENT</text>
+        <text x="422" y="16" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="7.5" fill="#e8c84a" font-weight="700" letter-spacing="1.2">CORE TECHNOLOGY</text>
+        <text x="637" y="16" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="7.5" fill="rgba(255,255,255,.5)" font-weight="700" letter-spacing="1.2">PRIMARY OUTPUT</text>
+        <text x="820" y="16" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="7.5" fill="rgba(255,255,255,.5)" font-weight="700" letter-spacing="1.2">END USE</text>
+        <!-- Column dividers -->
+        <line x1="157" y1="26" x2="157" y2="213" stroke="#dde4ec" stroke-width=".75"/>
+        <line x1="288" y1="26" x2="288" y2="213" stroke="#dde4ec" stroke-width=".75"/>
+        <line x1="555" y1="26" x2="555" y2="213" stroke="#dde4ec" stroke-width=".75"/>
+        <line x1="718" y1="26" x2="718" y2="213" stroke="#dde4ec" stroke-width=".75"/>
+
+        <!-- ── ROW 1: MAIN FLOW ── -->
+
+        <!-- 1 · Brackish Groundwater (static) -->
+        <g filter="url(#sh)"><rect x="10" y="41" width="135" height="60" rx="4" fill="#fff" stroke="#001933" stroke-width="1.5"/></g>
+        <text x="77" y="63" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="12" font-weight="700" fill="#001933">Brackish</text>
+        <text x="77" y="77" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="12" font-weight="700" fill="#001933">Groundwater</text>
+        <text x="77" y="91" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="8.5" fill="#4f6070">1,500&#8211;20,000 ppm TDS</text>
+        <line x1="145" y1="71" x2="168" y2="71" stroke="#001933" stroke-width="1.5" marker-end="url(#m-nv)"/>
+
+        <!-- 2 · Pre-Treatment (static) -->
+        <g filter="url(#sh)"><rect x="170" y="57" width="116" height="28" rx="4" fill="#fff" stroke="#001933" stroke-width="1.5"/></g>
+        <text x="228" y="75" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="11" font-weight="600" fill="#001933">Pre-Treatment</text>
+        <line x1="286" y1="71" x2="309" y2="71" stroke="#001933" stroke-width="1.5" marker-end="url(#m-nv)"/>
+
+        <!-- 3 · SonixED&#8482; &#8212; CLICKABLE &#8594; systems.html -->
+        <a class="hv" href="technology.html" aria-label="SonixED technology &#8212; learn how it works">
+          <g filter="url(#sh)"><rect x="311" y="28" width="222" height="86" rx="5" fill="#001933" stroke="#c9a22a" stroke-width="2"/></g>
+          <line x1="324" y1="50" x2="521" y2="50" stroke="rgba(201,162,42,.2)" stroke-width=".75"/>
+          <text x="422" y="47" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="15" font-weight="700" fill="#c9a22a">SonixED&#8482;</text>
+          <text x="422" y="63" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="9.5" fill="rgba(255,255,255,.82)">Electrodialysis Reversal</text>
+          <text x="422" y="75" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="9.5" fill="rgba(255,255,255,.82)">+ Ultrasound Anti-scaling</text>
+          <text x="422" y="87" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="9.5" fill="rgba(255,255,255,.82)">+ Selective Membrane</text>
+          <text x="422" y="107" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="7" fill="rgba(201,162,42,.5)">Patent 2021 &#183; Click to explore the technology &#8594;</text>
+        </a>
+        <line x1="533" y1="71" x2="553" y2="71" stroke="#16a34a" stroke-width="2" marker-end="url(#m-gn)"/>
+        <text x="543" y="64" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="8.5" font-weight="700" fill="#16a34a">95&#8211;98%</text>
+
+        <!-- 4 · Clean Water &#8212; CLICKABLE &#8594; projects.html -->
+        <a class="hv" href="projects.html" aria-label="Clean water output &#8212; view reference projects">
+          <g filter="url(#sh)"><rect x="558" y="41" width="147" height="60" rx="4" fill="#fff" stroke="#16a34a" stroke-width="1.5"/></g>
+          <text x="631" y="62" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="12" font-weight="700" fill="#166534">Clean Water</text>
+          <text x="631" y="76" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="9" fill="#166534">Drinking &#183; Irrigation</text>
+          <text x="631" y="89" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="9" fill="#166534">Agriculture &#183; Livestock</text>
+        </a>
+        <line x1="705" y1="71" x2="727" y2="71" stroke="#16a34a" stroke-width="1.5" marker-end="url(#m-gn)"/>
+
+        <!-- 5 · Supply / Distribution &#8212; CLICKABLE &#8594; systems.html -->
+        <a class="hv" href="systems.html" aria-label="Systems and supply &#8212; view modular systems">
+          <g filter="url(#sh)"><rect x="729" y="57" width="181" height="28" rx="4" fill="#fff" stroke="#16a34a" stroke-width="1"/></g>
+          <text x="819" y="75" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="10.5" font-weight="600" fill="#166534">Supply / Distribution</text>
+        </a>
+
+        <!-- ── BRINE PATH ── -->
+        <line x1="422" y1="114" x2="422" y2="150" stroke="#7a8fa0" stroke-width="1.5" marker-end="url(#m-gy)"/>
+        <text x="437" y="137" font-family="'Archivo Narrow',sans-serif" font-size="8.5" fill="#64748b">2&#8211;5% brine</text>
+
+        <!-- 6 · Brine Concentrate (static) -->
+        <g filter="url(#sh)"><rect x="311" y="152" width="222" height="48" rx="4" fill="#fff" stroke="#94a3b8" stroke-width="1.2"/></g>
+        <text x="422" y="173" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="11" font-weight="600" fill="#334155">Brine Concentrate</text>
+        <text x="422" y="188" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="8.5" fill="#64748b">High ion concentration &#183; minimal volume</text>
+        <line x1="533" y1="176" x2="553" y2="176" stroke="#c9a22a" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#m-gd)"/>
+        <text x="543" y="169" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="7.5" fill="#a07820">if suitable</text>
+
+        <!-- 7 · Brine Valorization &#8212; CLICKABLE &#8594; brine-valorization.html -->
+        <a class="hv" href="brine-valorization.html" aria-label="Brine valorization &#8212; learn more">
+          <g filter="url(#sh)"><rect x="558" y="152" width="147" height="48" rx="4" fill="#fffef5" stroke="#c9a22a" stroke-width="1.5" stroke-dasharray="5,2.5"/></g>
+          <text x="572" y="164" font-family="'Archivo Narrow',sans-serif" font-size="6.5" fill="#c9a22a" font-weight="700" letter-spacing=".8">OPTIONAL</text>
+          <text x="631" y="177" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="11" font-weight="700" fill="#001933">Brine Valorization</text>
+          <text x="631" y="191" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="8" fill="#b08020">HCl &#183; NaOH &#183; Mg(OH)&#8322; &#183; Ca(OH)&#8322;</text>
+        </a>
+        <line x1="705" y1="176" x2="727" y2="176" stroke="#c9a22a" stroke-width="1.2" marker-end="url(#m-gd)"/>
+
+        <!-- 8 · Zero Liquid Discharge &#8212; CLICKABLE &#8594; brine-valorization.html -->
+        <a class="hv" href="brine-valorization.html" aria-label="Zero Liquid Discharge &#8212; learn more">
+          <g filter="url(#sh)"><rect x="729" y="152" width="181" height="48" rx="4" fill="#fffef5" stroke="#c9a22a" stroke-width="1.5"/></g>
+          <text x="819" y="173" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="11" font-weight="700" fill="#001933">Zero Liquid Discharge</text>
+          <text x="819" y="187" text-anchor="middle" font-family="'Archivo Narrow',sans-serif" font-size="8.5" fill="#b08020">Dry salts / minerals &#8594; reuse or disposal</text>
+        </a>
+
+        <!-- ── LEGEND ── -->
+        <line x1="10" y1="213" x2="910" y2="213" stroke="#dde4ec" stroke-width=".75"/>
+        <rect x="10" y="220" width="12" height="10" rx="2" fill="#fff" stroke="#16a34a" stroke-width="1.2"/>
+        <text x="27" y="229" font-family="'Archivo Narrow',sans-serif" font-size="8.5" fill="#4f6070">Treated-water stream</text>
+        <rect x="185" y="220" width="12" height="10" rx="2" fill="#fff" stroke="#94a3b8" stroke-width="1.2"/>
+        <text x="202" y="229" font-family="'Archivo Narrow',sans-serif" font-size="8.5" fill="#4f6070">Brine stream</text>
+        <rect x="313" y="220" width="12" height="10" rx="2" fill="#fffef5" stroke="#c9a22a" stroke-width="1.2" stroke-dasharray="3.5,2"/>
+        <text x="330" y="229" font-family="'Archivo Narrow',sans-serif" font-size="8.5" fill="#4f6070">Optional pathway</text>
+        <rect x="450" y="220" width="12" height="10" rx="2" fill="#001933" stroke="#c9a22a" stroke-width="1"/>
+        <text x="467" y="229" font-family="'Archivo Narrow',sans-serif" font-size="8.5" fill="#4f6070">Core technology &#8212; patent granted 2021</text>
+        <text x="910" y="250" text-anchor="end" font-family="'Archivo Narrow',sans-serif" font-size="8" fill="#94a3b8" font-style="italic">Click a stage to explore &#8594;</text>
+      </svg>
     </div>
     <p class="rv" style="margin-top:1rem;font-size:.8rem;color:var(--m);text-align:center">Not sure where your source water fits? <a href="contact.html" style="color:var(--g)">Send us your water analysis &rarr;</a></p>
   </div>
