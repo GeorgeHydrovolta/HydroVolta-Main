@@ -1,1686 +1,259 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Hydrovolta SonixED™ — recover 90%+ of difficult brackish groundwater at the same infrastructure cost as conventional systems.">
-  <title>Hydrovolta NV — High-Recovery Groundwater Desalination</title>
-  <link rel="canonical" href="https://hydrovolta.com/" />
-  <meta name="robots" content="index,follow" />
-  <meta name="theme-color" content="#002e5a" />
-  <meta property="og:site_name" content="Hydrovolta NV" />
-  <meta property="og:title" content="Hydrovolta NV — High-Recovery Groundwater Desalination" />
-  <meta property="og:description" content="SonixED™ delivers 90%+ recovery from difficult brackish groundwater. Same infrastructure cost. More water." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://hydrovolta.com/" />
-  <meta property="og:image" content="https://hydrovolta.com/images/hydrovolta_logo-OG.webp" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-  <link rel="icon" href="images/favicon.webp" type="image/webp" sizes="32x32" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="We treat difficult groundwater and recover more of it. Modular and project-engineered systems for brackish, hard, and saline sources. Projects, pilots and pipeline across four continents."/><title>High-Recovery Groundwater Treatment | Hydrovolta</title><link rel="canonical" href="https://hydrovolta.com/"/><meta property="og:title" content="High-Recovery Groundwater Treatment | Hydrovolta"/><meta property="og:description" content="We treat difficult groundwater and recover more of it. Modular and project-engineered systems for brackish, hard, and saline sources. Projects, pilots and pipeline across four continents."/><meta property="og:image" content="https://hydrovolta.com/images/hydrovolta_logo-OG.webp"/><meta name="twitter:card" content="summary_large_image"/><link rel="icon" href="images/favicon.ico"/><link rel="stylesheet" href="css/site.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Hydrovolta",
+  "legalName": "Hydrovolta NV",
+  "url": "https://hydrovolta.com",
+  "logo": "https://hydrovolta.com/images/hydrovolta_logo-OG.webp",
+  "foundingDate": "2016",
+  "taxID": "BE0652996179",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Leuven",
+    "addressCountry": "BE"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "info@hydrovolta.com",
+    "contactType": "technical support"
+  },
+  "sameAs": [
+    "https://be.linkedin.com/company/hydrovolta",
+    "https://www.facebook.com/hydrovolta/"
+  ],
+  "description": "Hydrovolta develops modular and project-engineered systems for brackish groundwater, hard water, and saline sources. High-recovery treatment with patented SonixED™ electrodialysis technology. Founded 2016, Leuven, Belgium."
+}
+</script>
+</head><body data-page="index"><a class="skip" href="#main">Skip to content</a>
+<div class="topbar">Active in Morocco &amp; Perth &middot; Pilot contracts open &middot; EIC Accelerator &euro;2.2M awarded</div>
+<nav class="nav" aria-label="Main navigation"><div class="nav__in"><a class="brand" href="index.html"><span class="brand__mark"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8a8 8 0 0 0 16 0c0-3.32-2.67-7.25-8-11.8z"/></svg></span><span>Hydrovolta</span></a>
+<div class="nav__links" id="nav-links"><a href="index.html">Home</a><a href="technology.html">How it Works</a><a href="projects.html">Projects</a><a href="systems.html">Systems</a><a href="about.html">About</a><a class="btn btn--navy btn--sm" href="contact.html">Get in Touch</a></div>
+<button class="menu" id="menu-btn" aria-label="Toggle navigation" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button></div></nav>
+<main id="main">
 
-  <style>
-    /* ─── RESET & BASE ─────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Barlow', sans-serif;
-      font-size: 16px;
-      color: #1a2a3a;
-      background: #fff;
-      line-height: 1.6;
-    }
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
-
-    /* ─── TOKENS ────────────────────────────────────────── */
-    :root {
-      --n1: #001933;
-      --n2: #002e5a;
-      --n3: #003d78;
-      --g:  #c9a22a;
-      --gl: #e8c84a;
-      --w:  #ffffff;
-      --s:  #f4f7fb;
-      --fd: 'Barlow Condensed', sans-serif;
-      --fb: 'Barlow', sans-serif;
-      --radius: 10px;
-      --shadow: 0 4px 24px rgba(0,0,0,0.08);
-    }
-
-    /* ─── TOP BAR ───────────────────────────────────────── */
-    .topbar {
-      background: var(--n1);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding: 0.55rem 2rem;
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-    }
-    .topbar-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: rgba(255,255,255,0.7);
-    }
-    .topbar-item svg { width: 13px; height: 13px; fill: var(--g); flex-shrink: 0; }
-
-    /* ─── NAV ───────────────────────────────────────────── */
-    .site-nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--n2);
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-    }
-    .nav-logo img { height: 36px; }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: rgba(255,255,255,0.75);
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: #fff; }
-    .nav-cta {
-      background: var(--g);
-      color: var(--n1) !important;
-      padding: 0.55rem 1.25rem;
-      border-radius: 4px;
-      font-weight: 700 !important;
-      transition: background 0.2s !important;
-    }
-    .nav-cta:hover { background: var(--gl) !important; color: var(--n1) !important; }
-    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
-    .nav-toggle span {
-      display: block; width: 22px; height: 2px;
-      background: #fff; margin: 4px 0; border-radius: 2px;
-      transition: 0.3s;
-    }
-    @media (max-width: 860px) {
-      .nav-links { display: none; }
-      .nav-toggle { display: block; }
-    }
-
-    /* ─── HERO ──────────────────────────────────────────── */
-    .hero {
-      background: var(--n1);
-      min-height: 88vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      overflow: hidden;
-    }
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; min-height: auto; }
-    }
-    .hero-left {
-      padding: 5rem 3rem 5rem 4rem;
-      max-width: 620px;
-    }
-    @media (max-width: 900px) { .hero-left { padding: 4rem 2rem 2rem; max-width: 100%; } }
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(201,162,42,0.15);
-      border: 1px solid rgba(201,162,42,0.4);
-      border-radius: 20px;
-      padding: 0.35rem 0.9rem;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--g);
-      margin-bottom: 1.5rem;
-    }
-    .hero-eyebrow svg { width: 12px; height: 12px; fill: var(--g); }
-    .hero h1 {
-      font-family: var(--fd);
-      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-      font-weight: 800;
-      line-height: 1.08;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      color: #fff;
-      margin-bottom: 1.25rem;
-    }
-    .hero h1 em {
-      color: var(--g);
-      font-style: normal;
-    }
-    .hero-body {
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.72);
-      line-height: 1.65;
-      margin-bottom: 2rem;
-      max-width: 480px;
-    }
-    .hero-body strong { color: #fff; font-weight: 600; }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-    .btn-primary {
-      display: inline-block;
-      background: var(--g);
-      color: var(--n1);
-      font-family: var(--fd);
-      font-size: 0.95rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      padding: 0.9rem 2rem;
-      border-radius: 4px;
-      transition: background 0.2s, transform 0.15s;
-      white-space: nowrap;
-    }
-    .btn-primary:hover { background: var(--gl); transform: translateY(-1px); }
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      color: rgba(255,255,255,0.7);
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-    .btn-secondary:hover { color: #fff; }
-    .btn-secondary svg { width: 16px; height: 16px; fill: currentColor; }
-
-    /* Hero right — yield visual panel */
-    .hero-right {
-      background: rgba(255,255,255,0.04);
-      border-left: 1px solid rgba(255,255,255,0.07);
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4rem 3rem;
-    }
-    @media (max-width: 900px) { .hero-right { border-left: none; border-top: 1px solid rgba(255,255,255,0.07); padding: 2.5rem 2rem 3.5rem; } }
-    .hero-yield {
-      width: 100%;
-      max-width: 460px;
-    }
-    .hero-yield-title {
-      font-family: var(--fd);
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.45);
-      margin-bottom: 1.75rem;
-      text-align: center;
-    }
-    .yield-row {
-      margin-bottom: 1.5rem;
-    }
-    .yield-label {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 0.6rem;
-    }
-    .yield-name {
-      font-size: 0.82rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: rgba(255,255,255,0.55);
-    }
-    .yield-numbers {
-      font-family: var(--fd);
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-    }
-    .yield-numbers .recovered { color: var(--g); }
-    .yield-numbers .wasted { color: rgba(255,255,255,0.35); font-size: 0.9rem; }
-    .yield-track {
-      height: 44px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 6px;
-      overflow: hidden;
-      display: flex;
-    }
-    .yield-fill {
-      height: 100%;
-      border-radius: 6px 0 0 6px;
-      display: flex;
-      align-items: center;
-      padding-left: 1rem;
-      font-family: var(--fd);
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--n1);
-      transition: width 1.4s cubic-bezier(0.25,0.8,0.25,1);
-      width: 0;
-    }
-    .yield-fill.conventional { background: rgba(255,255,255,0.22); color: rgba(255,255,255,0.8); }
-    .yield-fill.sonixed { background: var(--g); color: var(--n1); }
-    .yield-divider {
-      width: 100%;
-      height: 1px;
-      background: rgba(255,255,255,0.1);
-      margin: 1.5rem 0;
-    }
-    .yield-verdict {
-      text-align: center;
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.5;
-    }
-    .yield-verdict strong { color: var(--gl); font-size: 1rem; display: block; margin-bottom: 0.25rem; }
-
-    /* ─── SECTION UTILITY ───────────────────────────────── */
-    .section { padding: 5rem 2rem; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-    .section-label {
-      font-family: var(--fd);
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--g);
-      margin-bottom: 0.6rem;
-    }
-    .section-title {
-      font-family: var(--fd);
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-    }
-    .section-intro {
-      font-size: 1.05rem;
-      color: #4a5568;
-      max-width: 600px;
-      line-height: 1.65;
-      margin-bottom: 3rem;
-    }
-    .dark .section-title { color: #fff; }
-    .dark .section-intro { color: rgba(255,255,255,0.65); }
-    .dark .section-label { color: var(--gl); }
-
-    /* ─── TRUST STRIP ───────────────────────────────────── */
-    .trust-strip {
-      background: var(--n2);
-      padding: 1.5rem 2rem;
-    }
-    .trust-strip-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-    }
-    @media (max-width: 700px) { .trust-strip-inner { grid-template-columns: 1fr 1fr; } }
-    .trust-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-    }
-    .trust-icon {
-      width: 36px; height: 36px;
-      background: rgba(201,162,42,0.15);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .trust-icon svg { width: 18px; height: 18px; fill: var(--g); }
-    .trust-card-text {}
-    .trust-card-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: rgba(255,255,255,0.45);
-      font-weight: 700;
-    }
-    .trust-card-value {
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: #fff;
-      line-height: 1.3;
-    }
-
-    /* ─── YIELD EXPLAINER ───────────────────────────────── */
-    .yield-explainer {
-      background: var(--s);
-    }
-    .yield-ex-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-    @media (max-width: 860px) { .yield-ex-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
-    .yield-big-visual {}
-    .yield-big-title {
-      font-family: var(--fd);
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #718096;
-      margin-bottom: 1.5rem;
-    }
-    .yield-compare-row {
-      margin-bottom: 1.25rem;
-    }
-    .yield-compare-label {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-      font-size: 0.85rem;
-    }
-    .yield-compare-name { font-weight: 700; color: #1a2a3a; }
-    .yield-compare-stat { font-weight: 600; color: #4a5568; }
-    .yield-compare-track {
-      height: 48px;
-      background: #e8edf2;
-      border-radius: 6px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      position: relative;
-    }
-    .yield-compare-fill {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      padding-left: 1rem;
-      font-family: var(--fd);
-      font-size: 1.1rem;
-      font-weight: 700;
-      border-radius: 6px 0 0 6px;
-      transition: width 1.6s cubic-bezier(0.25,0.8,0.25,1);
-      width: 0;
-    }
-    .yield-compare-fill.conv { background: #94a3b8; color: #fff; }
-    .yield-compare-fill.sx { background: var(--n2); color: #fff; }
-    .yield-gain-badge {
-      position: absolute;
-      right: 1rem;
-      font-family: var(--fd);
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--n2);
-    }
-    .yield-cost-note {
-      margin-top: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: rgba(201,162,42,0.1);
-      border: 1px solid rgba(201,162,42,0.3);
-      border-radius: 8px;
-      padding: 1rem 1.25rem;
-    }
-    .yield-cost-note svg { width: 20px; height: 20px; fill: var(--g); flex-shrink: 0; }
-    .yield-cost-note p { font-size: 0.88rem; color: #2d3748; line-height: 1.45; }
-    .yield-cost-note strong { color: var(--n1); }
-    .yield-ex-copy {}
-    .yield-ex-copy .section-title { color: var(--n1); }
-    .yield-ex-copy .section-intro { color: #4a5568; margin-bottom: 1.5rem; }
-    .yield-bullets { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
-    .yield-bullets li {
-      display: flex;
-      gap: 0.75rem;
-      font-size: 0.95rem;
-      color: #4a5568;
-      line-height: 1.5;
-    }
-    .yield-bullets li::before {
-      content: '';
-      width: 20px; height: 20px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23002e5a'/%3E%3Cpath d='M6 10l3 3 5-5' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .yield-bullets li strong { color: var(--n1); }
-
-    /* ─── PROBLEM SECTION ───────────────────────────────── */
-    .problem-section { background: #fff; }
-    .problem-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-    @media (max-width: 700px) { .problem-grid { grid-template-columns: 1fr; } }
-    .problem-card {
-      border: 1px solid #e2e8f0;
-      border-radius: var(--radius);
-      padding: 2rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      background: #fff;
-    }
-    .problem-card:hover { border-color: var(--n2); box-shadow: var(--shadow); }
-    .problem-icon {
-      width: 44px; height: 44px;
-      background: #f0f4f8;
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1.25rem;
-    }
-    .problem-icon svg { width: 22px; height: 22px; fill: var(--n2); }
-    .problem-card h3 {
-      font-family: var(--fd);
-      font-size: 1.15rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--n1);
-      margin-bottom: 0.6rem;
-    }
-    .problem-card p { font-size: 0.92rem; color: #4a5568; line-height: 1.6; }
-
-    /* ─── TECHNOLOGY ────────────────────────────────────── */
-    .tech-section { background: var(--n1); }
-    .tech-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    @media (max-width: 860px) { .tech-grid { grid-template-columns: 1fr; } }
-    .tech-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius);
-      padding: 2rem;
-      transition: border-color 0.2s;
-    }
-    .tech-card:hover { border-color: rgba(201,162,42,0.4); }
-    .tech-number {
-      font-family: var(--fd);
-      font-size: 3rem;
-      font-weight: 800;
-      color: var(--g);
-      line-height: 1;
-      margin-bottom: 0.25rem;
-    }
-    .tech-number sup { font-size: 1.5rem; vertical-align: super; }
-    .tech-card h3 {
-      font-family: var(--fd);
-      font-size: 1.1rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #fff;
-      margin-bottom: 0.75rem;
-    }
-    .tech-card p { font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.65; }
-    .tech-tag {
-      display: inline-block;
-      margin-top: 1rem;
-      background: rgba(201,162,42,0.12);
-      color: var(--g);
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      padding: 0.3rem 0.7rem;
-      border-radius: 4px;
-    }
-
-    /* ─── SYSTEMS ───────────────────────────────────────── */
-    .systems-section { background: var(--s); }
-    .systems-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-    @media (max-width: 760px) { .systems-grid { grid-template-columns: 1fr; } }
-    .system-card {
-      background: #fff;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-    .system-card-img {
-      height: 200px;
-      background: var(--n2);
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
-    }
-    .system-card-img img { width: 100%; height: 100%; object-fit: cover; }
-    .system-card-body { padding: 1.75rem; }
-    .system-badge {
-      display: inline-block;
-      background: rgba(0,46,90,0.08);
-      color: var(--n2);
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      padding: 0.3rem 0.7rem;
-      border-radius: 4px;
-      margin-bottom: 0.75rem;
-    }
-    .system-card h3 {
-      font-family: var(--fd);
-      font-size: 1.4rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--n1);
-      margin-bottom: 0.6rem;
-    }
-    .system-card p { font-size: 0.9rem; color: #4a5568; line-height: 1.6; margin-bottom: 1rem; }
-    .system-specs {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      border-top: 1px solid #e8edf2;
-      padding-top: 1rem;
-    }
-    .system-spec {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.82rem;
-    }
-    .system-spec .sk { color: #718096; }
-    .system-spec .sv { font-weight: 600; color: var(--n1); }
-
-    /* ─── WHO WE WORK WITH ──────────────────────────────── */
-    .who-section { background: #fff; }
-    .who-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-    @media (max-width: 760px) { .who-grid { grid-template-columns: 1fr; } }
-    .who-card {
-      border: 1px solid #e2e8f0;
-      border-radius: var(--radius);
-      padding: 1.75rem;
-    }
-    .who-icon {
-      width: 44px; height: 44px;
-      background: rgba(0,46,90,0.07);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1rem;
-    }
-    .who-icon svg { width: 22px; height: 22px; fill: var(--n2); }
-    .who-card h3 {
-      font-family: var(--fd);
-      font-size: 1.05rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--n1);
-      margin-bottom: 0.6rem;
-    }
-    .who-card p { font-size: 0.88rem; color: #4a5568; line-height: 1.6; }
-
-    /* ─── PROJECTS ──────────────────────────────────────── */
-    .projects-section { background: var(--n2); }
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-    @media (max-width: 700px) { .projects-grid { grid-template-columns: 1fr; } }
-    .project-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-    .project-card-img {
-      height: 160px;
-      overflow: hidden;
-      background: var(--n1);
-    }
-    .project-card-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.75; }
-    .project-card-body { padding: 1.5rem; }
-    .project-status {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      padding: 0.25rem 0.6rem;
-      border-radius: 4px;
-      margin-bottom: 0.75rem;
-    }
-    .status-active { background: rgba(56,161,105,0.2); color: #68d391; }
-    .status-pilot { background: rgba(66,153,225,0.2); color: #90cdf4; }
-    .status-loi { background: rgba(236,201,75,0.2); color: #f6e05e; }
-    .status-mou { background: rgba(159,122,234,0.2); color: #d6bcfa; }
-    .project-card h3 {
-      font-family: var(--fd);
-      font-size: 1.2rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: #fff;
-      margin-bottom: 0.5rem;
-    }
-    .project-card p { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
-    .project-detail {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-      flex-wrap: wrap;
-    }
-    .project-detail-item {
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.45);
-    }
-    .project-detail-item strong { color: rgba(255,255,255,0.75); display: block; }
-
-    /* ─── HOW WE WORK ───────────────────────────────────── */
-    .process-section { background: var(--s); }
-    .process-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-      position: relative;
-    }
-    @media (max-width: 860px) { .process-steps { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 500px) { .process-steps { grid-template-columns: 1fr; } }
-    .process-step {
-      background: #fff;
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      position: relative;
-    }
-    .step-num {
-      font-family: var(--fd);
-      font-size: 3rem;
-      font-weight: 800;
-      color: rgba(0,46,90,0.08);
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-    .process-step h3 {
-      font-family: var(--fd);
-      font-size: 1rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--n1);
-      margin-bottom: 0.6rem;
-    }
-    .process-step p { font-size: 0.88rem; color: #4a5568; line-height: 1.6; }
-    .step-outcome {
-      margin-top: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--g);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .step-outcome svg { width: 14px; height: 14px; fill: var(--g); }
-    .process-note {
-      margin-top: 2.5rem;
-      background: var(--n1);
-      border-radius: var(--radius);
-      padding: 1.5rem 2rem;
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .process-note p {
-      font-size: 0.92rem;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.5;
-      flex: 1;
-    }
-    .process-note strong { color: #fff; }
-
-    /* ─── ASSESSMENT FORM ───────────────────────────────── */
-    .form-section { background: var(--n1); }
-    .form-layout {
-      display: grid;
-      grid-template-columns: 1fr 1.3fr;
-      gap: 4rem;
-      align-items: start;
-    }
-    @media (max-width: 860px) { .form-layout { grid-template-columns: 1fr; gap: 2rem; } }
-    .form-intro-block {}
-    .form-intro-block .section-title { color: #fff; margin-bottom: 1rem; }
-    .form-intro-block .section-intro { color: rgba(255,255,255,0.65); margin-bottom: 2rem; }
-    .form-checklist { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-    .form-checklist li {
-      display: flex;
-      gap: 0.6rem;
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.65);
-      align-items: flex-start;
-    }
-    .form-checklist li svg { width: 16px; height: 16px; fill: var(--g); flex-shrink: 0; margin-top: 2px; }
-    .assessment-form {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: var(--radius);
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
-    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-    .form-group label {
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: rgba(255,255,255,0.5);
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 6px;
-      padding: 0.7rem 0.9rem;
-      font-family: var(--fb);
-      font-size: 0.9rem;
-      color: #fff;
-      transition: border-color 0.2s;
-    }
-    .form-group input::placeholder,
-    .form-group select::placeholder,
-    .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--g);
-    }
-    .form-group select option { background: var(--n2); color: #fff; }
-    .form-group textarea { resize: vertical; min-height: 90px; }
-    .form-submit {
-      background: var(--g);
-      color: var(--n1);
-      font-family: var(--fd);
-      font-size: 1rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      border: none;
-      border-radius: 4px;
-      padding: 0.9rem;
-      cursor: pointer;
-      transition: background 0.2s;
-      width: 100%;
-      margin-top: 0.5rem;
-    }
-    .form-submit:hover { background: var(--gl); }
-    .form-privacy {
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.35);
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    /* ─── LOGO STRIP ────────────────────────────────────── */
-    .logo-strip { background: var(--n2); padding: 2rem; overflow: hidden; }
-    .logo-strip-title {
-      text-align: center;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 1.25rem;
-    }
-    .marquee-wrap { overflow: hidden; position: relative; }
-    .marquee-track {
-      display: flex;
-      gap: 3rem;
-      animation: marquee 28s linear infinite;
-      width: max-content;
-    }
-    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
-    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    .marquee-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 40px;
-      opacity: 0.5;
-      transition: opacity 0.2s;
-      white-space: nowrap;
-      font-family: var(--fd);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: #fff;
-    }
-    .marquee-item img { height: 32px; object-fit: contain; filter: brightness(0) invert(1); }
-    .marquee-item:hover { opacity: 0.85; }
-
-    /* ─── FOOTER ────────────────────────────────────────── */
-    .site-footer { background: var(--n1); }
-    .footer-wrap {}
-    .footer-cta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.5rem 3rem;
-      background: var(--g);
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .footer-cta .cta-text {
-      font-family: var(--fd);
-      font-size: 1.1rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--n1);
-    }
-    .footer-cta .cta-contact { display: flex; flex-direction: column; line-height: 1.4; }
-    .footer-cta .cta-contact span { font-size: 0.75rem; color: rgba(0,25,51,0.65); font-weight: 600; }
-    .footer-cta .cta-contact strong { font-size: 1rem; color: var(--n1); }
-    .footer-main {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr 1.4fr;
-      gap: 3rem;
-      padding: 3rem;
-    }
-    @media (max-width: 760px) { .footer-main { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; } }
-    .footer-logo { height: 36px; margin-bottom: 0.75rem; }
-    .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 1.25rem; }
-    .footer-socials { display: flex; gap: 0.75rem; }
-    .footer-socials a {
-      width: 34px; height: 34px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(255,255,255,0.55);
-      transition: background 0.2s, color 0.2s;
-    }
-    .footer-socials a:hover { background: rgba(255,255,255,0.12); color: #fff; }
-    .footer-links-title {
-      font-family: var(--fd);
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 1rem;
-    }
-    .footer-links-row { display: flex; gap: 2rem; }
-    .footer-links-col { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-    .footer-links-col a { font-size: 0.88rem; color: rgba(255,255,255,0.6); transition: color 0.2s; }
-    .footer-links-col a:hover { color: #fff; }
-    .footer-newsletter h4 {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 0.75rem;
-      line-height: 1.4;
-    }
-    .footer-newsletter form { display: flex; gap: 0; }
-    .footer-newsletter input {
-      flex: 1;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-right: none;
-      border-radius: 4px 0 0 4px;
-      padding: 0.65rem 0.9rem;
-      font-family: var(--fb);
-      font-size: 0.85rem;
-      color: #fff;
-    }
-    .footer-newsletter input::placeholder { color: rgba(255,255,255,0.35); }
-    .footer-newsletter input:focus { outline: none; border-color: var(--g); }
-    .footer-newsletter button {
-      background: var(--g);
-      color: var(--n1);
-      font-weight: 700;
-      font-size: 0.8rem;
-      border: none;
-      padding: 0 1rem;
-      border-radius: 0 4px 4px 0;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .footer-newsletter button:hover { background: var(--gl); }
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 3rem;
-      border-top: 1px solid rgba(255,255,255,0.07);
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
-    .footer-policies { display: flex; gap: 1rem; }
-    .footer-policies a { font-size: 0.78rem; color: rgba(255,255,255,0.35); transition: color 0.2s; }
-    .footer-policies a:hover { color: rgba(255,255,255,0.7); }
-
-    /* ─── SCROLL REVEAL ─────────────────────────────────── */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
-  </style>
-</head>
-<body>
-
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <div class="topbar-item">
-      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2Zm1 17.93V18a1 1 0 0 0-2 0v1.93A8.001 8.001 0 0 1 4.07 13H6a1 1 0 0 0 0-2H4.07A8.001 8.001 0 0 1 11 4.07V6a1 1 0 0 0 2 0V4.07A8.001 8.001 0 0 1 19.93 11H18a1 1 0 0 0 0 2h1.93A8.001 8.001 0 0 1 13 19.93Z"/></svg>
-      EIC Accelerator — €2.2M
+<!-- HERO: split layout, full-bleed image right side -->
+<section class="hero hero--split">
+  <div class="hero__copy">
+    <h1>Turn difficult groundwater into a reliable water supply at up to 98% recovery.</h1>
+    <p class="lead" style="margin-top:1.25rem;max-width:48ch">Hydrovolta develops modular and project-engineered systems for brackish groundwater, hard water, and saline sources. Our systems recover more usable water with significantly lower residual brine than conventional membrane treatment. Where the concentrate has the right chemistry, we evaluate brine valorization pathways for selected chemical and mineral recovery.</p>
+    <div class="actions">
+      <a class="btn btn--gold" href="contact.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M9 18l6-6-6-6"/></svg>
+        Request Engineering Assessment
+      </a>
+      <a class="btn btn--out" href="projects.html">View Reference Projects</a>
     </div>
-    <div class="topbar-item">
-      <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      Patent 2021 — SonixED™
-    </div>
-    <div class="topbar-item">
-      <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
-      Institutional Research Partnerships
-    </div>
-    <div class="topbar-item">
-      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-      Projects &amp; Pilots — 4 Continents
+    <div class="proof">
+      <div><strong>Up to 98%</strong><span>water recovery in suitable applications</span></div>
+      <div><strong>2&ndash;5%</strong><span>residual brine in selected cases</span></div>
+      <div><strong>Reduced</strong><span>chemical dependency</span></div>
+      <div><strong>Pilot &rarr; plant</strong><span>validated scale-up pathway</span></div>
     </div>
   </div>
+  <div class="hero__visual">
+    <img class="active" src="images/main-treat_cropped.webp" alt="Hydrovolta water treatment process" fetchpriority="high">
+    <img src="images/skid-v7a.webp" alt="Hydrovolta SonixED Skid V7A system" loading="eager">
+    <img src="images/candidates/20230301_093243.jpg" alt="Hydrovolta deployment site" loading="eager">
+  </div>
+</section>
 
-  <!-- NAV -->
-  <nav class="site-nav" aria-label="Main navigation">
-    <a class="nav-logo" href="index.html" aria-label="Hydrovolta home">
-      <img src="images/hydrovolta_logo.webp" alt="Hydrovolta NV" />
-    </a>
-    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="technology.html">Technology</a></li>
-      <li><a href="solutions.html">Systems</a></li>
-      <li><a href="applications.html">Projects</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="#assessment" class="nav-cta">Request Assessment</a></li>
-    </ul>
-  </nav>
+<!-- TRUST STRIP -->
+<div class="trust" role="complementary">
+  <div class="trust__in">
+    <div class="titem rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Patent Granted 2021 &mdash; SonixED&trade;</div>
+    <div class="titem rv d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Research partnerships incl. VITO, CNR &amp; others</div>
+    <div class="titem rv d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>EIC Accelerator &euro;2.2M &mdash; European Innovation Council</div>
+    <div class="titem rv d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Pilot-led validation before capital-scale commitment</div>
+  </div>
+</div>
 
-  <!-- HERO -->
-  <section class="hero" aria-label="Hero">
-    <div class="hero-left">
-      <div class="hero-eyebrow">
-        <svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="6" fill="currentColor"/></svg>
-        SonixED™ — Electrodialysis + Ultrasound
-      </div>
-      <h1>You pump 1,000&nbsp;litres.<br/>Your system delivers&nbsp;<em>700.</em><br/>Ours delivers&nbsp;<em>900+.</em></h1>
-      <p class="hero-body">
-        Same infrastructure investment. <strong>The extra 200 litres per 1,000 are yours.</strong><br/><br/>
-        SonixED™ is a patented combination of Electrodialysis Reversal and ultrasound — designed specifically for brackish and saline groundwater that conventional systems cannot fully recover.
-      </p>
-      <div class="hero-actions">
-        <a href="#assessment" class="btn-primary">Request Engineering Assessment</a>
-        <a href="technology.html" class="btn-secondary">
-          How it works
-          <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-        </a>
+<!-- PROCESS FLOW DIAGRAM -->
+<section class="section section--soft" style="padding-top:2.5rem;padding-bottom:2.5rem">
+  <div class="wrap">
+    <div class="rv">
+      <div class="diag-wrap">
+        <img src="images/process_diagram_homepage.webp" alt="Hydrovolta SonixED process flow: from difficult groundwater through patented treatment to clean water output with optional brine valorization" style="width:100%;height:auto;display:block" loading="lazy">
+        <!-- Hotspot: HydroVolta container → technology -->
+        <a class="diag-hot" href="technology.html" style="left:28%;top:22%;width:41%;height:50%" aria-label="SonixED technology — learn how it works" title="Learn how SonixED works"></a>
+        <!-- Hotspot: Clean water output → projects -->
+        <a class="diag-hot" href="projects.html" style="left:73%;top:18%;width:26%;height:55%" aria-label="Clean water output — see reference projects" title="Reference projects"></a>
+        <!-- Hotspot: Resource Recovery → brine valorization -->
+        <a class="diag-hot" href="brine-valorization.html" style="left:7%;top:67%;width:37%;height:27%" aria-label="Resource recovery — brine valorization" title="Brine valorization"></a>
+        <!-- Hotspot: Zero Liquid Discharge → brine valorization -->
+        <a class="diag-hot" href="brine-valorization.html" style="left:56%;top:67%;width:38%;height:27%" aria-label="Zero Liquid Discharge — brine valorization" title="Zero Liquid Discharge"></a>
       </div>
     </div>
+    <p class="rv" style="margin-top:1rem;font-size:.8rem;color:var(--m);text-align:center">Not sure where your source water fits? <a href="contact.html" style="color:var(--g)">Send us your water analysis &rarr;</a></p>
+  </div>
+</section>
 
-    <div class="hero-right" aria-hidden="true">
-      <div class="hero-yield">
-        <div class="hero-yield-title">From every 1,000 litres pumped</div>
-
-        <div class="yield-row">
-          <div class="yield-label">
-            <span class="yield-name">Conventional system</span>
-            <span class="yield-numbers">
-              <span class="recovered">700 L</span>&nbsp;<span class="wasted">/ 300 wasted</span>
-            </span>
-          </div>
-          <div class="yield-track">
-            <div class="yield-fill conventional" data-target="70" style="width:0%">700 L</div>
-          </div>
-        </div>
-
-        <div class="yield-row">
-          <div class="yield-label">
-            <span class="yield-name">SonixED™</span>
-            <span class="yield-numbers">
-              <span class="recovered">900+ L</span>&nbsp;<span class="wasted">/ &lt;100 wasted</span>
-            </span>
-          </div>
-          <div class="yield-track">
-            <div class="yield-fill sonixed" data-target="90" style="width:0%">900+ L</div>
-          </div>
-        </div>
-
-        <div class="yield-divider"></div>
-        <div class="yield-verdict">
-          <strong>+200 litres per 1,000 — every single day</strong>
-          Same infrastructure investment. The difference is yours.
-        </div>
-      </div>
+<!-- THREE CONSTRAINTS -->
+<section class="section">
+  <div class="wrap">
+    <div class="head">
+      <div class="rv"><span class="ey">Three operating contexts</span><h2>Where conventional treatment reaches its limit.</h2></div>
+      <p class="lead rv d1">Each of the following constraints has an active Hydrovolta deployment behind it.</p>
     </div>
-  </section>
+    <div class="grid--3">
+      <article class="card card--linked rv">
+        <div class="num">01</div>
+        <h3>Nitrate above the limit. Minerals still needed.</h3>
+        <p>RO strips nitrate and everything else — including calcium and magnesium the output still requires. When the target is NO&#8323;&macr; compliance without full demineralisation, selective electrodialysis is the answer RO cannot give you.</p>
+        <div style="border-top:1px solid var(--b);margin-top:1rem;padding-top:.85rem;font-size:.8rem;color:var(--m)">
+          <strong style="color:var(--n1);font-family:var(--fd)">Perth Water Corporation</strong><br>
+          3 utility sites &middot; nitrate compliance &middot; active pilot
+        </div>
+        <div class="actions"><a class="btn btn--out btn--sm stretched-link" href="projects.html">See the reference &rarr;</a></div>
+      </article>
+      <article class="card card--linked rv d1">
+        <div class="num">02</div>
+        <h3>Scaling kills the pilot before scale-up.</h3>
+        <p>At silica above 60&ndash;80&thinsp;mg/l combined with high hardness, RO membranes foul before the economics can be demonstrated. Acoustic cavitation prevents scaling at nucleation &mdash; before chemistry establishes itself on the membrane.</p>
+        <div style="border-top:1px solid var(--b);margin-top:1rem;padding-top:.85rem;font-size:.8rem;color:var(--m)">
+          <strong style="color:var(--n1);font-family:var(--fd)">Germany Industrial Pilot</strong><br>
+          TDS 4,500&thinsp;ppm &middot; silica 85&thinsp;mg/l &middot; 90-day head-to-head vs RO
+        </div>
+        <div class="actions"><a class="btn btn--out btn--sm stretched-link" href="projects.html">See the operating data &rarr;</a></div>
+      </article>
+      <article class="card card--linked rv d2">
+        <div class="num">03</div>
+        <h3>Brine volume makes the project unviable.</h3>
+        <p>RO produces 25&ndash;50% brine. Inland sites with no coastal or river discharge face a disposal liability that kills the business case before technical evaluation begins. At 2&ndash;5% residual brine, the constraint changes character entirely.</p>
+        <div style="border-top:1px solid var(--b);margin-top:1rem;padding-top:.85rem;font-size:.8rem;color:var(--m)">
+          <strong style="color:var(--n1);font-family:var(--fd)">Morocco Deployment</strong><br>
+          Saline coastal aquifer &middot; brine valorization integrated &middot; active 2025&ndash;2028
+        </div>
+        <div class="actions"><a class="btn btn--out btn--sm stretched-link" href="projects.html">See the deployment &rarr;</a></div>
+      </article>
+    </div>
+    <p class="rv" style="margin-top:1.75rem;text-align:center;font-size:.88rem;color:var(--m)">Not sure which applies? <a href="contact.html" style="color:var(--g)">Send your water analysis &rarr;</a> We assess fit and tell you if it does not match.</p>
+  </div>
+</section>
 
-  <!-- TRUST STRIP -->
-  <div class="trust-strip" aria-label="Credentials">
-    <div class="trust-strip-inner">
-      <div class="trust-card">
-        <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div>
-        <div class="trust-card-text">
-          <div class="trust-card-label">Patent</div>
-          <div class="trust-card-value">SonixED™ — filed 2021</div>
+<!-- PHOTO STRIP: real photos showing operational maturity -->
+<section class="section section--soft" style="padding-top:0">
+  <div class="wrap">
+    <div class="photo-strip rv">
+      <figure>
+        <img src="images/monitoring_1_cropped.webp" alt="Engineers commissioning SalinBloc control systems on site Morocco" loading="lazy">
+        <figcaption>On-site system commissioning &mdash; Morocco deployment</figcaption>
+      </figure>
+      <figure>
+        <img src="images/salin_bloc.webp" alt="SalinBloc containerised water treatment unit" loading="lazy">
+        <figcaption>SalinBloc&trade; 20&thinsp;ft container &mdash; ready for deployment</figcaption>
+      </figure>
+      <figure>
+        <img src="images/pumps_in_container.webp" alt="SalinBloc process pump array interior" loading="lazy">
+        <figcaption>SalinBloc&trade; process equipment &mdash; pump array and manifolds</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY OVERVIEW -->
+<section class="section section--dark">
+  <div class="wrap" style="position:relative;z-index:1">
+    <div class="head">
+      <div class="rv"><span class="ey ey--lt">Technology</span><h2 style="color:var(--w)">SonixED&trade; — electrodialysis reversal strengthened by ultrasound.</h2></div>
+      <p class="lead rv d1" style="color:rgba(255,255,255,.65)">SonixED&trade; combines electrodialysis reversal, ultrasound-assisted scaling control, and a proprietary selective membrane coating. Developed through institutional research partnerships over eight years. Patent granted 2021. Projects, pilots and pipeline across four continents.</p>
+    </div>
+    <div class="grid--3">
+      <article class="card card--dark rv"><div class="num num--dark">EDR</div><h3>Electrodialysis Reversal</h3><p>Electric potential drives selected ions through membranes. Polarity reversal cleans membranes without chemical intervention. Stable output under variable feed TDS.</p></article>
+      <article class="card card--dark rv d1"><div class="num num--dark">US</div><h3>Ultrasound Anti-Scaling</h3><p>Acoustic cavitation at the membrane surface prevents silica and hard-water scaling. 50&ndash;90% reduction in CIP cycles in validated operating contexts. Extended membrane lifespan.</p></article>
+      <article class="card card--dark rv d2"><div class="num num--dark">SEL</div><h3>Selective Ion Removal</h3><p>Custom membrane coating removes nitrate, sodium, chloride, fluoride while retaining calcium and magnesium. Mineral-balanced output. No post-treatment remineralisation required.</p></article>
+    </div>
+    <div class="actions rv" style="margin-top:2rem"><a class="btn btn--out" href="technology.html">Technology deep dive</a></div>
+  </div>
+</section>
+
+<!-- REFERENCE PROJECTS -->
+<section class="section section--soft">
+  <div class="wrap">
+    <div class="head"><div class="rv"><span class="ey">See the system</span><h2>SonixED™ operating at a groundwater deployment site.</h2></div>
+    <p class="lead rv d1">A walkthrough of active Hydrovolta equipment — from the SalinBloc™ containerised unit to the treatment stack inside.</p></div>
+    <div class="rv" style="max-width:760px;margin:2rem auto 0">
+      <div class="yt-embed" data-src="https://www.youtube-nocookie.com/embed/vWWIab7rmT4?rel=0&modestbranding=1" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;box-shadow:0 8px 32px rgba(0,25,51,0.15)"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="head">
+      <div class="rv"><span class="ey">Reference projects</span><h2>Active deployments, utility pilots, and development pipeline.</h2></div>
+      <p class="lead rv d1">Projects are labeled accurately by maturity. Hydrovolta has active equipment generating operational data, a contracted utility pilot, and signed LOI and MOU-stage pipeline across four continents.</p>
+    </div>
+    <div class="grid--2">
+      <article class="card card--image rv">
+        <img src="images/morocco.webp" alt="Morocco integrated water treatment project site" loading="lazy">
+        <div class="card__body">
+          <span class="status status--active">Active Project</span>
+          <h3>Morocco &mdash; Saline Water Desalination with Brine Valorization</h3>
+          <p>Seawater-intruded coastal aquifer at approximately 7,000&thinsp;ppm TDS. SonixED&trade; delivering saline water desalination with integrated downstream brine valorization. Funded by the Flanders Climate Action Program. Hydrovolta&rsquo;s primary integrated reference site.</p>
         </div>
+      </article>
+      <article class="card card--image rv d1">
+        <img src="images/agriculture_background.webp" alt="Agricultural land supplied by Perth groundwater treatment" loading="lazy">
+        <div class="card__body">
+          <span class="status status--pilot">Utility Pilot Reference</span>
+          <h3>Perth, Australia &mdash; Water Corporation Perth</h3>
+          <p>Selective nitrate and salinity removal across three public utility sites &mdash; supplying clean water for drinking, irrigation, agriculture, and livestock. Cloud telemetry and regulatory monitoring active. Hydrovolta&rsquo;s primary utility reference internationally.</p>
+        </div>
+      </article>
+      <article class="card card--image rv">
+        <img src="images/brazil.webp" alt="Brazil remote groundwater project" loading="lazy">
+        <div class="card__body">
+          <span class="status status--loi">LOI Signed</span>
+          <h3>Brazil &mdash; Remote Groundwater Remediation</h3>
+          <p>Development-stage project for nitrate and salinity co-contamination at a remote site. High-recovery treatment and minimal brine disposal are central to the technical and economic case.</p>
+        </div>
+      </article>
+      <article class="card card--image rv d1">
+        <img src="images/saudi.webp" alt="Saudi Arabia selective recovery project" loading="lazy">
+        <div class="card__body">
+          <span class="status status--mou">MOU &middot; Pilot in Development</span>
+          <h3>Saudi Arabia &mdash; Selective Ion Recovery</h3>
+          <p>Development-stage opportunity for selective ion recovery from deep brackish groundwater and brine streams. Pilot design in progress. MOU signed.</p>
+        </div>
+      </article>
+    </div>
+    <div class="actions rv" style="margin-top:2rem"><a class="btn btn--out" href="projects.html">All reference projects</a></div>
+  </div>
+</section>
+
+<!-- WHO WE WORK WITH -->
+<section class="section section--soft">
+  <div class="wrap">
+    <div class="split rv">
+      <div>
+        <span class="ey">Who we work with</span>
+        <h2>Water utilities, municipal authorities, and industrial operators.</h2>
+        <p class="lead">Hydrovolta works with organisations that control a brackish groundwater source or process water stream, face a concrete water quality challenge, and need a solution that has been technically validated before full capital commitment.</p>
+        <p class="lead">We understand how projects are funded — through development bank financing, climate action programmes, bilateral aid, or industrial capital budgets. We have navigated all of these pathways in Belgium, Morocco, and Australia.</p>
+        <div style="background:var(--w);border-left:3px solid var(--g);border-radius:0 var(--r) var(--r) 0;padding:1.1rem 1.4rem;margin-top:1.5rem">
+          <p style="font-size:.88rem;color:var(--m);line-height:1.65;margin:0"><strong style="color:var(--n1)">For government and public authority buyers:</strong> We are familiar with the reporting, governance, and milestone structures of development finance institutions and government climate programmes.</p>
+        </div>
+        <div class="actions"><a class="btn btn--gold" href="contact.html">Talk to us about your project</a></div>
       </div>
-      <div class="trust-card">
-        <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <div class="trust-card-text">
-          <div class="trust-card-label">EIC Accelerator</div>
-          <div class="trust-card-value">€2.2M European Innovation Council</div>
-        </div>
-      </div>
-      <div class="trust-card">
-        <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg></div>
-        <div class="trust-card-text">
-          <div class="trust-card-label">R&amp;D Partners</div>
-          <div class="trust-card-value">VITO &amp; institutional research partnerships</div>
-        </div>
-      </div>
-      <div class="trust-card">
-        <div class="trust-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
-        <div class="trust-card-text">
-          <div class="trust-card-label">Active Projects</div>
-          <div class="trust-card-value">Morocco · Perth · Brazil · Saudi Arabia</div>
-        </div>
+      <div class="split__image rv d1">
+        <img src="images/hero_rendering.webp" alt="Hydrovolta CEO George Brik" loading="lazy">
       </div>
     </div>
   </div>
+</section>
 
-  <!-- YIELD EXPLAINER -->
-  <section class="section yield-explainer" id="yield">
-    <div class="section-inner">
-      <div class="yield-ex-grid">
-        <div class="yield-big-visual reveal">
-          <div class="yield-big-title">Recovery comparison — per 1,000 litres of source water</div>
-
-          <div class="yield-compare-row">
-            <div class="yield-compare-label">
-              <span class="yield-compare-name">Conventional treatment (RO / standard ED)</span>
-              <span class="yield-compare-stat">650–750 L usable</span>
-            </div>
-            <div class="yield-compare-track">
-              <div class="yield-compare-fill conv" data-target="70" style="width:0%">70%</div>
-              <span class="yield-gain-badge">300 L lost</span>
-            </div>
-          </div>
-
-          <div class="yield-compare-row" style="margin-top:1.5rem;">
-            <div class="yield-compare-label">
-              <span class="yield-compare-name" style="color:var(--n2);font-weight:700;">SonixED™</span>
-              <span class="yield-compare-stat" style="color:var(--n2);font-weight:700;">900+ L usable</span>
-            </div>
-            <div class="yield-compare-track">
-              <div class="yield-compare-fill sx" data-target="90" style="width:0%">90%+</div>
-              <span class="yield-gain-badge" style="color:var(--g);">&lt;100 L lost</span>
-            </div>
-          </div>
-
-          <div class="yield-cost-note">
-            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
-            <p><strong>Same infrastructure investment.</strong> The well, pump, civil works, and pre-treatment cost the same regardless of recovery rate. With SonixED™, that fixed investment delivers up to 35% more water — reducing your cost per cubic metre from day one.</p>
-          </div>
-        </div>
-
-        <div class="yield-ex-copy reveal">
-          <div class="section-label">The yield gap</div>
-          <h2 class="section-title" style="color:var(--n1);">Water you already own — that your system can't reach</h2>
-          <p class="section-intro">Every water treatment project starts with a source. Conventional systems recover 65–75% of it. The rest becomes brine — water you paid to extract, that you cannot use, and must manage as waste.</p>
-          <ul class="yield-bullets">
-            <li>
-              <span>In a 1,000 m³/day operation, that's <strong>250–350 m³ of discarded water, every day.</strong></span>
-            </li>
-            <li>
-              <span>The infrastructure — well, pump, pre-treatment — <strong>costs the same whether you recover 70% or 90%.</strong></span>
-            </li>
-            <li>
-              <span>Every additional m³ you recover <strong>lowers your cost per m³ delivered</strong> against fixed capital already committed.</span>
-            </li>
-            <li>
-              <span>As aquifer TDS increases over time, <strong>conventional recovery rates fall further.</strong> SonixED™ was designed for this trajectory.</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROBLEM SECTION -->
-  <section class="section problem-section" id="problem">
-    <div class="section-inner">
-      <div class="section-label">Why operators face this every day</div>
-      <h2 class="section-title">Four reasons your current system leaves water behind</h2>
-      <p class="section-intro">Conventional treatment technology was designed for cleaner source water. As your source becomes more challenging, these problems compound.</p>
-      <div class="problem-grid">
-
-        <div class="problem-card reveal">
-          <div class="problem-icon">
-            <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.23L5.71 21l1-1.23A4.49 4.49 0 0 0 8 20a4.49 4.49 0 0 0 4-2 4.49 4.49 0 0 0 4 2 4.49 4.49 0 0 0 4-2 4.5 4.5 0 0 0 2 1.72V17c-1 0-3.5-.5-4-2-1.5 1.5-3 2-4 2s-2.5-.5-4-2c-.34 1.04-1.55 1.66-2 1.91L3 14.23C5.09 11.17 8 6.5 17 8z"/></svg>
-          </div>
-          <h3>You are pumping water you cannot fully use</h3>
-          <p>Conventional systems recover 65–75% of source water. The remaining 25–35% becomes reject brine — water your infrastructure already paid to extract, that you cannot deliver. In water-scarce regions, that gap is not a technical detail. It is a supply shortfall.</p>
-        </div>
-
-        <div class="problem-card reveal">
-          <div class="problem-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14v-4H7l5-8v4h4l-5 8z"/></svg>
-          </div>
-          <h3>Scaling forces you to run conservative</h3>
-          <p>To protect membranes and surfaces from silica and hardness scaling, operators lower recovery rates. The system designed to deliver water becomes the reason you cannot push harder. Maintenance shutdowns compound the daily loss — and chemical cleaning cycles are expensive and frequent.</p>
-        </div>
-
-        <div class="problem-card reveal">
-          <div class="problem-icon">
-            <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
-          </div>
-          <h3>Your source water is getting harder every year</h3>
-          <p>Aquifer draw-down, seawater intrusion, and seasonal variation all increase salinity over time. A system performing at 72% recovery today may reach 62% within three years. Conventional performance degrades as conditions worsen. SonixED™ was designed for exactly this trajectory.</p>
-        </div>
-
-        <div class="problem-card reveal">
-          <div class="problem-icon">
-            <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
-          </div>
-          <h3>Full capital commitment before proven performance</h3>
-          <p>Sizing and funding a complete installation without demonstrated recovery data on your specific source water is a significant risk — for your organisation and for whoever is financing the project. Specifications from a reference case on different water are not evidence.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- TECHNOLOGY -->
-  <section class="section tech-section dark" id="technology">
-    <div class="section-inner">
-      <div class="section-label">SonixED™ Technology</div>
-      <h2 class="section-title">How 90%+ recovery is achieved — and sustained</h2>
-      <p class="section-intro">SonixED™ combines Electrodialysis Reversal with integrated ultrasound. Each element solves a specific barrier to high recovery on difficult source water.</p>
-      <div class="tech-grid">
-
-        <div class="tech-card reveal">
-          <div class="tech-number">90<sup>%+</sup></div>
-          <h3>High-Recovery Ion Separation</h3>
-          <p>Electrodialysis Reversal selectively removes dissolved ions — nitrate, sodium, chloride, fluoride — while retaining beneficial minerals including calcium and magnesium. Recovery rates of 90% or above are achievable in suitable applications, compared to 65–75% for conventional membrane treatment.</p>
-          <span class="tech-tag">Validated performance</span>
-        </div>
-
-        <div class="tech-card reveal">
-          <div class="tech-number">50–90<sup>%</sup></div>
-          <h3>Ultrasound Anti-Scaling</h3>
-          <p>Integrated ultrasound disrupts scale formation on stack surfaces in real time — silica, hardness, and mineral deposits that force conventional systems to run conservatively. This is what allows SonixED™ to maintain high recovery rates without the chemical anti-scalant cycles that drive operational cost.</p>
-          <span class="tech-tag">50–90% reduction in CIP chemical cycles — validated applications</span>
-        </div>
-
-        <div class="tech-card reveal">
-          <div class="tech-number">&lt;5<sup>%</sup></div>
-          <h3>Minimal Residual Brine</h3>
-          <p>Because recovery rates are high, the residual brine volume is small — less than 5–10% of intake in suitable applications. Where brine valorisation is relevant — acid and base recovery, selective mineral extraction — the concentrated stream can be processed further rather than disposed of.</p>
-          <span class="tech-tag">In suitable applications</span>
-        </div>
-
-      </div>
-      <div style="margin-top:2rem; text-align:center;">
-        <a href="technology.html" class="btn-primary">Full Technology Overview</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SYSTEMS -->
-  <section class="section systems-section" id="systems">
-    <div class="section-inner">
-      <div class="section-label">Commercial Systems</div>
-      <h2 class="section-title" style="color:var(--n1);">Two deployment pathways</h2>
-      <p class="section-intro">SonixED™ technology is deployed in two commercial configurations — a containerised unit for rapid deployment and a large-scale skid for permanent infrastructure.</p>
-      <div class="systems-grid">
-
-        <div class="system-card reveal">
-          <div class="system-card-img">
-            <img src="images/container_rendering_1.webp" alt="SalinBloc containerised desalination unit" loading="lazy" />
-          </div>
-          <div class="system-card-body">
-            <span class="system-badge">Containerised</span>
-            <h3>SalinBloc™</h3>
-            <p>A fully self-contained, mobile unit — pre-installed, pre-tested, and deployable within weeks. Designed for pilot programmes, remote sites, and projects where speed of deployment is a priority.</p>
-            <div class="system-specs">
-              <div class="system-spec"><span class="sk">Capacity</span><span class="sv">Up to 500 m³/day per unit</span></div>
-              <div class="system-spec"><span class="sk">TDS range</span><span class="sv">1,500–20,000 ppm</span></div>
-              <div class="system-spec"><span class="sk">Deployment</span><span class="sv">Weeks from order</span></div>
-              <div class="system-spec"><span class="sk">Monitoring</span><span class="sv">Cloud telemetry included</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="system-card reveal">
-          <div class="system-card-img">
-            <img src="images/industrial_background.webp" alt="Large-scale skid-mounted SonixED installation" loading="lazy" />
-          </div>
-          <div class="system-card-body">
-            <span class="system-badge">Large-Scale</span>
-            <h3>Skid-Mounted Systems</h3>
-            <p>Custom-engineered for permanent infrastructure at utility scale. Sized and configured to the specific source water chemistry, flow requirements, and output quality standard of each project.</p>
-            <div class="system-specs">
-              <div class="system-spec"><span class="sk">Capacity</span><span class="sv">500 m³/day — multi-MW</span></div>
-              <div class="system-spec"><span class="sk">TDS range</span><span class="sv">Application-specific</span></div>
-              <div class="system-spec"><span class="sk">Design basis</span><span class="sv">Pilot-demonstrated performance</span></div>
-              <div class="system-spec"><span class="sk">Applications</span><span class="sv">Utility, industrial, municipal</span></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- WHO WE WORK WITH -->
-  <section class="section who-section" id="clients">
-    <div class="section-inner">
-      <div class="section-label">Clients &amp; Partners</div>
-      <h2 class="section-title" style="color:var(--n1);">Who we work with</h2>
-      <p class="section-intro">Hydrovolta works directly with decision-makers responsible for water supply infrastructure — utilities, industrial operators, and government-backed programmes.</p>
-      <div class="who-grid">
-
-        <div class="who-card reveal">
-          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-5h2v5h6v-8h3L12 3zm0 12.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
-          <h3>Water Utilities &amp; Authorities</h3>
-          <p>Municipal and regional water authorities sourcing from brackish aquifers. Primary concern: reliable supply volume, quality compliance, long-term source viability. Funding typically through public budget or development bank financing.</p>
-        </div>
-
-        <div class="who-card reveal">
-          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg></div>
-          <h3>Industrial Operators</h3>
-          <p>Food and beverage, pharmaceutical, and agri-industrial facilities dependent on consistent process water quality. Primary concern: operating cost, production reliability, and compliance with discharge regulations.</p>
-        </div>
-
-        <div class="who-card reveal">
-          <div class="who-icon"><svg viewBox="0 0 24 24"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"/></svg></div>
-          <h3>Government &amp; Development Finance</h3>
-          <p>National water ministries, climate action programmes, and development finance institutions (World Bank, EBRD, AfDB and bilateral mechanisms). Infrastructure investment sized on demonstrated pilot data — not specifications alone.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- REFERENCE PROJECTS -->
-  <section class="section projects-section dark" id="projects">
-    <div class="section-inner">
-      <div class="section-label">Project Experience</div>
-      <h2 class="section-title">Active projects, pilots, and development-stage opportunities</h2>
-      <p class="section-intro">Each project is clearly labelled by maturity. We do not present pipeline as deployed infrastructure.</p>
-      <div class="projects-grid">
-
-        <div class="project-card reveal">
-          <div class="project-card-img">
-            <img src="images/morocco.webp" alt="Morocco desalination project" loading="lazy" />
-          </div>
-          <div class="project-card-body">
-            <span class="project-status status-active">Active — 2025–2028</span>
-            <h3>Morocco</h3>
-            <p>Saline groundwater desalination with brine valorisation. Seawater-intruded aquifer (~7,000 ppm TDS). Funded by Flanders Climate Action Programme. Targets high-recovery output with performance tracked through live operating data.</p>
-            <div class="project-detail">
-              <div class="project-detail-item"><strong>Source</strong> Saline aquifer</div>
-              <div class="project-detail-item"><strong>Application</strong> Agricultural + municipal</div>
-              <div class="project-detail-item"><strong>Focus</strong> Recovery + brine valorisation</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card reveal">
-          <div class="project-card-img">
-            <img src="images/industrial_background.webp" alt="Perth Australia utility pilot" loading="lazy" />
-          </div>
-          <div class="project-card-body">
-            <span class="project-status status-pilot">Active Paid Pilot</span>
-            <h3>Perth, Australia</h3>
-            <p>Selective nitrate and salinity removal across three public utility sites. Water Corporation of Western Australia. Cloud-monitored telemetry. Paid pilot contract — primary institutional utility reference.</p>
-            <div class="project-detail">
-              <div class="project-detail-item"><strong>Client</strong> Water Corporation WA</div>
-              <div class="project-detail-item"><strong>Sites</strong> 3 utility locations</div>
-              <div class="project-detail-item"><strong>Focus</strong> Nitrate + salinity</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card reveal">
-          <div class="project-card-img">
-            <img src="images/brazil.webp" alt="Brazil groundwater project" loading="lazy" />
-          </div>
-          <div class="project-card-body">
-            <span class="project-status status-loi">LOI Signed</span>
-            <h3>Brazil</h3>
-            <p>Remote groundwater in a region with co-contamination of nitrate and elevated salinity. Target recovery 95–98%. Full project scope in development following signed Letter of Intent.</p>
-            <div class="project-detail">
-              <div class="project-detail-item"><strong>Source</strong> Remote groundwater</div>
-              <div class="project-detail-item"><strong>Target</strong> 95–98% recovery</div>
-              <div class="project-detail-item"><strong>Status</strong> Full project in development</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card reveal">
-          <div class="project-card-img">
-            <img src="images/saudi.webp" alt="Saudi Arabia mineral recovery" loading="lazy" />
-          </div>
-          <div class="project-card-body">
-            <span class="project-status status-mou">MOU Signed</span>
-            <h3>Saudi Arabia</h3>
-            <p>Selective magnesium ion recovery from deep brackish groundwater. Brine valorisation pathway — Mg²⁺ extraction from concentrate stream. Pilot design in development following signed MOU.</p>
-            <div class="project-detail">
-              <div class="project-detail-item"><strong>Source</strong> Deep brackish aquifer</div>
-              <div class="project-detail-item"><strong>Focus</strong> Selective Mg²⁺ recovery</div>
-              <div class="project-detail-item"><strong>Status</strong> Pilot design phase</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW WE WORK -->
-  <section class="section process-section" id="process">
-    <div class="section-inner">
-      <div class="section-label">Our Process</div>
-      <h2 class="section-title" style="color:var(--n1);">We calculate your yield gap first. Then we prove it.</h2>
-      <p class="section-intro">We do not ask clients to commit to full infrastructure on the basis of specifications alone. Every engagement begins with data — and every full system is designed around demonstrated performance.</p>
-      <div class="process-steps">
-
-        <div class="process-step reveal">
-          <div class="step-num">01</div>
-          <h3>Calculate your yield gap</h3>
-          <p>We analyse your source water chemistry and quantify the gap between your current recovery rate and what is physically achievable. That number — in m³/day — is the starting point.</p>
-          <div class="step-outcome">
-            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            Water yield gap report
-          </div>
-        </div>
-
-        <div class="process-step reveal">
-          <div class="step-num">02</div>
-          <h3>Prove it on your water</h3>
-          <p>The pilot runs on your source water, at your site conditions. Recovery, scaling behaviour, and output quality are measured against your specific parameters — not a reference case from a different geography.</p>
-          <div class="step-outcome">
-            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            Site-specific performance data
-          </div>
-        </div>
-
-        <div class="process-step reveal">
-          <div class="step-num">03</div>
-          <h3>Size on demonstrated performance</h3>
-          <p>Full system design is based on what the pilot achieved — not projected from specifications. The numbers that go into your engineering proposal and funding application are real operating figures.</p>
-          <div class="step-outcome">
-            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            Bankable performance baseline
-          </div>
-        </div>
-
-        <div class="process-step reveal">
-          <div class="step-num">04</div>
-          <h3>Scale with evidence</h3>
-          <p>Expansion — to additional sites or higher capacity — builds on an established track record. Development bank financing, government climate programmes, and bilateral aid mechanisms all require this kind of documented baseline.</p>
-          <div class="step-outcome">
-            <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            Fundable infrastructure pathway
-          </div>
-        </div>
-
-      </div>
-      <div class="process-note">
-        <p><strong>Development finance note:</strong> Steps 02 and 03 are specifically structured to produce the baseline data required by development banks, climate funds, and bilateral aid mechanisms. If your project is government or development-finance backed, tell us at the assessment stage — we design the pilot accordingly.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ASSESSMENT FORM -->
-  <section class="section form-section dark" id="assessment">
-    <div class="section-inner">
-      <div class="form-layout">
-        <div class="form-intro-block">
-          <div class="section-label">Engineering Assessment</div>
-          <h2 class="section-title">Tell us about your water. We'll calculate what you're leaving behind.</h2>
-          <p class="section-intro">Submit your source water details and recovery requirements. Our engineering team responds within five working days with a technical outline — including your estimated yield gap and what closing it is worth per m³.</p>
-          <ul class="form-checklist">
-            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Estimated yield gap in m³/day</li>
-            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Cost-per-m³ improvement estimate</li>
-            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Indicative pilot scope and timeline</li>
-            <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> No commitment required at this stage</li>
-          </ul>
-        </div>
-
-        <form class="assessment-form" id="assessmentForm" action="https://formsubmit.co/sales@hydrovolta.com" method="POST" novalidate>
-          <input type="text" name="_honey" style="display:none" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_subject" value="New Hydrovolta Engineering Assessment" />
-          <input type="hidden" name="_next" value="https://hydrovolta.com/thank-you.html" />
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="af_name">First Name *</label>
-              <input type="text" id="af_name" name="name" required placeholder="First name" />
-            </div>
-            <div class="form-group">
-              <label for="af_org">Organisation *</label>
-              <input type="text" id="af_org" name="organisation" required placeholder="Your organisation" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="af_email">Email Address *</label>
-            <input type="email" id="af_email" name="email" required placeholder="your@email.com" />
-          </div>
-
-          <div class="form-group">
-            <label for="af_enquiry">Type of enquiry</label>
-            <select id="af_enquiry" name="enquiry_type">
-              <option value="">— Select —</option>
-              <option value="Groundwater desalination — new project">Groundwater desalination — new project</option>
-              <option value="Upgrade or replacement of existing system">Upgrade or replacement of existing system</option>
-              <option value="Pilot evaluation">Pilot evaluation</option>
-              <option value="Brine valorisation">Brine valorisation</option>
-              <option value="Government or development finance project">Government or development finance project</option>
-              <option value="General technical enquiry">General technical enquiry</option>
-            </select>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="af_tds">Source water TDS (ppm)</label>
-              <input type="text" id="af_tds" name="tds" placeholder="e.g. 3,000–8,000" />
-            </div>
-            <div class="form-group">
-              <label for="af_flow">Required flow (m³/day)</label>
-              <input type="text" id="af_flow" name="flow" placeholder="e.g. 500 m³/day" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="af_notes">Additional context</label>
-            <textarea id="af_notes" name="notes" placeholder="Source type, known contaminants, project location, funding mechanism..."></textarea>
-          </div>
-
-          <button type="submit" class="form-submit">Request Engineering Assessment →</button>
-          <p class="form-privacy">Your information is used only to prepare a technical response. We do not share it with third parties. <a href="privacy.html" style="color:rgba(255,255,255,0.45);text-decoration:underline;">Privacy Policy</a></p>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- LOGO STRIP -->
-  <div class="logo-strip" aria-label="Partners and backers">
-    <div class="logo-strip-title">Partners, funders &amp; institutional collaborators</div>
-    <div class="marquee-wrap">
-      <div class="marquee-track" id="marqueeTrack">
-        <!-- Set 1 -->
-        <div class="marquee-item"><img src="images/EIC_logo.webp" alt="European Innovation Council" /></div>
-        <div class="marquee-item"><img src="images/watergroep_logo.webp" alt="De Watergroep" /></div>
-        <div class="marquee-item"><img src="images/farys_logo.webp" alt="Farys" /></div>
-        <div class="marquee-item"><img src="images/watereu_logo.webp" alt="Water Europe" /></div>
-        <div class="marquee-item"><img src="images/aquatech_logo.webp" alt="Aquatech" /></div>
-        <div class="marquee-item"><img src="images/flanders_logo.webp" alt="Flanders" /></div>
-        <!-- Set 2 (duplicate for seamless loop) -->
-        <div class="marquee-item"><img src="images/EIC_logo.webp" alt="European Innovation Council" /></div>
-        <div class="marquee-item"><img src="images/watergroep_logo.webp" alt="De Watergroep" /></div>
-        <div class="marquee-item"><img src="images/farys_logo.webp" alt="Farys" /></div>
-        <div class="marquee-item"><img src="images/watereu_logo.webp" alt="Water Europe" /></div>
-        <div class="marquee-item"><img src="images/aquatech_logo.webp" alt="Aquatech" /></div>
-        <div class="marquee-item"><img src="images/flanders_logo.webp" alt="Flanders" /></div>
-      </div>
-    </div>
+<!-- CTA -->
+<section class="cta-strip">
+  <div class="cta-strip__in">
+    <span class="ey ey--lt">Engineering Assessment</span>
+    <h2>Send the water data. We assess the fit.</h2>
+    <p>Submit source water chemistry, TDS, target use, flow requirements, and any brine analysis. Our engineering team will assess whether SonixED&trade; or a brine valorization pathway is the right answer for your application — and tell you honestly if it is not.</p>
+    <div class="actions"><a class="btn btn--gold" href="contact.html">Request Engineering Assessment</a><a class="btn btn--ghost" href="projects.html">View References</a></div>
+    <p class="note">No commercial obligation. All assessments are based on submitted water chemistry data.</p>
   </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-wrap">
-      <div class="footer-cta">
-        <div class="cta-text">Have a water treatment challenge? Let's talk.</div>
-        <div class="cta-contact">
-          <span>George Brik, CEO</span>
-          <strong>+32 288 00336</strong>
-        </div>
-      </div>
-      <div class="footer-main">
-        <div class="footer-brand">
-          <img loading="lazy" src="images/hydrovolta_logo.webp" alt="Hydrovolta NV" class="footer-logo" />
-          <p>High-recovery groundwater desalination</p>
-          <div class="footer-socials">
-            <a href="https://be.linkedin.com/company/hydrovolta" target="_blank" rel="noopener" aria-label="LinkedIn">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h5V24H0zM8 8h4.8v2.6h.1c.7-1.3 2.4-2.6 4.9-2.6 5.2 0 6.2 3.4 6.2 7.8V24h-5v-7.5c0-1.8 0-4-2.5-4s-2.9 2-2.9 3.9V24H8z"/></svg>
-            </a>
-            <a href="https://www.facebook.com/hydrovolta/" target="_blank" rel="noopener" aria-label="Facebook">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="18" height="18" fill="currentColor"><path d="M279.14 288l14.22-92.66h-88.91V127.06c0-25.35 12.42-50.06 52.24-50.06H293V6.26S259.43 0 225.36 0C141.09 0 89.09 54.42 89.09 153.58V195.3H0v92.7h89.09V512h107.72V288z"/></svg>
-            </a>
-            <a href="https://x.com/hydrovolta1" target="_blank" rel="noopener" aria-label="X">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="18" height="18" fill="currentColor"><path d="M 5.9199219 6 L 20.582031 27.375 L 6.2304688 44 L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 L 44 44 L 28.681641 21.669922 L 42.199219 6 L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 L 5.9199219 6 z M 9.7167969 8 L 16.880859 8 L 40.203125 42 L 33.039062 42 L 9.7167969 8 z"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="footer-links">
-          <h4 class="footer-links-title">Quick Links</h4>
-          <div class="footer-links-row">
-            <ul class="footer-links-col left">
-              <li><a href="technology.html">SonixED™ Technology</a></li>
-              <li><a href="solutions.html">Systems</a></li>
-              <li><a href="applications.html">Projects</a></li>
-            </ul>
-            <ul class="footer-links-col right">
-              <li><a href="about.html">About Us</a></li>
-              <li><a href="contact.html">Contact</a></li>
-              <li><a href="questions.html">Full Questionnaire</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-newsletter">
-          <h4>Stay informed — subscribe for project updates</h4>
-          <form>
-            <input type="email" placeholder="Your email address" required />
-            <button type="submit">Subscribe</button>
-          </form>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Hydrovolta NV. All rights reserved. Registered in Belgium — BE 0664.974.129</p>
-        <div class="footer-policies">
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="questions.html">Full Assessment Form</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // ── Bar animations (IntersectionObserver) ──────────────────
-    const animateBars = (entries, observer) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.querySelectorAll('[data-target]').forEach(bar => {
-          const target = parseFloat(bar.dataset.target);
-          setTimeout(() => { bar.style.width = target + '%'; }, 200);
-        });
-        observer.unobserve(entry.target);
-      });
-    };
-
-    const barObs = new IntersectionObserver(animateBars, { threshold: 0.3 });
-    document.querySelectorAll('.hero-yield, .yield-big-visual').forEach(el => barObs.observe(el));
-
-    // ── Scroll reveal ─────────────────────────────────────────
-    const revealObs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-    // ── Nav mobile toggle ─────────────────────────────────────
-    const toggle = document.querySelector('.nav-toggle');
-    const links = document.getElementById('nav-links');
-    if (toggle && links) {
-      toggle.addEventListener('click', () => {
-        const open = links.style.display === 'flex';
-        links.style.display = open ? 'none' : 'flex';
-        links.style.flexDirection = 'column';
-        links.style.position = 'absolute';
-        links.style.top = '64px';
-        links.style.left = '0';
-        links.style.right = '0';
-        links.style.background = 'var(--n2)';
-        links.style.padding = '1rem 2rem 1.5rem';
-        links.style.gap = '1rem';
-        toggle.setAttribute('aria-expanded', String(!open));
-      });
-    }
-
-    // ── Form intercept ────────────────────────────────────────
-    const aForm = document.getElementById('assessmentForm');
-    if (aForm) {
-      aForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = aForm.querySelector('.form-submit');
-        btn.textContent = 'Sending…';
-        btn.disabled = true;
-        try {
-          const res = await fetch(aForm.action, {
-            method: 'POST',
-            body: new FormData(aForm),
-            headers: { Accept: 'application/json' }
-          });
-          if (res.ok) {
-            window.location.href = 'thank-you.html';
-          } else { throw new Error(); }
-        } catch {
-          btn.textContent = 'Request Engineering Assessment →';
-          btn.disabled = false;
-          alert('There was a problem submitting the form. Please email george@hydrovolta.com directly.');
-        }
-      });
-    }
-  </script>
-</body>
-</html>
+</main>
+<section class="logos"><div class="wrap"><p>Institutional partners &amp; backing</p><div class="logos__row"><img src="images/EIC_logo.webp" alt="European Innovation Council" loading="lazy"><img src="images/flanders_logo.webp" alt="Flanders" loading="lazy"><img src="images/watereu_logo.webp" alt="Water Europe" loading="lazy"><img src="images/watergroep_logo.webp" alt="De Watergroep" loading="lazy"><img src="images/farys_logo.webp" alt="Farys" loading="lazy"><img src="images/GSTIC_logo.webp" alt="GSTIC" loading="lazy"><img src="images/aquatech_logo.webp" alt="Aquatech" loading="lazy"></div></div></section><footer class="footer"><div class="wrap"><div class="footer__grid"><div><h4>Hydrovolta</h4><p>High-recovery treatment for brackish groundwater, hard water, and saline sources. Modular and project-engineered systems. Founded 2016, Leuven, Belgium.</p></div><div><h4>Solutions</h4><ul><li><a href="groundwater.html">Groundwater Desalination</a></li><li><a href="brine-valorization.html">Brine Valorization</a></li><li><a href="technology.html">SonixED&trade; Technology</a></li><li><a href="systems.html">SalinBloc&trade; &amp; Systems</a></li></ul></div><div><h4>Company</h4><ul><li><a href="projects.html">Reference Projects</a></li><li><a href="applications.html">Applications</a></li><li><a href="about.html">About Hydrovolta</a></li><a href="privacy.html">Privacy Policy</a></li></ul></div><div><h4>Start with water data</h4><p>TDS, hardness, nitrate, silica, target flow, and any brine analysis.</p><p style="margin-top:1rem"><a class="btn btn--gold btn--sm" href="contact.html">Request assessment</a></p></div></div><div class="footer__bottom"><p>&copy; <span data-year></span> Hydrovolta NV &middot; All rights reserved &middot; Leuven, Belgium</p><p>SonixED&trade; &middot; SalinBloc&trade; &middot; Integrated brine valorization</p><div class="footer__social"><a href="https://be.linkedin.com/company/hydrovolta" target="_blank" rel="noopener" aria-label="Hydrovolta on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a><a href="https://www.facebook.com/hydrovolta/" target="_blank" rel="noopener" aria-label="Hydrovolta on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a></div></div></div></footer><script src="js/site.js"></script></body></html>
