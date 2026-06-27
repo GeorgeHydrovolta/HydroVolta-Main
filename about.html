@@ -1,129 +1,359 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="Hydrovolta NV, founded 2016, Leuven Belgium. Patent granted 2021. EIC Accelerator 2.2M. Institutional partnerships VITO CNR. George Brik CEO."/><title>About | Hydrovolta</title><link rel="canonical" href="https://hydrovolta.com/about"/><meta property="og:title" content="About | Hydrovolta"/><meta property="og:description" content="Hydrovolta NV, founded 2016, Leuven Belgium. Patent granted 2021. EIC Accelerator 2.2M. Institutional partnerships VITO CNR. George Brik CEO."/><meta property="og:image" content="https://hydrovolta.com/images/hydrovolta_logo-OG.webp"/><meta name="twitter:card" content="summary_large_image"/><link rel="icon" href="images/favicon.ico"/><link rel="stylesheet" href="css/site.css"/></head><body data-page="about"><a class="skip" href="#main">Skip to content</a>
-<div class="topbar">Active in Morocco &amp; Perth &middot; Pilot contracts open &middot; EIC Accelerator &euro;2.2M awarded</div>
-<nav class="nav" aria-label="Main navigation"><div class="nav__in"><a class="brand" href="index.html"><span class="brand__mark"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8a8 8 0 0 0 16 0c0-3.32-2.67-7.25-8-11.8z"/></svg></span><span>Hydrovolta</span></a>
-<div class="nav__links" id="nav-links"><a href="index.html">Home</a><a href="technology.html">How it Works</a><a href="projects.html">Projects</a><a href="systems.html">Systems</a><a href="about.html">About</a><a class="btn btn--navy btn--sm" href="contact.html">Get in Touch</a></div>
-<button class="menu" id="menu-btn" aria-label="Toggle navigation" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button></div></nav>
-<main id="main">
-<section class="hero hero--split">
-  <div class="hero__copy">
-    <span class="kicker">About Hydrovolta</span>
-    <h1>Founded in Belgium. Built on eight years of validated science.</h1>
-    <p class="lead" style="margin-top:1.25rem;max-width:48ch">Hydrovolta NV was established in Leuven, Belgium in 2016 with one objective: develop a high-recovery alternative to conventional high-waste treatment for difficult groundwater. SonixED&trade; was the result &mdash; a patented combination of electrodialysis reversal and ultrasound, developed through long-term institutional research partnerships. Patent granted 2021. EIC Accelerator &euro;2.2M.</p>
-    <div class="actions"><a class="btn btn--gold" href="contact.html">Contact Hydrovolta</a><a class="btn btn--out" href="projects.html">Reference projects</a></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hydrovolta NV — founded 2016, Leuven Belgium. Patent granted 2021. EIC Accelerator €2.2M. George Brik CEO. VITO and CNR research partnerships." />
+  <title>About Hydrovolta NV | Founded 2016, Leuven Belgium</title>
+  <link rel="canonical" href="https://hydrovolta.com/about.html" />
+  <meta property="og:title" content="About Hydrovolta NV" />
+  <meta property="og:image" content="https://hydrovolta.com/images/hydrovolta_logo-OG.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Barlow',sans-serif;font-size:16px;color:#1a2a3a;background:#fff;line-height:1.6}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    :root{--n1:#001933;--n2:#002e5a;--n3:#003d78;--g:#c9a22a;--gl:#e8c84a;--w:#fff;--s:#f4f7fb;--fd:'Barlow Condensed',sans-serif;--fb:'Barlow',sans-serif;--radius:10px;--shadow:0 4px 24px rgba(0,0,0,.08)}
+    .topbar{background:var(--n1);border-bottom:1px solid rgba(255,255,255,.08);padding:.55rem 2rem;display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap}
+    .topbar-item{display:flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.7)}
+    .topbar-item svg{width:13px;height:13px;fill:var(--g);flex-shrink:0}
+    .site-nav{position:sticky;top:0;z-index:100;background:var(--n2);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;box-shadow:0 2px 12px rgba(0,0,0,.2)}
+    .nav-logo img{height:36px}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+    .nav-links a{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.75);transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:#fff}
+    .nav-cta{background:var(--g);color:var(--n1)!important;padding:.55rem 1.25rem;border-radius:4px;font-weight:700!important;transition:background .2s!important}
+    .nav-cta:hover{background:var(--gl)!important}
+    .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:.5rem}
+    .nav-toggle span{display:block;width:22px;height:2px;background:#fff;margin:4px 0;border-radius:2px}
+    @media(max-width:860px){.nav-links{display:none}.nav-toggle{display:block}}
+    .page-hero{background:var(--n1);padding:5rem 2rem 4rem}
+    .page-hero-inner{max-width:1100px;margin:0 auto}
+    .page-hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,162,42,.15);border:1px solid rgba(201,162,42,.4);border-radius:20px;padding:.35rem .9rem;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--g);margin-bottom:1.5rem}
+    .page-hero h1{font-family:var(--fd);font-size:clamp(2rem,4vw,3.2rem);font-weight:800;text-transform:uppercase;letter-spacing:.02em;color:#fff;line-height:1.1;margin-bottom:1.25rem}
+    .page-hero h1 em{color:var(--g);font-style:normal}
+    .page-hero-body{font-size:1.05rem;color:rgba(255,255,255,.7);max-width:640px;line-height:1.65;margin-bottom:2rem}
+    .page-hero-body strong{color:#fff}
+    .hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+    .btn-primary{display:inline-block;background:var(--g);color:var(--n1);font-family:var(--fd);font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:.9rem 2rem;border-radius:4px;transition:background .2s,transform .15s}
+    .btn-primary:hover{background:var(--gl);transform:translateY(-1px)}
+    .btn-ghost{display:inline-flex;align-items:center;gap:.4rem;color:rgba(255,255,255,.7);font-size:.9rem;font-weight:600;transition:color .2s}
+    .btn-ghost:hover{color:#fff}
+    .section{padding:5rem 2rem}
+    .section-inner{max-width:1100px;margin:0 auto}
+    .section-label{font-family:var(--fd);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--g);margin-bottom:.6rem}
+    .section-title{font-family:var(--fd);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;text-transform:uppercase;letter-spacing:.03em;line-height:1.1;margin-bottom:1rem}
+    /* STORY SPLIT */
+    .story-split{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+    @media(max-width:860px){.story-split{grid-template-columns:1fr;gap:2.5rem}}
+    .story-copy p{font-size:.95rem;color:#4a5568;line-height:1.75;margin-bottom:1.1rem}
+    /* REGISTRY TABLE */
+    .registry{background:var(--n1);border-radius:var(--radius);overflow:hidden}
+    .registry-head{background:var(--n2);padding:1rem 1.5rem}
+    .registry-head h3{font-family:var(--fd);font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#fff}
+    .rrow{display:flex;justify-content:space-between;padding:.7rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.06);font-size:.85rem;gap:1rem;flex-wrap:wrap}
+    .rrow:last-child{border-bottom:none}
+    .rrow span:first-child{color:rgba(255,255,255,.45);flex-shrink:0;min-width:140px}
+    .rrow span:last-child{color:#fff;font-weight:600;text-align:right}
+    /* TEAM */
+    .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2rem}
+    @media(max-width:860px){.team-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:500px){.team-grid{grid-template-columns:1fr}}
+    .team-card{background:#fff;border:1px solid #e2e8f0;border-radius:var(--radius);overflow:hidden;text-align:center;padding:0 0 1.75rem;transition:box-shadow .2s}
+    .team-card:hover{box-shadow:var(--shadow)}
+    .team-card img{width:140px;height:140px;object-fit:cover;object-position:center top;border-radius:50%;margin:1.75rem auto .75rem;border:3px solid var(--s)}
+    .team-card h3{font-family:var(--fd);font-size:1.1rem;font-weight:700;text-transform:uppercase;color:var(--n1);margin-bottom:.25rem;padding:0 1.25rem}
+    .team-role{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--g);margin-bottom:.75rem}
+    .team-card p{font-size:.84rem;color:#4a5568;line-height:1.6;padding:0 1.25rem}
+    /* CREDENTIAL CARDS */
+    .cred-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    @media(max-width:760px){.cred-grid{grid-template-columns:1fr}}
+    .cred-card{border:1px solid #e2e8f0;border-radius:var(--radius);padding:2rem;background:#fff;transition:border-color .2s,box-shadow .2s}
+    .cred-card:hover{border-color:var(--n2);box-shadow:var(--shadow)}
+    .cred-num{font-family:var(--fd);font-size:1.8rem;font-weight:800;color:var(--n2);margin-bottom:.5rem;line-height:1}
+    .cred-card h3{font-family:var(--fd);font-size:1.05rem;font-weight:700;text-transform:uppercase;color:var(--n1);margin-bottom:.6rem}
+    .cred-card p{font-size:.88rem;color:#4a5568;line-height:1.6}
+    /* YT */
+    .yt-wrap{max-width:760px;margin:0 auto}
+    .yt-embed{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;box-shadow:0 8px 32px rgba(0,25,51,.15);background:var(--n1);cursor:pointer}
+    .yt-thumb{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:.85}
+    .yt-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+    .yt-play svg{width:72px;height:72px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))}
+    .yt-iframe{width:100%;height:100%;position:absolute;inset:0;border:none}
+    /* CTA */
+    .cta-strip{background:var(--g);padding:3rem 2rem;text-align:center}
+    .cta-strip h2{font-family:var(--fd);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;text-transform:uppercase;color:var(--n1);margin-bottom:.75rem}
+    .cta-strip p{color:rgba(0,25,51,.7);max-width:520px;margin:0 auto 1.75rem;font-size:.95rem}
+    .cta-strip-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn-dark{display:inline-block;background:var(--n1);color:#fff;font-family:var(--fd);font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:.9rem 2rem;border-radius:4px;transition:background .2s}
+    .btn-dark:hover{background:var(--n2)}
+    .btn-outline-dark{display:inline-block;border:2px solid var(--n1);color:var(--n1);font-family:var(--fd);font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:.75rem 1.75rem;border-radius:4px;transition:background .2s}
+    .btn-outline-dark:hover{background:rgba(0,25,51,.1)}
+    .logo-strip{background:var(--n2);padding:2rem;overflow:hidden}
+    .logo-strip-title{text-align:center;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:1.25rem}
+    .marquee-wrap{overflow:hidden}
+    .marquee-track{display:flex;gap:3rem;animation:marquee 28s linear infinite;width:max-content}
+    .marquee-wrap:hover .marquee-track{animation-play-state:paused}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .marquee-item{display:flex;align-items:center;height:40px;opacity:.5;transition:opacity .2s}
+    .marquee-item img{height:32px;object-fit:contain;filter:brightness(0) invert(1)}
+    .marquee-item:hover{opacity:.85}
+    .site-footer{background:var(--n1)}
+    .footer-cta{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 3rem;background:var(--g);flex-wrap:wrap;gap:1rem}
+    .footer-cta .cta-text{font-family:var(--fd);font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--n1)}
+    .footer-cta .cta-contact{display:flex;flex-direction:column;line-height:1.4}
+    .footer-cta .cta-contact span{font-size:.75rem;color:rgba(0,25,51,.65);font-weight:600}
+    .footer-cta .cta-contact strong{font-size:1rem;color:var(--n1)}
+    .footer-main{display:grid;grid-template-columns:1.2fr 1fr 1.4fr;gap:3rem;padding:3rem}
+    @media(max-width:760px){.footer-main{grid-template-columns:1fr;gap:2rem;padding:2rem}}
+    .footer-logo{height:36px;margin-bottom:.75rem}
+    .footer-brand p{font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:1.25rem}
+    .footer-socials{display:flex;gap:.75rem}
+    .footer-socials a{width:34px;height:34px;background:rgba(255,255,255,.06);border-radius:6px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55);transition:background .2s,color .2s}
+    .footer-socials a:hover{background:rgba(255,255,255,.12);color:#fff}
+    .footer-links-title{font-family:var(--fd);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.4);margin-bottom:1rem}
+    .footer-links-row{display:flex;gap:2rem}
+    .footer-links-col{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+    .footer-links-col a{font-size:.88rem;color:rgba(255,255,255,.6);transition:color .2s}
+    .footer-links-col a:hover{color:#fff}
+    .footer-newsletter h4{font-size:.85rem;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:.75rem;line-height:1.4}
+    .footer-newsletter form{display:flex}
+    .footer-newsletter input{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-right:none;border-radius:4px 0 0 4px;padding:.65rem .9rem;font-family:var(--fb);font-size:.85rem;color:#fff}
+    .footer-newsletter input::placeholder{color:rgba(255,255,255,.35)}
+    .footer-newsletter button{background:var(--g);color:var(--n1);font-weight:700;font-size:.8rem;border:none;padding:0 1rem;border-radius:0 4px 4px 0;cursor:pointer}
+    .footer-newsletter button:hover{background:var(--gl)}
+    .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding:1rem 3rem;border-top:1px solid rgba(255,255,255,.07);flex-wrap:wrap;gap:.75rem}
+    .footer-bottom p{font-size:.78rem;color:rgba(255,255,255,.35)}
+    .footer-policies{display:flex;gap:1rem}
+    .footer-policies a{font-size:.78rem;color:rgba(255,255,255,.35);transition:color .2s}
+    .footer-policies a:hover{color:rgba(255,255,255,.7)}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-item"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Patent 2021 — SonixED™</div>
+    <div class="topbar-item"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>EIC Accelerator — €2.2M</div>
+    <div class="topbar-item"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>VITO &amp; CNR Research Partnerships</div>
   </div>
-  <div class="hero__visual">
-    <img class="active" src="images/team_photo_cropped.webp" alt="Hydrovolta founding team" fetchpriority="high">
-  </div>
-</section>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a class="nav-logo" href="index.html"><img src="images/hydrovolta_logo.webp" alt="Hydrovolta NV" /></a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="technology.html">Technology</a></li>
+      <li><a href="solutions.html">Systems</a></li>
+      <li><a href="applications.html">Projects</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Request Assessment</a></li>
+    </ul>
+  </nav>
 
-<section class="section">
-  <div class="wrap">
-    <div class="split rv">
-      <div>
-        <span class="ey">Company history</span>
-        <h2>From scientific hypothesis to deployed technology.</h2>
-        <p class="lead">George Brik and Yousef Yousef founded Hydrovolta NV in May 2016 in Leuven, Belgium. George brings over 25 years of industrial water engineering experience across Europe and the Middle East, specialising in advanced membrane architectures, electrodialysis systems, and high-purity water treatment.</p>
-        <p class="lead">SonixED&trade; was developed through a sustained research collaboration with VITO (the Flemish Institute for Technological Research) and a broader network of high-level institutional research partners including CNR and others. Following eight years of rigorous laboratory validation, the foundational process patent was granted in 2021.</p>
-        <p class="lead">Supported by a &euro;2.2M deep-tech development grant from the European Innovation Council (EIC) Accelerator, Hydrovolta now operates active projects in Morocco and Australia, with pipeline development in Brazil and Saudi Arabia. Brine valorization is confirmed as a core element of the R&amp;D portfolio and commercial roadmap, with the Morocco deployment combining SonixED&trade; desalination and downstream brine valorization in a single integrated project.</p>
-      </div>
-      <div class="registry rv d1">
-        <div class="registry__head"><h3>Hydrovolta NV &mdash; Company Registry</h3></div>
-        <div class="rrow"><span>Headquarters</span><span>Leuven, Belgium</span></div>
-        <div class="rrow"><span>Founded</span><span>May 2016</span></div>
-        <div class="rrow"><span>Registration</span><span>BE 0652.996.179 (KBO/CBE)</span></div>
-        <div class="rrow"><span>Core technology</span><span>SonixED&trade; (Patent granted 2021)</span></div>
-        <div class="rrow"><span>Brine valorization</span><span>Electromembrane &amp; complementary configurations</span></div>
-        <div class="rrow"><span>Commercial platform</span><span>SalinBloc&trade;</span></div>
-        <div class="rrow"><span>Research partnerships</span><span>VITO, CNR &amp; others</span></div>
-        <div class="rrow"><span>Institutional funding</span><span>&euro;2.2M EIC Accelerator</span></div>
-        <div class="rrow"><span>Active geographies</span><span>Belgium, Morocco, Australia, Brazil, Saudi Arabia</span></div>
-        <div class="rrow"><span>Commercial model</span><span>Analyse &rarr; Pilot &rarr; Scale</span></div>
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-eyebrow">About Hydrovolta</div>
+      <h1>Founded in Belgium.<br/>Built on <em>eight years<br/>of validated science.</em></h1>
+      <p class="page-hero-body">Hydrovolta NV was established in Leuven, Belgium in 2016 with one objective: develop a high-recovery alternative to conventional high-waste treatment for difficult groundwater. SonixED™ was the result. <strong>Patent granted 2021. EIC Accelerator €2.2M.</strong></p>
+      <div class="hero-actions">
+        <a href="contact.html" class="btn-primary">Contact Hydrovolta</a>
+        <a href="applications.html" class="btn-ghost">Reference Projects →</a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section section--soft">
-  <div class="wrap">
-    <div class="head"><div class="rv"><span class="ey">Leadership</span><h2>Built and led by water treatment practitioners.</h2></div>
-    <p class="lead rv d1">Hydrovolta was founded by a water treatment practitioner with 25 years of hands-on industrial experience &mdash; not by investors or software engineers. That distinction shapes every commercial and technical decision the company makes.</p></div>
-    <div class="team-grid" style="grid-template-columns:repeat(3,1fr)">
-      <article class="team-card rv">
-        <img src="images/George.webp" alt="George Brik, CEO and Co-Founder, Hydrovolta" loading="lazy">
-        <div class="team-card__body">
+  <!-- COMPANY STORY + REGISTRY -->
+  <section class="section" style="background:#fff;">
+    <div class="section-inner">
+      <div class="story-split">
+        <div class="story-copy reveal">
+          <div class="section-label">Company History</div>
+          <h2 class="section-title" style="color:var(--n1);">From scientific hypothesis to deployed technology</h2>
+          <p>George Brik and Yousef Yousef founded Hydrovolta NV in May 2016 in Leuven, Belgium. George brings over 25 years of industrial water engineering experience across Europe and the Middle East, specialising in advanced membrane architectures, electrodialysis systems, and high-purity water treatment.</p>
+          <p>SonixED™ was developed through a sustained research collaboration with VITO (the Flemish Institute for Technological Research) and a broader network of high-level institutional research partners including CNR and others. Following eight years of rigorous laboratory validation, the foundational process patent was granted in 2021.</p>
+          <p>Supported by a €2.2M deep-tech development grant from the European Innovation Council (EIC) Accelerator, Hydrovolta now operates active projects in Morocco and Australia, with pipeline development in Brazil and Saudi Arabia. Brine valorisation is confirmed as a core element of the R&amp;D portfolio, with the Morocco deployment combining SonixED™ desalination and downstream brine valorisation in a single integrated project.</p>
+        </div>
+        <div class="registry reveal">
+          <div class="registry-head"><h3>Hydrovolta NV — Company Registry</h3></div>
+          <div class="rrow"><span>Headquarters</span><span>Leuven, Belgium</span></div>
+          <div class="rrow"><span>Founded</span><span>May 2016</span></div>
+          <div class="rrow"><span>Registration</span><span>BE 0664.974.129</span></div>
+          <div class="rrow"><span>Core technology</span><span>SonixED™ (Patent granted 2021)</span></div>
+          <div class="rrow"><span>Brine valorisation</span><span>Electromembrane &amp; complementary configurations</span></div>
+          <div class="rrow"><span>Commercial platform</span><span>SalinBloc™</span></div>
+          <div class="rrow"><span>Research partnerships</span><span>VITO, CNR &amp; others</span></div>
+          <div class="rrow"><span>Institutional funding</span><span>€2.2M EIC Accelerator</span></div>
+          <div class="rrow"><span>Active geographies</span><span>Belgium · Morocco · Australia · Brazil · Saudi Arabia</span></div>
+          <div class="rrow"><span>Commercial model</span><span>Analyse → Pilot → Scale</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP -->
+  <section class="section" style="background:var(--s);">
+    <div class="section-inner">
+      <div class="section-label">Leadership</div>
+      <h2 class="section-title" style="color:var(--n1);">Built and led by water treatment practitioners</h2>
+      <p style="font-size:1rem;color:#4a5568;max-width:620px;line-height:1.65;margin-bottom:0;">Hydrovolta was founded by a water treatment practitioner with 25 years of hands-on industrial experience — not by investors or software engineers. That distinction shapes every commercial and technical decision the company makes.</p>
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <img src="images/George.webp" alt="George Brik, CEO and Co-Founder" loading="lazy">
           <h3>George Brik</h3>
-          <div class="role">CEO &amp; Co-Founder</div>
-          <p>25+ years of industrial water engineering experience across Europe and the Middle East. Deep expertise in membrane technology, electrodialysis, RO, and pharmaceutical-grade water systems. The technical architect of SonixED&trade; and the scientific driving force behind Hydrovolta. EIC Accelerator Ambassador.</p>
+          <div class="team-role">CEO &amp; Co-Founder</div>
+          <p>25+ years of industrial water engineering experience across Europe and the Middle East. Deep expertise in membrane technology, electrodialysis, RO, and pharmaceutical-grade water systems. The technical architect of SonixED™. EIC Accelerator Ambassador.</p>
         </div>
-      </article>
-
-      <article class="team-card rv d1">
-        <img src="images/aboud_new_2026.webp" alt="Aboud Daoud, Production Manager, Hydrovolta" loading="lazy">
-        <div class="team-card__body">
+        <div class="team-card reveal">
+          <img src="images/aboud_new_2026.webp" alt="Aboud Daoud, Production Manager" loading="lazy">
           <h3>Aboud Daoud</h3>
-          <div class="role">Production Manager</div>
-          <p>Electromechanical engineer with more than 6 years at Hydrovolta. Leads the assembly of SalinBloc&trade; container platforms, coordinates the production team, and manages system delivery to clients. Combines technical discipline with strong operational leadership to build field-ready water treatment solutions.</p>
+          <div class="team-role">Production Manager</div>
+          <p>Electromechanical engineer with more than 6 years at Hydrovolta. Leads the assembly of SalinBloc™ container platforms, coordinates the production team, and manages system delivery to clients.</p>
         </div>
-      </article>
-
-      <article class="team-card rv d2">
-        <img src="images/Tony.webp.webp" alt="Antwan Khayat, Stack Building Expert, Hydrovolta" loading="lazy">
-        <div class="team-card__body">
+        <div class="team-card reveal">
+          <img src="images/Tony.webp.webp" alt="Antwan Khayat, Stack Building Expert" loading="lazy">
           <h3>Antwan Khayat</h3>
-          <div class="role">Stack Building Expert</div>
-          <p>More than 7 years at Hydrovolta, progressing from laboratory assistance through R&amp;D to becoming the company's resident expert in membrane stack construction. His deep knowledge of stack architecture and assembly precision directly determines the quality and performance of every SonixED&trade; unit produced.</p>
+          <div class="team-role">Stack Building Expert</div>
+          <p>More than 7 years at Hydrovolta, progressing from laboratory assistance through R&amp;D to becoming the company's resident expert in membrane stack construction. His precision directly determines the performance of every SonixED™ unit produced.</p>
         </div>
-      </article>
-
-      <article class="team-card rv">
-        <img src="images/Tamara_Image_lx.webp.png" alt="Tamara Merjaneh, Key Account Manager, Hydrovolta" loading="lazy">
-        <div class="team-card__body">
+        <div class="team-card reveal">
+          <img src="images/Tamara_Image_lx.webp.png" alt="Tamara Merjaneh, Key Account Manager" loading="lazy">
           <h3>Tamara Merjaneh</h3>
-          <div class="role">Key Account Manager</div>
-          <p>With more than 8 years at Hydrovolta, Tamara is among the company's co-creators in every meaningful sense. She manages key client relationships, oversees account administration, and holds together Hydrovolta's commercial fabric through strong communication and the deep institutional knowledge she has built over her years here.</p>
+          <div class="team-role">Key Account Manager</div>
+          <p>With more than 8 years at Hydrovolta, Tamara manages key client relationships, oversees account administration, and holds together Hydrovolta's commercial fabric through strong communication and deep institutional knowledge.</p>
         </div>
-      </article>
-
-      <article class="team-card rv d1">
-        <img src="images/Suyog_Image_9hlggy9hlggy9hlg.webp.png" alt="Suyog Ghadge, Innovation Engineer, Hydrovolta" loading="lazy">
-        <div class="team-card__body">
+        <div class="team-card reveal">
+          <img src="images/Suyog_Image_9hlggy9hlggy9hlg.webp.png" alt="Suyog Ghadge, Innovation Engineer" loading="lazy">
           <h3>Suyog Ghadge</h3>
-          <div class="role">Innovation Engineer</div>
-          <p>Chemical engineer and Hydrovolta's laboratory innovation lead. Suyog's process engineering work and stack performance research significantly improve system efficiency and output quality for clients. His R&amp;D contributions strengthen Hydrovolta's ability to extract more value from difficult water sources across varied operating conditions.</p>
+          <div class="team-role">Innovation Engineer</div>
+          <p>Chemical engineer and Hydrovolta's laboratory innovation lead. Suyog's process engineering work and stack performance research significantly improve system efficiency and output quality for clients across varied operating conditions.</p>
         </div>
-      </article>
-
-      <article class="team-card rv d2">
-        <img src="images/ribu_new_2026.webp" alt="Ribu Basnet, Electromechanical Technician, Hydrovolta" loading="lazy">
-        <div class="team-card__body">
+        <div class="team-card reveal">
+          <img src="images/ribu_new_2026.webp" alt="Ribu Basnet, Electromechanical Technician" loading="lazy">
           <h3>Ribu Basnet</h3>
-          <div class="role">Electromechanical Technician</div>
-          <p>Specialises in the electrical architecture inside Hydrovolta's SalinBloc™ container systems — from wiring and control panels to automation logic and sensor integration. Ribu is at the core of keeping deployed units running reliably, and works directly with clients during on-site installation and commissioning to ensure systems are operational from day one.</p>
+          <div class="team-role">Electromechanical Technician</div>
+          <p>Specialises in the electrical architecture inside Hydrovolta's SalinBloc™ container systems — from wiring and control panels to automation logic and sensor integration. Works directly with clients during on-site commissioning.</p>
         </div>
-      </article>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section">
-  <div class="wrap">
-    <div class="head"><div class="rv"><span class="ey">Credentials</span><h2>Every claim tied to a specific institutional source or validated data point.</h2></div>
-    <p class="lead rv d1">Hydrovolta does not market ahead of its evidence base. The credentials below are all verifiable and specific.</p></div>
-    <div class="grid--3">
-      <article class="card rv"><div class="num">IP</div><h3>Patent Granted 2021</h3><p>The SonixED&trade; combination of Electrodialysis Reversal and ultrasound is protected by a granted European process patent. Not an application &mdash; a granted patent on a commercially deployed technology.</p></article>
-      <article class="card rv d1"><div class="num">EIC</div><h3>EIC Accelerator &euro;2.2M</h3><p>The European Innovation Council Accelerator awarded Hydrovolta &euro;2.2M in deep-tech development funding. One of the EU&rsquo;s most selective technology funding programmes. George Brik is an EIC Accelerator Ambassador.</p></article>
-      <article class="card rv d2"><div class="num">R&amp;D</div><h3>Institutional Research Partnerships</h3><p>SonixED&trade; was developed through sustained research collaboration with VITO (Flemish Institute for Technological Research) and a broader network of applied research institutions including CNR and others. Eight years of laboratory work preceded the patent and commercial deployment.</p></article>
+  <!-- CREDENTIALS -->
+  <section class="section" style="background:#fff;">
+    <div class="section-inner">
+      <div class="section-label">Credentials</div>
+      <h2 class="section-title" style="color:var(--n1);">Every claim tied to a specific institutional source or validated data point</h2>
+      <p style="font-size:1rem;color:#4a5568;max-width:600px;line-height:1.65;margin-bottom:3rem;">Hydrovolta does not market ahead of its evidence base. The credentials below are all verifiable and specific.</p>
+      <div class="cred-grid">
+        <div class="cred-card reveal">
+          <div class="cred-num">IP</div>
+          <h3>Patent Granted 2021</h3>
+          <p>The SonixED™ combination of Electrodialysis Reversal and ultrasound is protected by a granted European process patent. Not an application — a granted patent on a commercially deployed technology.</p>
+        </div>
+        <div class="cred-card reveal">
+          <div class="cred-num">EIC</div>
+          <h3>EIC Accelerator €2.2M</h3>
+          <p>The European Innovation Council Accelerator awarded Hydrovolta €2.2M in deep-tech development funding. One of the EU's most selective technology funding programmes. George Brik is an EIC Accelerator Ambassador.</p>
+        </div>
+        <div class="cred-card reveal">
+          <div class="cred-num">R&amp;D</div>
+          <h3>Institutional Research Partnerships</h3>
+          <p>SonixED™ was developed through sustained research collaboration with VITO (Flemish Institute for Technological Research) and a broader network of applied research institutions including CNR and others. Eight years of laboratory work preceded the patent and commercial deployment.</p>
+        </div>
+      </div>
     </div>
-    <div style="margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem" class="rv d1">
-      <figure style="margin:0;border-radius:var(--rl);overflow:hidden;box-shadow:0 4px 20px rgba(0,46,90,.08);border:1px solid var(--b)">
-        <img src="images/candidates/20231012_175708.jpg" alt="George Brik receiving BFW Innovation Award 2023 for SonixED technology at BolognaFiere" loading="lazy" style="width:100%;height:auto;border-radius:var(--rl)" loading="lazy"></div></div></section>
-<section class="section section--soft">
-  <div class="wrap">
-    <div class="head"><div class="rv"><span class="ey">In the press</span><h2>Hydrovolta featured on Belgian national television.</h2></div>
-    <p class="lead rv d1">A feature on how Hydrovolta is addressing water scarcity with European-backed technology — including a walkthrough of the SalinBloc™ containerised system.</p></div>
-    <div class="rv" style="max-width:760px;margin:2rem auto 0">
-      <div class="yt-embed" data-src="https://www.youtube-nocookie.com/embed/WPQJrIv7hj8?rel=0&modestbranding=1" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;box-shadow:0 8px 32px rgba(0,25,51,0.15)"></div>
+  </section>
+
+  <!-- PRESS / VIDEO -->
+  <section class="section" style="background:var(--s);">
+    <div class="section-inner">
+      <div class="section-label">In the Press</div>
+      <h2 class="section-title" style="color:var(--n1);">Hydrovolta featured on Belgian national television</h2>
+      <p style="font-size:1rem;color:#4a5568;max-width:600px;line-height:1.65;margin-bottom:2.5rem;">A feature on how Hydrovolta is addressing water scarcity with European-backed technology — including a walkthrough of the SalinBloc™ containerised system.</p>
+      <div class="yt-wrap">
+        <div class="yt-embed" id="ytPlayer2">
+          <img class="yt-thumb" src="images/portrait_stack_withlogo.webp" alt="Hydrovolta TV feature thumbnail" loading="lazy" />
+          <div class="yt-play" onclick="loadYT2()">
+            <svg viewBox="0 0 68 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="68" height="48" rx="12" fill="rgba(0,25,51,0.75)"/>
+              <polygon points="26,14 26,34 46,24" fill="#c9a22a"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-strip">
+    <h2>Have a project in mind? Let's talk.</h2>
+    <p>Send your source water data. Our engineering team assesses technical fit and responds within five working days.</p>
+    <div class="cta-strip-actions">
+      <a href="contact.html" class="btn-dark">Contact Hydrovolta</a>
+      <a href="applications.html" class="btn-outline-dark">Reference Projects</a>
     </div>
   </div>
-</section>
-</main><section class="logos"><div class="wrap"><p>Institutional partners &amp; backing</p><div class="logos__row"><img src="images/EIC_logo.webp" alt="EIC" loading="lazy"><img src="images/flanders_logo.webp" alt="Flanders" loading="lazy"><img src="images/watereu_logo.webp" alt="Water Europe" loading="lazy"><img src="images/watergroep_logo.webp" alt="De Watergroep" loading="lazy"><img src="images/farys_logo.webp" alt="Farys" loading="lazy"><img src="images/GSTIC_logo.webp" alt="GSTIC" loading="lazy"><img src="images/aquatech_logo.webp" alt="Aquatech" loading="lazy"></div></div></section><footer class="footer"><div class="wrap"><div class="<div class="footer__grid"><div><h4>Hydrovolta</h4><p>High-recovery treatment for brackish groundwater, hard water, and saline sources. Modular and project-engineered systems. Founded 2016, Leuven, Belgium.</p></div><div><h4>Solutions</h4><ul><li><a href="groundwater.html">Groundwater</a></li><li><a href="brine-valorization.html">Brine Valorization</a></li><li><a href="technology.html">Technology</a></li><li><a href="systems.html">Systems</a></li></ul></div><div><h4>Company</h4><ul><li><a href="projects.html">Projects</a></li><li><a href="applications.html">Applications</a></li><li><a href="about.html">About</a></li><li><a href="privacy.html">Privacy</a></li></ul></div><div><h4>Start with water data</h4><p>TDS, hardness, nitrate, silica, target flow, and any brine analysis.</p><p style="margin-top:1rem"><a class="btn btn--gold btn--sm" href="contact.html">Request assessment</a></p></div></div><div class="footer__bottom"><p>&copy; <span data-year></span> Hydrovolta NV &middot; All rights reserved &middot; Leuven, Belgium</p><p>SonixED&trade; &middot; SalinBloc&trade; &middot; Integrated brine valorization</p><div class="footer__social"><a href="https://be.linkedin.com/company/hydrovolta" target="_blank" rel="noopener" aria-label="Hydrovolta on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a><a href="https://www.facebook.com/hydrovolta/" target="_blank" rel="noopener" aria-label="Hydrovolta on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a></div></div></div></footer><script src="js/site.js"></script></body></html>
+
+  <div class="logo-strip" aria-label="Partners and backers">
+    <div class="logo-strip-title">Partners, funders &amp; institutional collaborators</div>
+    <div class="marquee-wrap"><div class="marquee-track">
+      <div class="marquee-item"><img src="images/EIC_logo.webp" alt="EIC" /></div>
+      <div class="marquee-item"><img src="images/flanders_logo.webp" alt="Flanders" /></div>
+      <div class="marquee-item"><img src="images/watereu_logo.webp" alt="Water Europe" /></div>
+      <div class="marquee-item"><img src="images/watergroep_logo.webp" alt="De Watergroep" /></div>
+      <div class="marquee-item"><img src="images/farys_logo.webp" alt="Farys" /></div>
+      <div class="marquee-item"><img src="images/GSTIC_logo.webp" alt="GSTIC" /></div>
+      <div class="marquee-item"><img src="images/aquatech_logo.webp" alt="Aquatech" /></div>
+      <div class="marquee-item"><img src="images/EIC_logo.webp" alt="EIC" /></div>
+      <div class="marquee-item"><img src="images/flanders_logo.webp" alt="Flanders" /></div>
+      <div class="marquee-item"><img src="images/watereu_logo.webp" alt="Water Europe" /></div>
+      <div class="marquee-item"><img src="images/watergroep_logo.webp" alt="De Watergroep" /></div>
+      <div class="marquee-item"><img src="images/farys_logo.webp" alt="Farys" /></div>
+      <div class="marquee-item"><img src="images/GSTIC_logo.webp" alt="GSTIC" /></div>
+      <div class="marquee-item"><img src="images/aquatech_logo.webp" alt="Aquatech" /></div>
+    </div></div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-cta">
+      <div class="cta-text">Have a water treatment challenge? Let's talk.</div>
+      <div class="cta-contact"><span>George Brik, CEO</span><strong>+32 288 00336</strong></div>
+    </div>
+    <div class="footer-main">
+      <div class="footer-brand">
+        <img loading="lazy" src="images/hydrovolta_logo.webp" alt="Hydrovolta NV" class="footer-logo" />
+        <p>High-recovery groundwater desalination</p>
+        <div class="footer-socials">
+          <a href="https://be.linkedin.com/company/hydrovolta" target="_blank" rel="noopener" aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h5V24H0zM8 8h4.8v2.6h.1c.7-1.3 2.4-2.6 4.9-2.6 5.2 0 6.2 3.4 6.2 7.8V24h-5v-7.5c0-1.8 0-4-2.5-4s-2.9 2-2.9 3.9V24H8z"/></svg></a>
+          <a href="https://www.facebook.com/hydrovolta/" target="_blank" rel="noopener" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="18" height="18" fill="currentColor"><path d="M279.14 288l14.22-92.66h-88.91V127.06c0-25.35 12.42-50.06 52.24-50.06H293V6.26S259.43 0 225.36 0C141.09 0 89.09 54.42 89.09 153.58V195.3H0v92.7h89.09V512h107.72V288z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4 class="footer-links-title">Quick Links</h4>
+        <div class="footer-links-row">
+          <ul class="footer-links-col"><li><a href="technology.html">SonixED™ Technology</a></li><li><a href="solutions.html">Systems</a></li><li><a href="applications.html">Projects</a></li></ul>
+          <ul class="footer-links-col"><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="questions.html">Full Questionnaire</a></li></ul>
+        </div>
+      </div>
+      <div class="footer-newsletter">
+        <h4>Stay informed — subscribe for project updates</h4>
+        <form><input type="email" placeholder="Your email address" required /><button type="submit">Subscribe</button></form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Hydrovolta NV. All rights reserved. Registered in Belgium — BE 0664.974.129</p>
+      <div class="footer-policies"><a href="privacy.html">Privacy Policy</a><a href="questions.html">Full Assessment Form</a></div>
+    </div>
+  </footer>
+  <script>
+    const ro=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');ro.unobserve(x.target)}})},{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+    const t=document.querySelector('.nav-toggle'),l=document.getElementById('nav-links');
+    if(t&&l){t.addEventListener('click',()=>{const o=l.style.display==='flex';l.style.display=o?'none':'flex';l.style.flexDirection='column';l.style.position='absolute';l.style.top='64px';l.style.left='0';l.style.right='0';l.style.background='var(--n2)';l.style.padding='1rem 2rem 1.5rem';l.style.gap='1rem';t.setAttribute('aria-expanded',String(!o));})}
+    function loadYT2(){document.getElementById('ytPlayer2').innerHTML='<iframe class="yt-iframe" src="https://www.youtube-nocookie.com/embed/WPQJrIv7hj8?autoplay=1&rel=0&modestbranding=1" allow="autoplay;encrypted-media" allowfullscreen></iframe>'}
+  </script>
+</body>
+</html>

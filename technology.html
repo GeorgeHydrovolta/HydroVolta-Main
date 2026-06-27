@@ -1,152 +1,544 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="SonixED EDR-ultrasound for high-recovery groundwater desalination. Integrated brine valorization pathways. Patent granted 2021. VITO, CNR institutional research."/><title>Technology | Hydrovolta</title><link rel="canonical" href="https://hydrovolta.com/technology"/><meta property="og:title" content="Technology | Hydrovolta"/><meta property="og:description" content="SonixED EDR-ultrasound for high-recovery groundwater desalination. Integrated brine valorization pathways. Patent granted 2021. VITO, CNR institutional research."/><meta property="og:image" content="https://hydrovolta.com/images/hydrovolta_logo-OG.webp"/><meta name="twitter:card" content="summary_large_image"/><link rel="icon" href="images/favicon.ico"/><link rel="stylesheet" href="css/site.css"/></head><body data-page="technology"><a class="skip" href="#main">Skip to content</a>
-<div class="topbar">Active in Morocco &amp; Perth &middot; Pilot contracts open &middot; EIC Accelerator &euro;2.2M awarded</div>
-<nav class="nav" aria-label="Main navigation"><div class="nav__in"><a class="brand" href="index.html"><span class="brand__mark"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8a8 8 0 0 0 16 0c0-3.32-2.67-7.25-8-11.8z"/></svg></span><span>Hydrovolta</span></a>
-<div class="nav__links" id="nav-links"><a href="index.html">Home</a><a href="technology.html">How it Works</a><a href="projects.html">Projects</a><a href="systems.html">Systems</a><a href="about.html">About</a><a class="btn btn--navy btn--sm" href="contact.html">Get in Touch</a></div>
-<button class="menu" id="menu-btn" aria-label="Toggle navigation" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button></div></nav>
-<main id="main">
-<section class="hero hero--split">
-  <div class="hero__copy">
-    <span class="kicker">Technology</span>
-    <h1>Eight years of validated science. Deployed and operating.</h1>
-    <p class="lead" style="margin-top:1.25rem;max-width:48ch">SonixED&trade; integrates electrodialysis reversal, ultrasound-assisted scaling control, and a selective membrane coating into one automated platform. Developed through institutional research partnerships including VITO, CNR and others. Patent granted 2021. Active in Morocco and Perth.</p>
-    <div class="actions"><a class="btn btn--gold" href="contact.html">Discuss your application</a><a class="btn btn--out" href="systems.html">View systems</a></div>
-  </div>
-  <div class="hero__visual hero__visual--right">
-    <img class="active" src="images/IMG_1800.webp" alt="SonixED membrane stack inside Hydrovolta treatment system" fetchpriority="high">
-  </div>
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SonixED™ — electrodialysis reversal combined with ultrasound for 90%+ water recovery. Patented 2021. Validated performance data from Germany pilot and Perth utility deployment." />
+  <title>Technology — SonixED™ | Hydrovolta NV</title>
+  <link rel="canonical" href="https://hydrovolta.com/technology.html" />
+  <meta property="og:title" content="Technology — SonixED™ | Hydrovolta NV" />
+  <meta property="og:image" content="https://hydrovolta.com/images/hydrovolta_logo-OG.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; font-size: 16px; color: #1a2a3a; background: #fff; line-height: 1.6; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    :root {
+      --n1: #001933; --n2: #002e5a; --n3: #003d78;
+      --g: #c9a22a; --gl: #e8c84a; --w: #ffffff; --s: #f4f7fb;
+      --fd: 'Barlow Condensed', sans-serif; --fb: 'Barlow', sans-serif;
+      --radius: 10px; --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    /* TOP BAR */
+    .topbar { background: var(--n1); border-bottom: 1px solid rgba(255,255,255,0.08); padding: .55rem 2rem; display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; }
+    .topbar-item { display: flex; align-items: center; gap: .5rem; font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: rgba(255,255,255,.7); }
+    .topbar-item svg { width: 13px; height: 13px; fill: var(--g); flex-shrink: 0; }
+    /* NAV */
+    .site-nav { position: sticky; top: 0; z-index: 100; background: var(--n2); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; box-shadow: 0 2px 12px rgba(0,0,0,.2); }
+    .nav-logo img { height: 36px; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: .85rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: rgba(255,255,255,.75); transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-cta { background: var(--g); color: var(--n1) !important; padding: .55rem 1.25rem; border-radius: 4px; font-weight: 700 !important; transition: background .2s !important; }
+    .nav-cta:hover { background: var(--gl) !important; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: .5rem; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: #fff; margin: 4px 0; border-radius: 2px; transition: .3s; }
+    @media (max-width: 860px) { .nav-links { display: none; } .nav-toggle { display: block; } }
+    /* PAGE HERO (inner pages) */
+    .page-hero { background: var(--n1); padding: 5rem 2rem 4rem; }
+    .page-hero-inner { max-width: 1100px; margin: 0 auto; }
+    .page-hero-eyebrow { display: inline-flex; align-items: center; gap: .5rem; background: rgba(201,162,42,.15); border: 1px solid rgba(201,162,42,.4); border-radius: 20px; padding: .35rem .9rem; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--g); margin-bottom: 1.5rem; }
+    .page-hero h1 { font-family: var(--fd); font-size: clamp(2rem,4vw,3.2rem); font-weight: 800; text-transform: uppercase; letter-spacing: .02em; color: #fff; line-height: 1.1; margin-bottom: 1.25rem; }
+    .page-hero h1 em { color: var(--g); font-style: normal; }
+    .page-hero-body { font-size: 1.05rem; color: rgba(255,255,255,.7); max-width: 640px; line-height: 1.65; margin-bottom: 2rem; }
+    .page-hero-body strong { color: #fff; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { display: inline-block; background: var(--g); color: var(--n1); font-family: var(--fd); font-size: .95rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; padding: .9rem 2rem; border-radius: 4px; transition: background .2s, transform .15s; white-space: nowrap; }
+    .btn-primary:hover { background: var(--gl); transform: translateY(-1px); }
+    .btn-ghost { display: inline-flex; align-items: center; gap: .4rem; color: rgba(255,255,255,.7); font-size: .9rem; font-weight: 600; transition: color .2s; }
+    .btn-ghost:hover { color: #fff; }
+    /* SECTION UTILITY */
+    .section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-family: var(--fd); font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--g); margin-bottom: .6rem; }
+    .section-title { font-family: var(--fd); font-size: clamp(1.8rem,3.5vw,2.8rem); font-weight: 700; text-transform: uppercase; letter-spacing: .03em; line-height: 1.1; margin-bottom: 1rem; }
+    .section-intro { font-size: 1.05rem; color: #4a5568; max-width: 640px; line-height: 1.65; margin-bottom: 3rem; }
+    .dark .section-title { color: #fff; }
+    .dark .section-intro { color: rgba(255,255,255,.65); }
+    .dark .section-label { color: var(--gl); }
+    /* MECHANISM CARDS */
+    .mech-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    @media (max-width: 860px) { .mech-grid { grid-template-columns: 1fr; } }
+    .mech-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); padding: 2rem; transition: border-color .2s; }
+    .mech-card:hover { border-color: rgba(201,162,42,.4); }
+    .mech-num { font-family: var(--fd); font-size: 3rem; font-weight: 800; color: var(--g); line-height: 1; margin-bottom: .25rem; }
+    .mech-card h3 { font-family: var(--fd); font-size: 1.15rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #fff; margin-bottom: .75rem; }
+    .mech-card p { font-size: .9rem; color: rgba(255,255,255,.6); line-height: 1.65; }
+    .mech-list { list-style: none; margin-top: 1rem; display: flex; flex-direction: column; gap: .5rem; }
+    .mech-list li { font-size: .85rem; color: rgba(255,255,255,.55); line-height: 1.45; padding-left: 1.2rem; position: relative; }
+    .mech-list li::before { content: '→'; position: absolute; left: 0; color: var(--g); font-weight: 700; }
+    /* DIAGRAM */
+    .diag-section { background: var(--s); }
+    .diag-wrap { position: relative; line-height: 0; border-radius: 12px; overflow: hidden; display: block; box-shadow: var(--shadow); }
+    .diag-hot { position: absolute; display: block; cursor: pointer; border-radius: 6px; transition: background .18s, box-shadow .18s; }
+    .diag-hot:hover { background: rgba(0,25,51,.07); box-shadow: inset 0 0 0 2px rgba(201,162,42,.35); }
+    /* TABLE */
+    .data-table { width: 100%; border-collapse: collapse; margin-top: 2rem; font-size: .9rem; }
+    .data-table th { background: var(--n1); color: #fff; font-family: var(--fd); font-size: .8rem; text-transform: uppercase; letter-spacing: .07em; padding: .75rem 1rem; text-align: left; }
+    .data-table th.gold { color: var(--g); }
+    .data-table td { padding: .75rem 1rem; border-bottom: 1px solid #e2e8f0; color: #2d3748; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:nth-child(even) td { background: #f8fafc; }
+    .data-table td.highlight { color: var(--n2); font-weight: 700; }
+    .table-note { font-size: .8rem; color: #718096; margin-top: .75rem; line-height: 1.5; }
+    .table-note a { color: var(--g); text-decoration: underline; }
+    /* PERF TABLE (dark bg) */
+    .perf-table-wrap { background: var(--n1); border-radius: var(--radius); overflow: hidden; }
+    .perf-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    .perf-table th { background: rgba(255,255,255,.06); color: rgba(255,255,255,.55); font-family: var(--fd); font-size: .75rem; text-transform: uppercase; letter-spacing: .07em; padding: .75rem 1.25rem; text-align: left; }
+    .perf-table th.gold { color: var(--gl); }
+    .perf-table td { padding: .75rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.06); color: rgba(255,255,255,.7); }
+    .perf-table tr:last-child td { border-bottom: none; }
+    .perf-table td.highlight { color: var(--g); font-weight: 600; }
+    /* BRINE SPLIT */
+    .brine-split { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    @media (max-width: 860px) { .brine-split { grid-template-columns: 1fr; gap: 2rem; } }
+    .brine-split img { border-radius: var(--radius); width: 100%; }
+    .brine-list { list-style: none; margin-top: 1.25rem; display: flex; flex-direction: column; gap: .75rem; }
+    .brine-list li { display: flex; gap: .6rem; font-size: .92rem; color: #4a5568; }
+    .brine-list li::before { content: ''; width: 18px; height: 18px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='10' fill='%23002e5a'/%3E%3Cpath d='M6 10l3 3 5-5' stroke='%23fff' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain; flex-shrink: 0; margin-top: 2px; }
+    /* DOWNLOAD CARDS */
+    .dl-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    @media (max-width: 760px) { .dl-grid { grid-template-columns: 1fr; } }
+    .dl-card { background: #fff; border: 1px solid #e2e8f0; border-radius: var(--radius); padding: 2rem; transition: border-color .2s, box-shadow .2s; display: block; }
+    .dl-card:hover { border-color: var(--n2); box-shadow: var(--shadow); }
+    .dl-icon { font-size: 2rem; margin-bottom: .75rem; }
+    .dl-card h3 { font-family: var(--fd); font-size: 1.05rem; font-weight: 700; text-transform: uppercase; color: var(--n1); margin-bottom: .5rem; }
+    .dl-card p { font-size: .88rem; color: #4a5568; line-height: 1.55; }
+    .dl-link { margin-top: .75rem; font-size: .83rem; font-weight: 700; color: var(--g); display: block; }
+    /* YT EMBED */
+    .yt-wrap { max-width: 760px; margin: 0 auto; }
+    .yt-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,25,51,.15); background: var(--n1); cursor: pointer; }
+    .yt-thumb { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; opacity: .85; }
+    .yt-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .yt-play svg { width: 72px; height: 72px; filter: drop-shadow(0 2px 8px rgba(0,0,0,.4)); }
+    .yt-iframe { width: 100%; height: 100%; position: absolute; inset: 0; border: none; }
+    /* CTA STRIP */
+    .cta-strip { background: var(--g); padding: 3rem 2rem; text-align: center; }
+    .cta-strip h2 { font-family: var(--fd); font-size: clamp(1.6rem,3vw,2.4rem); font-weight: 700; text-transform: uppercase; color: var(--n1); margin-bottom: .75rem; }
+    .cta-strip p { color: rgba(0,25,51,.7); max-width: 520px; margin: 0 auto 1.75rem; font-size: .95rem; }
+    .cta-strip-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-dark { display: inline-block; background: var(--n1); color: #fff; font-family: var(--fd); font-size: .95rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; padding: .9rem 2rem; border-radius: 4px; transition: background .2s; }
+    .btn-dark:hover { background: var(--n2); }
+    .btn-outline-dark { display: inline-block; border: 2px solid var(--n1); color: var(--n1); font-family: var(--fd); font-size: .95rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; padding: .75rem 1.75rem; border-radius: 4px; transition: background .2s; }
+    .btn-outline-dark:hover { background: rgba(0,25,51,.1); }
+    /* LOGO STRIP */
+    .logo-strip { background: var(--n2); padding: 2rem; overflow: hidden; }
+    .logo-strip-title { text-align: center; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.35); margin-bottom: 1.25rem; }
+    .marquee-wrap { overflow: hidden; }
+    .marquee-track { display: flex; gap: 3rem; animation: marquee 28s linear infinite; width: max-content; }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-item { display: flex; align-items: center; height: 40px; opacity: .5; transition: opacity .2s; }
+    .marquee-item img { height: 32px; object-fit: contain; filter: brightness(0) invert(1); }
+    .marquee-item:hover { opacity: .85; }
+    /* FOOTER */
+    .site-footer { background: var(--n1); }
+    .footer-cta { display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 3rem; background: var(--g); flex-wrap: wrap; gap: 1rem; }
+    .footer-cta .cta-text { font-family: var(--fd); font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--n1); }
+    .footer-cta .cta-contact { display: flex; flex-direction: column; line-height: 1.4; }
+    .footer-cta .cta-contact span { font-size: .75rem; color: rgba(0,25,51,.65); font-weight: 600; }
+    .footer-cta .cta-contact strong { font-size: 1rem; color: var(--n1); }
+    .footer-main { display: grid; grid-template-columns: 1.2fr 1fr 1.4fr; gap: 3rem; padding: 3rem; }
+    @media (max-width: 760px) { .footer-main { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; } }
+    .footer-logo { height: 36px; margin-bottom: .75rem; }
+    .footer-brand p { font-size: .85rem; color: rgba(255,255,255,.5); margin-bottom: 1.25rem; }
+    .footer-socials { display: flex; gap: .75rem; }
+    .footer-socials a { width: 34px; height: 34px; background: rgba(255,255,255,.06); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.55); transition: background .2s, color .2s; }
+    .footer-socials a:hover { background: rgba(255,255,255,.12); color: #fff; }
+    .footer-links-title { font-family: var(--fd); font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.4); margin-bottom: 1rem; }
+    .footer-links-row { display: flex; gap: 2rem; }
+    .footer-links-col { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .footer-links-col a { font-size: .88rem; color: rgba(255,255,255,.6); transition: color .2s; }
+    .footer-links-col a:hover { color: #fff; }
+    .footer-newsletter h4 { font-size: .85rem; font-weight: 600; color: rgba(255,255,255,.7); margin-bottom: .75rem; line-height: 1.4; }
+    .footer-newsletter form { display: flex; }
+    .footer-newsletter input { flex: 1; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-right: none; border-radius: 4px 0 0 4px; padding: .65rem .9rem; font-family: var(--fb); font-size: .85rem; color: #fff; }
+    .footer-newsletter input::placeholder { color: rgba(255,255,255,.35); }
+    .footer-newsletter button { background: var(--g); color: var(--n1); font-weight: 700; font-size: .8rem; border: none; padding: 0 1rem; border-radius: 0 4px 4px 0; cursor: pointer; transition: background .2s; }
+    .footer-newsletter button:hover { background: var(--gl); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding: 1rem 3rem; border-top: 1px solid rgba(255,255,255,.07); flex-wrap: wrap; gap: .75rem; }
+    .footer-bottom p { font-size: .78rem; color: rgba(255,255,255,.35); }
+    .footer-policies { display: flex; gap: 1rem; }
+    .footer-policies a { font-size: .78rem; color: rgba(255,255,255,.35); transition: color .2s; }
+    .footer-policies a:hover { color: rgba(255,255,255,.7); }
+    /* SCROLL REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
 
-<section class="section">
-  <div class="wrap">
-    <div class="head"><div class="rv"><span class="ey">SonixED&trade;</span><h2>Three integrated mechanisms. One validated platform.</h2></div>
-    <p class="lead rv d1">Each component of SonixED&trade; addresses a specific failure mode of conventional membrane treatment in the 1,500&ndash;20,000&thinsp;ppm TDS brackish range. Together they deliver recovery and scaling resistance that individual technologies cannot achieve independently.</p></div>
-    <div class="grid--3">
-      <article class="card rv"><div class="num">01</div><h3>Electrodialysis Reversal (EDR)</h3>
-        <p>Electric potential drives dissolved ions through ion-exchange membranes. Unlike reverse osmosis, water does not pass through the membrane &mdash; ions do. Periodic polarity reversal cleans membranes in-situ without chemical intervention, enabling stable performance across variable feed salinity.</p>
-        <ul class="list" style="margin-top:1rem"><li>Stable output under variable TDS feed conditions</li><li>Polarity reversal eliminates chemical CIP dependency</li><li>Lower hydraulic pressure than RO &mdash; reduced energy at low-to-medium TDS</li></ul>
-      </article>
-      <article class="card rv d1"><div class="num">02</div><h3>Ultrasound Integration (Patent 2021)</h3>
-        <p>Hydrovolta&rsquo;s granted patent integrates ultrasound transducers directly at the membrane surface. Acoustic cavitation continuously disrupts scale nucleation and prevents silica fouling &mdash; addressing the primary failure mode of hard-water and silica-laden sources that defeats conventional membrane systems.</p>
-        <ul class="list" style="margin-top:1rem"><li>Acoustic cavitation prevents calcium, magnesium and silica scale</li><li>50&ndash;90% reduction in CIP cycles in validated operating contexts</li><li>Extended membrane operational lifespan</li></ul>
-      </article>
-      <article class="card rv d2"><div class="num">03</div><h3>Custom Membrane Coating</h3>
-        <p>A proprietary membrane coating enables monovalent ion selectivity. The system removes nitrate, sodium, chloride, and fluoride while retaining beneficial calcium and magnesium. Output meets drinking water and agricultural standards without full demineralisation or downstream remineralisation.</p>
-        <ul class="list" style="margin-top:1rem"><li>Selective nitrate removal &mdash; validated at Water Corporation Perth (3 utility sites)</li><li>Mineral-balanced output &mdash; no post-treatment cost</li><li>Configurable per application ion targets</li></ul>
-      </article>
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-item">
+      <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      Patent 2021 — SonixED™
+    </div>
+    <div class="topbar-item">
+      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      EIC Accelerator — €2.2M
+    </div>
+    <div class="topbar-item">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      Active: Morocco · Perth · Brazil · Saudi Arabia
     </div>
   </div>
-</section>
 
-<section class="section">
-  <div class="wrap">
-    <div class="rv" style="margin-top:2rem">
+  <!-- NAV -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <a class="nav-logo" href="index.html" aria-label="Hydrovolta home">
+      <img src="images/hydrovolta_logo.webp" alt="Hydrovolta NV" />
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="technology.html" class="active">Technology</a></li>
+      <li><a href="solutions.html">Systems</a></li>
+      <li><a href="applications.html">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="nav-cta">Request Assessment</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="page-hero-eyebrow">SonixED™ — Patented 2021</div>
+      <h1>Eight years of science.<br/>One patented result:<br/><em>90%+ water recovery.</em></h1>
+      <p class="page-hero-body">
+        SonixED™ integrates Electrodialysis Reversal with ultrasound-assisted scaling control and a selective membrane coating. Developed through institutional research partnerships with VITO and CNR. <strong>Active in Morocco and Perth.</strong>
+      </p>
+      <div class="hero-actions">
+        <a href="contact.html" class="btn-primary">Discuss Your Application</a>
+        <a href="solutions.html" class="btn-ghost">View Systems →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- THREE MECHANISMS -->
+  <section class="section dark" style="background:var(--n1);">
+    <div class="section-inner">
+      <div class="section-label">SonixED™ Technology</div>
+      <h2 class="section-title">Three integrated mechanisms. One validated platform.</h2>
+      <p class="section-intro">Each component addresses a specific failure mode of conventional membrane treatment in the 1,500–20,000 ppm TDS brackish range. Together they deliver recovery and scaling resistance that individual technologies cannot achieve independently.</p>
+      <div class="mech-grid">
+
+        <div class="mech-card reveal">
+          <div class="mech-num">01</div>
+          <h3>Electrodialysis Reversal (EDR)</h3>
+          <p>Electric potential drives dissolved ions through ion-exchange membranes. Unlike reverse osmosis, water does not pass through the membrane — ions do. Periodic polarity reversal cleans membranes in-situ without chemical intervention.</p>
+          <ul class="mech-list">
+            <li>Stable output under variable TDS feed conditions</li>
+            <li>Polarity reversal eliminates chemical CIP dependency</li>
+            <li>Lower hydraulic pressure than RO — 0.5–2.5 bar vs 25–35 bar</li>
+          </ul>
+        </div>
+
+        <div class="mech-card reveal">
+          <div class="mech-num">02</div>
+          <h3>Ultrasound Integration (Patent 2021)</h3>
+          <p>Hydrovolta's granted patent integrates ultrasound transducers directly at the membrane surface. Acoustic cavitation continuously disrupts scale nucleation — addressing the primary failure mode that defeats conventional membrane systems on silica-laden sources.</p>
+          <ul class="mech-list">
+            <li>Acoustic cavitation prevents calcium, magnesium, and silica scale</li>
+            <li>50–90% reduction in CIP cycles in validated operating contexts</li>
+            <li>Extended membrane operational lifespan</li>
+          </ul>
+        </div>
+
+        <div class="mech-card reveal">
+          <div class="mech-num">03</div>
+          <h3>Custom Membrane Coating</h3>
+          <p>A proprietary membrane coating enables monovalent ion selectivity. The system removes nitrate, sodium, chloride, and fluoride while retaining beneficial calcium and magnesium. Output meets drinking water and agricultural standards without full demineralisation.</p>
+          <ul class="mech-list">
+            <li>Selective nitrate removal — validated at Water Corporation Perth (3 utility sites)</li>
+            <li>Mineral-balanced output — no post-treatment remineralisation needed</li>
+            <li>Configurable per application ion targets</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS DIAGRAM -->
+  <section class="section diag-section">
+    <div class="section-inner">
+      <div class="section-label">Process Flow</div>
+      <h2 class="section-title" style="color:var(--n1);">From source water to clean output — and brine valorisation</h2>
+      <p class="section-intro">The detailed SonixED™ process flow from brackish groundwater intake through pre-treatment, electrodialysis, and downstream brine pathways. Click any stage to learn more.</p>
       <div class="diag-wrap">
-        <img src="images/process_diagram_detailed.webp" alt="Detailed SonixED process flow: brackish groundwater through pre-treatment, electrodialysis reversal and ultrasound, to clean water output with brine valorization and zero liquid discharge pathways" style="width:100%;height:auto;display:block" loading="lazy">
-        <!-- SonixED core → systems -->
-        <a class="diag-hot" href="systems.html" style="left:33%;top:8%;width:24%;height:48%" aria-label="SonixED system specifications" title="View system specifications"></a>
-        <!-- Clean water → projects -->
-        <a class="diag-hot" href="projects.html" style="left:59%;top:12%;width:16%;height:33%" aria-label="Clean water output — reference projects" title="Reference projects"></a>
-        <!-- Supply / Distribution → systems -->
-        <a class="diag-hot" href="systems.html" style="left:78%;top:18%;width:20%;height:14%" aria-label="Supply and distribution — systems" title="View systems"></a>
-        <!-- Brine Valorization → brine-valorization -->
-        <a class="diag-hot" href="brine-valorization.html" style="left:59%;top:58%;width:16%;height:27%" aria-label="Brine valorization" title="Brine valorization"></a>
-        <!-- ZLD / Evaporation → brine-valorization -->
-        <a class="diag-hot" href="brine-valorization.html" style="left:78%;top:53%;width:20%;height:35%" aria-label="Zero Liquid Discharge" title="Zero Liquid Discharge"></a>
+        <img src="images/process_diagram_detailed.webp" alt="Detailed SonixED process flow: brackish groundwater through pre-treatment, electrodialysis reversal and ultrasound, to clean water output with brine valorisation and zero liquid discharge pathways" style="width:100%;height:auto;display:block" loading="lazy">
+        <a class="diag-hot" href="solutions.html" style="left:33%;top:8%;width:24%;height:48%" aria-label="SonixED system specifications" title="View system specifications"></a>
+        <a class="diag-hot" href="applications.html" style="left:59%;top:12%;width:16%;height:33%" aria-label="Clean water output — reference projects" title="Reference projects"></a>
+        <a class="diag-hot" href="solutions.html" style="left:78%;top:18%;width:20%;height:14%" aria-label="Supply and distribution — systems" title="View systems"></a>
+        <a class="diag-hot" href="contact.html" style="left:59%;top:58%;width:16%;height:27%" aria-label="Brine valorisation" title="Brine valorisation enquiry"></a>
+        <a class="diag-hot" href="contact.html" style="left:78%;top:53%;width:20%;height:35%" aria-label="Zero Liquid Discharge" title="Zero Liquid Discharge enquiry"></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRINE VALORISATION -->
+  <section class="section" style="background:#fff;">
+    <div class="section-inner">
+      <div class="brine-split">
+        <div class="reveal">
+          <img src="images/inside_container.webp" alt="SonixED treatment system interior" loading="lazy" />
+        </div>
+        <div class="reveal">
+          <div class="section-label">Brine Valorisation</div>
+          <h2 class="section-title" style="color:var(--n1);">Chemical recovery where the concentrate chemistry supports it</h2>
+          <p style="font-size:.95rem;color:#4a5568;line-height:1.65;margin-bottom:1rem;">Where SonixED™ desalination produces residual brine with suitable ion composition, Hydrovolta evaluates and pilots chemical recovery using electromembrane separation and complementary technologies.</p>
+          <ul class="brine-list">
+            <li>Brine composition assessed before any valorisation pilot is recommended</li>
+            <li>Target product streams: HCl, NaOH, Mg(OH)₂, Ca(OH)₂ depending on chemistry</li>
+            <li>Configuration not fixed — designed per brine type and project objectives</li>
+            <li>Active alongside SonixED™ desalination in the Morocco integrated deployment</li>
+          </ul>
+          <div style="margin-top:1.75rem;">
+            <a href="contact.html" class="btn-primary">Assess Your Brine Stream</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERFORMANCE REFERENCE -->
+  <section class="section" style="background:var(--n1);">
+    <div class="section-inner">
+      <div class="dark">
+        <div class="section-label">Performance Reference</div>
+        <h2 class="section-title">Qualified claims tied to validated operating data</h2>
+        <p class="section-intro">Every metric published by Hydrovolta is qualified by feedwater chemistry, operating conditions, and the context in which it was validated.</p>
+      </div>
+      <div class="perf-table-wrap">
+        <table class="perf-table">
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Qualified public claim</th>
+              <th>Context</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Water recovery</td><td class="highlight">Up to 98% in suitable applications</td><td>Subject to source chemistry and operating parameters</td></tr>
+            <tr><td>Residual brine</td><td class="highlight">2–5% of input volume in selected cases</td><td>Subject to feedwater TDS and recovery target</td></tr>
+            <tr><td>CIP reduction</td><td class="highlight">50–90% reduction in validated contexts</td><td>Hardness, silica, and scaling profile dependent</td></tr>
+            <tr><td>Ion selectivity</td><td class="highlight">Monovalent removal configured per application</td><td>Validated at Water Corporation Perth — 3 utility sites</td></tr>
+            <tr><td>Valorisation products</td><td class="highlight">Subject to brine composition and pilot results</td><td>Determined per project chemistry assessment</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- HEAD-TO-HEAD COMPARISON -->
+  <section class="section" style="background:var(--s);">
+    <div class="section-inner">
+      <div class="section-label">Head-to-Head Comparison</div>
+      <h2 class="section-title" style="color:var(--n1);">SonixED™ vs conventional membrane technologies</h2>
+      <p class="section-intro">Data from the Germany 2023 industrial pilot. Conditions: TDS 4,500 ppm, silica 85 mg/l, high hardness. Same feed water over 90 days.</p>
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th class="gold" style="background:var(--n2);color:var(--g);">SonixED™</th>
+              <th>Reverse Osmosis</th>
+              <th>Standard EDR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Water recovery</td><td class="highlight">90–98%</td><td>50–75%</td><td>70–85%</td></tr>
+            <tr><td>Energy consumption</td><td class="highlight">0.19–0.7 kWh/m³</td><td>2.0–4.0 kWh/m³</td><td>1.0–2.0 kWh/m³</td></tr>
+            <tr><td>Chemical dosing</td><td class="highlight">Minimal — no anti-scalant</td><td>Required</td><td>Anti-scalants needed</td></tr>
+            <tr><td>Operating pressure</td><td class="highlight">0.5–2.5 bar</td><td>25–35 bar</td><td>1–2 bar</td></tr>
+            <tr><td>CIP cleaning frequency</td><td class="highlight">0.6×/month</td><td>1×/month</td><td>1×/month</td></tr>
+            <tr><td>Annual discharge reduction</td><td class="highlight">43,680 m³/yr</td><td>26,880 m³/yr</td><td>34,176 m³/yr</td></tr>
+            <tr><td>Total treatment cost</td><td class="highlight">$0.30–0.40/m³</td><td>$0.60–1.00/m³</td><td>$0.40–0.80/m³</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Source: Hydrovolta Germany industrial pilot, Feb–May 2023. <a href="downloads/SonixED-Case-Study-Industrial-2023.pdf" target="_blank">Download full case study →</a></p>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="section" style="background:#fff;">
+    <div class="section-inner">
+      <div class="section-label">See It In The Field</div>
+      <h2 class="section-title" style="color:var(--n1);">SonixED™ — operating at a real deployment site</h2>
+      <p class="section-intro">George Brik walks through how SonixED™ operates on-site, from the containerised SalinBloc™ unit to the treatment stack inside.</p>
+      <div class="yt-wrap">
+        <div class="yt-embed" id="ytPlayer">
+          <img class="yt-thumb" src="images/container_inside_with_logo.webp" alt="SonixED system field deployment video thumbnail" loading="lazy" />
+          <div class="yt-play" onclick="loadYT()">
+            <svg viewBox="0 0 68 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="68" height="48" rx="12" fill="rgba(0,25,51,0.75)"/>
+              <polygon points="26,14 26,34 46,24" fill="#c9a22a"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD CARDS -->
+  <section class="section" style="background:var(--s);">
+    <div class="section-inner">
+      <div class="section-label">Technical Documentation</div>
+      <h2 class="section-title" style="color:var(--n1);">Download specifications and validated data</h2>
+      <div class="dl-grid">
+        <a class="dl-card reveal" href="downloads/SonixED-Skid-Datasheet-2025.pdf" target="_blank">
+          <div class="dl-icon">📄</div>
+          <h3>SonixED™ Skid Datasheet</h3>
+          <p>Full system specifications: flow rates 0.5–30 m³/h, energy, pressure, components. 2025 edition.</p>
+          <span class="dl-link">Download PDF →</span>
+        </a>
+        <a class="dl-card reveal" href="downloads/SonixED-Case-Study-Industrial-2023.pdf" target="_blank">
+          <div class="dl-icon">📄</div>
+          <h3>Industrial Case Study</h3>
+          <p>Germany 2023 pilot: SonixED™ vs RO vs EDR on cooling tower blowdown. Real operating data over 90 days.</p>
+          <span class="dl-link">Download PDF →</span>
+        </a>
+        <a class="dl-card reveal" href="downloads/SonixED-Nitrate-Removal-2024.pdf" target="_blank">
+          <div class="dl-icon">📄</div>
+          <h3>Nitrate Removal One-Pager</h3>
+          <p>Selective nitrate removal application: capacity, energy, regulatory context. Container configurations.</p>
+          <span class="dl-link">Download PDF →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-strip">
+    <h2>Send your water data. We assess the fit.</h2>
+    <p>TDS, hardness, nitrate, silica, target flow. Our engineering team will assess whether SonixED™ is right for your application — and tell you honestly if it isn't.</p>
+    <div class="cta-strip-actions">
+      <a href="contact.html" class="btn-dark">Request Assessment</a>
+      <a href="applications.html" class="btn-outline-dark">View Reference Projects</a>
+    </div>
+  </div>
+
+  <!-- LOGO STRIP -->
+  <div class="logo-strip" aria-label="Partners and backers">
+    <div class="logo-strip-title">Partners, funders &amp; institutional collaborators</div>
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <div class="marquee-item"><img src="images/EIC_logo.webp" alt="European Innovation Council" /></div>
+        <div class="marquee-item"><img src="images/flanders_logo.webp" alt="Flanders" /></div>
+        <div class="marquee-item"><img src="images/watereu_logo.webp" alt="Water Europe" /></div>
+        <div class="marquee-item"><img src="images/watergroep_logo.webp" alt="De Watergroep" /></div>
+        <div class="marquee-item"><img src="images/farys_logo.webp" alt="Farys" /></div>
+        <div class="marquee-item"><img src="images/GSTIC_logo.webp" alt="GSTIC" /></div>
+        <div class="marquee-item"><img src="images/aquatech_logo.webp" alt="Aquatech" /></div>
+        <div class="marquee-item"><img src="images/EIC_logo.webp" alt="European Innovation Council" /></div>
+        <div class="marquee-item"><img src="images/flanders_logo.webp" alt="Flanders" /></div>
+        <div class="marquee-item"><img src="images/watereu_logo.webp" alt="Water Europe" /></div>
+        <div class="marquee-item"><img src="images/watergroep_logo.webp" alt="De Watergroep" /></div>
+        <div class="marquee-item"><img src="images/farys_logo.webp" alt="Farys" /></div>
+        <div class="marquee-item"><img src="images/GSTIC_logo.webp" alt="GSTIC" /></div>
+        <div class="marquee-item"><img src="images/aquatech_logo.webp" alt="Aquatech" /></div>
       </div>
     </div>
   </div>
-</section>
 
-<section class="section section--soft">
-  <div class="wrap">
-    <div class="split rv">
-      <div class="split__image"><img src="images/test_monitor.webp" alt="Hydrovolta engineer monitoring SonixED system performance at testing facility" loading="lazy"></div>
-      <div>
-        <span class="ey">Brine valorization</span>
-        <h2>Chemical recovery where the concentrate chemistry supports it.</h2>
-        <p class="lead">Where SonixED&trade; desalination produces residual brine with suitable ion composition, Hydrovolta evaluates and pilots chemical recovery using electromembrane separation and complementary technologies. The specific process configuration is determined by brine chemistry analysis and pilot assessment.</p>
-        <ul class="list" style="margin-top:1.25rem">
-          <li>Brine composition assessed before any valorization pilot is recommended</li>
-          <li>Target product streams: HCl, NaOH, Mg(OH)&#8322;, Ca(OH)&#8322; depending on chemistry</li>
-          <li>Configuration not fixed &mdash; designed per brine type and project objectives</li>
-          <li>Active alongside SonixED&trade; desalination in the Morocco integrated deployment</li>
-        </ul>
-        <div class="actions"><a class="btn btn--out" href="brine-valorization.html">Brine valorization detail</a></div>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-cta">
+      <div class="cta-text">Have a water treatment challenge? Let's talk.</div>
+      <div class="cta-contact">
+        <span>George Brik, CEO</span>
+        <strong>+32 288 00336</strong>
       </div>
     </div>
-  </div>
-</section>
+    <div class="footer-main">
+      <div class="footer-brand">
+        <img loading="lazy" src="images/hydrovolta_logo.webp" alt="Hydrovolta NV" class="footer-logo" />
+        <p>High-recovery groundwater desalination</p>
+        <div class="footer-socials">
+          <a href="https://be.linkedin.com/company/hydrovolta" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM0 8h5V24H0zM8 8h4.8v2.6h.1c.7-1.3 2.4-2.6 4.9-2.6 5.2 0 6.2 3.4 6.2 7.8V24h-5v-7.5c0-1.8 0-4-2.5-4s-2.9 2-2.9 3.9V24H8z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/hydrovolta/" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="18" height="18" fill="currentColor"><path d="M279.14 288l14.22-92.66h-88.91V127.06c0-25.35 12.42-50.06 52.24-50.06H293V6.26S259.43 0 225.36 0C141.09 0 89.09 54.42 89.09 153.58V195.3H0v92.7h89.09V512h107.72V288z"/></svg>
+          </a>
+          <a href="https://x.com/hydrovolta1" target="_blank" rel="noopener" aria-label="X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="18" height="18" fill="currentColor"><path d="M 5.9199219 6 L 20.582031 27.375 L 6.2304688 44 L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 L 44 44 L 28.681641 21.669922 L 42.199219 6 L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 L 5.9199219 6 z M 9.7167969 8 L 16.880859 8 L 40.203125 42 L 33.039062 42 L 9.7167969 8 z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4 class="footer-links-title">Quick Links</h4>
+        <div class="footer-links-row">
+          <ul class="footer-links-col">
+            <li><a href="technology.html">SonixED™ Technology</a></li>
+            <li><a href="solutions.html">Systems</a></li>
+            <li><a href="applications.html">Projects</a></li>
+          </ul>
+          <ul class="footer-links-col">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="questions.html">Full Questionnaire</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-newsletter">
+        <h4>Stay informed — subscribe for project updates</h4>
+        <form>
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Hydrovolta NV. All rights reserved. Registered in Belgium — BE 0664.974.129</p>
+      <div class="footer-policies">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="questions.html">Full Assessment Form</a>
+      </div>
+    </div>
+  </footer>
 
-<section class="section section--dark">
-  <div class="wrap" style="position:relative;z-index:1">
-    <div class="head"><div class="rv"><span class="ey ey--lt">Performance reference</span><h2 style="color:var(--w)">Qualified claims tied to validated operating data.</h2></div>
-    <p class="lead rv d1" style="color:rgba(255,255,255,.65)">Every metric published by Hydrovolta is qualified by feedwater chemistry, operating conditions, and the context in which it was validated. No unqualified performance ranges are published.</p></div>
-    <table class="table rv">
-      <thead><tr><th>Parameter</th><th>Qualified public claim</th><th>Context</th></tr></thead>
-      <tbody>
-        <tr><td>Water recovery</td><td>Up to 98% in suitable applications</td><td>Subject to source chemistry and operating parameters</td></tr>
-        <tr><td>Residual brine</td><td>2&ndash;5% of input volume in selected cases</td><td>Subject to feedwater TDS and recovery target</td></tr>
-        <tr><td>CIP reduction</td><td>50&ndash;90% reduction in validated contexts</td><td>Hardness, silica, and scaling profile dependent</td></tr>
-        <tr><td>Ion selectivity</td><td>Monovalent removal configured per application</td><td>Validated at Water Corporation Perth &mdash; 3 utility sites</td></tr>
-        <tr><td>Valorization products</td><td>Subject to brine composition and pilot results</td><td>Determined per project chemistry assessment</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-<section class="section">
-  <div class="wrap">
-    <div class="head"><div class="rv"><span class="ey">Head-to-head comparison</span><h2>SonixED&trade; vs conventional membrane technologies.</h2></div>
-    <p class="lead rv d1">Data from the Germany 2023 industrial pilot. Conditions: TDS 4,500&thinsp;ppm, silica 85&thinsp;mg/l, high hardness. Same feed water over 90 days.</p></div>
-    <table class="table rv" style="margin-top:2rem">
-      <thead>
-        <tr><th>Parameter</th><th style="color:var(--g)">SonixED&trade;</th><th>Reverse Osmosis</th><th>Standard EDR</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>Water recovery</td><td style="font-weight:600;color:var(--g)">90&ndash;98%</td><td>50&ndash;75%</td><td>70&ndash;85%</td></tr>
-        <tr><td>Energy consumption</td><td style="font-weight:600;color:var(--g)">0.19&ndash;0.7&thinsp;kWh/m&sup3;</td><td>2.0&ndash;4.0&thinsp;kWh/m&sup3;</td><td>1.0&ndash;2.0&thinsp;kWh/m&sup3;</td></tr>
-        <tr><td>Chemical dosing</td><td style="font-weight:600;color:var(--g)">Minimal &mdash; no anti-scalant</td><td>Required</td><td>Anti-scalants needed</td></tr>
-        <tr><td>Operating pressure</td><td style="font-weight:600;color:var(--g)">0.5&ndash;2.5&thinsp;bar</td><td>25&ndash;35&thinsp;bar</td><td>1&ndash;2&thinsp;bar</td></tr>
-        <tr><td>CIP cleaning frequency</td><td style="font-weight:600;color:var(--g)">0.6&times;/month</td><td>1&times;/month</td><td>1&times;/month</td></tr>
-        <tr><td>Annual discharge reduction</td><td style="font-weight:600;color:var(--g)">43,680&thinsp;m&sup3;/yr</td><td>26,880&thinsp;m&sup3;/yr</td><td>34,176&thinsp;m&sup3;/yr</td></tr>
-        <tr><td>Total treatment cost</td><td style="font-weight:600;color:var(--g)">$0.30&ndash;0.40/m&sup3;</td><td>$0.60&ndash;1.00/m&sup3;</td><td>$0.40&ndash;0.80/m&sup3;</td></tr>
-      </tbody>
-    </table>
-    <p class="rv" style="margin-top:1rem;font-size:.83rem;color:var(--m)">Source: Hydrovolta Germany industrial pilot, Feb&ndash;May 2023. <a href="downloads/SonixED-Case-Study-Industrial-2023.pdf" target="_blank" style="color:var(--g)">Download full case study &rarr;</a></p>
-  </div>
-</section>
-<section class="section">
-  <div class="wrap">
-    <div class="head"><div class="rv"><span class="ey">See it in the field</span><h2>SonixED&trade; &mdash; operating at a real deployment site.</h2></div>
-    <p class="lead rv d1">George Brik walks through how SonixED&trade; operates on-site, from the containerised SalinBloc&trade; unit to the treatment stack inside.</p></div>
-    <div class="rv" style="max-width:760px;margin:2rem auto 0">
-      <div class="yt-embed" data-src="https://www.youtube-nocookie.com/embed/hu7XgBK9KlI?rel=0&modestbranding=1" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;box-shadow:0 8px 32px rgba(0,25,51,0.15)"></div>
-    </div>
-  </div>
-</section>
-<section class="section section--soft">
-  <div class="wrap">
-    <div class="head"><div class="rv"><span class="ey">Technical documentation</span><h2>Download specifications and validated data.</h2></div></div>
-    <div class="grid--3">
-      <a class="card rv" href="downloads/SonixED-Skid-Datasheet-2025.pdf" target="_blank" style="text-decoration:none;display:block">
-        <div style="font-size:2rem;margin-bottom:.75rem">&#128196;</div>
-        <h3 style="margin-bottom:.5rem">SonixED&trade; Skid Datasheet</h3>
-        <p style="font-size:.9rem">Full system specifications: flow rates 0.5&ndash;30&thinsp;m&sup3;/h, energy, pressure, components. 2025 edition.</p>
-        <p style="margin-top:.75rem;font-size:.83rem;font-weight:600;color:var(--g)">Download PDF &rarr;</p>
-      </a>
-      <a class="card rv d1" href="downloads/SonixED-Case-Study-Industrial-2023.pdf" target="_blank" style="text-decoration:none;display:block">
-        <div style="font-size:2rem;margin-bottom:.75rem">&#128196;</div>
-        <h3 style="margin-bottom:.5rem">Industrial Case Study</h3>
-        <p style="font-size:.9rem">Germany 2023 pilot: SonixED&trade; vs RO vs EDR on cooling tower blowdown. Real operating data over 90 days.</p>
-        <p style="margin-top:.75rem;font-size:.83rem;font-weight:600;color:var(--g)">Download PDF &rarr;</p>
-      </a>
-      <a class="card rv d2" href="downloads/SonixED-Nitrate-Removal-2024.pdf" target="_blank" style="text-decoration:none;display:block">
-        <div style="font-size:2rem;margin-bottom:.75rem">&#128196;</div>
-        <h3 style="margin-bottom:.5rem">Nitrate Removal One-Pager</h3>
-        <p style="font-size:.9rem">Selective nitrate removal application: capacity, energy, regulatory context. Container configurations.</p>
-        <p style="margin-top:.75rem;font-size:.83rem;font-weight:600;color:var(--g)">Download PDF &rarr;</p>
-      </a>
-    </div>
-  </div>
-</section>
-<section class="cta-strip"><div class="cta-strip__in"><span class="ey ey--lt">Assessment</span><h2>Send your water data. We assess the fit.</h2><p>TDS, hardness, nitrate, silica, target flow. Our engineering team will assess whether SonixED&trade; is the right answer for your application.</p><div class="actions"><a class="btn btn--gold" href="contact.html">Request Assessment</a><a class="btn btn--ghost" href="projects.html">View References</a></div></div></section>
-</main><section class="logos"><div class="wrap"><p>Institutional partners &amp; backing</p><div class="logos__row"><img src="images/EIC_logo.webp" alt="EIC" loading="lazy"><img src="images/flanders_logo.webp" alt="Flanders" loading="lazy"><img src="images/watereu_logo.webp" alt="Water Europe" loading="lazy"><img src="images/watergroep_logo.webp" alt="De Watergroep" loading="lazy"><img src="images/farys_logo.webp" alt="Farys" loading="lazy"><img src="images/GSTIC_logo.webp" alt="GSTIC" loading="lazy"><img src="images/aquatech_logo.webp" alt="Aquatech" loading="lazy"></div></div></section><footer class="footer"><div class="wrap"><div class="footer__grid"><div><h4>Hydrovolta</h4><p>High-recovery treatment for brackish groundwater, hard water, and saline sources. Modular and project-engineered systems. Founded 2016, Leuven, Belgium.</p></div><div><h4>Solutions</h4><ul><li><a href="groundwater.html">Groundwater</a></li><li><a href="brine-valorization.html">Brine Valorization</a></li><li><a href="technology.html">Technology</a></li><li><a href="systems.html">Systems</a></li></ul></div><div><h4>Company</h4><ul><li><a href="projects.html">Projects</a></li><li><a href="applications.html">Applications</a></li><li><a href="about.html">About</a></li><li><a href="privacy.html">Privacy</a></li></ul></div><div><h4>Start with water data</h4><p>TDS, hardness, nitrate, silica, target flow, and any brine analysis.</p><p style="margin-top:1rem"><a class="btn btn--gold btn--sm" href="contact.html">Request assessment</a></p></div></div><div class="footer__bottom"><p>&copy; <span data-year></span> Hydrovolta NV &middot; All rights reserved &middot; Leuven, Belgium</p><p>SonixED&trade; &middot; SalinBloc&trade; &middot; Integrated brine valorization</p><div class="footer__social"><a href="https://be.linkedin.com/company/hydrovolta" target="_blank" rel="noopener" aria-label="Hydrovolta on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a><a href="https://www.facebook.com/hydrovolta/" target="_blank" rel="noopener" aria-label="Hydrovolta on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a></div></div></div></footer></footer><script src="js/site.js"></script></body></html>
+  <script>
+    // Scroll reveal
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // Nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.getElementById('nav-links');
+    if (toggle && links) {
+      toggle.addEventListener('click', () => {
+        const open = links.style.display === 'flex';
+        links.style.display = open ? 'none' : 'flex';
+        links.style.flexDirection = 'column';
+        links.style.position = 'absolute';
+        links.style.top = '64px';
+        links.style.left = '0';
+        links.style.right = '0';
+        links.style.background = 'var(--n2)';
+        links.style.padding = '1rem 2rem 1.5rem';
+        links.style.gap = '1rem';
+        toggle.setAttribute('aria-expanded', String(!open));
+      });
+    }
+
+    // YouTube lazy load
+    function loadYT() {
+      const el = document.getElementById('ytPlayer');
+      el.innerHTML = '<iframe class="yt-iframe" src="https://www.youtube-nocookie.com/embed/hu7XgBK9KlI?autoplay=1&rel=0&modestbranding=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+    }
+  </script>
+</body>
+</html>
