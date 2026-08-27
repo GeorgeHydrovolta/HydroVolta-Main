@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="Digital user manual and unit-specific quality reports for your SalinBloc container."/><meta name="robots" content="noindex,follow"/><title>SalinBloc Container Guide | Hydrovolta</title><link rel="canonical" href="https://hydrovolta.com/salinbloc-manual"/><meta property="og:title" content="SalinBloc Container Guide | Hydrovolta"/><meta property="og:description" content="Digital user manual and unit-specific quality reports for your SalinBloc container."/><meta property="og:image" content="https://hydrovolta.com/images/hydrovolta_logo-OG.webp"/><meta name="twitter:card" content="summary_large_image"/><link rel="icon" href="images/favicon.ico"/><link rel="stylesheet" href="css/site.css"/></head><body data-page="salinbloc-manual"><a class="skip" href="#main">Skip to content</a>
+<div class="topbar">Active in Morocco &amp; Perth &middot; Pilot contracts open &middot; EIC Accelerator &euro;2.2M awarded</div>
+<nav class="nav" aria-label="Main navigation"><div class="nav__in"><a class="brand" href="index.html"><span class="brand__mark"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8a8 8 0 0 0 16 0c0-3.32-2.67-7.25-8-11.8z"/></svg></span><span>Hydrovolta</span></a>
+<div class="nav__links" id="nav-links"><a href="index.html">Home</a><a href="technology.html">How it Works</a><a href="projects.html">Projects</a><a href="systems.html">Systems</a><a href="about.html">About</a><a class="btn btn--navy btn--sm" href="contact.html">Get in Touch</a></div>
+<button class="menu" id="menu-btn" aria-label="Toggle navigation" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button></div></nav>
+<main id="main">
+
+<section class="manual-hero">
+  <div class="manual-hero__in">
+    <div class="manual-hero__text">
+      <span class="manual-hero__badge">SalinBloc&trade; Container Guide</span>
+      <h1>Welcome to your SalinBloc container guide</h1>
+      <p class="lead">This page is your digital home base for the container: the full user manual for every part inside, and the factory quality report for your specific unit.</p>
+      <div class="actions">
+        <a class="btn btn--gold" href="downloads/SalinBloc-User-Manual.pdf" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
+          Download the manual (PDF)
+        </a>
+        <a class="btn btn--ghost" href="#quality-report">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M12 3l8 4v5c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V7l8-4z"/></svg>
+          View quality report
+        </a>
+      </div>
+    </div>
+    <div class="manual-hero__image">
+      <img src="images/container_rendering_1.webp" alt="SalinBloc container unit" loading="eager"/>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="manual-viewer">
+  <div class="wrap" style="max-width:1100px;text-align:center">
+    <span class="ey" style="justify-content:center">User Manual</span>
+    <h2>Everything inside your container, chapter by chapter</h2>
+    <p class="lead" style="max-width:60ch;margin-left:auto;margin-right:auto">Scroll through the manual right here on the page, or jump straight to a part using the chapters button.</p>
+  </div>
+
+  <div class="viewer-layout">
+    <div class="viewer-main">
+      <div class="viewer-toolbar">
+        <div class="viewer-toolbar__group">
+          <button type="button" class="viewer-btn" id="chapters-toggle" aria-expanded="false" aria-controls="chapters-panel">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+            Parts &amp; chapters
+          </button>
+        </div>
+        <div class="viewer-toolbar__group">
+          <button type="button" class="viewer-btn" id="zoom-out" aria-label="Zoom out">&minus;</button>
+          <span class="viewer-zoom-level" id="zoom-level">100%</span>
+          <button type="button" class="viewer-btn" id="zoom-in" aria-label="Zoom in">+</button>
+        </div>
+      </div>
+
+      <div class="chapters-popover" id="chapters-panel"></div>
+
+      <div class="viewer-frame-wrap">
+        <iframe id="manual-frame" title="SalinBloc user manual" loading="lazy"
+          src="pdfjs/web/viewer.html?file=../../downloads/SalinBloc-User-Manual.pdf"></iframe>
+      </div>
+
+      <div class="viewer-actions">
+        <a class="btn btn--out btn--sm" href="downloads/SalinBloc-User-Manual.pdf" download>Download PDF</a>
+        <a class="btn btn--out btn--sm" href="downloads/SalinBloc-User-Manual.pdf" target="_blank" rel="noopener">Open in new tab</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--dark" id="quality-report">
+  <div class="wrap serial-lookup" style="text-align:center">
+    <span class="ey" style="justify-content:center">Your Unit</span>
+    <h2>Find your unit's quality report</h2>
+    <p class="lead" style="margin-top:.5rem">Enter the serial number from your SalinBloc unit's nameplate to pull up its factory quality report.</p>
+    <form id="serial-form" class="serial-form">
+      <label for="serial-input" class="skip">Serial number</label>
+      <input type="text" id="serial-input" name="serial" placeholder="e.g. SN-2026-0142" autocomplete="off" required/>
+      <button type="submit" class="btn btn--gold">Find report</button>
+    </form>
+    <div class="report-result" id="report-result"></div>
+  </div>
+</section>
+
+</main>
+<section class="logos"><div class="wrap"><p>Institutional partners &amp; backing</p><div class="logos__row"><img src="images/EIC_logo.webp" alt="EIC" loading="lazy"><img src="images/flanders_logo.webp" alt="Flanders" loading="lazy"><img src="images/watereu_logo.webp" alt="Water Europe" loading="lazy"><img src="images/watergroep_logo.webp" alt="De Watergroep" loading="lazy"><img src="images/farys_logo.webp" alt="Farys" loading="lazy"><img src="images/GSTIC_logo.webp" alt="GSTIC" loading="lazy"><img src="images/aquatech_logo.webp" alt="Aquatech" loading="lazy"></div></div></section><footer class="footer"><div class="wrap"><div class="footer__grid"><div><h4>Hydrovolta</h4><p>High-recovery groundwater desalination with integrated brine valorization where the chemistry and economics support it.</p></div><div><h4>Solutions</h4><ul><li><a href="groundwater.html">Groundwater</a></li><li><a href="brine-valorization.html">Brine Valorization</a></li><li><a href="technology.html">Technology</a></li><li><a href="systems.html">Systems</a></li></ul></div><div><h4>Company</h4><ul><li><a href="projects.html">Projects</a></li><li><a href="applications.html">Applications</a></li><li><a href="about.html">About</a></li><li><a href="privacy.html">Privacy</a></li></ul></div><div><h4>Start with water data</h4><p>TDS, hardness, nitrate, silica, target flow, brine analysis.</p><p style="margin-top:1rem"><a class="btn btn--gold btn--sm" href="contact.html">Request assessment</a></p></div></div><div class="footer__bottom"><p>&copy; <span data-year></span> Hydrovolta NV &middot; All rights reserved &middot; Leuven, Belgium</p><p>SonixED&trade; &middot; SalinBloc&trade; &middot; Integrated brine valorization</p><div class="footer__social"><a href="https://be.linkedin.com/company/hydrovolta" target="_blank" rel="noopener" aria-label="Hydrovolta on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a><a href="https://www.facebook.com/hydrovolta/" target="_blank" rel="noopener" aria-label="Hydrovolta on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a></div></div></div></footer><script src="js/site.js"></script><script src="js/manual.js"></script></body></html>
