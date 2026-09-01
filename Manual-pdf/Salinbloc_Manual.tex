@@ -1,0 +1,2397 @@
+\documentclass[a4paper,11pt,twoside,openright,numbers=noenddot]{scrreprt}
+
+\makeatletter
+%% ============================ SETTINGS ============================
+%% Flip these three, then compile with pdflatex (twice) or lualatex.
+\newif\ifhv@review  \hv@reviewfalse   % DRAFT watermark + visible \todo notes
+\newif\ifhv@dutch   \hv@dutchfalse    % Dutch as main language
+\newif\ifhv@secpage \hv@secpagetrue   % every \section starts on a new page
+%% ==================================================================
+% ---------------------------------------------------------------- engine/fonts
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp}
+  \usepackage{lmodern}
+  \usepackage[scaled=0.94]{helvet}   % <- swap for the brand face
+  \usepackage{courier}
+\else
+  \usepackage{fontspec}
+  % \setsansfont{Your Brand Sans}[Scale=0.96]
+  % \setmonofont{Your Brand Mono}[Scale=0.90]
+\fi
+\renewcommand{\familydefault}{\sfdefault}   % sans body text, typical for manuals
+
+% ------------------------------------------------------------------- languages
+\ifhv@dutch
+  \usepackage[main=dutch,english]{babel}
+\else
+  \usepackage[main=english,dutch]{babel}
+\fi
+\usepackage{csquotes}
+\usepackage{microtype}
+
+% -------------------------------------------------------------------- geometry
+\usepackage[a4paper,
+  inner=28mm, outer=20mm, top=26mm, bottom=24mm,
+  headsep=8mm, footskip=12mm]{geometry}
+
+% ---------------------------------------------------------------------- colour
+% Replace these three with the real HydroVolta brand values.
+\usepackage[table]{xcolor}
+\definecolor{hvprimary}{HTML}{003058}   % Hydrovolta navy
+\definecolor{hvaccent} {HTML}{F0D828}   % Hydrovolta yellow (rules & fills only)
+\definecolor{hvink}    {HTML}{17202A}
+\definecolor{hvmuted}  {HTML}{6C7A89}
+\definecolor{hvrule}   {HTML}{D3D9DF}
+\definecolor{hvpaper}  {HTML}{F4F6F8}
+
+% ISO 3864 / ANSI Z535 safety palette
+% Red = personal injury (DANGER / WARNING / CAUTION)
+% Yellow = property damage (NOTICE) · Green = information (NOTE)
+\definecolor{hvdanger}   {HTML}{8A1414}
+\definecolor{hvdangerbg}   {HTML}{F8E4E4}
+\definecolor{hvwarning}  {HTML}{B01B1B}
+\definecolor{hvwarningbg}  {HTML}{FBEDED}
+\definecolor{hvcaution}  {HTML}{C24A4A}
+\definecolor{hvcautionbg}  {HTML}{FDF2F2}
+\definecolor{hvnotice}   {HTML}{F0D828}
+\definecolor{hvnoticebg}   {HTML}{FEF9E0}
+\definecolor{hvnoticeln} {HTML}{C9A21A}
+\definecolor{hvnote}     {HTML}{3F6B4A}
+\definecolor{hvnotebg}     {HTML}{EEF4EF}
+
+% ------------------------------------------------------------------- packages
+\usepackage{graphicx}
+% ---- image folders -----------------------------------------------------------
+% Project layout assumed:
+%   HydroVolta-Main/
+%     images/     <- shared image folder (sibling of this document's folder)
+%     manual/     <- this LaTeX document
+% Change BOTH lines below together if the sibling folder has another name.
+\newcommand{\hvimgdir}{../images/}
+\graphicspath{{../images/}{}}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage[most]{tcolorbox}
+\usepackage{booktabs,tabularx,longtable,xltabular,multirow,array,ragged2e}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{listings}
+\usepackage{qrcode}
+\usepackage{lastpage}
+\usepackage{caption}
+\usepackage{pdfpages}
+\usepackage{xspace}
+\usepackage{scrlayer-scrpage}
+\usepackage{etoolbox}
+\usepackage{etoc}
+\usepackage[hidelinks,bookmarksnumbered]{hyperref}
+\usepackage[nameinlink]{cleveref}
+\ifhv@review
+  \usepackage{draftwatermark}
+  \SetWatermarkText{DRAFT}\SetWatermarkScale{1.1}\SetWatermarkLightness{0.92}
+  \usepackage[textwidth=18mm,textsize=tiny]{todonotes}
+\else
+  \usepackage[disable]{todonotes}
+\fi
+
+\sisetup{per-mode=symbol, range-units=single, detect-weight=true}
+
+% ------------------------------------------------------------------- metadata
+% Set every field from the main file with \hvsetup{key = value, ...}
+\pgfkeys{/hv/.cd,
+  title/.store in         = \hv@title,
+  subtitle/.store in      = \hv@subtitle,
+  product/.store in       = \hv@product,
+  model/.store in         = \hv@model,
+  serial/.store in        = \hv@serial,
+  docnumber/.store in     = \hv@docnumber,
+  revision/.store in      = \hv@revision,
+  date/.store in          = \hv@date,
+  language/.store in      = \hv@language,
+  author/.store in        = \hv@author,
+  approver/.store in      = \hv@approver,
+  company/.store in       = \hv@company,
+  address/.store in       = \hv@address,
+  contact/.store in       = \hv@contact,
+  website/.store in       = \hv@website,
+  qrurl/.store in         = \hv@qrurl,
+  logo/.store in          = \hv@logo,
+  coverimage/.store in    = \hv@coverimage,
+  classification/.store in= \hv@classification,
+}
+\newcommand{\hvsetup}[1]{\pgfqkeys{/hv}{#1}}
+\hvsetup{title={}, subtitle={}, product={}, model={}, serial={},
+  docnumber={}, revision={}, date={\today}, language={}, author={},
+  approver={}, company={}, address={}, contact={}, website={}, qrurl={},
+  logo={figures/logo.pdf}, coverimage={}, classification={}}
+
+\AtBeginDocument{\hypersetup{pdftitle={\hv@title}, pdfauthor={\hv@company},
+  pdfsubject={\hv@product\ \hv@model}, pdfkeywords={\hv@docnumber, \hv@revision}}}
+
+% --------------------------------------------------------- headings & captions
+\setkomafont{disposition}{\sffamily\bfseries\color{hvprimary}}
+\setkomafont{chapter}{\sffamily\bfseries\huge\color{hvprimary}}
+\setkomafont{section}{\sffamily\bfseries\Large\color{hvprimary}}
+\setkomafont{subsection}{\sffamily\bfseries\large\color{hvink}}
+\setkomafont{subsubsection}{\sffamily\bfseries\normalsize\color{hvink}}
+\RedeclareSectionCommand[beforeskip=0pt,afterskip=20pt]{chapter}
+\renewcommand*{\chapterformat}{}
+\renewcommand{\chapterlinesformat}[3]{%
+  \parbox{\linewidth}{%
+    \textcolor{hvaccent}{\rule{28mm}{3pt}}\par\vspace{7pt}%
+    \ifblank{#2}{}{{\normalfont\sffamily\bfseries\footnotesize\color{hvmuted}%
+      \MakeUppercase{\chapapp}\;#2\par\vspace{5pt}}}%
+    \raggedright #3\par}}
+\setcounter{secnumdepth}{3}
+% Optional one-line subtitle, placed directly after \chapter{...}
+\newcommand{\chaptersubtitle}[1]{%
+  \vspace{-12pt}\par
+  {\sffamily\fontsize{13}{17}\selectfont\color{hvmuted}\raggedright #1\par}
+  \vspace{10pt}}
+\setcounter{tocdepth}{2}
+
+\captionsetup{font={small},labelfont={bf,color=hvprimary},
+  labelsep=period, justification=raggedright, singlelinecheck=false, skip=6pt}
+
+% Every \section starts on a new page (disable with the nosectionpages option)
+\ifhv@secpage\pretocmd{\section}{\clearpage}{}{%
+  \PackageWarning{hydrovolta}{Could not patch \string\section}}\fi
+
+% "In this chapter" list — place directly after \chapter / \chaptersubtitle
+\newcommand{\chaptertoc}{%
+  \begingroup
+  \etocsetnexttocdepth{1}%
+  \etocsettocstyle
+    {{\sffamily\bfseries\footnotesize\color{hvmuted}IN THIS CHAPTER\par}%
+     \vspace{5pt}{\color{hvink}\rule{\linewidth}{1.2pt}}\par\vspace{2pt}}{}%
+  \etocsetstyle{section}{}{}
+    {\par\vspace{4pt}\noindent
+     \makebox[11mm][l]{\sffamily\bfseries\small\color{hvprimary}\etocnumber}%
+     \sffamily\small\etocname\hfill{\color{hvmuted}\etocpage}%
+     \par\vspace{4pt}{\color{hvrule}\rule{\linewidth}{0.4pt}}}{}%
+  \localtableofcontents
+  \endgroup}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt}
+\linespread{1.06}
+
+% --------------------------------------------------------------- running heads
+\pagestyle{scrheadings}
+\clearpairofpagestyles
+\automark[section]{chapter}
+\setkomafont{pageheadfoot}{\normalfont\sffamily\footnotesize\color{hvmuted}}
+\setkomafont{pagenumber}{\normalfont\sffamily\footnotesize\color{hvprimary}}
+\ihead{\hv@product\ifx\hv@model\empty\else\ \textbar\ \hv@model\fi}
+\ohead{\headmark}
+\ofoot{\pagemark\,/\,\pageref{LastPage}}
+\KOMAoptions{headsepline=0.4pt:\textwidth, footsepline=0.4pt:\textwidth}
+\setkomafont{headsepline}{\color{hvrule}}
+\setkomafont{footsepline}{\color{hvrule}}
+
+% ------------------------------------------------------------- safety pictogram
+% Simple ISO-style triangle; swap for the official symbol artwork when available.
+\newcommand{\hvtriangle}[1][white]{%
+  \raisebox{-0.6ex}{\begin{tikzpicture}[scale=0.10]
+    \draw[line width=1.6pt, #1, line join=round] (0,0) -- (4,6.9) -- (8,0) -- cycle;
+    \node[#1,font=\bfseries\tiny] at (4,2.0) {!};
+  \end{tikzpicture}}}
+
+% ---------------------------------------------------------------- admonitions
+\tcbset{hvbox/.style={
+  enhanced, breakable, sharp corners, boxrule=0.5pt,
+  fonttitle=\sffamily\bfseries\small, coltitle=white,
+  left=8pt, right=8pt, top=7pt, bottom=7pt,
+  toptitle=3pt, bottomtitle=3pt,
+  before skip=10pt, after skip=10pt}}
+
+\newtcolorbox{danger} [1][]{hvbox, colframe=hvdanger,  colback=hvdangerbg,  colbacktitle=hvdanger,  title={\hvtriangle\ \MakeUppercase{danger}}, #1}
+\newtcolorbox{warning}[1][]{hvbox, colframe=hvwarning, colback=hvwarningbg, colbacktitle=hvwarning, title={\hvtriangle\ \MakeUppercase{warning}}, #1}
+\newtcolorbox{caution}[1][]{hvbox, colframe=hvcaution, colback=hvcautionbg, colbacktitle=hvcaution, title={\hvtriangle\ \MakeUppercase{caution}}, #1}
+\newtcolorbox{notice} [1][]{hvbox, colframe=hvnoticeln, colback=hvnoticebg, colbacktitle=hvnotice, coltitle=hvink, title={\hvtriangle[hvink]\ \MakeUppercase{notice}}, #1}
+\newtcolorbox{note}   [1][]{hvbox, colframe=hvnote,    colback=hvnotebg,    colbacktitle=hvnote,    title={\MakeUppercase{note}}, #1}
+
+% -------------------------------------------------------------- lists & steps
+\setlist[itemize]{leftmargin=1.2em, itemsep=2pt, topsep=4pt}
+\setlist[enumerate]{leftmargin=1.6em, itemsep=2pt, topsep=4pt}
+\newlist{procedure}{enumerate}{2}
+\setlist[procedure,1]{label=\textbf{\arabic*.}, ref=\arabic*, leftmargin=2.0em,
+  itemsep=8pt, topsep=8pt, parsep=3pt}
+\setlist[procedure,2]{label=\alph*., leftmargin=1.6em, itemsep=3pt}
+% Expected result of a step
+\newcommand{\result}[1]{\par\smallskip{\color{hvmuted}$\rightarrow$\ \itshape #1}\par}
+
+% Reference to an HMI element / physical control
+\newcommand{\ui}[1]{\textbf{\color{hvprimary}#1}}
+% Reference to a PLC tag / variable / signal name
+\newcommand{\plctag}[1]{\texttt{\small #1}}
+% Product names
+\newcommand{\salinbloc}{SalinBloc\texttrademark\xspace}
+\newcommand{\sonixed}{SonixED\texttrademark\xspace}
+% Numbered balloon for figure callouts
+\newcommand{\callout}[1]{\tikz[baseline=(n.base)]{\node[circle,fill=hvprimary,
+  text=white,inner sep=1.4pt,font=\sffamily\bfseries\tiny,minimum size=11pt](n){#1};}}
+
+% ---------------------------------------------------------------------- tables
+% \hvtablebegin{colspec}{caption}{label} ... rows ... \bottomrule\end{xltabular}\par
+% NOTE: xltabular/tabularx locate their own closing \end{xltabular} by
+% scanning the raw input for the *first* literal "\end{...}" token. That
+% scan cannot be hidden inside another environment or macro — doing so
+% (e.g. \newenvironment{hvtable}{...}{\end{xltabular}} or an \end-hiding
+% \newcommand) makes the scanner swallow the wrapper's own closing tag
+% instead, so it never finds \end{xltabular} and runs off the end of the
+% file ("File ended while scanning use of \TX@get@body."). So every use
+% must end with the literal "\bottomrule\end{xltabular}\par" typed directly
+% — only the opening half is safe to wrap in a macro.
+\newcommand{\hvtablebegin}[3]{\par\vspace{10pt}\captionof{table}{#2}\label{#3}\par\vspace{3pt}%
+   \small\setlength{\tabcolsep}{6pt}\renewcommand{\arraystretch}{1.25}%
+   \begin{xltabular}{\linewidth}{#1}\toprule}
+\newcommand{\hvhead}[1]{\rowcolor{white}#1}
+\newcolumntype{L}{>{\RaggedRight\arraybackslash}X}
+\newcolumntype{C}[1]{>{\Centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
+
+% Abbreviations / glossary block:
+% \abbreviationsbegin ... \abbr{term}{def} ... \bottomrule\end{xltabular}\par
+\newcommand{\abbreviationsbegin}{\par\small\renewcommand{\arraystretch}{1.3}%
+   \begin{xltabular}{\linewidth}{C{28mm} L}\toprule
+   \textbf{Term} & \textbf{Definition}\\\midrule}
+\newcommand{\abbr}[2]{#1 & #2\\}
+
+% ---------------------------------------------------------------------- figures
+% \hvfig[width]{file}{caption}{label} - draws a placeholder if the file is absent
+\newcommand{\hvplaceholder}[2][0.75\linewidth]{%
+  \begin{tikzpicture}
+    \node[draw=hvrule, dashed, fill=hvpaper, minimum width=#1,
+          minimum height=48mm, align=center, inner sep=8pt,
+          font=\ttfamily\scriptsize, text=hvmuted] {#2};
+  \end{tikzpicture}}
+% Resolve an image name against ./ , ./figures/ and \hvimgdir ; result in \hv@found
+\newcommand{\hv@resolve}[1]{%
+  \def\hv@found{}%
+  \IfFileExists{#1}{\def\hv@found{#1}}{%
+    \IfFileExists{figures/#1}{\def\hv@found{figures/#1}}{%
+      \IfFileExists{\hvimgdir#1}{\edef\hv@found{\hvimgdir#1}}{}}}}
+\newcommand{\hvfig}[4][0.75\linewidth]{%
+  \begin{figure}[htbp]\centering
+    \hv@resolve{#2}%
+    \ifx\hv@found\@empty\hvplaceholder[#1]{#2}\else
+      \includegraphics[width=#1]{\hv@found}\fi
+    \caption{#3}\label{#4}
+  \end{figure}}
+
+% ------------------------------------------------------------------- QR module
+\newcommand{\hvqr}[2][22mm]{\qrcode[height=#1,level=M]{#2}}
+\newcommand{\hvqrbox}[3][22mm]{%
+  \begin{tcolorbox}[hvbox, colframe=hvrule, colback=hvpaper]
+    \begin{minipage}[c]{#1}\hvqr[#1]{#2}\end{minipage}\hfill
+    \begin{minipage}[c]{\dimexpr\linewidth-#1-10pt\relax}\small #3\end{minipage}
+  \end{tcolorbox}}
+
+% ---------------------------------------------- IEC 61131-3 Structured Text
+\lstdefinelanguage{ST}{
+  morekeywords={PROGRAM,END_PROGRAM,FUNCTION,END_FUNCTION,FUNCTION_BLOCK,
+    END_FUNCTION_BLOCK,VAR,VAR_INPUT,VAR_OUTPUT,VAR_IN_OUT,VAR_GLOBAL,VAR_TEMP,
+    END_VAR,CONSTANT,RETAIN,PERSISTENT,AT,TYPE,END_TYPE,STRUCT,END_STRUCT,ARRAY,
+    OF,IF,THEN,ELSIF,ELSE,END_IF,CASE,END_CASE,FOR,TO,BY,DO,END_FOR,WHILE,
+    END_WHILE,REPEAT,UNTIL,END_REPEAT,EXIT,CONTINUE,RETURN,TRUE,FALSE,AND,OR,
+    XOR,NOT,MOD,ACTION,END_ACTION,STEP,INITIAL_STEP,END_STEP,TRANSITION,
+    END_TRANSITION,FROM,METHOD,END_METHOD,INTERFACE,END_INTERFACE,EXTENDS,
+    IMPLEMENTS,CONFIGURATION,END_CONFIGURATION,RESOURCE,END_RESOURCE,TASK,ON,
+    WITH,PRIORITY,INTERVAL,SINGLE},
+  morekeywords=[2]{BOOL,BYTE,WORD,DWORD,LWORD,SINT,INT,DINT,LINT,USINT,UINT,
+    UDINT,ULINT,REAL,LREAL,TIME,LTIME,DATE,TIME_OF_DAY,TOD,DATE_AND_TIME,DT,
+    STRING,WSTRING,POINTER,REFERENCE,ANY,ANY_INT,ANY_REAL},
+  sensitive=false,
+  morecomment=[l]{//},
+  morecomment=[s]{(*}{*)},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"}
+
+\lstdefinestyle{hvcode}{
+  language=ST,
+  basicstyle=\ttfamily\scriptsize\color{hvink},
+  keywordstyle=\color{hvprimary}\bfseries,
+  keywordstyle=[2]\color{hvaccent},
+  commentstyle=\color{hvmuted}\itshape,
+  stringstyle=\color{hvnote},
+  numbers=left, numberstyle=\ttfamily\tiny\color{hvmuted}, numbersep=8pt,
+  backgroundcolor=\color{hvpaper},
+  frame=leftline, framerule=2pt, rulecolor=\color{hvrule},
+  framesep=8pt, xleftmargin=16pt,
+  showstringspaces=false, breaklines=true, breakatwhitespace=true,
+  tabsize=2, captionpos=b, aboveskip=10pt, belowskip=10pt}
+\lstset{style=hvcode}
+\newcommand{\hvcodefile}[3]{\lstinputlisting[caption={#2},label={#3}]{#1}}
+\renewcommand{\lstlistingname}{Listing}
+
+% --------------------------------------------------------------- cover page
+\newcommand{\hvtitlepage}{%
+  \begin{titlepage}
+  \thispagestyle{empty}
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[hvprimary] (current page.north west) rectangle
+      ($(current page.north east)+(0,-52mm)$);
+    \fill[hvaccent] ($(current page.north west)+(0,-52mm)$) rectangle
+      ($(current page.north east)+(0,-55mm)$);
+    \node[anchor=north west, inner sep=0pt]
+      at ($(current page.north west)+(20mm,-18mm)$)
+      {\hv@resolve{\hv@logo}%
+       \ifx\hv@found\@empty\color{white}\sffamily\Large\bfseries\hv@company
+       \else\includegraphics[height=12mm]{\hv@found}\fi};
+    \ifx\hv@classification\empty\else
+      \node[anchor=north east, font=\sffamily\scriptsize, text=white!80!hvprimary]
+        at ($(current page.north east)+(-20mm,-18mm)$) {\MakeUppercase{\hv@classification}};
+    \fi
+  \end{tikzpicture}
+
+  \vspace*{70mm}
+  {\sffamily\bfseries\fontsize{36}{42}\selectfont\color{hvprimary}\hv@title\par}
+  \ifx\hv@subtitle\empty\else
+    \vspace{6mm}{\sffamily\fontsize{15}{20}\selectfont\color{hvmuted}\hv@subtitle\par}
+  \fi
+  \vspace{9mm}
+  {\color{hvaccent}\rule{28mm}{3pt}}\par
+  \vspace{5mm}
+  {\sffamily\large\color{hvink}\hv@product\ifx\hv@model\empty\else\ \textbar\ \hv@model\fi\par}
+
+  \vfill
+  \ifx\hv@coverimage\empty\else
+    \begin{center}
+      \hv@resolve{\hv@coverimage}%
+      \ifx\hv@found\@empty\hvplaceholder[0.9\linewidth]{\hv@coverimage}%
+      \else\includegraphics[width=0.9\linewidth]{\hv@found}\fi
+    \end{center}
+    \vfill
+  \fi
+
+  \end{titlepage}}
+
+% ------------------------------------------------------- document control page
+\newcommand{\hvdoccontrol}{%
+  \thispagestyle{scrheadings}
+  \section*{Document control}
+  \small
+  \begin{tabularx}{\linewidth}{@{}p{34mm} L@{}}
+    \toprule
+    Title            & \hv@title\\
+    Product          & \hv@product\ifx\hv@model\empty\else\ \textbar\ \hv@model\fi\\
+    Date of issue    & \hv@date\\
+    Classification   & \hv@classification\\
+    \bottomrule
+  \end{tabularx}
+  \par\vspace{10mm}
+  \subsection*{Manufacturer}
+  \small
+  \hv@company\par\hv@address\par\hv@contact\par
+  \ifx\hv@website\empty\else\href{\hv@website}{\hv@website}\par\fi
+  \clearpage}
+
+% ------------------------------------------------------------------ back cover
+\newcommand{\hvbackcover}{%
+  \clearpage\thispagestyle{empty}
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[hvprimary] ($(current page.south west)$) rectangle
+      ($(current page.south east)+(0,54mm)$);
+    \node[anchor=south west, align=left, text=white, font=\sffamily\small]
+      at ($(current page.south west)+(20mm,16mm)$)
+      {\textbf{\hv@company}\\[2pt]\hv@address\\[2pt]\hv@contact\\[2pt]\hv@website};
+    \node[anchor=south east, align=right, text=white!80!hvprimary,
+          font=\sffamily\scriptsize]
+      at ($(current page.south east)+(-20mm,16mm)$)
+      {\hv@docnumber\ \textbar\ Rev.\ \hv@revision\ \textbar\ \hv@date};
+  \end{tikzpicture}
+  \null}
+\makeatother
+
+%% ========================= DOCUMENT METADATA =========================
+\hvsetup{
+  title          = {},
+  subtitle       = {},
+  product        = {SalinBloc\texttrademark},
+  model          = {},
+  docnumber      = {},
+  revision       = {},
+  date           = {\today},
+  language       = {English},
+  author         = {},
+  approver       = {},
+  company        = {Hydrovolta NV},
+  address        = {Romeinse Straat 18, 3001 Leuven, Belgium},
+  contact        = {info@hydrovolta.com \textbar\ +32 28 800 336},
+  website        = {https://hydrovolta.com},
+  qrurl          = {https://hydrovolta.com/salinbloc-manual}, % URL behind the QR code
+  logo           = {figures/logo-white.png},
+  coverimage     = {figures/salinbloc-skid.png},
+  classification = {},
+}
+
+%% Image folders — \hvfig{pump.png}{...}{fig:pump} needs no path.
+%% Change both lines together if the shared folder has another name:
+% \renewcommand{\hvimgdir}{../graphics/}
+% \graphicspath{{../graphics/}{figures/}{}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\hvtitlepage
+
+\pagenumbering{roman}
+\hvdoccontrol
+\tableofcontents
+\clearpage
+% \listoffigures
+% \listoftables
+
+\cleardoublepage\pagenumbering{arabic}\setcounter{page}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONTENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% ---- Part I: General chapters ------------------------------------------
+
+\chapter{About this manual}
+\label{ch:about}
+\chaptertoc
+
+\section{Purpose and scope}
+This manual describes the \salinbloc container: a modular \sonixed
+electrodialysis unit for water desalination and brine valorization,
+delivered as one or more standard shipping containers fitted with
+pretreatment, stack, dosing and control equipment. Part~I of this manual
+covers the unit as a whole (safety, installation, commissioning, day-to-day
+operation). Part~II gives one self-contained chapter per compartment inside
+the container --- pumps, stacks, valves, dosing, sensors, control cabinet,
+tanks, and telemetry --- each with its own specifications, operating notes,
+maintenance and troubleshooting, so it can be consulted (or printed/exported)
+on its own. Part~III closes with shutdown/storage and reference appendices.
+
+\sonixed is HydroVolta NV's electrodialysis-reversal (EDR) technology,
+combined with an integrated ultrasound antifouling stage and a custom
+ion-selective membrane coating. Hydrovolta NV (Leuven, Belgium, founded
+2016) developed \sonixed over eight years of lab validation with research
+partners including VITO, and holds a granted European patent (2021) on the
+combined EDR~+ ultrasound process. \sonixed/\salinbloc units are in active
+use or pilot deployment at sites in Belgium, Morocco, Australia (Perth),
+Brazil and Saudi Arabia; see \cref{sec:fieldperformance} for field
+performance data published by HydroVolta.
+
+\begin{notice}
+Several sections in this manual are marked \textbf{TODO}. These mark
+information that was not found in HydroVolta's engineering documentation or
+public materials at the time of writing (July--August~2026) and must be
+supplied by HydroVolta engineering, or confirmed by inspection/measurement
+on an actual unit, before this manual is issued to a customer. Every other
+statement in this manual is grounded in a specific HydroVolta engineering
+document, datasheet, or the hydrovolta.com website --- but the underlying
+documents mostly describe pilot/demonstration containers (Farys, Ganzepoot,
+BASF, Morocco, and others), not a finalized, branded \enquote{\salinbloc}
+bill of materials. Treat pilot-specific facts as a well-informed engineering
+basis for the standard product, not as a guaranteed as-shipped
+specification, until confirmed against a specific unit's documentation.
+Notably, the \textbf{PLC control program itself is out of scope for this
+edition} of the manual --- it is still under development by HydroVolta's
+automation team, and the relevant sections (HMI screen navigation, exact
+control logic, full setpoint list) will be completed once that work is
+finished.
+\end{notice}
+
+\section{Who this manual is for}
+This manual is written for the people who take delivery of, install,
+commission, operate and maintain a \salinbloc unit: site engineers,
+installation contractors, plant operators, and HydroVolta service
+technicians. Readers are assumed to have basic familiarity with industrial
+piping, low-voltage electrical systems and PLC-controlled equipment; no
+prior knowledge of electrodialysis is assumed (see the Glossary,
+\cref{ch:appglossary}, for unfamiliar terms).
+
+\section{Symbols and signal words}
+Hazard and information boxes in this manual follow the signal-word
+convention below, aligned with ISO~3864 / ANSI~Z535 safety-color practice.
+
+\begin{danger}
+Indicates a hazard that, if not avoided, \textbf{will} result in death or
+serious injury.
+\end{danger}
+\begin{warning}
+Indicates a hazard that, if not avoided, \textbf{could} result in death or
+serious injury.
+\end{warning}
+\begin{caution}
+Indicates a hazard that, if not avoided, could result in minor or moderate
+injury.
+\end{caution}
+\begin{notice}
+Indicates a risk of property damage or equipment malfunction, with no
+personal-injury hazard.
+\end{notice}
+\begin{note}
+Highlights additional information that helps the reader but is not itself
+a hazard warning.
+\end{note}
+
+\section{Online documentation and QR code}
+A QR code on the container's control cabinet links to the latest online
+version of this manual and to the unit's factory quality report.
+
+\makeatletter
+\hvqrbox{\hv@qrurl}{Scan to open the online manual and this unit's
+  quality report at \hv@qrurl.}
+\makeatother
+
+\section{Contact and support}
+Hydrovolta NV, Romeinse Straat~18, 3001 Leuven, Belgium.
+E-mail:~\href{mailto:info@hydrovolta.com}{info@hydrovolta.com}. Phone:
++32~28~800~336. Web:~\href{https://hydrovolta.com}{hydrovolta.com}. TODO:
+no dedicated \emph{service} phone line, out-of-hours escalation path, or
+service-hours commitment (as opposed to general company contact) was
+found --- see also \cref{sec:whentocallservice} for when to contact
+service.
+
+
+\chapter{Safety}
+\label{ch:safety}
+\chaptertoc
+
+\begin{warning}
+Read this entire chapter before installing, operating or servicing the
+\salinbloc unit. No unit-level hazard analysis, PPE schedule or
+lockout/tagout procedure specific to \salinbloc/\sonixed exists yet in
+HydroVolta's engineering library --- only generic contractor-safety
+material (tool safety sheets, an electrical risk assessment template, a
+VCA contractor-competency handbook) and the Safety Data Sheets for the
+dosing/CIP chemicals. The hazards, PPE and isolation guidance below are
+derived from those chemical SDSs and from the electrical/pressure/DC
+figures documented elsewhere in this manual (\cref{ch:cabinet,ch:stacks});
+they are a defensible starting point, \textbf{not} a substitute for a
+formal hazard analysis, which HydroVolta engineering/EHS must still
+produce and sign off before this manual is issued to a customer.
+\end{warning}
+
+\section{Intended use}
+\label{sec:intendeduse}
+The \salinbloc unit is intended for the electrodialysis desalination or ion
+reduction of brackish groundwater, industrial process water, or brine, in
+the total dissolved solids range HydroVolta publishes as the technology's
+operating envelope --- approximately 1{,}500--20{,}000\,ppm TDS (see
+\cref{sec:fieldperformance}) --- and within the feedwater quality limits
+stated for the pretreatment and stack stages
+(\cref{ch:pretreatment,ch:stacks}). It is not intended for seawater
+desalination (HydroVolta states seawater, $>$35{,}000\,ppm, as outside
+\sonixed's primary use case) and is \textbf{not} currently certified as a
+drinking-water treatment system: the \texttt{03\_UK DWI reg~31 approval}
+folder in HydroVolta's datasheet library contains only generic
+third-party guidance on how Reg~31 approval works (not an actual approval
+or application), and the \texttt{04\_NSF} folder contains only a general
+NSF/ANSI~60/61/372 adoption survey (not an NSF listing) --- confirmed by
+direct inspection of both folders. Do not make a potable-water regulatory
+claim to a customer until formal approval is obtained --- see
+\cref{ch:appcert}. Foreseeable misuse includes: feeding
+water outside the documented turbidity/iron/chlorine/pH envelope
+(\cref{ch:stacks}) without adequate pretreatment; bypassing or defeating
+interlocks, alarms or the emergency stop; operating with the cabinet doors
+open; and mixing CIP chemicals outside the sequence in
+\cref{ch:dosing} (in particular, never combine NaOH with feed/process
+water --- see the warning in \cref{ch:dosing}).
+
+\section{Qualified personnel}
+Work on the control cabinet, VFDs and any live electrical circuit,
+including the \sonixed stack's DC bus (up to 600\,V\,DC,
+\cref{ch:stacks}), must only be performed by an electrically qualified
+person as defined in IEC~60204-1. Chemical dosing tank refilling and CIP
+chemical handling must only be performed by personnel trained on the
+relevant Safety Data Sheet for that chemical (\cref{sec:mainhazards}).
+HydroVolta's own engineering library uses the Belgian/Dutch \textbf{VCA}
+(Veiligheid, Gezondheid en Milieu Checklist Aannemers) contractor-safety
+certification as its baseline competency reference for site work; treat
+VCA-certified (or locally equivalent) status as the expected minimum for
+any contractor performing installation or maintenance work on the unit.
+General operators (start/stop, HMI monitoring, routine visual checks) do
+not need electrical or chemical-handling qualifications but must be
+trained on this manual and on the local isolation procedure
+(\cref{sec:isolation}) before working unsupervised.
+
+\section{Personal protective equipment}
+\label{sec:ppe}
+\begin{itemize}
+\item \textbf{Chemical dosing / CIP work} (antiscalant, HCl, NaOH, NaOCl,
+  H\textsubscript{2}SO\textsubscript{4} --- all corrosive per their SDS,
+  \cref{sec:mainhazards}): chemical-resistant gloves, safety
+  glasses/goggles with a face shield for tank filling or CIP setup, and a
+  chemical-resistant apron. Have an eyewash/emergency shower available
+  wherever CIP or dosing-tank work is performed.
+\item \textbf{Control cabinet / electrical work}: PPE appropriate to the
+  task and the incoming supply voltage (3$\times$400\,V\,AC,
+  \cref{ch:cabinet}) per the site's local electrical safety regulation and
+  the qualified person's own risk assessment; always verify isolation
+  (\cref{sec:isolation}) before opening the cabinet.
+\item \textbf{General site / mechanical work} (pumps, valves, piping):
+  safety shoes and, where local site rules require it, hi-vis clothing and
+  hearing protection near running pumps.
+\end{itemize}
+TODO: this list is derived from the chemical SDSs and general industrial
+practice, not from a HydroVolta-authored PPE matrix --- none was found.
+
+\section{Main hazards}
+\label{sec:mainhazards}
+\begin{itemize}
+\item \textbf{Electrical:} the incoming 3$\times$400\,V\,AC cabinet supply
+  (\cref{ch:cabinet}), and --- specific to this technology --- the
+  \sonixed stack's own DC bus, which is energized to \textbf{60--600\,V\,DC
+  at 3--20\,A} during normal operation (\cref{ch:stacks}). This DC bus is
+  a hazard independent of the AC supply and must be isolated and verified
+  dead separately before any stack or manifold work.
+\item \textbf{Chemical:} the antiscalant, HCl, NaOH, NaOCl and
+  H\textsubscript{2}SO\textsubscript{4} used for dosing and CIP
+  (\cref{ch:dosing}) are corrosive per their Safety Data Sheets (Carl
+  Roth SDS on file in HydroVolta's engineering library). \textbf{Never mix
+  NaOH with feed or process water} --- HydroVolta's own CIP procedure
+  documents this as a scaling hazard, and mixing acid and hypochlorite
+  streams carries a toxic-gas risk common to all such systems; keep
+  chemical dosing lines and procedures strictly separated as described in
+  \cref{ch:dosing}.
+\item \textbf{Pressurized piping:} the hydraulic circuit operates up to
+  2.5\,bar (stack maximum 3\,bar, \cref{ch:stacks}) and the pretreatment
+  UF stage's CEB/backwash cycle briefly reaches similar pressures
+  (\cref{ch:pretreatment}); depressurize before opening any fitting.
+\item \textbf{Moving parts:} process pumps, dosing pumps, and automated
+  valve actuators (\cref{ch:pumps,ch:valves}) start automatically under
+  PLC control without warning --- treat every pump and valve as capable of
+  starting at any time unless the unit is isolated.
+\end{itemize}
+
+\hvfig{fig-safety-hazard-icons.png}{Suggested figure: a labeled diagram of
+  the container's exterior and interior showing each hazard zone above
+  (electrical cabinet / DC stack bus, chemical dosing area, pressurized
+  piping, pump/valve zones) with its corresponding ISO~7010 warning
+  pictogram.}
+  {fig:safety-hazards}
+
+\section{First aid and chemical spill response}
+\label{sec:firstaid}
+The following is transcribed directly from the manufacturer Safety Data
+Sheets on file for the dosing/CIP chemicals (Carl Roth SDS, Section~4
+\enquote{First aid measures} and Section~6 \enquote{Accidental release
+measures}; text is consistent across NaOH, HCl, NaOCl and
+H\textsubscript{2}SO\textsubscript{4}). Post this section, or an
+equivalent quick-reference card, wherever chemicals are handled.
+
+\begin{danger}
+\textbf{Eye contact:} flush immediately with plenty of flowing water for
+\textbf{10 to 15 minutes}, holding eyelids apart, and consult an
+ophthalmologist. Protect the uninjured eye. \textbf{Skin contact:} take
+off all contaminated clothing immediately; wash the affected skin
+immediately with plenty of water (for H\textsubscript{2}SO\textsubscript{4}:
+first mechanically remove the chemical, e.g.\ dab away with wadding, then
+wash with a mild cleansing agent and water); seek immediate medical
+treatment --- corrosive injuries left untreated are hard to cure.
+\textbf{Inhalation:} move to fresh air; seek medical advice if symptoms
+persist or in any case of doubt. \textbf{Ingestion:} rinse the mouth
+immediately and drink plenty of water; call a physician immediately ---
+risk of gastric/esophageal perforation from the corrosive effect.
+\end{danger}
+
+\textbf{Spill response} (non-emergency personnel only; do not attempt
+without the PPE in \cref{sec:ppe}): put on PPE, avoid contact with skin,
+eyes and clothing, and do not breathe vapour/spray. Cover nearby drains to
+protect surface/ground water --- for HCl and H\textsubscript{2}SO\textsubscript{4}
+specifically, the product must be neutralized before any discharge to a
+drain or sewage plant. Absorb the spill with a liquid-binding material
+(sand, diatomaceous earth, or an acid/universal binding agent), then place
+the absorbed material in an appropriate container for disposal. Ventilate
+the affected area, especially after an HCl release.
+
+\section{Safety devices and emergency stop}
+HydroVolta's HMI design specification (\cref{ch:operation}) confirms a
+\textbf{hardware Emergency Stop button that bypasses the PLC entirely} ---
+see \cref{sec:estop} for the full recovery procedure. TODO: its physical
+location on the control panel/cabinet, and whether more than one E-stop
+station exists (e.g.\ one per container, or one per access point), was
+not confirmed in the documents reviewed --- verify against the as-built
+electrical schematic and IEC~60204-1 on the actual unit before
+publication. No document describing pressure-relief devices or leak
+detection was found.
+
+\section{Isolating the unit before work}
+\label{sec:isolation}
+No HydroVolta-authored lockout/tagout procedure was found; until one
+exists, apply this general sequence before any maintenance, sensor, or
+piping work:
+\begin{procedure}
+\item Stop the process via the normal \plctag{Stop} sequence
+  (\cref{ch:operation}).
+\item Isolate and lock out the incoming electrical supply at the main
+  breaker; verify absence of voltage at the cabinet terminals before
+  touching any wiring.
+\item Separately verify the \sonixed stack's DC bus is de-energized ---
+  it operates independently of the AC supply isolation point and can
+  present up to 600\,V\,DC (\cref{ch:stacks}); never assume it is safe
+  just because the AC breaker is open.
+\item Isolate and depressurize the hydraulic circuit (close feed/product/
+  drain isolation points, \cref{sec:watercx}) before opening any fitting.
+\item Where chemical dosing lines will be disturbed, close the relevant
+  tank isolation valve and follow the PPE guidance in \cref{sec:ppe}.
+\end{procedure}
+TODO: this sequence is assembled from the general electrical/hydraulic/DC
+facts documented elsewhere in this manual, not from a validated
+HydroVolta LOTO procedure --- HydroVolta engineering/EHS must review and
+formalize it, including lock/tag hardware and a permit-to-work step if
+required by the customer's site rules.
+
+\section{Safety labels on the container}
+A folder named \texttt{17\_Photos/Container stickers} exists in
+HydroVolta's engineering library, but on inspection it contains only
+\textbf{brand artwork} (the Hydro-Blue and Volta-Yellow logo marks, the
+HydroVolta wordmark, a \enquote{water desalination} decal, and a door
+logo) --- \textbf{no hazard/warning pictogram stickers were found there or
+anywhere else in the library}. This is a real gap: before a unit ships, it
+needs a proper ISO~7010 hazard-label set (electrical, DC stack, chemical,
+pressure --- matching \cref{sec:mainhazards}) actually affixed and
+photographed, and this section rewritten from those photographs.
+
+\hvfig{fig-safety-labels.png}{Suggested figure: photograph(s) of the
+  container exterior and control cabinet with each safety/identification
+  label numbered, plus a key table listing what each label means and where
+  it is mounted --- to be produced once a real hazard-label set has been
+  designed and affixed to a unit (none currently exists in HydroVolta's
+  documentation).}
+  {fig:safety-labels}
+
+
+\chapter{System overview}
+\label{ch:overview}
+\chaptertoc
+
+\section{What the unit does}
+The \salinbloc unit is built around HydroVolta's \sonixed technology,
+which combines three mechanisms in one automated platform:
+\begin{enumerate}
+\item \textbf{Electrodialysis reversal (EDR):} an applied DC electric
+  field draws dissolved ions --- not water --- through ion-exchange
+  membranes from the diluate stream into the concentrate stream. Because
+  water itself does not have to be forced through a membrane (unlike
+  reverse osmosis), the process runs at much lower hydraulic pressure.
+  Periodically reversing polarity cleans the membranes in place without
+  chemicals and gives more stable performance as feed salinity varies.
+\item \textbf{Integrated ultrasound antifouling:} ultrasound transducers
+  built into the stack create acoustic cavitation at the membrane
+  surface, disrupting scale nucleation and helping prevent silica
+  fouling --- this is the element of \sonixed that HydroVolta holds a
+  granted European patent on (2021).
+\item \textbf{Custom membrane coating:} a proprietary coating gives the
+  membranes monovalent-ion selectivity, so the process can target
+  nitrate, sodium, chloride and fluoride removal while retaining calcium
+  and magnesium in the product water.
+\end{enumerate}
+The result is a saline feed stream split into a low-salinity product
+stream (\emph{diluate}) and a concentrated reject stream
+(\emph{concentrate}/brine), with chemical-free ultrasound antifouling
+keeping the membrane stack clean and extending electrode/membrane life
+(\cref{ch:stacks}). Typical applications: groundwater desalination and
+selective ion (e.g.\ nitrate) removal, industrial process-water reuse,
+brine valorization/concentration, and Zero Liquid Discharge (ZLD) support.
+
+\hvfig{fig-container-exterior.png}{Suggested figure: exterior photograph of
+  a delivered \salinbloc container (or container pair) on site, showing
+  the overall footprint and connection points.}{fig:container-exterior}
+
+\section{Field performance reference}
+\label{sec:fieldperformance}
+HydroVolta publishes the following performance comparison from a 90-day
+industrial pilot (February--May~2023, cooling-tower blowdown at a chemical
+industry facility in Germany, feed TDS $\approx$4{,}500\,ppm, silica
+85\,mg/l, high hardness), run head-to-head against reverse osmosis (RO)
+and a standard EDR system on the same feedwater (source:
+hydrovolta.com/technology.html and /projects.html). These figures describe
+that specific pilot and HydroVolta's general \sonixed technology, not a
+performance guarantee for any individual \salinbloc unit; use them as
+context for what the technology is designed to achieve, and always verify
+against the site-specific commissioning data recorded in
+\cref{ch:appparams}.
+
+\hvtablebegin{L R{18mm} R{18mm} R{22mm}}{Germany 2023 industrial pilot --- \sonixed vs.\ RO vs.\ standard EDR (source: hydrovolta.com)}{tab:germanypilot}
+\hvhead{\textbf{Parameter} & \textbf{\sonixed} & \textbf{RO} & \textbf{Standard EDR}}\\\midrule
+Water recovery & 90--98\% & 50--75\% & 70--85\%\\
+Energy consumption & 0.19--0.7\,kWh/m\textsuperscript{3} & 2.0--4.0\,kWh/m\textsuperscript{3} & 1.0--2.0\,kWh/m\textsuperscript{3}\\
+Operating pressure & 0.5--2.5\,bar & 25--35\,bar & 1--2\,bar\\
+Chemical dosing & Minimal, no antiscalant & Required & Antiscalant needed\\
+CIP frequency & 0.6$\times$/month & 1$\times$/month & 1$\times$/month\\
+Total treatment cost & \$0.30--0.40/m\textsuperscript{3} & \$0.60--1.00/m\textsuperscript{3} & \$0.40--0.80/m\textsuperscript{3}\\
+\bottomrule\end{xltabular}\par
+
+HydroVolta states \sonixed's general operating envelope as feed TDS
+1{,}500--20{,}000\,ppm (\enquote{strong fit} also for high silica
+$>$30\,mg/l and high hardness $>$300\,mg/l Ca+Mg feeds); seawater
+($>$35{,}000\,ppm) is stated as not the primary use case. Active and
+piloted \sonixed/\salinbloc deployments referenced by HydroVolta include a
+flagship groundwater desalination project in Morocco (seawater-intruded
+coastal aquifer, $\approx$7{,}000\,ppm feed), a multi-site utility pilot
+with Water Corporation in Perth, Australia (selective nitrate and
+salinity removal), the Germany industrial pilot above, and earlier-stage
+projects in Brazil and Saudi Arabia.
+
+\section{Container layout}
+The system is delivered as a modular set of skids assembled inside one or
+more standard shipping containers (20\,ft and 40\,ft, High-Cube and
+Standard variants). Larger installations use \textbf{two} containers: a
+\emph{pretreatment container} (filtration stages, \cref{ch:pretreatment})
+and a \emph{treatment container} housing the \sonixed skid(s)
+(\cref{ch:pumps,ch:stacks,ch:valves,ch:cabinet}), connected hydraulically.
+A documented 20\,ft general-arrangement layout (drawing 2308CA1) shows
+internal dimensions of 6058\,$\times$\,2438\,$\times$\,2896\,mm, housing a
+bank of \sonixed stack racks, an electrical/control cabinet, a
+dosing/chemical section, three overhead storage tanks, and interconnecting
+piping; a companion top-view drawing (2308CA2) lays the skids out along the
+container floor: chemical skid, pump skid, tank skid, control~1 skid,
+filter skid, \sonixed skid, control~2 skid.
+
+\hvfig{fig-container-topview.png}{Suggested figure: the skid top-view
+  layout (based on drawing 2308CA2), redrawn/simplified for this manual,
+  with each skid numbered and cross-referenced to its Part~II chapter.}
+  {fig:container-topview}
+
+\section{Process flow}
+\begin{procedure}
+\item Feed water enters the pretreatment container (2\textonehalf" connection
+  from source).
+\item Pretreatment (disc filtration and ultrafiltration, \cref{ch:pretreatment})
+  conditions the water; filtered water leaves via a 2" connection.
+\item Filtered water enters the treatment container (2" connection) and is
+  split and pumped through parallel \sonixed stacks
+  (\cref{ch:pumps,ch:stacks}), with three internal streams per stack:
+  \textbf{diluate} (becomes the product/permeate), \textbf{concentrate}
+  (becomes the brine/reject), and \textbf{electrolyte} (a separate loop
+  feeding the electrode compartments, \cref{ch:tanks}).
+\item Product (permeate) water exits the treatment container via a 2"
+  outlet connection.
+\item Reject/concentrate and pretreatment backwash/drainage are combined
+  via a tee piece and routed to a drain tank via 3" drainage connections
+  from both containers.
+\end{procedure}
+
+\begin{note}
+TODO: a fully tagged P\&ID with valve/instrument numbers exists for the
+BASF pilot (drawing SWHC-001/00, rev.\,0.98) --- see \cref{ch:appdrawings}
+--- but has not yet been confirmed as representative of the standard
+\salinbloc product configuration.
+\end{note}
+
+\section{Main components}
+This section is a one-page index of every compartment covered in its own
+chapter later in this manual (Part~II) --- use it to jump straight to the
+part you need.
+
+\begin{itemize}
+\item \textbf{Pretreatment and filtration skid} --- \cref{ch:pretreatment}
+\item \textbf{Feed and process pumps} --- \cref{ch:pumps}
+\item \textbf{\sonixed stack modules} --- \cref{ch:stacks}
+\item \textbf{Valves and manifold} --- \cref{ch:valves}
+\item \textbf{Dosing system} --- \cref{ch:dosing}
+\item \textbf{Instrumentation and sensors} --- \cref{ch:sensors}
+\item \textbf{Control cabinet, PLC and HMI} --- \cref{ch:cabinet}
+\item \textbf{Tanks} --- \cref{ch:tanks}
+\item \textbf{Telemetry and remote connectivity} --- \cref{ch:telemetry}
+\end{itemize}
+
+\section{Control cabinet and HMI}
+The control system consists of a PLC with a touchscreen HMI, manual/override
+controls, and RS485 communication, housed in an IP55-rated cabinet. The
+skid ordering code allows two control-box configurations --- \textbf{CB0}
+(PLC only) and \textbf{CB1} (PLC~+ touchscreen HMI) --- and three
+cloud-connectivity tiers: \textbf{CL0} (local only), \textbf{CL1} (cloud
+monitoring), \textbf{CL2} (full cloud monitoring and control). See
+\cref{ch:cabinet} for details.
+
+\section{Nameplate and identification}
+TODO: no nameplate drawing, CE-marking template with filled-in fields, or
+Declaration of Conformity content was found (the \texttt{02\_DoC's} and
+\texttt{05\_SonixED stack} CE-marking folders in HydroVolta's engineering
+library are confirmed empty --- see \cref{ch:appcert}). The confirmed
+identification data is the datasheet labeling convention \enquote{Model:
+SONIXED-SKID, Version: 2025-A7} and the ordering code format
+\texttt{SONIXED-SKID-A-S-M-PR-V-CB-CL} (application type A0/A1/A2, stack
+count 1/2/3, measuring points 6/9/12, pressure sensors 6/9/12, valve
+count 2/4/6, control-box option CB0/CB1, cloud option CL0/CL1/CL2). Each
+skid physically measures approximately 3040~$\times$~1340~$\times$~2020\,mm
+(l~$\times$~b~$\times$~h), on an aluminum-profile frame with a
+PVC/thermoplastic-spacer housing, mounted on lockable wheels for
+in-container mobility. HydroVolta's public \salinbloc brochure states
+container throughput by format: a \textbf{20\,ft} unit handles
+2--30\,m\textsuperscript{3}/h ($\approx$44--660\,m\textsuperscript{3}/day
+at 22\,h/day operation); a \textbf{40\,ft} unit handles
+15--60\,m\textsuperscript{3}/h ($\approx$330--1{,}320\,m\textsuperscript{3}/day)
+--- see \cref{sec:fieldperformance} and \cref{ch:appparams}. No container
+weight figure was found in any source reviewed.
+
+\hvfig{fig-nameplate.png}{Suggested figure: photograph of the unit's
+  nameplate once affixed, showing serial number, manufacture date,
+  voltage/power rating, IP rating and CE mark.}{fig:nameplate}
+
+
+\chapter{Installation}
+\label{ch:install}
+\chaptertoc
+
+\section{Delivery and unloading}
+TODO: no document describing crane/forklift unloading, container weight,
+or lifting-point locations was found. The container general-arrangement
+drawings (2308CA1/2308CA2, \cref{ch:appdrawings}) likely show lifting
+points but have not yet been reviewed for this purpose.
+
+\hvfig{fig-delivery-unloading.png}{Suggested figure: photograph or diagram
+  of the container being lifted/unloaded on site, with lifting points
+  marked, once the procedure is confirmed.}{fig:delivery}
+
+\section{Site requirements}
+The system is built around one or two ISO shipping containers
+(pretreatment~+ treatment, \cref{ch:overview}), 20\,ft/40\,ft, High-Cube or
+Standard. In HydroVolta's documented BASF pilot, the pretreatment unit used
+a 10\,ft container. The site must provide a water source (the pilot drew
+from a cooling-tower basin via a submersible pump) and space alongside the
+containers for a drain tank. TODO: ambient temperature range, ground/
+foundation/leveling requirements and clearances beyond what the pilot
+layout implies were not found in a dedicated site-requirements document.
+
+\section{Positioning the container}
+TODO: no explicit positioning/orientation document was found. From the
+piping documented for commissioning (\cref{sec:watercx}), the pretreatment
+container's filtered-water outlet (2") must be within pipe-run distance of
+the treatment container's inlet (2"), and both containers' 3" drain
+outlets should be positioned so they can be tee'd together to a shared
+drain tank.
+
+\section{Water connections}
+\label{sec:watercx}
+\begin{itemize}
+\item \textbf{Pretreatment container:} feed inlet 2\textonehalf" (M) from
+  the raw water source (in the pilot, a submersible pump rated
+  4.5\,m\textsuperscript{3}/h at 6\,bar); filtered-water outlet 2" (M);
+  drain outlet 3" (M).
+\item \textbf{Treatment container:} inlet 2" (M), fed from the
+  pretreatment filtered-water outlet; product-water outlet 2" (M); drain
+  outlet 3" (M).
+\item Pump-to-pretreatment feed line: PVCu, 60\,mm, terminated 2\textonehalf" (F).
+\item Pretreatment-to-treatment line: PVCu, 40\,mm.
+\item Both containers' 3" (M) drain outlets combine via a tee into one
+  line to the shared drain tank.
+\item Fit O-rings and PTFE tape at every threaded joint.
+\end{itemize}
+Key in-line pretreatment components: an ultrafiltration unit (AKKIM
+APM~80) via 2" Victaulic couplings, and disc filters (AZUD DF100/DF50/DF20)
+via 2" (F) 63\,mm transition pieces.
+
+\hvfig{fig-water-connections.png}{Suggested figure: a labeled diagram of
+  the pretreatment/treatment container pair showing every hydraulic
+  connection point (feed, filtered-water, product, drain) with its size
+  and thread type.}{fig:water-connections}
+
+\section{Electrical connection}
+The control cabinet is IP55-rated. Incoming supply on the documented pilot
+was 3$\times$400\,V\,AC (3P+N+PE, per IEC~60445), max.\ 25\,A, with a 24\,V\,DC
+control bus for valves and I/O (from the pretreatment electrical schematic,
+sheet~E1/document~I2). A separate electrical schematic series exists
+specifically for a \textbf{treatment container} (as opposed to
+pretreatment) under the BASF pilot project (folder \texttt{2\_Electrical/
+0\_Treatment container}, multiple dated AutoCAD Electrical \texttt{.dsn}
+revisions) --- TODO: this series was located but not opened (CAD format);
+a human with AutoCAD Electrical should open the latest revision for the
+treatment-container-specific breaker/RCD sizing, since the figures above
+are from the pretreatment side only. TODO: confirm whether either value
+set applies to the standard \salinbloc product or is pilot-specific.
+
+\section{Network and telemetry connection}
+See \cref{ch:telemetry} for the router, remote-access gateway and cloud
+dashboard used for network/telemetry connectivity.
+
+\section{Installation checklist}
+\begin{procedure}
+\item Confirm all hydraulic connections listed in \cref{sec:watercx} are
+  complete: pretreatment feed/outlet/drain, treatment inlet/outlet/drain,
+  combined drain-to-tank tee.
+\item Confirm electrical supply matches the cabinet's rated voltage/current
+  (\cref{ch:cabinet}) before energizing.
+\item Confirm network/telemetry connection is established (\cref{ch:telemetry}).
+\end{procedure}
+TODO: no standalone installation checklist document was found; the list
+above is assembled from the commissioning data sheet and should be
+reviewed against a real site installation before publishing.
+
+
+\chapter{Commissioning}
+\label{ch:commissioning}
+\chaptertoc
+
+\section{Before the first start}
+Confirm every hydraulic connection in \cref{sec:watercx} is complete and
+leak-checked before energizing the cabinet. TODO: no document describing a
+formal pre-start electrical isolation/lockout check or inspection
+checklist was found beyond the piping steps.
+
+\section{Filling and priming}
+Install the submersible feed pump in the source water body; connect its
+outlet to the pretreatment 2\textonehalf" (F) inlet with 60\,mm PVCu pipe;
+connect the pretreatment filtered-water outlet to the treatment container
+inlet with 40\,mm PVCu pipe; join both containers' drain outlets via a tee
+to the drain tank; verify the product-water outlet is connected per site
+requirements. TODO: no document states specific priming steps (venting,
+air removal, initial fill sequence) beyond making these connections.
+
+\section{First power-up}
+TODO: no formal first-power-up procedure (breaker/contactor closing order,
+PLC boot checks, HMI startup) was found. What \emph{does} exist is a real
+commissioning engineer's log from a pilot startup, which illustrates the
+general shape of a ramp-up sequence (source: pilot commissioning notes,
+HydroVolta engineering library) --- treat it as an informative example, not
+a validated procedure for the standard product:
+\begin{procedure}
+\item Start the feed and process pumps at a low VFD frequency
+  ($\sim$35\,Hz in the logged example) to establish flow gently rather
+  than at full speed.
+\item Increase the dosing-pump VFD frequency in steps (e.g.\ to
+  $\sim$60\,Hz) once feed flow is confirmed stable.
+\item Confirm each stream reaches a stable pressure and flow reading
+  before proceeding --- the log explicitly checks \enquote{stable
+  pressure} and \enquote{stable flow} at each stack position before
+  applying stack current.
+\item Apply DC current to the stack(s) only once hydraulics are stable,
+  and confirm conductivity in the target stream stabilizes at the
+  expected value.
+\item Bring additional stacks online one at a time if the skid has more
+  than one --- the log notes that current draw on an already-running
+  stack visibly drops as a newly started stack begins drawing current,
+  which is expected stack-to-stack interaction, not a fault.
+\end{procedure}
+
+\section{Setting the operating parameters}
+\label{sec:opparams}
+Dosing pumps are controlled via a 4--20\,mA analog signal from ADAM I/O
+modules. Default configuration: \textbf{SET~1} = 4.0\,mA (minimum, pump
+stopped, 0 impulses/min), \textbf{SET~2} = 20.0\,mA (maximum,
+180\,impulses/min); internally, a raw integer of 0 corresponds to 3.8\,mA
+and 4095 to 19.7\,mA. Each dosing channel is verified across 4/8/12/16/20\,mA.
+TODO: hydraulic setpoints (target flow/pressure) and stack-voltage
+setpoints are referenced in HydroVolta's internal user-manual outline but
+no actual values were found --- see also \cref{ch:appparams}.
+
+\section{Functional test}
+A real, filled-in functional test record exists for the BASF pilot's
+pretreatment dosing pumps and control panel:
+\begin{procedure}
+\item Verify each dosing channel's SET~1/SET~2 defaults (4.0\,mA / 0
+  impulses/min, 20.0\,mA / 180\,impulses/min) and confirm out-of-range
+  signals (below 4\,mA, above 20\,mA) trigger a stop.
+\item Test every alarm digital input and dosing digital output for correct
+  read/operate behavior.
+\item Drive each dosing pump across 4/8/12/16/20\,mA and confirm the
+  correct response at each step.
+\end{procedure}
+TODO: no document describes functional tests for the treatment
+(\sonixed/stack) side, pumps, or sensors beyond pretreatment dosing --- see
+the relevant Part~II chapters for what should be tested.
+
+\section{Handover}
+TODO: no document describing a formal handover procedure, sign-off sheet,
+or customer training checklist was found.
+
+
+\chapter{Daily operation}
+\label{ch:operation}
+\chaptertoc
+
+\begin{note}
+This chapter now draws on HydroVolta's own \emph{HMI Description}
+specification (revision~V5, Morocco project, dated 2026-06-16) --- the
+design document the automation team is building the PLC program against.
+It describes screens, controls and workflow \emph{as specified}; the PLC
+program itself was still in development at the time of writing
+(\cref{ch:about}), so exact on-screen wording/layout on a specific
+delivered unit may differ slightly from what is described here. Where an
+older pilot's tag names differ from this specification (e.g.\
+\texttt{TSA}-prefixed tags used elsewhere in this manual), both are noted.
+\end{note}
+
+\section{Operating elements}
+The local control panel exposes physical Start, Stop and Reset controls, a
+Manual/local selector, a feedwater-source selector, and a CIP-mode input
+(control-system tags \plctag{Start}, \plctag{Stop}, \plctag{Reset},
+\plctag{Manual}, \plctag{FW\_Select}, \plctag{LS\_Select}, \plctag{CIP}),
+alongside a four-color status LED stack (\plctag{GREEN\_LED},
+\plctag{BLUE\_LED}, \plctag{ORANGE\_LED}, \plctag{RED\_LED}). The HMI
+specification additionally confirms a \textbf{hardware Emergency Stop
+button that bypasses the PLC entirely} --- see \cref{sec:estop}.
+
+\hvfig{fig-local-control-panel.png}{Suggested figure: photograph of the
+  local control panel with each button, selector switch and LED labeled
+  and cross-referenced to the tag names above.}{fig:local-panel}
+
+\section{Plant modes}
+Per the HMI specification, the unit operates in one of nine defined
+modes, selected from the \textbf{Mode Control} screen (\cref{sec:hmiscreens}):
+\begin{enumerate}
+\item \textbf{Initial fill} --- automatic filling of the system before
+  first production.
+\item \textbf{Production (forward)} --- normal automatic production.
+\item \emph{(reversal is a timed sub-state of production, not a separate
+  numbered mode --- see \emph{Starting the unit} below)}
+\item \textbf{Controlled shutdown} --- an orderly stop sequence.
+\item \textbf{CIP} --- automatic clean-in-place, after a CIP-PREP step
+  (High~pH/NaOH or Low~pH/HCl, \cref{ch:dosing}) has conditioned the loop.
+\item \textbf{Flush/rinse} --- freshwater flush of the process loop.
+\item \emph{(reserved)}
+\item \textbf{Manual} --- individual device control, access-gated (see
+  \emph{Manual mode} below).
+\item \emph{(reserved)}
+\end{enumerate}
+A separate \textbf{Safe Stop} state exists outside the numbered mode list:
+it is entered automatically on certain faults and requires the recovery
+procedure in \emph{Emergency stop and restart} below before the operator
+can select a new mode.
+
+\section{Starting the unit}
+Per the HMI specification, starting the unit is a two-step mode selection
+from the \textbf{Mode Control} screen: first \textbf{Start AUTO INITIAL
+FILL}, then, once initial fill completes, \textbf{Start AUTO PRODUCTION}.
+Production runs in \emph{forward} flow with a periodic electrodialysis-
+reversal step (\cref{ch:stacks}); the Overview screen shows a countdown
+timer to the next reversal. TODO: the specification confirms the button
+sequence and mode names but does not itself state numeric pre-start
+interlocks/permissives (e.g.\ minimum tank levels) --- those are defined
+in the PLC program, still in development.
+
+\section{HMI screens}
+\label{sec:hmiscreens}
+Per the HMI specification, the operator interface is organized into six
+screens:
+\begin{itemize}
+\item \textbf{Overview} --- current plant mode and Safe Stop indicator;
+  key performance indicators (product conductivity, product flow,
+  recovery); product routing (to customer vs.\ recirculation); a status
+  badge for each stack (power on/off, current, conductivity,
+  pressure-OK); pump run/fault status; the position of the critical
+  reversal and CIP-loop valves; the reversal countdown timer; and the
+  active alarm count with highest severity.
+\item \textbf{Tank Summary} --- level and conductivity for every tank,
+  and the state of every fill/drain valve.
+\item \textbf{Mode Control} --- the plant-mode buttons described above,
+  plus \emph{Drain Concentrate Tank}, \emph{Switch to Manual}, \emph{ACK
+  Alarm} and \emph{Reset Trip}.
+\item \textbf{Alarm Summary} --- active, acknowledged and historical
+  alarms, each showing its code, severity, cause, effect, timestamp and a
+  recommended action, following the ISA-18.2 alarm-management convention
+  --- see \emph{Alarm handling} in \cref{ch:maintenance}.
+\item \textbf{Maintenance / Manual} --- individual device commands
+  (pumps, valves, dosing pumps, stack power), gated by the access level
+  in \emph{Manual mode} below.
+\item \textbf{Trends} --- historical KPI graphs.
+\end{itemize}
+
+\hvfig{fig-hmi-home-screen.png}{Suggested figure: screenshot of the HMI
+  Overview screen, once the PLC program is complete and running on an
+  actual unit, annotated with each element's function per the list
+  above.}{fig:hmi-home}
+
+\section{Reading the process values}
+Confirmed process readings available to the operator include pH,
+pressure, flow and conductivity/level for the sensor array (\plctag{TSA\_pH},
+\plctag{TSA\_pressure}, \plctag{TSA\_Flow}, \plctag{TSA\_Cond},
+\plctag{TSA\_Level}), plus conductivity and level for the~TB tank
+(\plctag{TB\_Cond}, \plctag{TB\_Level}) and level for the~TE (electrolyte)
+tank (\plctag{TE\_Level}) --- see \cref{ch:tanks,ch:sensors}. Additional
+electrical metering is available via power-meter tags (\plctag{PM3150}).
+
+\begin{note}
+HydroVolta's I/O tag lists follow a readable naming convention that helps
+when reading raw tag names on an HMI or historian trend: a leading letter
+indicates the measurement type (\texttt{P}~= pressure, \texttt{FL}~=
+flow), followed by \texttt{c}/\texttt{d}/\texttt{e} for
+concentrate/diluate/electrolyte, and \texttt{S1}--\texttt{S4} for the
+stack number when the tag is per-stack. Tank tags use \texttt{T} plus a
+capital letter for the tank's role (\texttt{TD}~= diluate/feed tank,
+\texttt{TC}~= concentrate loop tank, \texttt{TE}~= electrolyte tank,
+\texttt{TB}~= product/breaking tank). Valve tags use \texttt{VA} plus a
+functional group number. TODO: confirm whether the standard \salinbloc
+product uses this exact convention or the \texttt{TSA}-prefixed scheme
+seen elsewhere in this manual --- both appear in HydroVolta's pilot
+projects, and the finished PLC program (still in development, see
+\cref{ch:about}) will determine which applies to a given unit.
+\end{note}
+
+\section{Changing setpoints}
+Per the HMI specification, every setpoint, threshold, timer, dose and
+recipe value is adjustable directly from the HMI at runtime, without
+re-downloading the PLC program. Which parameters a given user can change
+is governed by a three-level access hierarchy:
+\begin{itemize}
+\item \textbf{Operator:} monitor screens, acknowledge alarms, start/stop
+  production, drain the concentrate tank, run a manual flush, view
+  trends. Cannot change setpoints.
+\item \textbf{Maintenance:} everything an Operator can do, plus
+  individual pump/valve/dosing-pump control, manual fills/drains, and
+  non-recipe parameter changes.
+\item \textbf{Admin/Engineer:} everything Maintenance can do, plus
+  stack-power control (as a set, not individually), recipe parameters,
+  cloud command flags, and user-account management.
+\end{itemize}
+TODO: the specific PIN/login mechanism for each access level, and the
+numeric default/range for every adjustable parameter, are defined in the
+full HMI specification's parameter table but were not transcribed into
+this manual --- consult HydroVolta engineering for the complete parameter
+table if commissioning a unit before this manual's next revision.
+
+\section{Manual mode}
+A \plctag{Manual} digital input and \plctag{LS\_Select}/\plctag{FW\_Select}
+mode-selection inputs exist in the control I/O map, and the HMI
+specification confirms \textbf{Manual} as Mode~8, reached via \emph{Switch
+to Manual} on the Mode Control screen and gated to the Maintenance/Admin
+access levels above --- an Operator-level user cannot enter Manual mode.
+In Manual mode, the Maintenance/Manual screen exposes direct command of
+every process pump, every 2-way and 3-way valve, all five dosing pumps,
+and stack power (as a set only, even in Manual). One routing valve
+(\plctag{VAR.S.5} in the specification's tag scheme) is explicitly
+\textbf{AUTO-only} and cannot be operated from Manual mode under any
+access level --- do not attempt to command it manually.
+
+\section{Stopping the unit}
+A \plctag{Stop} digital input exists on the local control panel, and the
+HMI specification's \textbf{Controlled Shutdown} (Mode~4) is the normal,
+orderly way to stop production from the Mode Control screen --- prefer it
+over simply removing power, so the system can close valves and stop pumps
+in a defined sequence rather than an uncontrolled one. TODO: the exact
+step-by-step shutdown sequence executed by Mode~4 is internal to the PLC
+program and was not itself transcribed into this manual.
+
+\section{Emergency stop and restart}
+\label{sec:estop}
+The HMI specification confirms a \textbf{hardware Emergency Stop button
+that bypasses the PLC entirely} --- pressing it removes power/motion
+directly, independent of software state. TODO: its physical location on
+the control panel/cabinet was not confirmed in the documents reviewed;
+verify on the actual unit and update \cref{fig:local-panel} accordingly.
+Certain faults also trip the system into a software \textbf{Safe Stop}
+state (distinct from the hardware E-stop) --- both require the following
+recovery sequence before production can resume, per the HMI specification:
+\begin{procedure}
+\item Investigate the cause using the Alarm Summary screen
+  (\cref{sec:hmiscreens}) --- each entry shows its cause, effect and a
+  recommended action.
+\item Physically inspect and resolve the underlying condition.
+\item Press \textbf{ACK Alarm} on the Mode Control screen.
+\item Press \textbf{Reset Trip} --- this button is only enabled once the
+  fault condition has actually cleared.
+\item Select the next mode (e.g.\ Production). The PLC re-validates all
+  permissives before allowing the mode to start, and will reject the
+  request with a message if a required condition is still not met.
+\end{procedure}
+\begin{danger}
+Never attempt to defeat, bridge, or otherwise bypass the hardware
+Emergency Stop button. If the E-stop has been pressed, do not restart the
+unit until the cause has been fully investigated and resolved.
+\end{danger}
+
+
+\chapter{Maintenance and troubleshooting overview}
+\label{ch:maintenance}
+\chaptersubtitle{General schedule and fault-finding approach --- for a
+  specific compartment's checks, specifications and fault table, see its own
+  chapter in Part~II.}
+\chaptertoc
+
+\section{Safety during maintenance}
+Before performing any wiring or sensor checks, isolate and verify the
+control circuit: control voltage is referenced to ground at 24\,V\,DC ---
+confirm 24\,V\,DC is present between the terminal and PE before assuming a
+wiring fault, and never connect a sensor to the PLC before bench-testing it
+(\cref{ch:sensors}). TODO: no dedicated safety document (lockout/tagout,
+PPE, chemical/electrode handling) specific to \salinbloc maintenance was
+found --- see \cref{ch:safety}.
+
+\section{Maintenance schedule}
+No complete maintenance interval table (daily/weekly/monthly/annual) was
+found for the \salinbloc system as a whole. The one concrete, recurring
+interval documented anywhere in HydroVolta's engineering library is the
+CIP (clean-in-place) cycle described in \cref{ch:dosing}, which ran
+approximately \textbf{weekly} in the documented pilot; the pretreatment
+UF stage is otherwise cleaned on a TMP-triggered basis rather than a fixed
+interval (\cref{ch:pretreatment}).
+
+\begin{notice}
+The table below is a \textbf{recommended starting schedule}, not a
+HydroVolta-issued one. The two rows marked \enquote{Confirmed} come
+directly from source documents cited elsewhere in this manual; every
+other row is this manual's synthesis of general good practice for
+equipment of this type (visual/level checks, periodic sensor
+verification, periodic actuator exercise, annual inspection), pending
+review and correction by HydroVolta engineering once real field data
+exists. Do not treat the unconfirmed rows as validated intervals.
+\end{notice}
+
+\hvtablebegin{L C{20mm} L}{Recommended starting maintenance schedule}{tab:maintschedule}
+\hvhead{\textbf{Task} & \textbf{Interval} & \textbf{Source / basis}}\\\midrule
+Visual walk-round: check for leaks, unusual noise/vibration, tank levels, HMI alarm state & Daily & Recommended practice (unconfirmed)\\
+Record process values in maintenance log (\cref{ch:appparams} ranges) & Daily & Recommended practice (unconfirmed)\\
+CIP cycle (acid + hypochlorite steps, \cref{ch:dosing}) & Weekly & \textbf{Confirmed} --- documented pilot interval\\
+Check dosing chemical tank levels and top up & Weekly & Recommended practice (unconfirmed)\\
+UF chemically enhanced backwash (CEB) & When TMP rises $\geq$0.9\,bar above initial & \textbf{Confirmed} --- UF manufacturer spec (\cref{ch:pretreatment})\\
+Bench-verify each 4--20\,mA sensor loop (\cref{sec:sensorcal}) & Quarterly, or on any suspect reading & Recommended practice (unconfirmed)\\
+Exercise/inspect valve actuators (manual override, seat wear) & Quarterly & Recommended practice (unconfirmed)\\
+Inspect control cabinet (dust ingress on IP55 enclosure, terminal torque) & Semi-annually & Recommended practice (unconfirmed)\\
+Full system inspection and log review & Annually & Recommended practice (unconfirmed)\\
+\bottomrule\end{xltabular}\par
+TODO: every compartment's \emph{Maintenance} section in Part~II should be
+reviewed by HydroVolta engineering and this table corrected/expanded with
+real intervals as field data accumulates.
+
+\section{Maintenance log}
+A maintenance log should record, per event: date, technician,
+equipment/asset~ID (e.g.\ stack, pump, sensor tag), the check or service
+performed, readings taken (pressure, flow, pH, conductivity, etc.) versus
+expected range, parts replaced (with part number), and any follow-up
+action required. Its purpose is a traceable per-unit service history so
+recurring faults, consumable replacement intervals and warranty-relevant
+events can be reviewed over the system's lifetime.
+
+\hvtablebegin{L C{22mm} C{30mm} L C{20mm}}{Maintenance log template}{tab:maintlog}
+\hvhead{\textbf{Date} & \textbf{Technician} & \textbf{Equipment / tag} & \textbf{Check / service performed} & \textbf{Result}}\\\midrule
+ & & & & \\
+ & & & & \\
+\bottomrule\end{xltabular}\par
+
+\section{Alarm handling}
+\label{sec:alarmhandling}
+Per HydroVolta's HMI design specification (\cref{ch:operation}), alarms
+follow the ISA-18.2 alarm-management convention and always resolve the
+same way, regardless of which alarm fired:
+\begin{procedure}
+\item The PLC raises the alarm; it appears on the \textbf{Alarm Summary}
+  screen with its code, severity, cause, effect, timestamp and a
+  recommended action.
+\item The operator investigates using that information and this manual's
+  Troubleshooting section for the relevant compartment (below).
+\item Once the operator has acknowledged they are aware of it, press
+  \textbf{ACK Alarm} (Mode Control screen) --- the alarm moves to the
+  acknowledged list.
+\item Physically resolve the underlying condition.
+\item Press \textbf{Reset Trip} --- only enabled once the condition has
+  actually cleared, so a reset that won't take is itself informative: it
+  means the underlying condition has not actually gone away yet.
+\item Resolved alarms remain in the alarm \emph{history} with their full
+  timestamp trail, for the maintenance log (\cref{ch:maintenance}).
+\end{procedure}
+A fault severe enough to trip \textbf{Safe Stop} needs the fuller recovery
+sequence in \cref{sec:estop}, not just ACK~+ Reset.
+
+\section{How to use the troubleshooting sections}
+Each Part~II chapter ends with a \emph{Troubleshooting} section scoped to
+that compartment: symptom, likely cause, and remedy. Start with the
+compartment most closely tied to the symptom (e.g.\ a conductivity alarm
+$\rightarrow$ \cref{ch:sensors} or \cref{ch:tanks}; a communication timeout
+$\rightarrow$ \cref{ch:cabinet} or \cref{ch:telemetry}). If the fault
+spans several compartments or persists after following the relevant
+section, escalate per \cref{sec:whentocallservice}.
+
+\section{When to call service}
+\label{sec:whentocallservice}
+Escalate to HydroVolta service when: a sensor fails its bench test
+(\cref{ch:sensors}) and no spare is available on site; a remote-access
+device (e.g.\ the ADAM-3600 RTU) remains unreachable after the documented
+recovery steps (\cref{ch:cabinet}) and is not even pingable; or process
+readings remain outside the documented operating envelope after checking
+feedwater quality, pump duty point and pipe sizing. TODO: no source
+document defines formal escalation criteria, response-time commitments, or
+service contact information --- see also \cref{ch:about} (Contact and
+support).
+
+
+%% ---- Part II: Container compartments -------------------------------------
+%% Every chapter in this part follows the same five-section shape so a
+%% reader (or a technician printing just this chapter) gets a complete,
+%% self-contained reference for that one piece of equipment:
+%%   Overview and function / Key specifications / Operation /
+%%   Maintenance / Troubleshooting
+
+\chapter{Pretreatment and Filtration Skid}
+\label{ch:pretreatment}
+\chaptersubtitle{Disc filters, ultrafiltration unit and pretreatment piping}
+\chaptertoc
+
+\section{Overview and function}
+The pretreatment container conditions raw feed water before it reaches the
+\sonixed stacks: disc filtration removes coarse suspended solids, and an
+ultrafiltration (UF) stage removes fine particulates and reduces fouling
+potential. Filtered water passes to the treatment container
+(\cref{ch:overview}); rejected solids and backwash water are routed to the
+drain tank.
+
+\hvfig{fig-pretreatment-skid.png}{Suggested figure: photograph of the
+  assembled pretreatment skid inside the container, with the disc filters,
+  UF unit and main piping runs labeled.}{fig:pretreatment-skid}
+
+\section{Key specifications}
+\begin{itemize}
+\item \textbf{Ultrafiltration:} Akualys/AKKIM APM~80 hollow-fiber UF
+  module(s), 2" Victaulic connections. Two modules are confirmed ordered
+  for HydroVolta (160\,m\textsuperscript{2} total membrane area). Membrane:
+  modified PVDF hollow fiber, outside-to-inside flow, fiber OD/ID
+  1.4/0.8\,mm, nominal MWCO $\leq$150{,}000\,Da ($\approx$30\,nm pore
+  size), 80\,m\textsuperscript{2} active area per module.
+\item \textbf{UF feedwater limits:} temperature $\leq$40\,\textdegree C
+  (typ.\ 25\,\textdegree C); turbidity $\leq$250\,NTU (typ.\ 50\,NTU); TSS
+  $\leq$80\,mg/l; TOC $\leq$30\,mg/l; pH 6--9; instantaneous free chlorine
+  $\leq$150\,mg/l.
+\item \textbf{UF operation:} dead-end/crossflow, filtrate flux
+  45--180\,l/m\textsuperscript{2}h at 25\,\textdegree C, flow capacity
+  3.60--14.40\,m\textsuperscript{3}/h per module, feed inlet pressure
+  2--3\,bar (instantaneous max.\ 5\,bar), transmembrane pressure (TMP)
+  0.4--2\,bar, filtrate SDI $\leq$2.5, filtrate turbidity $\leq$0.2\,NTU.
+\item \textbf{Disc filtration:} AZUD Helix Automatic self-cleaning disc
+  filters (FT-series, automatic backwash), 100-micron mesh discs; the
+  documented BASF pilot P\&ID additionally references disc-filter
+  positions DF100/DF50/DF20 by micron rating --- TODO confirm which AZUD
+  Helix model number(s) map to the standard \salinbloc pretreatment train.
+\item Feed inlet: 2\textonehalf" (M); filtered-water outlet: 2" (M); drain:
+  3" (M).
+\item Feed pump (pilot configuration): submersible, 4.5\,m\textsuperscript{3}/h
+  at 6\,bar.
+\end{itemize}
+TODO: confirm whether the AKKIM/AZUD models above are the standard
+\salinbloc bill-of-materials or pilot-specific; a finalized
+pretreatment BOM was not found. Several other filtration technologies
+(hydrocyclone separator, automatic screen filters, high-efficiency sand
+filters, microfilters) exist as vendor catalogs in HydroVolta's component
+library but are not confirmed as installed on any \sonixed pretreatment
+train.
+
+\section{Operation}
+No dedicated pretreatment-specific operating procedure beyond the general
+startup/shutdown described in \cref{ch:operation} was found, but the UF
+module manufacturer documents the following normal operating cycle, which
+is the closest available reference for the standard \salinbloc pretreatment
+skid:
+\begin{procedure}
+\item \textbf{Production:} a brief forward-flush step, then filtration
+  (dead-end or crossflow) until the trigger for backwash is reached.
+\item \textbf{Backwash:} drain, then air-scour (max.\
+  20\,Nm\textsuperscript{3}/h at 600--800\,mbar) to loosen the fouling
+  layer, then backwash bottom-to-top and top-to-bottom
+  (backwash pressure max.\ 2.5\,bar) to flush it out.
+\end{procedure}
+TODO: confirm the actual backwash trigger used on \salinbloc (pressure
+differential vs.\ timer) and the cycle duration/frequency; the manufacturer
+spec above describes the module's capability, not HydroVolta's configured
+setpoint.
+
+\section{Maintenance}
+The UF manufacturer documents a Chemically Enhanced Backwash (CEB) /
+CIP cycle, triggered when TMP rises $\geq$0.9\,bar above its initial
+value:
+\begin{procedure}
+\item Run an extended backwash cycle (as in \emph{Operation} above), then
+  soak the module in cleaning chemical for part of the cycle.
+\item CEB chemical concentrations: NaOCl 1000\,mg/l, NaOH 500\,mg/l, HCl
+  1000\,mg/l, or citric acid 1--2\% --- select per the fouling type
+  (organic/biological vs.\ scale) per \cref{ch:dosing}.
+\item Total CIP duration $\approx$2\,hours, at a cleaning flow of
+  1--2\,m\textsuperscript{3}/h per module.
+\end{procedure}
+For extended shutdowns (\cref{ch:shutdown}), the manufacturer specifies a
+glycerol/sodium-metabisulfite preservation soak, and requires a minimum
+4-hour flush with $\geq$14\,m\textsuperscript{3} of feed water before
+restart. Before returning a preserved or newly installed module to
+service, disinfect with 100\,ppm NaOCl circulated for 10\,minutes, held
+for 1\,hour, then drained until the filtrate runs chlorine-free. TODO: no
+document gives a routine cleaning-interval schedule (as opposed to the
+TMP-triggered CEB above) --- see \cref{ch:maintenance} for the general log
+template.
+
+\hvfig{fig-filter-cleaning.png}{Suggested figure: step-by-step photos of
+  the disc-filter backwash and UF CEB/CIP procedure above, once
+  photographed on an actual unit.}{fig:filter-cleaning}
+
+\section{Troubleshooting}
+\begin{itemize}
+\item \textbf{Low filtered-water flow / high pressure drop:} check pump
+  duty point against the 4.5\,m\textsuperscript{3}/h @ 6\,bar rating and
+  pipe sizing (60\,mm feed line, 40\,mm filtered-water line) before
+  suspecting the filters themselves.
+\item \textbf{Rising transmembrane pressure (TMP):} if TMP has risen
+  $\geq$0.9\,bar above its initial value, run the CEB/CIP cycle above
+  rather than waiting for a scheduled cleaning.
+\item \textbf{Poor downstream water quality:} verify feed water against
+  the operating envelope in \cref{ch:stacks} (turbidity, iron, SDI) and
+  against the UF feedwater limits above --- an out-of-envelope feed is a
+  likely root cause on either stage.
+\end{itemize}
+TODO: no documented fault table (e.g.\ specific alarm codes) for the disc
+filters or UF unit was found beyond the operating-envelope figures above.
+
+
+\chapter{Feed and Process Pumps}
+\label{ch:pumps}
+\chaptersubtitle{Feed, diluate and concentrate pumps on each SonixED skid}
+\chaptertoc
+
+\section{Overview and function}
+Each \sonixed skid carries three process pumps --- feed, diluate and
+concentrate --- that circulate water through the stack(s) at the required
+flow and pressure. Pumps are magnetic-driven (sealless) and inverter-
+(VFD-)controlled so flow can be adjusted without throttling valves.
+
+\hvfig{fig-process-pumps.png}{Suggested figure: photograph of the three
+  process pumps on a skid, labeled feed/diluate/concentrate, with their
+  VFD units visible.}{fig:process-pumps}
+
+\section{Key specifications}
+\begin{itemize}
+\item Always 3 pumps per skid (feed, diluate, concentrate).
+\item Magnetic-driven, inverter-driven, polypropylene/stainless-steel
+  construction, seawater-compatible.
+\item Pretreatment feed pump (pilot): Grundfos CRN~10-5 A-FGJ-A-E-HQQE,
+  flanged connections.
+\item Rated hydraulic flow per stack: 24\,m\textsuperscript{3}/day
+  (SonixED-S datasheet).
+\item Each pump is driven by its own VFD (control tags
+  \plctag{VFD\_1\_D1}\dots\plctag{VFD\_6\_E2} in the pilot configuration).
+\end{itemize}
+
+\section{Operation}
+Pump speed is set by the PLC via the VFDs to hold the process at its
+target flow/pressure; TODO no document confirms the exact control loop
+(open-loop speed vs.\ closed-loop flow/pressure control). Manual
+speed override, if available, is reached via the \plctag{Manual} mode
+described in \cref{ch:operation}.
+
+\section{Maintenance}
+TODO: no pump-specific maintenance schedule (bearing/seal inspection,
+impeller check interval) was found. Magnetic-driven pumps have no shaft
+seal to replace, which reduces routine maintenance versus a conventional
+centrifugal pump, but confirm this against the actual pump model fitted.
+
+\section{Troubleshooting}
+Each pump's VFD reports a \plctag{FaultWord} that should be checked first
+on any pump-related alarm. Typical causes to check, in order:
+\begin{itemize}
+\item \textbf{Pump not running / VFD fault:} check \plctag{FaultWord} on
+  the relevant VFD tag; check incoming supply and control-voltage presence
+  (\cref{ch:cabinet}).
+\item \textbf{Low flow / high pressure:} check for blockage upstream
+  (\cref{ch:pretreatment}) or downstream (stack fouling,
+  \cref{ch:stacks}) before assuming a pump fault.
+\item \textbf{Pump running but no output:} check for air lock (magnetic-
+  driven pumps are not self-priming) --- TODO confirm priming procedure.
+\end{itemize}
+
+
+\chapter{SonixED Stack Modules}
+\label{ch:stacks}
+\chaptersubtitle{The electrodialysis stacks at the heart of the unit}
+\chaptertoc
+
+\section{Overview and function}
+The \sonixed stack is the unit's core: an assembly of alternating
+cation- and anion-exchange membranes, titanium electrodes and spacers,
+with integrated ultrasound transducers for chemical-free antifouling.
+Under an applied DC voltage, ions migrate across the membranes from the
+diluate stream into the concentrate stream, desalinating the diluate. Each
+skid carries 1--3 stacks (standard configurations 1SS/2SS/3SS).
+
+\hvfig{fig-stack-module.png}{Suggested figure: labeled photograph of a
+  single \sonixed stack module, showing the electrode housings, membrane
+  stack, ultrasound transducers and 1" BSP connections.}{fig:stack-module}
+
+\hvfig{fig-stack-cutaway.png}{Suggested figure: a cutaway/exploded diagram
+  of one cell pair, showing the diluate/concentrate/electrolyte flow paths
+  through alternating membranes --- useful for explaining the process to a
+  new operator.}{fig:stack-cutaway}
+
+\section{Key specifications}
+\begin{itemize}
+\item Module dimensions (l$\times$b$\times$h): 300\,$\times$\,400\,$\times$\,1060\,mm;
+  weight $\sim$150\,kg; connection 1" BSP.
+\item Flowrate per stack: 0.5--10\,m\textsuperscript{3}/h (skid datasheet);
+  24\,m\textsuperscript{3}/day (stack datasheet).
+\item Salt rejection: up to 90\%; water recovery: up to 98\%.
+\item Operating pressure: 0.5--2.5\,bar (typical 0.5--1\,bar); maximum
+  3\,bar.
+\item Temperature: 5--40\,\textdegree C (stack datasheet) / 5--55\,\textdegree C
+  (skid datasheet) --- TODO reconcile which applies to the finished
+  product.
+\item DC voltage across stack: 60--600\,V; DC current: 3--20\,A.
+\item Cell pairs per stack: 50--250; effective membrane area: 10--50\,m\textsuperscript{2}
+  (\enquote{long} variant) or 20--100\,m\textsuperscript{2} (\enquote{square} variant).
+\item Membrane: Fujifilm Type~10, polyolefin.
+\item Feed water requirements: salinity $\leq$90{,}000\,ppm; pH 5--8.5
+  typical (tolerable 2--13); turbidity $<$1\,NTU; suspended solids
+  $<$20\,\textmu m; SDI(5\,min) 10; iron $<$0.5\,mg/l; free chlorine
+  0.5\,ppm continuous / 30\,ppm intermittent tolerance.
+\end{itemize}
+
+\section{Operation}
+Stacks operate continuously under PLC control once commissioned
+(\cref{ch:commissioning}); electrodialysis \emph{reversal} periodically
+swaps stream polarity as part of the ultrasound antifouling strategy ---
+TODO confirm the reversal interval/trigger. Process values (pressure, flow,
+conductivity per stream) are monitored via the sensors described in
+\cref{ch:sensors}.
+
+\section{Maintenance}
+The membrane is the stack's principal wear item (weight $\sim$150\,kg,
+dimensions and connection as in \emph{Key specifications} above). TODO:
+part number, reorder code and recommended replacement interval were not
+found; no CIP or cleaning procedure specific to the \sonixed stack was
+found among the documents reviewed.
+
+\section{Troubleshooting}
+If salt rejection or recovery drops noticeably below the rated ranges
+above, check feedwater against the operating envelope in \emph{Key
+specifications} first --- turbidity, iron and free chlorine excursions are
+the most likely root causes of fouling-related performance loss. TODO: no
+documented fault table linking specific water-quality deviations to
+specific symptoms (e.g.\ \enquote{high iron causes X}) was found beyond the
+acceptable operating envelope itself.
+
+
+\chapter{Valves and Manifold}
+\label{ch:valves}
+\chaptersubtitle{Automated 3-way valves and the feed distribution manifold}
+\chaptertoc
+
+\section{Overview and function}
+Automated 3-way valves direct flow between feed, product and recirculation
+paths (e.g.\ for electrodialysis reversal, \cref{ch:stacks}), while the
+manifold assembly distributes feed water evenly to every stack on a skid.
+
+\hvfig{fig-valve-manifold.png}{Suggested figure: photograph of the
+  manifold assembly with its 3-way valves, labeled by function (feed,
+  product, recirculation).}{fig:valve-manifold}
+
+\section{Key specifications}
+\begin{itemize}
+\item 3-way automated valves: PVC construction.
+\item Manifold: DN25--DN63, PVC and stainless-steel fittings.
+\end{itemize}
+Two actuated-valve product lines are confirmed present in HydroVolta's
+component library as candidates for this duty (TODO: confirm which is
+actually fitted on the standard \salinbloc BOM):
+\begin{itemize}
+\item \textbf{Georg Fischer (+GF+) e-DIASTAR Type~514} actuated ball
+  valve: PVC-U body, 24\,V\,AC/DC multiturn actuator with integrated
+  open/closed position feedback, built-in heating element and manual
+  emergency override. Available in DN25 (1", PN10) and DN50 (2", PN6)
+  sizes matching this manual's connection sizes elsewhere; seal options
+  EPDM or PTFE/EPDM.
+\item \textbf{B\"urkert Type~3003} electric rotary actuator, fitted to
+  quarter-turn ball/butterfly valves: available as on/off or proportional
+  control (accepting/outputting 4--20\,mA, 0--20\,mA or 0--10\,V);
+  standard manual override, adjustable limit switches, integrated heating
+  resistor and torque limiter; UL~94~V0 flame-resistant housing.
+\end{itemize}
+Both product lines run on the same 24\,V\,DC control bus documented for
+the cabinet (\cref{ch:cabinet}), consistent with the troubleshooting
+guidance below.
+
+\section{Operation}
+Valves are switched automatically by the PLC as part of the stream-
+reversal and CIP sequences (\cref{ch:stacks,ch:operation}). TODO: no
+document describes manual valve override procedure or fail-safe position
+on power loss --- both candidate actuator families above include a manual
+override lever, but the fail-safe (last-position vs.\ defined) behavior on
+power loss has not been confirmed.
+
+\section{Maintenance}
+TODO: no valve-specific maintenance schedule (actuator lubrication, seat
+wear inspection interval) was found. See \cref{ch:maintenance} for the
+general schedule and log template.
+
+\section{Troubleshooting}
+\begin{itemize}
+\item \textbf{Valve not switching:} check 24\,V\,DC control voltage at the
+  valve terminal against PE before assuming a valve fault
+  (\cref{ch:cabinet}).
+\item \textbf{Flow imbalance across stacks:} check manifold for blockage
+  or a partially closed valve before suspecting a pump or stack issue.
+\end{itemize}
+
+
+\chapter{Dosing System}
+\label{ch:dosing}
+\chaptersubtitle{Antiscalant, pH correction and CIP dosing pumps}
+\chaptertoc
+
+\section{Overview and function}
+Dosing pumps inject antiscalant and pH-correction chemicals (NaOH, HCl,
+and in the pilot configuration also H\textsubscript{2}SO\textsubscript{4})
+into the feed stream, and supply CIP (clean-in-place) chemicals for
+periodic cleaning. The documented pilot configuration used 5 dosing
+channels.
+
+\hvfig{fig-dosing-skid.png}{Suggested figure: photograph of the dosing
+  skid, with each chemical tank and pump labeled (antiscalant, NaOH, HCl,
+  CIP).}{fig:dosing-skid}
+
+\section{Key specifications}
+\begin{itemize}
+\item 5 dosing channels (pilot configuration), each controlled via a
+  4--20\,mA signal from ADAM I/O modules.
+\item Signal range: SET~1~=~4.0\,mA (0 impulses/min, pump stopped),
+  SET~2~=~20.0\,mA (180\,impulses/min).
+\item Chemicals confirmed in the pilot tag list and in Safety Data Sheets
+  held by HydroVolta: antiscalant (AS), NaOH, HCl, NaOCl (sodium
+  hypochlorite) and, in some configurations, H\textsubscript{2}SO\textsubscript{4}
+  as an alternative acid.
+\item Candidate dosing pump: \textbf{Etatron GB eOne} series --- flow rate
+  1--30\,l/h, max.\ pressure 20\,bar, 100--250\,V\,AC 50/60\,Hz supply, max.\
+  300 pulses/min, PVDF pump head with double ceramic ball valves and PTFE
+  diaphragm. The \textbf{MF} (multifunction) variant adds proportional
+  dosing, 4--20\,mA control, level-switch input and failure alarms; the
+  \textbf{PLUS} variant integrates a pH/ORP/Cl controller. TODO: confirm
+  which variant, and which alternative (Lutz-Jesco MEMDOS Smart /
+  EasyChlorGen also appear in HydroVolta's component library), is fitted
+  to the standard \salinbloc product.
+\end{itemize}
+
+\section{Operation}
+See \cref{sec:opparams} in \cref{ch:commissioning} for the default 4--20\,mA
+signal configuration and functional-test procedure used to verify each
+dosing channel. Setting a dosing pump's frequency from a 4--20\,mA signal
+uses two settings: the \textbf{pulse amplitude} (mL per stroke, set
+manually at the pump) and the \textbf{pulse frequency} (set remotely as a
+\% of the pump's maximum, via the 4--20\,mA signal). Worked example from a
+real HydroVolta dosing calculation (antiscalant, 10\,ppm target): dilution
+factor 1333, pulse amplitude 0.01--0.1\,mL, giving a dose rate of
+$\approx$0.167\,mL/min (36\,mL/h).
+
+\begin{warning}
+\textbf{Never dose NaOH into feed or process water} --- HydroVolta's own
+CIP procedure documents this explicitly as a scaling risk. NaOH is only
+used against pure (permeate-quality) water during CIP.
+\end{warning}
+
+A documented weekly CIP cycle (source: HydroVolta pilot CIP procedure)
+runs as follows:
+\begin{procedure}
+\item \textbf{Acid step:} dose HCl to pH~2.5 in the CIP loop, circulating
+  30\,minutes forward-flow then 30\,minutes reverse-flow through the
+  stack, using pretreated feedwater.
+\item Drain the CIP loop to the concentrate tank, then flush with fresh
+  feed water for 15--20\,minutes.
+\item \textbf{Hypochlorite step:} dose NaOCl to 2\,ppm (effective only
+  near pH~7--7.5 --- check/correct pH before this step), circulating
+  30\,minutes forward then 30\,minutes reverse.
+\item Drain 5\,minutes, then flush with fresh feed water for
+  30\,minutes.
+\item A variant of this cycle that also treats the electrolyte
+  compartment uses NaOH instead of/alongside HCl --- \textbf{only ever
+  with pure water}, per the warning above.
+\end{procedure}
+Typical HCl/NaOH CIP dose rates from a real pilot's dosing calculation
+sheet (pure, low-alkalinity water): HCl $\approx$5.5\,mL/min at 1000\,l/h
+CIP flow, pulse amplitude 0.1\,mL, $\approx$31\% of max.\ pump frequency;
+NaOH $\approx$17.4\,mL/min, pulse amplitude 0.3\,mL, $\approx$32\% of
+max.\ frequency. For natural (higher-alkalinity) feed water, acid demand
+scales with the water's total alkalinity (TA) --- a seawater-range feed
+(TA~25--30\textdegree f) needs roughly 3--4$\times$ the acid dose of a
+low-alkalinity feed. TODO: confirm the CIP interval and dose rates that
+apply to the standard \salinbloc product; the figures above are a real,
+sourced pilot example, not a general specification.
+
+\section{Maintenance}
+TODO: no chemical replenishment interval, tubing/diaphragm replacement
+schedule, or dosing-pump calibration procedure specific to the standard
+product was found. The CIP cycle above ran approximately weekly in the
+documented pilot --- use this as a starting reference for the maintenance
+schedule in \cref{ch:maintenance} until a formal interval is confirmed.
+Per the chemicals' Safety Data Sheets, store all dosing chemicals in their
+original, tightly closed containers, away from food/drink, at a
+recommended \textbf{15--25\,\textdegree C}; keep incompatible chemicals
+(acids vs.\ NaOH vs.\ NaOCl) in separate secondary containment. See
+\cref{sec:firstaid} for first-aid and spill-response guidance.
+
+\section{Troubleshooting}
+Low-level alarms exist per chemical: \plctag{LL\_Alarm\_AS} (antiscalant),
+\plctag{LL\_Alarm\_NaOH}, \plctag{LL\_Alarm\_HCl}, plus per-channel
+\plctag{Dosing1\_Alarm}\dots\plctag{Dosing5\_Alarm}. On any dosing alarm,
+check chemical tank level first, then verify the 4--20\,mA signal at the
+pump terminal using the bench-test method in \cref{ch:sensors}. If a CIP
+cycle fails to reach its target pH (2.5 for the acid step), verify the
+dosing pump's pulse amplitude/frequency setting against the worked
+example above before suspecting a pump fault.
+
+
+\chapter{Instrumentation and Sensors}
+\label{ch:sensors}
+\chaptersubtitle{Pressure, flow, pH and conductivity measurement}
+\chaptertoc
+
+\section{Overview and function}
+Inline sensors give the PLC (and the operator, via the HMI) a continuous
+read of the process: pressure, flow, pH and conductivity/level at key
+points in the pretreatment and treatment trains, plus a pressure gauge on
+each stack. All sensors use a standard 2-wire, loop-powered 4--20\,mA
+output.
+
+\hvfig{fig-sensor-array.png}{Suggested figure: photograph of the inline
+  sensor array on a skid, with each sensor type (pressure, flow, pH,
+  conductivity) labeled.}{fig:sensor-array}
+
+\section{Key specifications}
+\begin{itemize}
+\item Signal type: 2-wire, loop-powered, 4--20\,mA.
+\item Confirmed sensor types in the pilot tag list: pressure
+  (\plctag{TSA\_pressure}), flow (\plctag{TSA\_Flow}), pH
+  (\plctag{TSA\_pH}), conductivity/level (\plctag{TSA\_Cond},
+  \plctag{TSA\_Level}, \plctag{TB\_Cond}, \plctag{TB\_Level},
+  \plctag{TE\_Level}).
+\item \textbf{Pressure:} WIKA A-10 pressure transmitter (gauge pressure,
+  4\,mA~=~0\,bar; 2-wire, IP65/IP67, wetted parts 316L stainless steel,
+  non-repeatability $\leq\pm$0.2\% of span). Stated maintenance-free by
+  the manufacturer; clean only with water/mild detergent and a soft cloth
+  --- repairs are manufacturer-only.
+\item \textbf{Flow:} a real, dated quotation (KROHNE Belgium to
+  HydroVolta, June~2025, explicitly for \enquote{meetinstrumenten
+  onzilting} --- \enquote{desalination measuring instruments}) specifies
+  six \textbf{KROHNE OPTIFLUX~1000/1050} electromagnetic flowmeters
+  (DN10--150, compact model, max.\ operating pressure 16\,bar, PFA
+  lining, Hastelloy~C22 electrodes, IP66/67, product temperature
+  $-$25 to +120\,\textdegree C) with an \textbf{IFC~050} flow converter.
+\item \textbf{Conductivity:} the same 2025 KROHNE quote specifies
+  \textbf{SMARTPAT COND} conductivity sensors.
+\item \textbf{pH/ORP:} the same quote specifies \textbf{KROHNE SMARTPAT
+  pH/ORP} sensors --- superseding the GF~DryLoc~2751 candidate noted in
+  earlier pilots.
+\item \textbf{Level:} the same quote specifies an \textbf{80\,GHz
+  non-contact radar (FMCW)} level sensor (brand consistent with the
+  Holykell/MDS-AM15 candidates found elsewhere, now confirmed as part of
+  a coherent, single-vendor 2025 instrumentation package rather than
+  scattered evaluation quotes).
+\end{itemize}
+Because this KROHNE package is dated 2025, covers flow/conductivity/pH/
+level in one coherent quotation, and is explicitly scoped to desalination
+instrumentation (as opposed to the older, scattered
+GF/B\"urkert/Holykell candidates found in earlier pilot projects), it is
+the \textbf{best available evidence for the standard \salinbloc
+instrumentation package} --- but it is still a quotation, not a
+confirmed purchase order or as-built BOM. TODO: confirm this quote was
+actually ordered and fitted before treating it as final.
+\begin{itemize}
+\item \textbf{Optional accessory:} HydroVolta's SonixED skid datasheet
+  lists a \textbf{Cloud Multi-Parameter Water Analyzer (SUP-MPP1000)} as
+  an available option --- a 7-inch touchscreen instrument measuring
+  turbidity, pH, conductivity, dissolved oxygen and residual chlorine,
+  with RS485/4--20\,mA output, for more detailed product-water quality
+  monitoring than the standard sensor array.
+\end{itemize}
+TODO: confirm exact make/model per sensor type in the standard product.
+
+\section{Operation}
+Sensor readings feed the process-value displays described in
+\cref{ch:operation} and the alarm limits in \cref{ch:appparams}.
+
+\section{Maintenance}
+\label{sec:sensorcal}
+No formal calibration-to-reference procedure (e.g.\ pH 4/7/10 buffer
+calibration) was found; what \emph{is} documented is a real bench
+verification procedure used before commissioning any 2-wire 4--20\,mA
+sensor:
+\begin{procedure}
+\item Connect the sensor per the electrical schematic up to the terminal
+  strip --- \textbf{do not} connect to the PLC yet.
+\item Insert a test resistor ($\sim$250\,$\Omega$, giving a safe 1--5\,V
+  signal from the loop) and measure voltage with a voltage-only
+  multimeter (e.g.\ Fluke~116).
+\item For a pressure sensor (4\,mA~=~0\,bar): $\sim$0.88\,V across the test
+  resistor confirms a normal 0\,bar signal before connecting to the PLC.
+\item For a pH sensor (0--14\,pH, 4--20\,mA) in a 7\,pH reference solution:
+  $\sim$2.64\,V across a 220\,$\Omega$ resistor (12\,mA at mid-scale) is
+  expected.
+\item If the sensor checks out on the bench but still misbehaves once
+  installed, the fault is in the field wiring, not the sensor.
+\end{procedure}
+TODO: this is a wiring/signal-integrity check, not a full calibration
+procedure --- a genuine calibration interval/method for pH, conductivity
+and pressure sensors was not located.
+
+\section{Troubleshooting}
+\hvtablebegin{L L L}{4--20\,mA sensor fault table}{tab:sensorfault}
+\hvhead{\textbf{Symptom (bench test)} & \textbf{Likely cause} & \textbf{Remedy}}\\\midrule
+0\,V reading & No control voltage reaching sensor loop & Check DIN connector; confirm 24\,V\,DC between terminal and PE; check polarity; confirm supply is on\\
+Reading below 4\,mA & Reversed polarity & Check polarity at the sensor connections\\
+Reading stuck near 4\,mA & Sensor connection contamination & Check the connection is dry and clean\\
+Reading above 20\,mA & Wiring fault / short & Check connections\\
+No output signal at all (installed) & Cable break & Check loop continuity\\
+Zero point has drifted & Overpressure limit exceeded, or wrong working temperature & Check against rated span and temperature range; recalibrate zero if within spec\\
+Constant output despite pressure/process change & Mechanical fault in the sensor & Replace the sensor\\
+Signal span varies over time & EMC interference & Shield the instrument/cable; remove the interference source\\
+Signal span has dropped & Mechanical overload from an overpressure event & Replace the instrument\\
+Fails on the bench too & Defective sensor & Replace the sensor\\
+Passes bench test, fails installed & Field wiring fault & Inspect and repair wiring in the container\\
+\bottomrule\end{xltabular}\par
+The first four rows above are from the real HydroVolta bench verification
+procedure; the following five are from the WIKA A-10 OEM manual's own
+fault-finding section and apply directly to pressure sensors, and by the
+same 2-wire 4--20\,mA principle, are a reasonable first check for the pH
+and conductivity sensors as well.
+
+
+\chapter{Control Cabinet, PLC and HMI}
+\label{ch:cabinet}
+\chaptersubtitle{The IP55 control cabinet, PLC I/O and operator touchscreen}
+\chaptertoc
+
+\section{Overview and function}
+The control cabinet houses the PLC, I/O modules, VFDs and terminal wiring
+that supervise the whole unit: a Weidm\"uller UC20-WL2000-AC controller
+(CODESYS/u-OS based) coordinates distributed ADAM I/O modules
+(ADAM-4024/4050/4017+/5000), the process VFDs (\cref{ch:pumps}), and the
+dosing subsystem (\cref{ch:dosing}), with an optional touchscreen HMI for
+local operation.
+
+\hvfig{fig-control-cabinet.png}{Suggested figure: photograph of the open
+  control cabinet with the PLC, I/O modules and terminal strips labeled.}
+  {fig:control-cabinet}
+
+\section{Key specifications}
+\begin{itemize}
+\item Cabinet ingress protection: IP55.
+\item Controller: Weidm\"uller UC20-WL2000-AC (CODESYS/u-OS).
+\item Distributed I/O: Advantech ADAM series. The \textbf{ADAM-3600-C2G}
+  Wireless Intelligent RTU (also usable as the main controller) is fully
+  datasheeted in HydroVolta's library: Cortex-A8 AM3352 @600\,MHz,
+  256\,MB DDR3L RAM, RT-Linux~3.12; onboard 8AI/8DI/4DO plus a 4-slot I/O
+  expansion bay (compatible modules: ADAM-3613/3617/3618/3624/3651/3656);
+  1$\times$RS232/485 (DB9) + 2$\times$RS485 (terminal block), 2$\times$RJ-45
+  10/100 Ethernet; protocols Modbus/TCP, DNP3~L2, IEC~104, MQTT; power
+  10--30\,V\,DC (24\,V @ 5\,W typical); operating temperature
+  $-$40 to 70\,\textdegree C; DIN-rail or wall mount. ADAM-4024 (analog
+  output, used for dosing pump control), ADAM-4050/4017+ and the
+  ADAM-5000-series backplane (analog I/O cards ADAM-5017P, ADAM-5024) are
+  confirmed in real pilot I/O wiring documentation alongside the
+  ADAM-3600. A more recent (2023) confirmed remote-I/O bill of materials
+  uses \textbf{Weidm\"uller UR20} modular I/O instead: a
+  UR20-FBC-MOD-TCP-V2 Modbus/TCP fieldbus coupler, one UR20-16DI-P
+  (16-channel digital input), one UR20-16DO-P (16-channel digital
+  output), and six UR20-4AI-UI-16 (4-channel universal analog input)
+  modules on a DIN rail --- i.e.\ a Modbus/TCP-based I/O station with
+  analog input as the dominant channel count, consistent with the many
+  4--20\,mA sensors described in \cref{ch:sensors}. TODO: confirm whether
+  the standard \salinbloc product uses the ADAM family, the Weidm\"uller
+  UR20 family, or both depending on configuration --- both are confirmed
+  purchases in HydroVolta's history, from different projects/years.
+\item Control-box ordering options: \textbf{CB0} (PLC only), \textbf{CB1}
+  (PLC~+ touchscreen HMI).
+\item Cloud-connectivity tiers: \textbf{CL0} (local only), \textbf{CL1}
+  (cloud monitoring), \textbf{CL2} (full cloud monitoring and control) ---
+  see \cref{ch:telemetry}.
+\item Incoming supply (pilot): 3$\times$400\,V\,AC (3P+N+PE), max.\ 25\,A;
+  24\,V\,DC control bus.
+\end{itemize}
+
+\section{Operation}
+The PLC drives the automatic sequencing described throughout Part~II
+(pump speed, valve switching, dosing) and surfaces process values and
+alarms to the HMI/dashboard (\cref{ch:operation}).
+
+\section{Maintenance}
+TODO: no cabinet-specific maintenance (dust/filter check on the IP55
+enclosure, terminal torque check) was found.
+
+\section{Troubleshooting}
+\begin{itemize}
+\item \textbf{ADAM-3600 timeout / cannot reconnect after uploading a new
+  PLC program:} browse to the device's IP address, log in to its web UI
+  (default password \texttt{00000000}), go to \emph{Configuration~$\to$~Reboot}.
+  After reboot, retry the stop/connect sequence. Precondition: the device
+  must respond to \texttt{ping} --- if it does not, the fault is network/
+  power related, not a program-upload timeout.
+\item \textbf{Modbus-RTU communication issue:} use qModMaster with a CH340
+  USB-to-Modbus-RTU adapter to verify communication directly: confirm the
+  assigned COM port, set RTU options to match the device (e.g.\
+  9600\,baud, 8 data bits, 1 stop bit, no parity), set the correct slave
+  address, use FC1/FC2/FC3, set Base Address to~0, then read a known
+  register to confirm communication. The built-in bus monitor can inspect
+  Tx/Rx traffic for deeper diagnosis.
+\item \textbf{Analog signal fault (any 4--20\,mA device wired through this
+  cabinet):} see the bench-test procedure in \cref{sec:sensorcal}.
+\end{itemize}
+
+
+\chapter{Tanks}
+\label{ch:tanks}
+\chaptersubtitle{Diluate, concentrate, electrolyte and drain tanks}
+\chaptertoc
+
+\section{Overview and function}
+Overhead/skid-mounted tanks buffer the diluate, concentrate and
+electrolyte streams (\cref{ch:overview}) and collect drainage from both
+containers before it leaves the unit. In the pilot configuration these are
+tagged TSA (a sensor/buffer tank), TB and TE (electrolyte) --- see
+\cref{ch:sensors} for the level/conductivity instrumentation on each.
+
+\hvfig{fig-tanks.png}{Suggested figure: photograph of the tank bank inside
+  the treatment container, each tank labeled with its stream (diluate/
+  concentrate/electrolyte/drain).}{fig:tanks}
+
+\section{Key specifications}
+No tank capacity/material specification exists yet for a finalized
+standard \salinbloc bill of materials, but two real, recent tank orders
+placed by HydroVolta give a concrete sense of the sizes used:
+\begin{itemize}
+\item Rotterdam Plastics order (Oct.\ 2025): one 800-litre vertical
+  polyethylene tank (closed outlet, unvented lid) and one 450-litre
+  polyethylene tank (open outlet, vented lid).
+\item Boralit/Galo Tanks order: two 1000-litre rectangular polyethylene
+  tanks (RT1000RH~ZW series), supplied with PVC coupling sets.
+\end{itemize}
+TODO: which physical tank (diluate/feed, concentrate, electrolyte, or
+drain) each of the above corresponds to was not confirmed in the order
+documents --- do not assume a mapping without checking the as-built P\&ID
+for the specific unit. The pilot configuration referenced elsewhere in
+this manual used a 1000\,l IBC as an auxiliary/drain tank.
+
+\section{Operation}
+Tank levels are monitored continuously (\plctag{TSA\_Level},
+\plctag{TB\_Level}, \plctag{TE\_Level}) with high/low alarm limits ---
+see \cref{ch:appparams}.
+
+\section{Maintenance}
+TODO: no tank cleaning/inspection schedule was found.
+
+\section{Troubleshooting}
+High/low level alarms are confirmed for every tank:
+\plctag{HL\_Alarm\_TD}/\plctag{LL\_Alarm\_TD} (diluate),
+\plctag{HL\_Alarm\_TC}/\plctag{LL\_Alarm\_TC} (concentrate),
+\plctag{HL\_Alarm\_TB}/\plctag{LL\_Alarm\_TB},
+\plctag{HL\_Alarm\_TSA}/\plctag{LL\_Alarm\_TSA},
+\plctag{HL\_Alarm\_TE}/\plctag{LL\_Alarm\_TE}, plus a level alarm
+\plctag{M050\_Level\_Alarm}. On any level alarm, check the relevant level
+sensor per the bench-test procedure in \cref{sec:sensorcal} before
+assuming a process fault.
+
+
+\chapter{Telemetry and Remote Connectivity}
+\label{ch:telemetry}
+\chaptersubtitle{Router, remote-access gateway and cloud monitoring}
+\chaptertoc
+
+\section{Overview and function}
+A cellular router and cloud dashboard give operators and HydroVolta
+service remote visibility into the unit's process values and alarms,
+independent of the local HMI (\cref{ch:cabinet}).
+
+\hvfig{fig-telemetry-router.png}{Suggested figure: photograph of the
+  router/gateway mounted in the cabinet, with antenna and SIM slot
+  visible.}{fig:telemetry-router}
+
+\section{Key specifications}
+\begin{itemize}
+\item \textbf{Confirmed deployed remote access:} real OpenVPN client
+  configuration files exist in HydroVolta's engineering library for at
+  least two pilot containers (Farys, BASF/CAGECE demo), following a
+  router-based \enquote{meeting point} VPN architecture (Weidm\"uller
+  IE-SR-2GT-LAN / IE-SR-2GT-UMTS routers, per the vendor tech note on
+  file) --- this is the one telemetry element confirmed as \emph{actually
+  used}, not just evaluated.
+\item \textbf{Confirmed deployed dashboard:} \textbf{ThingsBoard}, with a
+  real MQTT parameter list and full tag list captured from the BASF pilot
+  deployment.
+\item A real 2023 requirements-workshop record (source:
+  \texttt{08\_IT/00\_OQuila progress}) describes an \textbf{actually
+  running 4-container pilot fleet} at that time: \textbf{Advantech
+  ADAM-3600} connecting directly to \textbf{Azure IoT~Hub}, piped through
+  \textbf{Azure Stream Analytics} into a SQL database and visualized in
+  \textbf{Power~BI}; connectivity via a \textbf{4G Teltonika router}, with
+  HydroVolta noting a possible future switch to Ewon \enquote{for a
+  better SLA} due to past Teltonika stability issues. Each container sent
+  a telemetry message roughly every 10\,seconds ($\approx$8{,}000
+  messages/container/day: connectivity, pressure, flow, temperature,
+  energy). Parameter changes at that time were only possible via VPN, not
+  from the cloud dashboard.
+\item \textbf{OQuila} was a third-party IoT consultancy HydroVolta held a
+  2023 requirements workshop with, to evaluate a longer-term telemetry
+  platform (long-term storage, a graphical P\&ID front-end, configurable
+  alarm thresholds, role-based access). HydroVolta's own workshop notes
+  state ThingsBoard was assessed as \enquote{ok} for the dashboard need on
+  its own. \textbf{No document confirms OQuila's proposal was ultimately
+  adopted or built} --- treat the Azure~IoT~Hub/Power~BI pipeline above
+  and the ThingsBoard/ Weidm\"uller-OpenVPN pipeline elsewhere in this
+  manual as two telemetry architectures documented at different points in
+  HydroVolta's history, not necessarily the same one. TODO: confirm which
+  architecture (if either, unchanged) is used on the current standard
+  \salinbloc product.
+\item Controller reached over the network: Weidm\"uller UC20-WL2000-AC
+  (\cref{ch:cabinet}).
+\end{itemize}
+
+\section{Operation}
+Process values available on the cloud dashboard mirror those on the local
+HMI (\cref{ch:operation}). TODO: no document describes ThingsBoard
+dashboard login/navigation for an end customer.
+
+\section{Maintenance}
+TODO: no router/SIM maintenance procedure (data plan renewal, firmware
+update schedule) was found.
+
+\section{Troubleshooting}
+\begin{itemize}
+\item \textbf{Router unreachable:} confirm the device is powered and check
+  its cellular signal/SIM status before assuming a software fault.
+\item \textbf{Cloud dashboard shows stale data:} check the router's
+  connection to the controller first; if the controller itself is
+  reachable locally but not remotely, the fault is likely in the
+  router/network path rather than the controller.
+\end{itemize}
+See also the ADAM-3600 and Modbus-RTU troubleshooting steps in
+\cref{ch:cabinet}, which apply to field-device connectivity issues more
+broadly.
+
+
+%% ---- Part III: Closing general chapters -----------------------------------
+
+\chapter{Shutdown, storage and disposal}
+\label{ch:shutdown}
+\chaptertoc
+
+\section{Short shutdown}
+Use \textbf{Controlled Shutdown} (Mode~4) from the Mode Control HMI
+screen (\cref{ch:operation}) rather than simply removing power, so pumps
+and valves stop in a defined sequence. TODO: no document describes a
+written de-energization procedure beyond mode selection; the
+incoming-supply breaker layout (main isolator, MCBs, RCDs) documented on
+the pretreatment electrical schematic would be the basis for one if the
+unit is to be fully powered down (as opposed to left in Controlled
+Shutdown/standby).
+
+\section{Long-term storage}
+No storage/preservation procedure specific to the whole \salinbloc unit
+was found, but the UF membrane manufacturer's preservation procedure
+(\cref{ch:pretreatment}) is directly applicable to the pretreatment stage
+and is the best-documented reference available: soak the UF module in a
+glycerol/sodium-metabisulfite preservation solution before an extended
+shutdown, and flush with $\geq$14\,m\textsuperscript{3} of feed water for
+at least 4\,hours before restart. TODO: no equivalent preservation
+guidance (membrane wetting, antifouling flush, dosing-system
+winterization) was found for the \sonixed stack itself or the dosing
+system --- for the dosing system, at minimum follow the chemical storage
+guidance in \cref{ch:dosing} (15--25\,\textdegree C, tightly closed
+original containers) for the duration of the shutdown.
+
+\section{Restarting after storage}
+TODO: no start-up/recommissioning-after-storage procedure was found; treat
+as a fresh commissioning (\cref{ch:commissioning}) until a dedicated
+procedure exists.
+
+\section{Decommissioning}
+TODO: no decommissioning procedure was found.
+
+\section{Disposal and recycling}
+TODO: no disposal/recycling procedure or waste-stream document was found.
+Component datasheets (e.g.\ dosing pumps, \cref{ch:dosing}) may carry
+manufacturer disposal notes that have not yet been reviewed for this
+section.
+
+
+\appendix
+
+\chapter{Parameter tables}
+\label{ch:appparams}
+\chaptertoc
+
+\section{Default setpoints}
+\hvtablebegin{L R{22mm}}{System performance defaults (SonixED skid v2025-A7)}{tab:defaultsetpoints}
+\hvhead{\textbf{Parameter} & \textbf{Value}}\\\midrule
+Flowrate per stack & 0.5--10\,m\textsuperscript{3}/h\\
+System flow per skid & up to 30\,m\textsuperscript{3}/h\\
+Recovery rate & up to 98\%\\
+Operating pressure & 0.5--2.5\,bar\\
+Temperature range & 5--55\,\textdegree C\\
+Specific energy & 0.6--2.0\,kWh/m\textsuperscript{3}\\
+Skid dimensions (l$\times$b$\times$h) & 3040$\times$1340$\times$2020\,mm\\
+Incoming line voltage & 3$\times$400\,V\,AC\\
+Max.\ current & 25\,A\\
+Valve voltage & 24\,V\,DC\\
+Control voltage (DC bus) & 24\,V\,DC\\
+Dosing SET~1 (min) & 4.0\,mA / 0 impulses/min\\
+Dosing SET~2 (max) & 20.0\,mA / 180 impulses/min\\
+\bottomrule\end{xltabular}\par
+
+\hvtablebegin{L R{20mm} R{20mm}}{\salinbloc container throughput by format (source: HydroVolta brochure)}{tab:containerthroughput}
+\hvhead{\textbf{Parameter} & \textbf{20\,ft unit} & \textbf{40\,ft unit}}\\\midrule
+Flow rate & 2--30\,m\textsuperscript{3}/h & 15--60\,m\textsuperscript{3}/h\\
+Approx.\ daily throughput (22\,h/day operation) & 44--660\,m\textsuperscript{3}/day & 330--1{,}320\,m\textsuperscript{3}/day\\
+\bottomrule\end{xltabular}\par
+Feed range for both formats: brackish groundwater, 1{,}500--20{,}000\,ppm
+TDS. TODO: no container weight figure was found in any source reviewed,
+including the container general-arrangement drawings themselves (their
+title blocks carry no weight/dimension text field, and any dimension
+lines are vector geometry, not extractable text --- a human must open
+these drawings visually). Obtain the weight from the container
+manufacturer or a loaded-unit weighbridge reading before publishing
+lifting/foundation guidance.
+
+\section{Site-specific settings}
+TODO: no site-specific commissioning/setpoint record was found; use this
+table to capture the as-commissioned values for a specific installation.
+
+\hvtablebegin{L L}{Site-specific settings template}{tab:sitesettings}
+\hvhead{\textbf{Parameter} & \textbf{Value}}\\\midrule
+ & \\
+ & \\
+\bottomrule\end{xltabular}\par
+
+\section{Alarm limits}
+The P\&ID (\cref{ch:appdrawings}) shows instrument spans used as default
+alarm spans at each skid position: pressure 0--2.5\,bar, conductivity
+0--200\,mS/cm, with high/low alarm tags (PSA, CEA) at every position.
+HydroVolta's ThingsBoard warning-code table (a real, deployed alarm
+definition list, source: \texttt{08\_IT/01\_Thingsboard/Warning table})
+gives concrete numeric examples for several alarm classes:
+
+\hvtablebegin{L L L}{Representative alarm/warning codes (source: HydroVolta ThingsBoard warning table)}{tab:alarmcodes}
+\hvhead{\textbf{Code} & \textbf{Class} & \textbf{Condition}}\\\midrule
+W001 & General & HV-Skid not powered\\
+W002 & General & Ventilation off\\
+W011--W013 & Chemical & Antiscalant / H\textsubscript{2}SO\textsubscript{4} / HCl tank empty\\
+W101--W110 & Level & Main diluate/concentrate/electrolyte/breaking/client tank level low or high (e.g.\ diluate below 40\,cm or above 90\,cm; electrolyte below 20\,cm or above 80\,cm)\\
+W111--W118 & Level & Buffer tank low-low / high level\\
+W201--W214 & Electrical & Stack stage 1--7 voltage below or above system specification\\
+W300 & Flow & Diluate flow below 500\,l/hr\\
+W301 & Flow & Concentrate flow below 500\,l/hr\\
+\bottomrule\end{xltabular}\par
+TODO: this table only samples the documented code ranges; the full
+warning table has $\sim$57 defined codes and should be transcribed in
+full by HydroVolta engineering, together with the exact level/pressure
+setpoints per tank size, once the standard \salinbloc tank configuration
+(\cref{ch:tanks}) is finalized --- these codes come from a specific pilot
+project's tank/stage configuration and the numeric thresholds may not
+transfer directly. See the alarm tag list in
+\cref{ch:operation,ch:tanks,ch:dosing} for additional alarms.
+
+
+\chapter{Drawings}
+\label{ch:appdrawings}
+\chaptertoc
+
+\section{P\&ID}
+Piping \& instrumentation diagram for the containerized BASF pilot water
+treatment system: drawing no.\ SWHC-001/00, rev.\ 0.98, dated 11-11-2022,
+\enquote{BASF WATER Container} (Grant Agreement 969116~--- SonixED,
+H2020-EIC-SMEInst). Shows pretreatment filtration skids (SP-01--SP-4),
+dosing units for antiscalant/NaOCl/NaOH/HCl/H\textsubscript{2}SO\textsubscript{4}
+(CIP), tanks, and instrumentation with alarm tags across the treatment
+train.
+
+\hvfig{fig-pid.png}{Insert the full P\&ID drawing here (source: SWHC-001/00,
+  rev.\,0.98) once confirmed representative of the standard \salinbloc
+  product, or the product-specific P\&ID once available.}{fig:pid}
+
+HydroVolta's standardization library includes an ANSI/ISA-5.1 P\&ID
+symbol legend, which is the reference standard the symbols on this and
+other project-specific P\&IDs (BASF, Saudi, Australia demo, Morocco) are
+drawn against.
+
+\section{Electrical schematic}
+Circuit diagram set \enquote{Pretreatment EP} for the pretreatment
+container, document series C1/I1/I2/E1--E17 (file \texttt{31-01-2023
+Pretreatment.dsn}). Covers the 3-phase incoming supply and breaker/RCD
+protection (sheet~E1), 24\,V\,DC power/control distribution (E2--E3), PLC
+I/O wiring (E4--E5), terminal wiring (E6--E8), valve/sensor junction boxes
+(E9--E13), VFD control (E14), sensor/valve wiring standards (E15), dosing
+pump wiring (E16), and Modbus COM2 wiring (E17).
+
+\hvfig{fig-electrical-schematic.png}{Insert the relevant electrical
+  schematic sheet(s) here (source: \texttt{31-01-2023
+  Pretreatment.dsn}, sheets E1--E17) once confirmed representative of the
+  standard \salinbloc product.}{fig:electrical-schematic}
+
+\section{Container layout}
+20\,ft general-arrangement drawing \enquote{2023\_08\_21 SonixED container
+BASF\_2308CA1} (6058\,$\times$\,2438\,$\times$\,2896\,mm), and companion
+skid top-view layout \enquote{2023\_08\_22 BASF Skids Top
+View\_2308CA2} --- see \cref{ch:overview} for the summary description.
+
+\hvfig{fig-container-layout-drawing.png}{Insert drawings 2308CA1 (general
+  arrangement) and 2308CA2 (skid top view) here, or the standard-product
+  equivalents once available.}{fig:container-layout-drawing}
+
+
+\chapter{Certificates and datasheets}
+\label{ch:appcert}
+\chaptertoc
+
+\section{Declaration of conformity}
+TODO: only a blank EU Machinery Directive DoC template was found
+(\enquote{EU declaration of conformity-en}, Ref.\ Ares(2015)1600946), not a
+signed, product-specific Declaration of Conformity --- HydroVolta's
+\texttt{02\_DoC's} CE-marking folder is currently empty. A signed DoC must
+be inserted here before this manual is issued to a customer.
+
+HydroVolta's legal/legislation library holds reference texts for the EU
+directives and regulations most likely to apply to a CE-marked
+\salinbloc unit, which a future DoC should be checked against: the
+Machinery Directive (2006/42/EC), EMC Directive (2014/30/EU), Low Voltage
+Directive (2014/35/EU), RoHS, WEEE, the EU Drinking Water Directive
+(2020/2184) if a potable-water claim is made, and REACH/CLP for the
+dosing chemicals (\cref{ch:dosing}). A component-level DoC exists for at
+least one purchased part (the WIKA A-10 pressure sensor, \cref{ch:sensors})
+--- this is normal for a CE-marked assembly (component conformity feeds
+the assembly-level DoC) but is not itself a substitute for the unit's own
+Declaration of Conformity.
+
+\section{Component datasheets}
+The \sonixed Skid System datasheet (Model SONIXED-SKID, Version 2025-A7)
+is the primary component reference used throughout Part~II of this manual.
+Individual component-level datasheets (I/O modules, dosing pumps,
+pumps, pneumatics) exist in HydroVolta's engineering library and should be
+attached here per shipped configuration.
+
+\section{Regulatory approvals (drinking water)}
+No UK DWI Regulation~31 approval and no NSF/ANSI listing (e.g.\
+NSF/ANSI~61 or~372) exists yet for \salinbloc/\sonixed --- HydroVolta's
+datasheet library holds only generic reference/guidance material on how
+those approval processes work, not an application or approval record (see
+\cref{sec:intendeduse} in \cref{ch:safety}). TODO: pursue formal approval
+before offering the unit for potable-water use in a regulated market, or
+clearly disclaim potable-water suitability until then.
+
+\section{Water analysis report}
+TODO: no formal water-analysis lab report/certificate of analysis was
+found for the standard product; the closest material found (third-party
+pretreatment-component water-quality questionnaires from earlier pilot
+projects) is not a substitute. A per-unit water analysis report should be
+attached here once available --- see also the "Find your unit's quality
+report" lookup on the online container guide page (\cref{ch:about}).
+
+
+\chapter{Glossary}
+\label{ch:appglossary}
+
+\abbreviationsbegin
+\abbr{TDS}{Total Dissolved Solids --- the concentration of dissolved minerals/salts in water.}
+\abbr{\sonixed}{HydroVolta's electrodialysis-based desalination technology/product line.}
+\abbr{ED}{Electrodialysis --- a membrane process using an electric field to move ions through selective membranes.}
+\abbr{EDR}{Electrodialysis Reversal --- periodically reversing the applied DC field's polarity to clean the membranes in place and stabilize performance.}
+\abbr{TMP}{Transmembrane Pressure --- the pressure difference across a filtration membrane; a rising TMP indicates fouling and triggers cleaning.}
+\abbr{CEB}{Chemically Enhanced Backwash --- a backwash cycle that includes a chemical cleaning soak, used on the ultrafiltration stage.}
+\abbr{VCA}{Veiligheid, Gezondheid en Milieu Checklist Aannemers --- a Benelux contractor health/safety/environment competency certification.}
+\abbr{Stack}{The assembly of alternating ion-exchange membranes, electrodes and spacers that performs electrodialysis.}
+\abbr{Skid}{A pre-assembled equipment module (pumps, valves, instrumentation) on a common frame.}
+\abbr{Diluate}{The desalinated water stream leaving the stack.}
+\abbr{Concentrate}{The brine/reject stream leaving the stack, carrying the removed ions.}
+\abbr{Electrolyte}{A separate circulating stream feeding the stack's electrode compartments.}
+\abbr{Ion-exchange membrane}{A selective membrane that passes either cations or anions, blocking the other.}
+\abbr{PLC}{Programmable Logic Controller --- the industrial controller running the unit's automatic logic.}
+\abbr{HMI}{Human-Machine Interface --- the operator touchscreen/display.}
+\abbr{VFD}{Variable-Frequency Drive --- controls pump/motor speed.}
+\abbr{RTU}{Remote Terminal Unit --- a networked I/O/communication device (e.g.\ the ADAM-3600).}
+\abbr{CIP}{Clean-In-Place --- an automated cleaning cycle using dosed chemicals.}
+\abbr{P\&ID}{Piping \& Instrumentation Diagram.}
+\abbr{DoC}{Declaration of Conformity --- the manufacturer's statement of regulatory compliance (e.g.\ CE marking).}
+\abbr{PPE}{Personal Protective Equipment.}
+\abbr{E-stop}{Emergency stop --- a manually operated device that immediately halts machine operation.}
+\bottomrule\end{xltabular}\par
+
+\hvbackcover
+
+\end{document}

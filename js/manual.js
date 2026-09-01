@@ -1,18 +1,30 @@
 /* Hydrovolta SalinBloc manual page logic */
 (function () {
-  // Chapter -> starting page map for downloads/SalinBloc-User-Manual.pdf.
-  // IMPORTANT: when the real manual replaces the placeholder PDF, update these
-  // page numbers to match its actual table of contents.
+  // Chapter -> starting page map for downloads/SalinBloc-User-Manual.pdf,
+  // plus the standalone per-chapter PDF each row can be downloaded as.
+  var CHAPTER_DIR = 'downloads/manual-chapters/';
   var CHAPTERS = [
-    { key: 'safety', label: 'Safety Instructions', page: 1 },
-    { key: 'installation', label: 'Installation & Setup', page: 2 },
-    { key: 'pump', label: 'Pump Unit', page: 3 },
-    { key: 'filtration', label: 'Filtration Module', page: 4 },
-    { key: 'electrical', label: 'Electrical Control Panel', page: 5 },
-    { key: 'valorization', label: 'Brine Valorization Unit', page: 6 },
-    { key: 'maintenance', label: 'Maintenance Schedule', page: 7 },
-    { key: 'troubleshooting', label: 'Troubleshooting', page: 8 },
-    { key: 'warranty', label: 'Warranty & Compliance', page: 9 }
+    { key: 'about', label: 'About this manual', page: 8, file: '01-about-this-manual.pdf' },
+    { key: 'safety', label: 'Safety', page: 14, file: '02-safety.pdf' },
+    { key: 'overview', label: 'System overview', page: 24, file: '03-system-overview.pdf' },
+    { key: 'install', label: 'Installation', page: 32, file: '04-installation.pdf' },
+    { key: 'commissioning', label: 'Commissioning', page: 40, file: '05-commissioning.pdf' },
+    { key: 'operation', label: 'Daily operation', page: 48, file: '06-daily-operation.pdf' },
+    { key: 'maintenance', label: 'Maintenance & troubleshooting overview', page: 58, file: '07-maintenance-and-troubleshooting-overview.pdf' },
+    { key: 'pretreatment', label: 'Pretreatment & Filtration Skid', page: 66, file: '08-pretreatment-and-filtration-skid.pdf' },
+    { key: 'pumps', label: 'Feed & Process Pumps', page: 72, file: '09-feed-and-process-pumps.pdf' },
+    { key: 'stacks', label: 'SonixED Stack Modules', page: 78, file: '10-sonixed-stack-modules.pdf' },
+    { key: 'valves', label: 'Valves & Manifold', page: 84, file: '11-valves-and-manifold.pdf' },
+    { key: 'dosing', label: 'Dosing System', page: 90, file: '12-dosing-system.pdf' },
+    { key: 'sensors', label: 'Instrumentation & Sensors', page: 96, file: '13-instrumentation-and-sensors.pdf' },
+    { key: 'cabinet', label: 'Control Cabinet, PLC & HMI', page: 102, file: '14-control-cabinet-plc-and-hmi.pdf' },
+    { key: 'tanks', label: 'Tanks', page: 108, file: '15-tanks.pdf' },
+    { key: 'telemetry', label: 'Telemetry & Remote Connectivity', page: 114, file: '16-telemetry-and-remote-connectivity.pdf' },
+    { key: 'shutdown', label: 'Shutdown, Storage & Disposal', page: 120, file: '17-shutdown-storage-and-disposal.pdf' },
+    { key: 'appparams', label: 'Appendix A: Parameter Tables', page: 126, file: '18-parameter-tables.pdf' },
+    { key: 'appdrawings', label: 'Appendix B: Drawings', page: 130, file: '19-drawings.pdf' },
+    { key: 'appcert', label: 'Appendix C: Certificates & Datasheets', page: 134, file: '20-certificates-and-datasheets.pdf' },
+    { key: 'appglossary', label: 'Appendix D: Glossary', page: 140, file: '21-glossary.pdf' }
   ];
   window.SALINBLOC_CHAPTERS = CHAPTERS;
 
@@ -28,8 +40,16 @@
 
   function buildChapterMarkup() {
     return CHAPTERS.map(function (ch, i) {
-      return '<button type="button" class="chapter-item js-chapter-link" data-key="' + ch.key + '">' +
-        '<span class="chapter-item__num">' + (i + 1) + '</span>' + ch.label + '</button>';
+      var dl = ch.file
+        ? '<a class="chapter-item__dl" href="' + CHAPTER_DIR + ch.file + '" download ' +
+          'aria-label="Download ' + ch.label + ' as its own PDF" title="Download this chapter as its own PDF">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+          '<path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg></a>'
+        : '';
+      return '<div class="chapter-item">' +
+        '<button type="button" class="chapter-item__jump js-chapter-link" data-key="' + ch.key + '">' +
+        '<span class="chapter-item__num">' + (i + 1) + '</span><span>' + ch.label + '</span></button>' +
+        dl + '</div>';
     }).join('');
   }
 
@@ -85,6 +105,19 @@
     }
   }
 
+  var downloadChapterBtn = document.getElementById('download-chapter-btn');
+
+  function updateDownloadChapterBtn(ch) {
+    if (!downloadChapterBtn) return;
+    if (ch && ch.file) {
+      downloadChapterBtn.href = CHAPTER_DIR + ch.file;
+      downloadChapterBtn.textContent = 'Download this chapter (' + ch.label + ')';
+      downloadChapterBtn.style.display = '';
+    } else {
+      downloadChapterBtn.style.display = 'none';
+    }
+  }
+
   function goToChapter(key, opts) {
     var ch = CHAPTERS.filter(function (c) { return c.key === key; })[0];
     if (!ch) return;
@@ -92,6 +125,7 @@
       var app = getApp();
       if (app) app.page = ch.page;
     });
+    updateDownloadChapterBtn(ch);
     if (!opts || opts.updateUrl !== false) {
       var url = new URL(window.location.href);
       url.searchParams.set('chapter', key);

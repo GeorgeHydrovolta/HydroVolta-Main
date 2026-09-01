@@ -1,0 +1,151 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}About this manual}{1}{chapter.1}%
+\etoc@startlocaltoc {2}
+\contentsline {section}{\numberline {1.1}Purpose and scope}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Who this manual is for}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Symbols and signal words}{4}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Online documentation and QR code}{5}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Contact and support}{6}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Safety}{7}{chapter.2}%
+\etoc@startlocaltoc {3}
+\contentsline {section}{\numberline {2.1}Intended use}{8}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Qualified personnel}{9}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Personal protective equipment}{10}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Main hazards}{11}{section.2.4}%
+\contentsline {section}{\numberline {2.5}First aid and chemical spill response}{12}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Safety devices and emergency stop}{13}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Isolating the unit before work}{14}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Safety labels on the container}{15}{section.2.8}%
+\contentsline {chapter}{\numberline {3}System overview}{17}{chapter.3}%
+\etoc@startlocaltoc {4}
+\contentsline {section}{\numberline {3.1}What the unit does}{18}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Field performance reference}{19}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Container layout}{20}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Process flow}{21}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Main components}{22}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Control cabinet and HMI}{23}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Nameplate and identification}{24}{section.3.7}%
+\contentsline {chapter}{\numberline {4}Installation}{25}{chapter.4}%
+\etoc@startlocaltoc {5}
+\contentsline {section}{\numberline {4.1}Delivery and unloading}{26}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Site requirements}{27}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Positioning the container}{28}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Water connections}{29}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Electrical connection}{30}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Network and telemetry connection}{31}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Installation checklist}{32}{section.4.7}%
+\contentsline {chapter}{\numberline {5}Commissioning}{33}{chapter.5}%
+\etoc@startlocaltoc {6}
+\contentsline {section}{\numberline {5.1}Before the first start}{34}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Filling and priming}{35}{section.5.2}%
+\contentsline {section}{\numberline {5.3}First power-up}{36}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Setting the operating parameters}{37}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Functional test}{38}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Handover}{39}{section.5.6}%
+\contentsline {chapter}{\numberline {6}Daily operation}{41}{chapter.6}%
+\etoc@startlocaltoc {7}
+\contentsline {section}{\numberline {6.1}Operating elements}{42}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Plant modes}{43}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Starting the unit}{44}{section.6.3}%
+\contentsline {section}{\numberline {6.4}HMI screens}{45}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Reading the process values}{46}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Changing setpoints}{47}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Manual mode}{48}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Stopping the unit}{49}{section.6.8}%
+\contentsline {section}{\numberline {6.9}Emergency stop and restart}{50}{section.6.9}%
+\contentsline {chapter}{\numberline {7}Maintenance and troubleshooting overview}{51}{chapter.7}%
+\etoc@startlocaltoc {8}
+\contentsline {section}{\numberline {7.1}Safety during maintenance}{52}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Maintenance schedule}{53}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Maintenance log}{54}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Alarm handling}{55}{section.7.4}%
+\contentsline {section}{\numberline {7.5}How to use the troubleshooting sections}{56}{section.7.5}%
+\contentsline {section}{\numberline {7.6}When to call service}{57}{section.7.6}%
+\contentsline {chapter}{\numberline {8}Pretreatment and Filtration Skid}{59}{chapter.8}%
+\etoc@startlocaltoc {9}
+\contentsline {section}{\numberline {8.1}Overview and function}{60}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Key specifications}{61}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Operation}{62}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Maintenance}{63}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Troubleshooting}{64}{section.8.5}%
+\contentsline {chapter}{\numberline {9}Feed and Process Pumps}{65}{chapter.9}%
+\etoc@startlocaltoc {10}
+\contentsline {section}{\numberline {9.1}Overview and function}{66}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Key specifications}{67}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Operation}{68}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Maintenance}{69}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Troubleshooting}{70}{section.9.5}%
+\contentsline {chapter}{\numberline {10}SonixED Stack Modules}{71}{chapter.10}%
+\etoc@startlocaltoc {11}
+\contentsline {section}{\numberline {10.1}Overview and function}{72}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Key specifications}{73}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Operation}{74}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Maintenance}{75}{section.10.4}%
+\contentsline {section}{\numberline {10.5}Troubleshooting}{76}{section.10.5}%
+\contentsline {chapter}{\numberline {11}Valves and Manifold}{77}{chapter.11}%
+\etoc@startlocaltoc {12}
+\contentsline {section}{\numberline {11.1}Overview and function}{78}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Key specifications}{79}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Operation}{80}{section.11.3}%
+\contentsline {section}{\numberline {11.4}Maintenance}{81}{section.11.4}%
+\contentsline {section}{\numberline {11.5}Troubleshooting}{82}{section.11.5}%
+\contentsline {chapter}{\numberline {12}Dosing System}{83}{chapter.12}%
+\etoc@startlocaltoc {13}
+\contentsline {section}{\numberline {12.1}Overview and function}{84}{section.12.1}%
+\contentsline {section}{\numberline {12.2}Key specifications}{85}{section.12.2}%
+\contentsline {section}{\numberline {12.3}Operation}{86}{section.12.3}%
+\contentsline {section}{\numberline {12.4}Maintenance}{87}{section.12.4}%
+\contentsline {section}{\numberline {12.5}Troubleshooting}{88}{section.12.5}%
+\contentsline {chapter}{\numberline {13}Instrumentation and Sensors}{89}{chapter.13}%
+\etoc@startlocaltoc {14}
+\contentsline {section}{\numberline {13.1}Overview and function}{90}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Key specifications}{91}{section.13.2}%
+\contentsline {section}{\numberline {13.3}Operation}{92}{section.13.3}%
+\contentsline {section}{\numberline {13.4}Maintenance}{93}{section.13.4}%
+\contentsline {section}{\numberline {13.5}Troubleshooting}{94}{section.13.5}%
+\contentsline {chapter}{\numberline {14}Control Cabinet, PLC and HMI}{95}{chapter.14}%
+\etoc@startlocaltoc {15}
+\contentsline {section}{\numberline {14.1}Overview and function}{96}{section.14.1}%
+\contentsline {section}{\numberline {14.2}Key specifications}{97}{section.14.2}%
+\contentsline {section}{\numberline {14.3}Operation}{98}{section.14.3}%
+\contentsline {section}{\numberline {14.4}Maintenance}{99}{section.14.4}%
+\contentsline {section}{\numberline {14.5}Troubleshooting}{100}{section.14.5}%
+\contentsline {chapter}{\numberline {15}Tanks}{101}{chapter.15}%
+\etoc@startlocaltoc {16}
+\contentsline {section}{\numberline {15.1}Overview and function}{102}{section.15.1}%
+\contentsline {section}{\numberline {15.2}Key specifications}{103}{section.15.2}%
+\contentsline {section}{\numberline {15.3}Operation}{104}{section.15.3}%
+\contentsline {section}{\numberline {15.4}Maintenance}{105}{section.15.4}%
+\contentsline {section}{\numberline {15.5}Troubleshooting}{106}{section.15.5}%
+\contentsline {chapter}{\numberline {16}Telemetry and Remote Connectivity}{107}{chapter.16}%
+\etoc@startlocaltoc {17}
+\contentsline {section}{\numberline {16.1}Overview and function}{108}{section.16.1}%
+\contentsline {section}{\numberline {16.2}Key specifications}{109}{section.16.2}%
+\contentsline {section}{\numberline {16.3}Operation}{110}{section.16.3}%
+\contentsline {section}{\numberline {16.4}Maintenance}{111}{section.16.4}%
+\contentsline {section}{\numberline {16.5}Troubleshooting}{112}{section.16.5}%
+\contentsline {chapter}{\numberline {17}Shutdown, storage and disposal}{113}{chapter.17}%
+\etoc@startlocaltoc {18}
+\contentsline {section}{\numberline {17.1}Short shutdown}{114}{section.17.1}%
+\contentsline {section}{\numberline {17.2}Long-term storage}{115}{section.17.2}%
+\contentsline {section}{\numberline {17.3}Restarting after storage}{116}{section.17.3}%
+\contentsline {section}{\numberline {17.4}Decommissioning}{117}{section.17.4}%
+\contentsline {section}{\numberline {17.5}Disposal and recycling}{118}{section.17.5}%
+\contentsline {chapter}{\numberline {A}Parameter tables}{119}{appendix.A}%
+\etoc@startlocaltoc {19}
+\contentsline {section}{\numberline {A.1}Default setpoints}{120}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Site-specific settings}{121}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Alarm limits}{122}{section.A.3}%
+\contentsline {chapter}{\numberline {B}Drawings}{123}{appendix.B}%
+\etoc@startlocaltoc {20}
+\contentsline {section}{\numberline {B.1}P\&ID}{124}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Electrical schematic}{125}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Container layout}{126}{section.B.3}%
+\contentsline {chapter}{\numberline {C}Certificates and datasheets}{127}{appendix.C}%
+\etoc@startlocaltoc {21}
+\contentsline {section}{\numberline {C.1}Declaration of conformity}{128}{section.C.1}%
+\contentsline {section}{\numberline {C.2}Component datasheets}{129}{section.C.2}%
+\contentsline {section}{\numberline {C.3}Regulatory approvals (drinking water)}{130}{section.C.3}%
+\contentsline {section}{\numberline {C.4}Water analysis report}{131}{section.C.4}%
+\contentsline {chapter}{\numberline {D}Glossary}{133}{appendix.D}%

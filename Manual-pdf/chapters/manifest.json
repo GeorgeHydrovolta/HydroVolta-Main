@@ -1,0 +1,107 @@
+[
+  {
+    "title": "1 About this manual",
+    "file": "01-about-this-manual.pdf",
+    "pages": 6
+  },
+  {
+    "title": "2 Safety",
+    "file": "02-safety.pdf",
+    "pages": 10
+  },
+  {
+    "title": "3 System overview",
+    "file": "03-system-overview.pdf",
+    "pages": 8
+  },
+  {
+    "title": "4 Installation",
+    "file": "04-installation.pdf",
+    "pages": 8
+  },
+  {
+    "title": "5 Commissioning",
+    "file": "05-commissioning.pdf",
+    "pages": 8
+  },
+  {
+    "title": "6 Daily operation",
+    "file": "06-daily-operation.pdf",
+    "pages": 10
+  },
+  {
+    "title": "7 Maintenance and troubleshooting overview",
+    "file": "07-maintenance-and-troubleshooting-overview.pdf",
+    "pages": 8
+  },
+  {
+    "title": "8 Pretreatment and Filtration Skid",
+    "file": "08-pretreatment-and-filtration-skid.pdf",
+    "pages": 6
+  },
+  {
+    "title": "9 Feed and Process Pumps",
+    "file": "09-feed-and-process-pumps.pdf",
+    "pages": 6
+  },
+  {
+    "title": "10 SonixED Stack Modules",
+    "file": "10-sonixed-stack-modules.pdf",
+    "pages": 6
+  },
+  {
+    "title": "11 Valves and Manifold",
+    "file": "11-valves-and-manifold.pdf",
+    "pages": 6
+  },
+  {
+    "title": "12 Dosing System",
+    "file": "12-dosing-system.pdf",
+    "pages": 6
+  },
+  {
+    "title": "13 Instrumentation and Sensors",
+    "file": "13-instrumentation-and-sensors.pdf",
+    "pages": 6
+  },
+  {
+    "title": "14 Control Cabinet, PLC and HMI",
+    "file": "14-control-cabinet-plc-and-hmi.pdf",
+    "pages": 6
+  },
+  {
+    "title": "15 Tanks",
+    "file": "15-tanks.pdf",
+    "pages": 6
+  },
+  {
+    "title": "16 Telemetry and Remote Connectivity",
+    "file": "16-telemetry-and-remote-connectivity.pdf",
+    "pages": 6
+  },
+  {
+    "title": "17 Shutdown, storage and disposal",
+    "file": "17-shutdown-storage-and-disposal.pdf",
+    "pages": 6
+  },
+  {
+    "title": "A Parameter tables",
+    "file": "18-parameter-tables.pdf",
+    "pages": 4
+  },
+  {
+    "title": "B Drawings",
+    "file": "19-drawings.pdf",
+    "pages": 4
+  },
+  {
+    "title": "C Certificates and datasheets",
+    "file": "20-certificates-and-datasheets.pdf",
+    "pages": 6
+  },
+  {
+    "title": "D Glossary",
+    "file": "21-glossary.pdf",
+    "pages": 2
+  }
+]
