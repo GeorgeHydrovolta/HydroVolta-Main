@@ -96,20 +96,43 @@
     }
   }
 
+  // initializedPromise resolves once the viewer *shell* is ready, which can
+  // be before the PDF document itself has finished loading -- setting
+  // app.page before the document exists gets silently dropped. Wait for
+  // app.pdfDocument too before running cb.
+  function whenDocReady(app, cb) {
+    if (app.pdfDocument) { cb(); return; }
+    var tries = 0;
+    var t = setInterval(function () {
+      tries++;
+      if (app.pdfDocument) {
+        clearInterval(t);
+        cb();
+      } else if (tries > 450) {
+        clearInterval(t);
+      }
+    }, 100);
+  }
+
   function whenReady(cb) {
     var app = getApp();
     if (app && app.initializedPromise) {
-      app.initializedPromise.then(cb);
+      app.initializedPromise.then(function () { whenDocReady(app, cb); });
     } else {
-      // Viewer not yet loaded (or same-origin app not attached) — retry briefly.
+      // Viewer not yet loaded (or same-origin app not attached) — retry.
+      // A 141-page PDF can take a while to fetch and parse on a real
+      // connection, especially right after an eager-loaded chapter deep
+      // link (see above) where it's competing with the rest of the page's
+      // own resources -- 10s was cutting this off before it finished, so
+      // the requested chapter silently never got selected. Give it 45s.
       var tries = 0;
       var t = setInterval(function () {
         tries++;
         var a = getApp();
         if (a && a.initializedPromise) {
           clearInterval(t);
-          a.initializedPromise.then(cb);
-        } else if (tries > 100) {
+          a.initializedPromise.then(function () { whenDocReady(a, cb); });
+        } else if (tries > 450) {
           clearInterval(t);
         }
       }, 100);
