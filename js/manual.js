@@ -32,16 +32,11 @@
   var viewerSection = document.getElementById('manual-viewer');
   if (!iframe || !viewerSection) return;
 
-  // A ?chapter= deep link (e.g. from the QR code on the unit) means the
-  // visitor wants that chapter right away. The iframe normally loads
-  // lazily, which only starts once it nears the viewport -- but nothing
-  // scrolls it into view until the PDF viewer inside it is ready, so a
-  // lazy iframe can never resolve that on its own. Load eagerly whenever
-  // a chapter is requested so the jump-to-chapter logic below actually runs.
-  if (new URLSearchParams(window.location.search).get('chapter')) {
-    iframe.loading = 'eager';
-    iframe.src = iframe.src; // re-trigger the load decision now that loading is 'eager'
-  }
+  // Note: the iframe loads eagerly (no loading="lazy") -- it used to be
+  // lazy, but nothing ever scrolled it into view until its PDF viewer was
+  // ready, and nothing could make it ready until it was scrolled into
+  // view. A ?chapter= deep link (e.g. the QR code on the unit) needs it
+  // loading immediately regardless, so eager is simplest for everyone.
 
   var chapterPanel = document.getElementById('chapters-panel');
   var chapterToggle = document.getElementById('chapters-toggle');
