@@ -32,6 +32,17 @@
   var viewerSection = document.getElementById('manual-viewer');
   if (!iframe || !viewerSection) return;
 
+  // A ?chapter= deep link (e.g. from the QR code on the unit) means the
+  // visitor wants that chapter right away. The iframe normally loads
+  // lazily, which only starts once it nears the viewport -- but nothing
+  // scrolls it into view until the PDF viewer inside it is ready, so a
+  // lazy iframe can never resolve that on its own. Load eagerly whenever
+  // a chapter is requested so the jump-to-chapter logic below actually runs.
+  if (new URLSearchParams(window.location.search).get('chapter')) {
+    iframe.loading = 'eager';
+    iframe.src = iframe.src; // re-trigger the load decision now that loading is 'eager'
+  }
+
   var chapterPanel = document.getElementById('chapters-panel');
   var chapterToggle = document.getElementById('chapters-toggle');
   var zoomInBtn = document.getElementById('zoom-in');
@@ -132,7 +143,11 @@
       window.history.replaceState({}, '', url);
     }
     if (!opts || opts.scroll !== false) {
-      viewerSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // 'start' (not 'center') keeps the section heading/toolbar in view above
+      // the PDF iframe, so it's clear this is part of the Hydrovolta page and
+      // not a standalone full-screen PDF viewer -- matters most on mobile,
+      // where the iframe alone is nearly the full viewport height.
+      viewerSection.scrollIntoView({ behavior: opts && opts.instant ? 'auto' : 'smooth', block: 'start' });
     }
   }
 
