@@ -109,8 +109,29 @@
     }, 100);
   }
 
+  // PDF.js decides whether to auto-open its own outline/bookmarks sidebar
+  // (property is "viewsManager" in this bundled version, "pdfSidebar" in
+  // older ones) as part of loading the document -- and it does that
+  // *after* app.pdfDocument is already set, so a one-shot close() gated on
+  // pdfDocument can run before PDF.js's own decision and then get
+  // overridden by it right after. PDF.js fires "documentinit" right after
+  // that decision is applied, so close it there instead, every time.
+  // Registered once per app instance (eventBus exists well before the
+  // document does, so this attaches long before "documentinit" can fire).
+  function suppressAutoSidebar(app) {
+    if (!app || !app.eventBus || app.__hvSidebarHooked) return;
+    app.__hvSidebarHooked = true;
+    function closeIt() {
+      var sb = app.viewsManager || app.pdfSidebar;
+      if (sb) sb.close();
+    }
+    app.eventBus.on('documentinit', closeIt);
+    closeIt(); // in case documentinit already fired before we attached
+  }
+
   function whenReady(cb) {
     var app = getApp();
+    suppressAutoSidebar(app);
     if (app && app.initializedPromise) {
       app.initializedPromise.then(function () { whenDocReady(app, cb); });
     } else {
@@ -124,6 +145,7 @@
       var t = setInterval(function () {
         tries++;
         var a = getApp();
+        suppressAutoSidebar(a);
         if (a && a.initializedPromise) {
           clearInterval(t);
           a.initializedPromise.then(function () { whenDocReady(a, cb); });
@@ -197,6 +219,8 @@
     if (app && app.eventBus) {
       app.eventBus.on('scalechanging', updateZoomLabel);
     }
+    // (PDF.js's own auto-open outline sidebar is suppressed by
+    // suppressAutoSidebar(), hooked into whenReady() above.)
     // Deep link: ?chapter=key jumps straight to that chapter on load.
     var params = new URLSearchParams(window.location.search);
     var chapterParam = params.get('chapter');
