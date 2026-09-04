@@ -242,23 +242,49 @@
   });
 
   // ── Serial number quality report lookup ──────────────────────
-  // Just points the form at downloads/quality-reports/<SERIAL>.pdf and lets
-  // it submit natively (target="_blank" on the <form>, set in the HTML)
-  // -- no existence check. If that file doesn't exist, the new tab shows
-  // whatever the host serves for a missing file, which is itself the
-  // "this serial number doesn't have a report on file" signal.
+  // Opens a blank tab synchronously (within the click/submit gesture, so
+  // browsers don't treat it as a popup) then HEAD-checks
+  // downloads/quality-reports/<SERIAL>.pdf: if it exists, that tab
+  // navigates to it; if not, the tab closes and we show a clear "this
+  // serial number doesn't exist" message instead of ever sending anyone
+  // to a stray host/404 page.
   var serialForm = document.getElementById('serial-form');
   var serialInput = document.getElementById('serial-input');
+  var serialNote = document.getElementById('serial-form-note');
 
   function sanitizeSerial(raw) {
     return raw.trim().toUpperCase().replace(/[^A-Z0-9-]/g, '');
   }
 
+  function setSerialNote(text, isError) {
+    if (!serialNote) return;
+    serialNote.textContent = text;
+    serialNote.classList.toggle('serial-form__note--error', !!isError);
+  }
+
   if (serialForm) {
+    serialForm.removeAttribute('target');
     serialForm.addEventListener('submit', function (e) {
+      e.preventDefault();
       var serial = sanitizeSerial(serialInput.value || '');
-      if (!serial) { e.preventDefault(); return; }
-      serialForm.action = 'downloads/quality-reports/' + serial + '.pdf';
+      if (!serial) return;
+      var pdfPath = 'downloads/quality-reports/' + serial + '.pdf';
+      var newTab = window.open('', '_blank');
+      setSerialNote('Looking up ' + serial + '…', false);
+      fetch(pdfPath, { method: 'HEAD' })
+        .then(function (res) {
+          if (res.ok) {
+            if (newTab) newTab.location = pdfPath;
+            setSerialNote('');
+          } else {
+            if (newTab) newTab.close();
+            setSerialNote('This serial number doesn’t exist. Double-check it on your unit’s nameplate, or contact support.', true);
+          }
+        })
+        .catch(function () {
+          if (newTab) newTab.close();
+          setSerialNote('This serial number doesn’t exist. Double-check it on your unit’s nameplate, or contact support.', true);
+        });
     });
   }
 })();
