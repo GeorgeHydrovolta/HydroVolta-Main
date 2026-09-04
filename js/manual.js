@@ -242,46 +242,23 @@
   });
 
   // ── Serial number quality report lookup ──────────────────────
+  // Just points the form at downloads/quality-reports/<SERIAL>.pdf and lets
+  // it submit natively (target="_blank" on the <form>, set in the HTML)
+  // -- no existence check. If that file doesn't exist, the new tab shows
+  // whatever the host serves for a missing file, which is itself the
+  // "this serial number doesn't have a report on file" signal.
   var serialForm = document.getElementById('serial-form');
   var serialInput = document.getElementById('serial-input');
-  var resultBox = document.getElementById('report-result');
 
   function sanitizeSerial(raw) {
     return raw.trim().toUpperCase().replace(/[^A-Z0-9-]/g, '');
   }
 
-  function showResult(state, serial) {
-    if (!resultBox) return;
-    resultBox.classList.remove('report-result--found', 'report-result--notfound');
-    resultBox.classList.add('show');
-    if (state === 'found') {
-      var pdfPath = 'downloads/quality-reports/' + serial + '.pdf';
-      resultBox.classList.add('report-result--found');
-      resultBox.innerHTML =
-        '<h3>Quality report found for ' + serial + '</h3>' +
-        '<p>This is the factory quality report for your specific SalinBloc unit.</p>' +
-        '<div class="actions">' +
-        '<a class="btn btn--gold btn--sm" href="' + pdfPath + '" download>Download report</a>' +
-        '<a class="btn btn--out btn--sm" href="' + pdfPath + '" target="_blank" rel="noopener">View in new tab</a>' +
-        '</div>';
-    } else {
-      resultBox.classList.add('report-result--notfound');
-      resultBox.innerHTML =
-        '<h3>No report found for ' + serial + '</h3>' +
-        '<p>Double-check the serial number on your unit\'s nameplate, or ' +
-        '<a href="contact.html">contact support</a> and we\'ll send it to you directly.</p>';
-    }
-  }
-
   if (serialForm) {
     serialForm.addEventListener('submit', function (e) {
-      e.preventDefault();
       var serial = sanitizeSerial(serialInput.value || '');
-      if (!serial) return;
-      var pdfPath = 'downloads/quality-reports/' + serial + '.pdf';
-      fetch(pdfPath, { method: 'HEAD' })
-        .then(function (res) { showResult(res.ok ? 'found' : 'notfound', serial); })
-        .catch(function () { showResult('notfound', serial); });
+      if (!serial) { e.preventDefault(); return; }
+      serialForm.action = 'downloads/quality-reports/' + serial + '.pdf';
     });
   }
 })();

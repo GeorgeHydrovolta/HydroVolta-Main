@@ -107,6 +107,7 @@ h3{font-size:1.2rem}
 .section--dark h2{color:var(--w)}
 .section--dark .lead{color:rgba(255,255,255,.65)}
 .section--dark .ey{color:var(--gl)}.section--dark .ey::before{background:var(--gl)}
+.section--dark .serial-form__note{color:rgba(255,255,255,.5)}
 
 /* Head pattern */
 .head{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:end;margin-bottom:3rem}
@@ -448,15 +449,7 @@ h3{font-size:1.2rem}
 .serial-form input{flex:1;min-width:200px;padding:.85rem 1.1rem;background:var(--w);border:1.5px solid var(--b);border-radius:var(--r);color:var(--t);font-family:var(--fb);font-size:.95rem;letter-spacing:.03em;text-transform:uppercase}
 .serial-form input:focus{outline:none;border-color:var(--n3);box-shadow:0 0 0 3px rgba(0,61,120,.07)}
 .serial-form input::placeholder{color:var(--l);text-transform:none;letter-spacing:normal}
-.report-result{margin-top:1.5rem;border-radius:var(--rl);padding:1.5rem 1.75rem;display:none}
-.report-result.show{display:block}
-.report-result--found{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.22)}
-.report-result--notfound{background:rgba(201,42,42,.06);border:1px solid rgba(201,42,42,.18)}
-.report-result h3{font-size:1.02rem;margin-bottom:.4rem}
-.report-result--found h3{color:#15803d}
-.report-result--notfound h3{color:#a32020}
-.report-result p{font-size:.88rem;color:var(--m);line-height:1.6}
-.report-result .actions{margin-top:1.1rem}
+.serial-form__note{margin-top:.9rem;font-size:.82rem;color:var(--m)}
 
 @media(max-width:700px){
   .serial-form{flex-direction:column}
