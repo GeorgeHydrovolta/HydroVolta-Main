@@ -108,7 +108,7 @@ h3{font-size:1.2rem}
 .section--dark .lead{color:rgba(255,255,255,.65)}
 .section--dark .ey{color:var(--gl)}.section--dark .ey::before{background:var(--gl)}
 .section--dark .serial-form__note{color:rgba(255,255,255,.5)}
-.section--dark .serial-form__note--error{color:#f3a5a5}
+.section--dark .serial-form__note--error{color:#ffe3e3;background:rgba(255,70,70,.2);border-color:rgba(255,110,110,.6)}
 
 /* Head pattern */
 .head{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:end;margin-bottom:3rem}
@@ -451,7 +451,7 @@ h3{font-size:1.2rem}
 .serial-form input:focus{outline:none;border-color:var(--n3);box-shadow:0 0 0 3px rgba(0,61,120,.07)}
 .serial-form input::placeholder{color:var(--l);text-transform:none;letter-spacing:normal}
 .serial-form__note{margin-top:.9rem;font-size:.82rem;color:var(--m);min-height:1.3em}
-.serial-form__note--error{color:#f3a5a5;font-weight:600}
+.serial-form__note--error{color:#ffe3e3;font-weight:700;background:rgba(255,70,70,.16);border:1px solid rgba(255,90,90,.5);border-radius:var(--r);padding:.6rem .9rem;display:inline-block}
 
 @media(max-width:700px){
   .serial-form{flex-direction:column}
