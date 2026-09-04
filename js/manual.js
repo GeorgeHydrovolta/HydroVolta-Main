@@ -273,7 +273,12 @@
       setSerialNote('Looking up ' + serial + '…', false);
       fetch(pdfPath, { method: 'HEAD' })
         .then(function (res) {
-          if (res.ok) {
+          // The host answers a missing file with HTTP 200 + a text/html
+          // fallback page, not a real 404 -- so res.ok alone can't tell a
+          // real report from a missing one. The content-type can: only a
+          // real report comes back as application/pdf.
+          var isPdf = res.ok && (res.headers.get('content-type') || '').indexOf('pdf') !== -1;
+          if (isPdf) {
             if (newTab) newTab.location = pdfPath;
             setSerialNote('');
           } else {
