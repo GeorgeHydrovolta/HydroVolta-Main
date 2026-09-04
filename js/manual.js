@@ -157,15 +157,27 @@
   }
 
   var downloadChapterBtn = document.getElementById('download-chapter-btn');
+  var openChapterBtn = document.getElementById('open-chapter-btn');
 
   function updateDownloadChapterBtn(ch) {
-    if (!downloadChapterBtn) return;
-    if (ch && ch.file) {
-      downloadChapterBtn.href = CHAPTER_DIR + ch.file;
-      downloadChapterBtn.textContent = 'Download this chapter (' + ch.label + ')';
-      downloadChapterBtn.style.display = '';
-    } else {
-      downloadChapterBtn.style.display = 'none';
+    var href = ch && ch.file ? CHAPTER_DIR + ch.file : null;
+    if (downloadChapterBtn) {
+      if (href) {
+        downloadChapterBtn.href = href;
+        downloadChapterBtn.textContent = 'Download this chapter (' + ch.label + ')';
+        downloadChapterBtn.style.display = '';
+      } else {
+        downloadChapterBtn.style.display = 'none';
+      }
+    }
+    if (openChapterBtn) {
+      if (href) {
+        openChapterBtn.href = href;
+        openChapterBtn.textContent = 'Open this chapter (' + ch.label + ') in new tab';
+        openChapterBtn.style.display = '';
+      } else {
+        openChapterBtn.style.display = 'none';
+      }
     }
   }
 
