@@ -2119,6 +2119,67 @@ precondition for starting a CIP cycle.
   recirculation, drain/valorization outlet, CIP circulation port).}
   {fig:concentrate-tank}
 
+\section{The CIP reservoir: water type, chemicals and dangers}
+\label{sec:ciptank}
+No document identifies a separate, dedicated CIP tank --- the concentrate
+tank above is the one and only vessel used for CIP, per HydroVolta's own
+CIP procedure (\cref{ch:dosing}). What is \emph{in} the tank changes
+completely depending on which mode the unit is in, and confusing the two
+is a real hazard, so treat this section as a supplement to
+\cref{ch:dosing}, read from the tank's point of view.
+
+\begin{itemize}
+\item \textbf{During Production mode:} the tank holds
+  \textbf{concentrate/brine} --- rejected feedwater ions, increasingly
+  concentrated over multiple passes (\emph{Overview and function} above).
+  This is process water, not a cleaning chemical.
+\item \textbf{During the CIP acid step:} the tank holds
+  \textbf{pretreated feedwater dosed with HCl to pH~2.5}
+  (\cref{ch:dosing}) --- an acidic solution, corrosive at that pH.
+\item \textbf{Between CIP steps:} the tank is drained and reflushed with
+  \textbf{fresh feed water} for 15--20\,minutes specifically to clear the
+  acid before the next chemical goes in.
+\item \textbf{During the CIP hypochlorite step:} the tank holds
+  \textbf{feedwater dosed with NaOCl to 2\,ppm} (sodium hypochlorite,
+  effective only near pH~7--7.5) --- an oxidizing, corrosive solution.
+\item \textbf{During the NaOH variant of CIP} (electrolyte-compartment
+  cleaning): the tank holds \textbf{NaOH dissolved only in pure
+  (permeate-quality) water} --- \textbf{never} feedwater or process
+  water, per the warning in \cref{ch:dosing} (mixing NaOH with the
+  minerals present in feed/process water causes scaling).
+\end{itemize}
+
+\begin{danger}
+\textbf{Never let the acid (HCl) and hypochlorite (NaOCl) steps mix in
+this tank.} Mixing an acid with sodium hypochlorite releases chlorine
+gas, which is toxic even in small quantities. This is precisely why
+HydroVolta's documented procedure requires a full drain and a 15--20
+minute fresh-water flush between the acid step and the hypochlorite step
+(\cref{ch:dosing}) --- never shorten or skip that flush to save time, and
+never dose both chemicals into the tank at once. If chlorine odor is
+detected during or after a CIP cycle, stop dosing immediately, ventilate
+the area, and do not re-enter until it has cleared --- see
+\cref{sec:firstaid} for first-aid measures for chemical/inhalation
+exposure.
+\end{danger}
+
+Both the acid and hypochlorite solutions are corrosive at the
+concentrations used (see the Safety Data Sheet summary in
+\cref{sec:firstaid}): treat the tank, its vent, and any sample point as a
+chemical-exposure risk during CIP, not just during dosing-pump refilling.
+Wear the PPE specified in \cref{sec:ppe} whenever the tank is opened,
+sampled, or drained during or immediately after a CIP cycle.
+
+\textbf{Cleaning the tank itself:} the documented procedure already
+\emph{is} the tank-cleaning procedure --- there is no additional physical
+scrub-down step on file. In order: drain the acid step, flush with fresh
+feed water 15--20\,minutes; drain the hypochlorite step 5\,minutes, then
+flush with fresh feed water 30\,minutes (\cref{ch:dosing}). TODO: no
+document describes a physical inspection (scale/residue check on the
+tank walls, fittings, level sensor) as part of or after this cycle ---
+until one exists, a visual check after the final flush (before returning
+to Production mode) is good practice.
+
 \section{Key specifications}
 As with the diluate tank, no finalized standard-product capacity/
 material specification exists --- see \cref{ch:tankdiluate} for the two
