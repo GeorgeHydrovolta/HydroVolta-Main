@@ -121,46 +121,52 @@
 \contentsline {chapter}{\numberline {16}Concentrate Tank}{107}{chapter.16}%
 \etoc@startlocaltoc {17}
 \contentsline {section}{\numberline {16.1}Overview and function}{108}{section.16.1}%
-\contentsline {section}{\numberline {16.2}The CIP reservoir: water type, chemicals and dangers}{109}{section.16.2}%
-\contentsline {section}{\numberline {16.3}Key specifications}{110}{section.16.3}%
-\contentsline {section}{\numberline {16.4}Operation}{111}{section.16.4}%
-\contentsline {section}{\numberline {16.5}Maintenance}{112}{section.16.5}%
-\contentsline {section}{\numberline {16.6}Troubleshooting}{113}{section.16.6}%
-\contentsline {chapter}{\numberline {17}Electrolyte Tank}{115}{chapter.17}%
+\contentsline {section}{\numberline {16.2}Key specifications}{109}{section.16.2}%
+\contentsline {section}{\numberline {16.3}Operation}{110}{section.16.3}%
+\contentsline {section}{\numberline {16.4}Maintenance}{111}{section.16.4}%
+\contentsline {section}{\numberline {16.5}Troubleshooting}{112}{section.16.5}%
+\contentsline {chapter}{\numberline {17}CIP Tank}{113}{chapter.17}%
 \etoc@startlocaltoc {18}
-\contentsline {section}{\numberline {17.1}Overview and function}{116}{section.17.1}%
-\contentsline {section}{\numberline {17.2}Key specifications}{117}{section.17.2}%
-\contentsline {section}{\numberline {17.3}Operation}{118}{section.17.3}%
-\contentsline {section}{\numberline {17.4}Maintenance}{119}{section.17.4}%
-\contentsline {section}{\numberline {17.5}Troubleshooting}{120}{section.17.5}%
-\contentsline {chapter}{\numberline {18}Telemetry and Remote Connectivity}{121}{chapter.18}%
+\contentsline {section}{\numberline {17.1}Overview and function}{114}{section.17.1}%
+\contentsline {section}{\numberline {17.2}Key specifications: what is in the tank, and when}{115}{section.17.2}%
+\contentsline {section}{\numberline {17.3}Operation}{116}{section.17.3}%
+\contentsline {section}{\numberline {17.4}Maintenance: cleaning the tank itself}{117}{section.17.4}%
+\contentsline {section}{\numberline {17.5}Troubleshooting}{118}{section.17.5}%
+\contentsline {chapter}{\numberline {18}Electrolyte Tank}{119}{chapter.18}%
 \etoc@startlocaltoc {19}
-\contentsline {section}{\numberline {18.1}Overview and function}{122}{section.18.1}%
-\contentsline {section}{\numberline {18.2}Key specifications}{123}{section.18.2}%
-\contentsline {section}{\numberline {18.3}Operation}{124}{section.18.3}%
-\contentsline {section}{\numberline {18.4}Maintenance}{125}{section.18.4}%
-\contentsline {section}{\numberline {18.5}Troubleshooting}{126}{section.18.5}%
-\contentsline {chapter}{\numberline {19}Shutdown, storage and disposal}{127}{chapter.19}%
+\contentsline {section}{\numberline {18.1}Overview and function}{120}{section.18.1}%
+\contentsline {section}{\numberline {18.2}Key specifications}{121}{section.18.2}%
+\contentsline {section}{\numberline {18.3}Operation}{122}{section.18.3}%
+\contentsline {section}{\numberline {18.4}Maintenance}{123}{section.18.4}%
+\contentsline {section}{\numberline {18.5}Troubleshooting}{124}{section.18.5}%
+\contentsline {chapter}{\numberline {19}Telemetry and Remote Connectivity}{125}{chapter.19}%
 \etoc@startlocaltoc {20}
-\contentsline {section}{\numberline {19.1}Short shutdown}{128}{section.19.1}%
-\contentsline {section}{\numberline {19.2}Long-term storage}{129}{section.19.2}%
-\contentsline {section}{\numberline {19.3}Restarting after storage}{130}{section.19.3}%
-\contentsline {section}{\numberline {19.4}Decommissioning}{131}{section.19.4}%
-\contentsline {section}{\numberline {19.5}Disposal and recycling}{132}{section.19.5}%
-\contentsline {chapter}{\numberline {A}Parameter tables}{133}{appendix.A}%
+\contentsline {section}{\numberline {19.1}Overview and function}{126}{section.19.1}%
+\contentsline {section}{\numberline {19.2}Key specifications}{127}{section.19.2}%
+\contentsline {section}{\numberline {19.3}Operation}{128}{section.19.3}%
+\contentsline {section}{\numberline {19.4}Maintenance}{129}{section.19.4}%
+\contentsline {section}{\numberline {19.5}Troubleshooting}{130}{section.19.5}%
+\contentsline {chapter}{\numberline {20}Shutdown, storage and disposal}{131}{chapter.20}%
 \etoc@startlocaltoc {21}
-\contentsline {section}{\numberline {A.1}Default setpoints}{134}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Site-specific settings}{135}{section.A.2}%
-\contentsline {section}{\numberline {A.3}Alarm limits}{136}{section.A.3}%
-\contentsline {chapter}{\numberline {B}Drawings}{137}{appendix.B}%
+\contentsline {section}{\numberline {20.1}Short shutdown}{132}{section.20.1}%
+\contentsline {section}{\numberline {20.2}Long-term storage}{133}{section.20.2}%
+\contentsline {section}{\numberline {20.3}Restarting after storage}{134}{section.20.3}%
+\contentsline {section}{\numberline {20.4}Decommissioning}{135}{section.20.4}%
+\contentsline {section}{\numberline {20.5}Disposal and recycling}{136}{section.20.5}%
+\contentsline {chapter}{\numberline {A}Parameter tables}{137}{appendix.A}%
 \etoc@startlocaltoc {22}
-\contentsline {section}{\numberline {B.1}P\&ID}{138}{section.B.1}%
-\contentsline {section}{\numberline {B.2}Electrical schematic}{139}{section.B.2}%
-\contentsline {section}{\numberline {B.3}Container layout}{140}{section.B.3}%
-\contentsline {chapter}{\numberline {C}Certificates and datasheets}{141}{appendix.C}%
+\contentsline {section}{\numberline {A.1}Default setpoints}{138}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Site-specific settings}{139}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Alarm limits}{140}{section.A.3}%
+\contentsline {chapter}{\numberline {B}Drawings}{141}{appendix.B}%
 \etoc@startlocaltoc {23}
-\contentsline {section}{\numberline {C.1}Declaration of conformity}{142}{section.C.1}%
-\contentsline {section}{\numberline {C.2}Component datasheets}{143}{section.C.2}%
-\contentsline {section}{\numberline {C.3}Regulatory approvals (drinking water)}{144}{section.C.3}%
-\contentsline {section}{\numberline {C.4}Water analysis report}{145}{section.C.4}%
-\contentsline {chapter}{\numberline {D}Glossary}{147}{appendix.D}%
+\contentsline {section}{\numberline {B.1}P\&ID}{142}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Electrical schematic}{143}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Container layout}{144}{section.B.3}%
+\contentsline {chapter}{\numberline {C}Certificates and datasheets}{145}{appendix.C}%
+\etoc@startlocaltoc {24}
+\contentsline {section}{\numberline {C.1}Declaration of conformity}{146}{section.C.1}%
+\contentsline {section}{\numberline {C.2}Component datasheets}{147}{section.C.2}%
+\contentsline {section}{\numberline {C.3}Regulatory approvals (drinking water)}{148}{section.C.3}%
+\contentsline {section}{\numberline {C.4}Water analysis report}{149}{section.C.4}%
+\contentsline {chapter}{\numberline {D}Glossary}{151}{appendix.D}%

@@ -465,9 +465,11 @@ pretreatment, stack, dosing and control equipment. Part~I of this manual
 covers the unit as a whole (safety, installation, commissioning, day-to-day
 operation). Part~II gives one self-contained chapter per compartment inside
 the container --- pumps, stacks, valves, dosing, sensors, control cabinet,
-the diluate/concentrate/electrolyte tanks (each its own chapter, since
-they hold very different streams under very different conditions), and
-telemetry --- each with its own specifications, operating notes,
+the diluate, concentrate, CIP and electrolyte tanks (each its own
+chapter, since they hold very different streams --- and, for the CIP
+tank, very different chemicals at different times --- under very
+different conditions), and telemetry --- each with its own
+specifications, operating notes,
 maintenance and troubleshooting, so it can be consulted (or printed/exported)
 on its own. Part~III closes with shutdown/storage and reference appendices.
 
@@ -896,6 +898,7 @@ part you need.
 \item \textbf{Control cabinet, PLC and HMI} --- \cref{ch:cabinet}
 \item \textbf{Diluate tank} --- \cref{ch:tankdiluate}
 \item \textbf{Concentrate tank} --- \cref{ch:tankconcentrate}
+\item \textbf{CIP tank} --- \cref{ch:tankcip}
 \item \textbf{Electrolyte tank} --- \cref{ch:tankelectrolyte}
 \item \textbf{Telemetry and remote connectivity} --- \cref{ch:telemetry}
 \end{itemize}
@@ -1394,7 +1397,8 @@ Each Part~II chapter ends with a \emph{Troubleshooting} section scoped to
 that compartment: symptom, likely cause, and remedy. Start with the
 compartment most closely tied to the symptom (e.g.\ a conductivity alarm
 $\rightarrow$ \cref{ch:sensors} or the relevant tank chapter
-(\cref{ch:tankdiluate,ch:tankconcentrate,ch:tankelectrolyte}); a communication timeout
+(\cref{ch:tankdiluate,ch:tankconcentrate,ch:tankcip,ch:tankelectrolyte});
+a communication timeout
 $\rightarrow$ \cref{ch:cabinet} or \cref{ch:telemetry}). If the fault
 spans several compartments or persists after following the relevant
 section, escalate per \cref{sec:whentocallservice}.
@@ -2119,66 +2123,12 @@ precondition for starting a CIP cycle.
   recirculation, drain/valorization outlet, CIP circulation port).}
   {fig:concentrate-tank}
 
-\section{The CIP reservoir: water type, chemicals and dangers}
-\label{sec:ciptank}
-No document identifies a separate, dedicated CIP tank --- the concentrate
-tank above is the one and only vessel used for CIP, per HydroVolta's own
-CIP procedure (\cref{ch:dosing}). What is \emph{in} the tank changes
-completely depending on which mode the unit is in, and confusing the two
-is a real hazard, so treat this section as a supplement to
-\cref{ch:dosing}, read from the tank's point of view.
-
-\begin{itemize}
-\item \textbf{During Production mode:} the tank holds
-  \textbf{concentrate/brine} --- rejected feedwater ions, increasingly
-  concentrated over multiple passes (\emph{Overview and function} above).
-  This is process water, not a cleaning chemical.
-\item \textbf{During the CIP acid step:} the tank holds
-  \textbf{pretreated feedwater dosed with HCl to pH~2.5}
-  (\cref{ch:dosing}) --- an acidic solution, corrosive at that pH.
-\item \textbf{Between CIP steps:} the tank is drained and reflushed with
-  \textbf{fresh feed water} for 15--20\,minutes specifically to clear the
-  acid before the next chemical goes in.
-\item \textbf{During the CIP hypochlorite step:} the tank holds
-  \textbf{feedwater dosed with NaOCl to 2\,ppm} (sodium hypochlorite,
-  effective only near pH~7--7.5) --- an oxidizing, corrosive solution.
-\item \textbf{During the NaOH variant of CIP} (electrolyte-compartment
-  cleaning): the tank holds \textbf{NaOH dissolved only in pure
-  (permeate-quality) water} --- \textbf{never} feedwater or process
-  water, per the warning in \cref{ch:dosing} (mixing NaOH with the
-  minerals present in feed/process water causes scaling).
-\end{itemize}
-
-\begin{danger}
-\textbf{Never let the acid (HCl) and hypochlorite (NaOCl) steps mix in
-this tank.} Mixing an acid with sodium hypochlorite releases chlorine
-gas, which is toxic even in small quantities. This is precisely why
-HydroVolta's documented procedure requires a full drain and a 15--20
-minute fresh-water flush between the acid step and the hypochlorite step
-(\cref{ch:dosing}) --- never shorten or skip that flush to save time, and
-never dose both chemicals into the tank at once. If chlorine odor is
-detected during or after a CIP cycle, stop dosing immediately, ventilate
-the area, and do not re-enter until it has cleared --- see
-\cref{sec:firstaid} for first-aid measures for chemical/inhalation
-exposure.
-\end{danger}
-
-Both the acid and hypochlorite solutions are corrosive at the
-concentrations used (see the Safety Data Sheet summary in
-\cref{sec:firstaid}): treat the tank, its vent, and any sample point as a
-chemical-exposure risk during CIP, not just during dosing-pump refilling.
-Wear the PPE specified in \cref{sec:ppe} whenever the tank is opened,
-sampled, or drained during or immediately after a CIP cycle.
-
-\textbf{Cleaning the tank itself:} the documented procedure already
-\emph{is} the tank-cleaning procedure --- there is no additional physical
-scrub-down step on file. In order: drain the acid step, flush with fresh
-feed water 15--20\,minutes; drain the hypochlorite step 5\,minutes, then
-flush with fresh feed water 30\,minutes (\cref{ch:dosing}). TODO: no
-document describes a physical inspection (scale/residue check on the
-tank walls, fittings, level sensor) as part of or after this cycle ---
-until one exists, a visual check after the final flush (before returning
-to Production mode) is good practice.
+\begin{note}
+This tank's role as the CIP cleaning reservoir --- what water/chemical is
+in it at each stage, the hazards involved, and how it gets cleaned --- is
+significant and safety-relevant enough to warrant its own chapter: see
+\cref{ch:tankcip}.
+\end{note}
 
 \section{Key specifications}
 As with the diluate tank, no finalized standard-product capacity/
@@ -2218,6 +2168,97 @@ below 500\,l/hr concentrate flow. On any level or flow alarm, check the
 relevant sensor per \cref{sec:sensorcal} before assuming a process fault.
 If a CIP cycle fails to reach its target pH, verify the concentrate
 tank's level and injection nozzle first, per \cref{ch:dosing}.
+
+
+\chapter{CIP Tank}
+\label{ch:tankcip}
+\chaptersubtitle{The concentrate tank, in CIP mode: what's really inside it, and why that matters}
+\chaptertoc
+
+\section{Overview and function}
+No HydroVolta document identifies a separate, dedicated CIP tank ---
+\textbf{the concentrate tank (\cref{ch:tankconcentrate}) is the one and
+only vessel used for CIP} cleaning, per HydroVolta's own documented CIP
+procedure (\cref{ch:dosing}). It gets its own chapter here because what
+is \emph{inside} that tank changes completely depending on which mode the
+unit is in, and confusing the two is a real chemical-exposure hazard ---
+read this chapter alongside \cref{ch:tankconcentrate,ch:dosing}, not
+instead of them.
+
+\hvfig{fig-cip-tank.png}{Suggested figure: the same concentrate tank as
+  \cref{fig:concentrate-tank}, with the CIP dosing/circulation connections
+  called out separately from the normal process connections.}
+  {fig:cip-tank}
+
+\section{Key specifications: what is in the tank, and when}
+\begin{itemize}
+\item \textbf{Production mode:} the tank holds \textbf{concentrate/
+  brine} --- rejected feedwater ions, increasingly concentrated over
+  multiple passes (\cref{ch:tankconcentrate}). This is process water, not
+  a cleaning chemical.
+\item \textbf{CIP acid step:} the tank holds \textbf{pretreated feedwater
+  dosed with HCl to pH~2.5} (\cref{ch:dosing}) --- an acidic solution,
+  corrosive at that pH.
+\item \textbf{Between CIP steps:} the tank is drained and reflushed with
+  \textbf{fresh feed water} for 15--20\,minutes specifically to clear the
+  acid before the next chemical goes in.
+\item \textbf{CIP hypochlorite step:} the tank holds \textbf{feedwater
+  dosed with NaOCl to 2\,ppm} (sodium hypochlorite, effective only near
+  pH~7--7.5) --- an oxidizing, corrosive solution.
+\item \textbf{NaOH variant of CIP} (electrolyte-compartment cleaning):
+  the tank holds \textbf{NaOH dissolved only in pure (permeate-quality)
+  water} --- \textbf{never} feedwater or process water, per the warning
+  in \cref{ch:dosing} (mixing NaOH with the minerals present in feed/
+  process water causes scaling).
+\end{itemize}
+No capacity/material specification exists yet for a finalized standard
+\salinbloc bill of materials --- see \cref{ch:tankdiluate,ch:tankconcentrate}
+for the real tank orders on file and their (unconfirmed) role.
+
+\section{Operation}
+\begin{danger}
+\textbf{Never let the acid (HCl) and hypochlorite (NaOCl) steps mix in
+this tank.} Mixing an acid with sodium hypochlorite releases chlorine
+gas, which is toxic even in small quantities. This is precisely why
+HydroVolta's documented procedure requires a full drain and a 15--20
+minute fresh-water flush between the acid step and the hypochlorite step
+(\cref{ch:dosing}) --- never shorten or skip that flush to save time, and
+never dose both chemicals into the tank at once. If chlorine odor is
+detected during or after a CIP cycle, stop dosing immediately, ventilate
+the area, and do not re-enter until it has cleared --- see
+\cref{sec:firstaid} for first-aid measures for chemical/inhalation
+exposure.
+\end{danger}
+Both the acid and hypochlorite solutions are corrosive at the
+concentrations used (see the Safety Data Sheet summary in
+\cref{sec:firstaid}): treat the tank, its vent, and any sample point as a
+chemical-exposure risk during CIP, not just during dosing-pump refilling.
+Wear the PPE specified in \cref{sec:ppe} whenever the tank is opened,
+sampled, or drained during or immediately after a CIP cycle. Do not start
+a CIP cycle without first confirming the tank's level and that the CIP
+injection nozzle is submerged (\cref{ch:dosing}).
+
+\section{Maintenance: cleaning the tank itself}
+The documented CIP procedure already \emph{is} the tank-cleaning
+procedure --- there is no additional physical scrub-down step on file. In
+order: drain the acid step, flush with fresh feed water
+15--20\,minutes; drain the hypochlorite step 5\,minutes, then flush with
+fresh feed water 30\,minutes (\cref{ch:dosing}). TODO: no document
+describes a physical inspection (scale/residue check on the tank walls,
+fittings, level sensor) as part of or after this cycle --- until one
+exists, a visual check after the final flush (before returning to
+Production mode) is good practice. See \cref{ch:tankconcentrate} for the
+tank's general (non-CIP) maintenance notes.
+
+\section{Troubleshooting}
+If a CIP cycle fails to reach its target pH (2.5 for the acid step),
+verify the tank's level and injection nozzle before suspecting a dosing-
+pump fault (\cref{ch:dosing}). If chlorine odor is ever detected, treat it
+as an emergency per the warning above, not a troubleshooting item to work
+through calmly. \plctag{HL\_Alarm\_TC}/\plctag{LL\_Alarm\_TC}
+(\cref{ch:tankconcentrate}) apply during CIP exactly as they do during
+Production --- do not disable or ignore them because the tank is in CIP
+mode.
 
 
 \chapter{Electrolyte Tank}
