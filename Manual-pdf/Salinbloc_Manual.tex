@@ -465,7 +465,9 @@ pretreatment, stack, dosing and control equipment. Part~I of this manual
 covers the unit as a whole (safety, installation, commissioning, day-to-day
 operation). Part~II gives one self-contained chapter per compartment inside
 the container --- pumps, stacks, valves, dosing, sensors, control cabinet,
-tanks, and telemetry --- each with its own specifications, operating notes,
+the diluate/concentrate/electrolyte tanks (each its own chapter, since
+they hold very different streams under very different conditions), and
+telemetry --- each with its own specifications, operating notes,
 maintenance and troubleshooting, so it can be consulted (or printed/exported)
 on its own. Part~III closes with shutdown/storage and reference appendices.
 
@@ -864,7 +866,7 @@ filter skid, \sonixed skid, control~2 skid.
   (\cref{ch:pumps,ch:stacks}), with three internal streams per stack:
   \textbf{diluate} (becomes the product/permeate), \textbf{concentrate}
   (becomes the brine/reject), and \textbf{electrolyte} (a separate loop
-  feeding the electrode compartments, \cref{ch:tanks}).
+  feeding the electrode compartments, \cref{ch:tankelectrolyte}).
 \item Product (permeate) water exits the treatment container via a 2"
   outlet connection.
 \item Reject/concentrate and pretreatment backwash/drainage are combined
@@ -892,7 +894,9 @@ part you need.
 \item \textbf{Dosing system} --- \cref{ch:dosing}
 \item \textbf{Instrumentation and sensors} --- \cref{ch:sensors}
 \item \textbf{Control cabinet, PLC and HMI} --- \cref{ch:cabinet}
-\item \textbf{Tanks} --- \cref{ch:tanks}
+\item \textbf{Diluate tank} --- \cref{ch:tankdiluate}
+\item \textbf{Concentrate tank} --- \cref{ch:tankconcentrate}
+\item \textbf{Electrolyte tank} --- \cref{ch:tankelectrolyte}
 \item \textbf{Telemetry and remote connectivity} --- \cref{ch:telemetry}
 \end{itemize}
 
@@ -1199,8 +1203,10 @@ pressure, flow and conductivity/level for the sensor array (\plctag{TSA\_pH},
 \plctag{TSA\_pressure}, \plctag{TSA\_Flow}, \plctag{TSA\_Cond},
 \plctag{TSA\_Level}), plus conductivity and level for the~TB tank
 (\plctag{TB\_Cond}, \plctag{TB\_Level}) and level for the~TE (electrolyte)
-tank (\plctag{TE\_Level}) --- see \cref{ch:tanks,ch:sensors}. Additional
-electrical metering is available via power-meter tags (\plctag{PM3150}).
+tank (\plctag{TE\_Level}) --- see
+\cref{ch:tankdiluate,ch:tankconcentrate,ch:tankelectrolyte,ch:sensors}.
+Additional electrical metering is available via power-meter tags
+(\plctag{PM3150}).
 
 \begin{note}
 HydroVolta's I/O tag lists follow a readable naming convention that helps
@@ -1387,7 +1393,8 @@ sequence in \cref{sec:estop}, not just ACK~+ Reset.
 Each Part~II chapter ends with a \emph{Troubleshooting} section scoped to
 that compartment: symptom, likely cause, and remedy. Start with the
 compartment most closely tied to the symptom (e.g.\ a conductivity alarm
-$\rightarrow$ \cref{ch:sensors} or \cref{ch:tanks}; a communication timeout
+$\rightarrow$ \cref{ch:sensors} or the relevant tank chapter
+(\cref{ch:tankdiluate,ch:tankconcentrate,ch:tankelectrolyte}); a communication timeout
 $\rightarrow$ \cref{ch:cabinet} or \cref{ch:telemetry}). If the fault
 spans several compartments or persists after following the relevant
 section, escalate per \cref{sec:whentocallservice}.
@@ -2017,57 +2024,211 @@ enclosure, terminal torque check) was found.
 \end{itemize}
 
 
-\chapter{Tanks}
-\label{ch:tanks}
-\chaptersubtitle{Diluate, concentrate, electrolyte and drain tanks}
+\chapter{Diluate Tank}
+\label{ch:tankdiluate}
+\chaptersubtitle{Buffers the desalinated stream through recirculation, on its way to the customer}
 \chaptertoc
 
 \section{Overview and function}
-Overhead/skid-mounted tanks buffer the diluate, concentrate and
-electrolyte streams (\cref{ch:overview}) and collect drainage from both
-containers before it leaves the unit. In the pilot configuration these are
-tagged TSA (a sensor/buffer tank), TB and TE (electrolyte) --- see
-\cref{ch:sensors} for the level/conductivity instrumentation on each.
+The diluate tank (tag prefix \textbf{TD}) buffers the desalinated stream
+as it recirculates through the \sonixed stack(s) (\cref{ch:stacks}) ---
+diluate is not necessarily delivered in a single pass; it recirculates
+through this tank and back through the stack until the target product
+conductivity is reached, at which point it passes on to the product/
+delivery side of the system (tag prefix \textbf{TB}, for
+\enquote{breaking} out of the recirculation loop) for delivery to the
+customer. This is the tank whose reading is the unit's headline water-
+quality result: the HMI Overview screen's \enquote{product conductivity}
+KPI (\cref{ch:operation}) is read from this stream.
 
-\hvfig{fig-tanks.png}{Suggested figure: photograph of the tank bank inside
-  the treatment container, each tank labeled with its stream (diluate/
-  concentrate/electrolyte/drain).}{fig:tanks}
+\hvfig{fig-diluate-tank.png}{Suggested figure: photograph of the diluate
+  tank(s), labeled with their connections (from-stack, to-stack
+  recirculation, to-product-tank outlet) and instrumentation.}
+  {fig:diluate-tank}
 
 \section{Key specifications}
 No tank capacity/material specification exists yet for a finalized
 standard \salinbloc bill of materials, but two real, recent tank orders
-placed by HydroVolta give a concrete sense of the sizes used:
+placed by HydroVolta give a concrete sense of the sizes used: a Rotterdam
+Plastics order (Oct.\ 2025) for one 800-litre and one 450-litre vertical
+polyethylene tank, and a Boralit/Galo Tanks order for two 1000-litre
+rectangular polyethylene tanks (RT1000RH~ZW series). TODO: which of these
+is the diluate tank was not confirmed in the order documents --- do not
+assume a mapping without checking the as-built P\&ID for the specific
+unit. Some documented configurations use \textbf{two} diluate buffer
+tanks in series (tagged \textbf{BTD1}/\textbf{BTD2}, distinct from the
+main TD tank) rather than one --- confirm which arrangement applies to
+the unit at hand.
 \begin{itemize}
-\item Rotterdam Plastics order (Oct.\ 2025): one 800-litre vertical
-  polyethylene tank (closed outlet, unvented lid) and one 450-litre
-  polyethylene tank (open outlet, vented lid).
-\item Boralit/Galo Tanks order: two 1000-litre rectangular polyethylene
-  tanks (RT1000RH~ZW series), supplied with PVC coupling sets.
+\item Level: \plctag{TD\_Level} (main tank); \plctag{BTD1}/\plctag{BTD2}
+  level alarms exist in some configurations.
+\item Process instrumentation on this stream: pH (\plctag{TD\_pH}),
+  pressure (\plctag{TD\_pressure}), flow (\plctag{TD\_Flow}) --- see
+  \cref{ch:sensors} for sensor makes/models.
+\item Downstream product tank (TB): conductivity (\plctag{TB\_Cond}) and
+  level (\plctag{TB\_Level}) --- this is the KROHNE SMARTPAT COND reading
+  behind the HMI's \enquote{product conductivity} KPI
+  (\cref{ch:sensors,ch:operation}).
 \end{itemize}
-TODO: which physical tank (diluate/feed, concentrate, electrolyte, or
-drain) each of the above corresponds to was not confirmed in the order
-documents --- do not assume a mapping without checking the as-built P\&ID
-for the specific unit. The pilot configuration referenced elsewhere in
-this manual used a 1000\,l IBC as an auxiliary/drain tank.
 
 \section{Operation}
-Tank levels are monitored continuously (\plctag{TSA\_Level},
-\plctag{TB\_Level}, \plctag{TE\_Level}) with high/low alarm limits ---
-see \cref{ch:appparams}.
+Diluate recirculates through this tank and the stack under automatic
+control during \textbf{Production} mode (\cref{ch:operation}); level is
+monitored continuously with high/low alarms confirmed at
+\textbf{40\,cm~(low) / 90\,cm~(high)} in a documented configuration (see
+the warning-code table in \cref{ch:appparams}) --- TODO confirm these
+setpoints for the standard product's tank sizing. Product only passes to
+the TB (delivery) tank once conductivity is within its target range.
 
 \section{Maintenance}
-TODO: no tank cleaning/inspection schedule was found.
+TODO: no tank cleaning/inspection schedule was found. Because this tank
+holds treated (low-salinity) water rather than raw feed or concentrate,
+the main risk during idle periods is biological growth (algae/biofilm)
+rather than scaling --- inspect at the interval in
+\cref{ch:maintenance} once one is confirmed.
 
 \section{Troubleshooting}
-High/low level alarms are confirmed for every tank:
-\plctag{HL\_Alarm\_TD}/\plctag{LL\_Alarm\_TD} (diluate),
-\plctag{HL\_Alarm\_TC}/\plctag{LL\_Alarm\_TC} (concentrate),
-\plctag{HL\_Alarm\_TB}/\plctag{LL\_Alarm\_TB},
-\plctag{HL\_Alarm\_TSA}/\plctag{LL\_Alarm\_TSA},
-\plctag{HL\_Alarm\_TE}/\plctag{LL\_Alarm\_TE}, plus a level alarm
-\plctag{M050\_Level\_Alarm}. On any level alarm, check the relevant level
-sensor per the bench-test procedure in \cref{sec:sensorcal} before
-assuming a process fault.
+\plctag{HL\_Alarm\_TD}/\plctag{LL\_Alarm\_TD} cover the main tank (plus
+equivalent alarms for BTD1/BTD2 where fitted). On any level alarm, check
+the relevant level sensor per the bench-test procedure in
+\cref{sec:sensorcal} before assuming a process fault. If product
+conductivity (TB) is out of range while the tank level itself is normal,
+the fault is more likely in the stack's reversal timing or feedwater
+quality (\cref{ch:stacks}) than in the tank itself.
+
+
+\chapter{Concentrate Tank}
+\label{ch:tankconcentrate}
+\chaptersubtitle{Buffers and recirculates the brine/reject stream, and doubles as the CIP reservoir}
+\chaptertoc
+
+\section{Overview and function}
+The concentrate tank (tag prefix \textbf{TC}) buffers the brine/reject
+stream as it recirculates through the \sonixed stack(s)
+(\cref{ch:stacks}): rejected ions accumulate in this stream over multiple
+passes, increasing its conductivity, until it is drained for disposal or
+routed onward for brine valorization (\cref{ch:overview}). This tank also
+does double duty as the \textbf{circulation reservoir during CIP
+cleaning} --- HydroVolta's documented CIP procedure (\cref{ch:dosing})
+explicitly circulates acid and hypochlorite cleaning solution through
+this same tank, which is why the concentrate tank's minimum level is a
+precondition for starting a CIP cycle.
+
+\hvfig{fig-concentrate-tank.png}{Suggested figure: photograph of the
+  concentrate tank, labeled with its connections (from-stack, to-stack
+  recirculation, drain/valorization outlet, CIP circulation port).}
+  {fig:concentrate-tank}
+
+\section{Key specifications}
+As with the diluate tank, no finalized standard-product capacity/
+material specification exists --- see \cref{ch:tankdiluate} for the two
+real tank orders on file, which are candidates but not confirmed as to
+role. Some documented configurations use \textbf{two} concentrate buffer
+tanks in series (tagged \textbf{BTC1}/\textbf{BTC2}) rather than one.
+\begin{itemize}
+\item Level: \plctag{TC\_Level} (main tank); \plctag{BTC1}/\plctag{BTC2}
+  level alarms exist in some configurations.
+\item Conductivity: monitored via the \enquote{Concentrate Sensor Island}
+  (candidate: KROHNE SMARTPAT COND, \cref{ch:sensors}).
+\item Flow: concentrate-stream flow instrumentation confirmed in the
+  register lists reviewed (\cref{ch:sensors}); a documented alarm exists
+  for concentrate flow below \textbf{500\,l/hr} (\cref{ch:appparams}).
+\end{itemize}
+
+\section{Operation}
+Concentrate recirculates through this tank during \textbf{Production}
+mode, increasing in conductivity pass over pass; during \textbf{CIP} mode
+(\cref{ch:dosing}), the same tank instead circulates cleaning chemical.
+Do not start a CIP cycle without first confirming the concentrate tank's
+level and that the CIP injection nozzle is submerged (\cref{ch:dosing}).
+
+\section{Maintenance}
+TODO: no tank cleaning/inspection schedule was found. Because this tank
+carries the concentrated reject stream (and periodically, cleaning acid/
+hypochlorite), scaling and chemical residue are more likely here than in
+the diluate tank --- inspect and descale per \cref{ch:maintenance} once
+an interval is confirmed, and always flush with fresh feed water after a
+CIP cycle per the procedure in \cref{ch:dosing}.
+
+\section{Troubleshooting}
+\plctag{HL\_Alarm\_TC}/\plctag{LL\_Alarm\_TC} cover the main tank (plus
+equivalent alarms for BTC1/BTC2 where fitted); a documented alarm fires
+below 500\,l/hr concentrate flow. On any level or flow alarm, check the
+relevant sensor per \cref{sec:sensorcal} before assuming a process fault.
+If a CIP cycle fails to reach its target pH, verify the concentrate
+tank's level and injection nozzle first, per \cref{ch:dosing}.
+
+
+\chapter{Electrolyte Tank}
+\label{ch:tankelectrolyte}
+\chaptersubtitle{A separate loop feeding the stack's electrode compartments --- never part of the treated-water path}
+\chaptertoc
+
+\section{Overview and function}
+The electrolyte tank (tag prefix \textbf{TE}) supplies a separate,
+recirculating loop that feeds the \sonixed stack's \textbf{electrode
+compartments} (\cref{ch:stacks}) --- this is what actually carries
+current at the electrodes. Unlike the diluate and concentrate tanks
+above, the electrolyte loop is \textbf{not part of the treated-water
+path}: it never mixes with the feed, diluate or concentrate streams, and
+is not delivered to the customer. A documented \enquote{Electrolyte
+Preparation} monitoring point (its own conductivity transmitter,
+distinct from the main process conductivity sensors) confirms the
+electrolyte solution is prepared and monitored as its own loop, separate
+from process water quality.
+
+\begin{warning}
+Electrode reactions can evolve gases. The system carries a general
+\enquote{Ventilation~OFF} alarm (documented warning code~W002,
+\cref{ch:appparams}) --- while that alarm is a general system warning
+rather than confirmed as electrolyte-specific, adequate ventilation
+matters most wherever electrolysis is taking place, i.e.\ around the
+stack and electrolyte loop. TODO: HydroVolta engineering should confirm
+the electrolyte chemistry and any specific gas-hazard/ventilation
+requirement for this loop --- see also \cref{ch:safety}.
+\end{warning}
+
+\hvfig{fig-electrolyte-tank.png}{Suggested figure: photograph of the
+  electrolyte tank and its connections to the stack's electrode
+  compartments, clearly distinguished from the diluate/concentrate
+  piping.}{fig:electrolyte-tank}
+
+\section{Key specifications}
+No finalized standard-product capacity/material specification exists ---
+see \cref{ch:tankdiluate} for the two real tank orders on file (candidates,
+role unconfirmed). A documented level-alarm configuration uses narrower
+thresholds for this tank than for diluate/concentrate ---
+\textbf{20\,cm~(low) / 80\,cm~(high)} (\cref{ch:appparams}) --- consistent
+with this being a smaller support loop rather than a main process buffer,
+though this has not been confirmed as a general rule.
+\begin{itemize}
+\item Level: \plctag{TE\_Level}.
+\item Electrolyte-preparation conductivity: monitored separately from the
+  main process streams (\cref{ch:sensors}).
+\end{itemize}
+TODO: electrolyte solution composition (which chemical, target
+concentration) and replenishment/dosing method were not found in
+HydroVolta's documentation reviewed.
+
+\section{Operation}
+The electrolyte loop recirculates continuously whenever the stack is
+powered (\cref{ch:stacks}); level is monitored via \plctag{TE\_Level}
+with the narrower alarm band noted above. TODO: no document describes an
+electrolyte make-up/replenishment procedure, or how often the solution
+itself is refreshed rather than merely topped up.
+
+\section{Maintenance}
+TODO: no maintenance schedule for the electrolyte loop was found. Because
+this loop directly feeds the electrode compartments, its condition is
+tied to electrode/membrane health --- see the stack maintenance notes in
+\cref{ch:stacks} for the (also largely undocumented) membrane/electrode
+service interval.
+
+\section{Troubleshooting}
+\plctag{HL\_Alarm\_TE}/\plctag{LL\_Alarm\_TE} cover this tank. An
+unexpected electrolyte level drop should prompt a check for leaks at the
+electrode compartment seals (\cref{ch:stacks}) before assuming a sensor
+fault; verify the sensor itself per \cref{sec:sensorcal} either way.
 
 
 \chapter{Telemetry and Remote Connectivity}
@@ -2263,10 +2424,12 @@ TODO: this table only samples the documented code ranges; the full
 warning table has $\sim$57 defined codes and should be transcribed in
 full by HydroVolta engineering, together with the exact level/pressure
 setpoints per tank size, once the standard \salinbloc tank configuration
-(\cref{ch:tanks}) is finalized --- these codes come from a specific pilot
-project's tank/stage configuration and the numeric thresholds may not
-transfer directly. See the alarm tag list in
-\cref{ch:operation,ch:tanks,ch:dosing} for additional alarms.
+(\cref{ch:tankdiluate,ch:tankconcentrate,ch:tankelectrolyte}) is finalized
+--- these codes come from a specific pilot project's tank/stage
+configuration and the numeric thresholds may not transfer directly. See
+the alarm tag list in
+\cref{ch:operation,ch:tankdiluate,ch:tankconcentrate,ch:tankelectrolyte,ch:dosing}
+for additional alarms.
 
 
 \chapter{Drawings}

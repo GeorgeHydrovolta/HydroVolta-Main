@@ -70,38 +70,48 @@
     "pages": 6
   },
   {
-    "title": "15 Tanks",
-    "file": "15-tanks.pdf",
+    "title": "15 Diluate Tank",
+    "file": "15-diluate-tank.pdf",
     "pages": 6
   },
   {
-    "title": "16 Telemetry and Remote Connectivity",
-    "file": "16-telemetry-and-remote-connectivity.pdf",
+    "title": "16 Concentrate Tank",
+    "file": "16-concentrate-tank.pdf",
     "pages": 6
   },
   {
-    "title": "17 Shutdown, storage and disposal",
-    "file": "17-shutdown-storage-and-disposal.pdf",
+    "title": "17 Electrolyte Tank",
+    "file": "17-electrolyte-tank.pdf",
+    "pages": 6
+  },
+  {
+    "title": "18 Telemetry and Remote Connectivity",
+    "file": "18-telemetry-and-remote-connectivity.pdf",
+    "pages": 6
+  },
+  {
+    "title": "19 Shutdown, storage and disposal",
+    "file": "19-shutdown-storage-and-disposal.pdf",
     "pages": 6
   },
   {
     "title": "A Parameter tables",
-    "file": "18-parameter-tables.pdf",
+    "file": "20-parameter-tables.pdf",
     "pages": 4
   },
   {
     "title": "B Drawings",
-    "file": "19-drawings.pdf",
+    "file": "21-drawings.pdf",
     "pages": 4
   },
   {
     "title": "C Certificates and datasheets",
-    "file": "20-certificates-and-datasheets.pdf",
+    "file": "22-certificates-and-datasheets.pdf",
     "pages": 6
   },
   {
     "title": "D Glossary",
-    "file": "21-glossary.pdf",
+    "file": "23-glossary.pdf",
     "pages": 2
   }
 ]

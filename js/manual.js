@@ -18,13 +18,15 @@
     { key: 'dosing', label: 'Dosing System', page: 90, file: '12-dosing-system.pdf' },
     { key: 'sensors', label: 'Instrumentation & Sensors', page: 96, file: '13-instrumentation-and-sensors.pdf' },
     { key: 'cabinet', label: 'Control Cabinet, PLC & HMI', page: 102, file: '14-control-cabinet-plc-and-hmi.pdf' },
-    { key: 'tanks', label: 'Tanks', page: 108, file: '15-tanks.pdf' },
-    { key: 'telemetry', label: 'Telemetry & Remote Connectivity', page: 114, file: '16-telemetry-and-remote-connectivity.pdf' },
-    { key: 'shutdown', label: 'Shutdown, Storage & Disposal', page: 120, file: '17-shutdown-storage-and-disposal.pdf' },
-    { key: 'appparams', label: 'Appendix A: Parameter Tables', page: 126, file: '18-parameter-tables.pdf' },
-    { key: 'appdrawings', label: 'Appendix B: Drawings', page: 130, file: '19-drawings.pdf' },
-    { key: 'appcert', label: 'Appendix C: Certificates & Datasheets', page: 134, file: '20-certificates-and-datasheets.pdf' },
-    { key: 'appglossary', label: 'Appendix D: Glossary', page: 140, file: '21-glossary.pdf' }
+    { key: 'tankdiluate', label: 'Diluate Tank', page: 108, file: '15-diluate-tank.pdf' },
+    { key: 'tankconcentrate', label: 'Concentrate Tank', page: 114, file: '16-concentrate-tank.pdf' },
+    { key: 'tankelectrolyte', label: 'Electrolyte Tank', page: 120, file: '17-electrolyte-tank.pdf' },
+    { key: 'telemetry', label: 'Telemetry & Remote Connectivity', page: 126, file: '18-telemetry-and-remote-connectivity.pdf' },
+    { key: 'shutdown', label: 'Shutdown, Storage & Disposal', page: 132, file: '19-shutdown-storage-and-disposal.pdf' },
+    { key: 'appparams', label: 'Appendix A: Parameter Tables', page: 138, file: '20-parameter-tables.pdf' },
+    { key: 'appdrawings', label: 'Appendix B: Drawings', page: 142, file: '21-drawings.pdf' },
+    { key: 'appcert', label: 'Appendix C: Certificates & Datasheets', page: 146, file: '22-certificates-and-datasheets.pdf' },
+    { key: 'appglossary', label: 'Appendix D: Glossary', page: 152, file: '23-glossary.pdf' }
   ];
   window.SALINBLOC_CHAPTERS = CHAPTERS;
 

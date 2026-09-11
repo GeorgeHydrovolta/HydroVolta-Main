@@ -30,6 +30,13 @@ def main():
         sys.exit("No top-level bookmarks found in the PDF.")
 
     OUT_DIR.mkdir(exist_ok=True)
+    # Clear any chapter PDFs from a previous run/chapter-count -- otherwise
+    # a renamed or removed chapter leaves a stale file behind alongside the
+    # fresh ones (bit us once: a "Tanks" chapter split into three left the
+    # old 15-tanks.pdf sitting next to the new 15-diluate-tank.pdf etc.)
+    for f in OUT_DIR.glob("*.pdf"):
+        f.unlink()
+    (OUT_DIR / "manifest.json").unlink(missing_ok=True)
     total_pages = len(reader.pages)
     manifest = []
 
