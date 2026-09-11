@@ -3,6 +3,15 @@
   // Chapter -> starting page map for downloads/SalinBloc-User-Manual.pdf,
   // plus the standalone per-chapter PDF each row can be downloaded as.
   var CHAPTER_DIR = 'downloads/manual-chapters/';
+  // Bump this every time SalinBloc-User-Manual.pdf or any chapter PDF is
+  // regenerated. Unlike manual.js/site.css (loaded via a versioned
+  // <script>/<link> URL), the PDFs are referenced by a bare path with no
+  // version in it, so a CDN/browser can go on serving a stale cached copy
+  // indefinitely after a redeploy -- bit us once already (a visitor kept
+  // getting a PDF several chapters out of date). Appending this as a
+  // query string forces a fresh fetch each time it changes.
+  var PDF_V = 'v5';
+  function pdfUrl(path) { return path + '?' + PDF_V; }
   var CHAPTERS = [
     { key: 'about', label: 'About this manual', page: 8, file: '01-about-this-manual.pdf' },
     { key: 'safety', label: 'Safety', page: 14, file: '02-safety.pdf' },
@@ -40,6 +49,35 @@
   // ready, and nothing could make it ready until it was scrolled into
   // view. A ?chapter= deep link (e.g. the QR code on the unit) needs it
   // loading immediately regardless, so eager is simplest for everyone.
+  //
+  // Its src is set here (from data-src, not a static src="" in the HTML)
+  // so the cache-busting version above actually applies -- the PDF inside
+  // it (file=...) needs the same ?v= treatment as every other PDF link on
+  // this page, or it can go on being served stale from cache after a
+  // redeploy same as they did.
+  //
+  // The file= value has to be an ABSOLUTE url, not the relative
+  // "../../downloads/..." path this used to be: PDF.js's own file= parsing
+  // (viewer.mjs's run()) tries `new URL(file)` first and only falls back
+  // to treating it as a bare relative path when that throws -- and that
+  // fallback path only ever un-escapes "%2F" back to "/", leaving a "?"
+  // percent-escaped as a literal filename character forever. A relative
+  // path can never carry a query string through that code; an absolute
+  // one parses on the first try and keeps it intact.
+  (function () {
+    var dataSrc = iframe.getAttribute('data-src'); // "pdfjs/web/viewer.html?file=../../downloads/SalinBloc-User-Manual.pdf"
+    var parts = dataSrc.split('file=');
+    var relativePdfPath = parts[1].replace(/^(\.\.\/)+/, ''); // "downloads/SalinBloc-User-Manual.pdf"
+    var absolutePdfUrl = new URL(pdfUrl(relativePdfPath), document.baseURI).href;
+    iframe.src = parts[0] + 'file=' + encodeURIComponent(absolutePdfUrl);
+  })();
+
+  var manualDownloadBtn = document.getElementById('manual-download-btn');
+  var manualOpenBtn = document.getElementById('manual-open-btn');
+  var heroDownloadBtn = document.getElementById('hero-download-manual-btn');
+  [manualDownloadBtn, manualOpenBtn, heroDownloadBtn].forEach(function (el) {
+    if (el) el.href = pdfUrl(el.getAttribute('href'));
+  });
 
   var chapterPanel = document.getElementById('chapters-panel');
   var chapterToggle = document.getElementById('chapters-toggle');
@@ -50,7 +88,7 @@
   function buildChapterMarkup() {
     return CHAPTERS.map(function (ch, i) {
       var dl = ch.file
-        ? '<a class="chapter-item__dl" href="' + CHAPTER_DIR + ch.file + '" download ' +
+        ? '<a class="chapter-item__dl" href="' + pdfUrl(CHAPTER_DIR + ch.file) + '" download ' +
           'aria-label="Download ' + ch.label + ' as its own PDF" title="Download this chapter as its own PDF">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
           '<path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg></a>'
@@ -163,7 +201,7 @@
   var openChapterBtn = document.getElementById('open-chapter-btn');
 
   function updateDownloadChapterBtn(ch) {
-    var href = ch && ch.file ? CHAPTER_DIR + ch.file : null;
+    var href = ch && ch.file ? pdfUrl(CHAPTER_DIR + ch.file) : null;
     if (downloadChapterBtn) {
       if (href) {
         downloadChapterBtn.href = href;
