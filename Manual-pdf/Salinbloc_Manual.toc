@@ -151,8 +151,7 @@
 \contentsline {section}{\numberline {20.1}Short shutdown}{132}{section.20.1}%
 \contentsline {section}{\numberline {20.2}Long-term storage}{133}{section.20.2}%
 \contentsline {section}{\numberline {20.3}Restarting after storage}{134}{section.20.3}%
-\contentsline {section}{\numberline {20.4}Decommissioning}{135}{section.20.4}%
-\contentsline {section}{\numberline {20.5}Disposal and recycling}{136}{section.20.5}%
+\contentsline {section}{\numberline {20.4}Disposal and recycling}{135}{section.20.4}%
 \contentsline {chapter}{\numberline {A}Parameter tables}{137}{appendix.A}%
 \etoc@startlocaltoc {22}
 \contentsline {section}{\numberline {A.1}Default setpoints}{138}{section.A.1}%

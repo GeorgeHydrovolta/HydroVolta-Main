@@ -10,7 +10,7 @@
   // indefinitely after a redeploy -- bit us once already (a visitor kept
   // getting a PDF several chapters out of date). Appending this as a
   // query string forces a fresh fetch each time it changes.
-  var PDF_V = 'v5';
+  var PDF_V = 'v6';
   function pdfUrl(path) { return path + '?' + PDF_V; }
   var CHAPTERS = [
     { key: 'about', label: 'About this manual', page: 8, file: '01-about-this-manual.pdf' },

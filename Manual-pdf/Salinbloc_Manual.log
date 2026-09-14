@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.17)  11 SEP 2026 13:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.17)  14 SEP 2026 12:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1831,11 +1831,6 @@ Overfull \hbox (1.21437pt too wide) detected at line 446
 
 
 Overfull \hbox (1.21437pt too wide) detected at line 446
- []\T1/phv/m/n/10.95 136
- []
-
-
-Overfull \hbox (1.21437pt too wide) detected at line 446
  []\T1/phv/b/n/10.95 137
  []
 
@@ -1895,13 +1890,13 @@ Overfull \hbox (1.21437pt too wide) detected at line 446
  []
 
 
-
-[5]
 Overfull \hbox (1.21437pt too wide) detected at line 446
  []\T1/phv/m/n/10.95 149
  []
 
 
+
+[5]
 Overfull \hbox (1.21437pt too wide) detected at line 446
  []\T1/phv/b/n/10.95 151
  []
@@ -1930,7 +1925,7 @@ l.460 \section
 
 ]
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 5.64001pt on input line 487.
+(Font)              scaled to size 5.64001pt on input line 489.
 
 
 [2
@@ -1952,7 +1947,7 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 <Copying the QR code for "https://hydrovolta.com/salinbloc-manual" in version 3
 -M as previously calculated.>
 
-Underfull \hbox (badness 10000) in paragraph at lines 546--546
+Underfull \hbox (badness 10000) in paragraph at lines 548--548
 []\T1/phv/m/n/10 (+20) Scan to open the on-line man-ual and this unit's qual-it
 y re-port at
  []
@@ -1962,11 +1957,6 @@ y re-port at
 [5
 
 ]
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 553.
-LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 9.40002pt on input line 553.
-
 
 [6
 
@@ -1987,7 +1977,7 @@ chapter 2.
 
 ]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 625.
+(Font)              scaled to size 6.58002pt on input line 624.
 
 
 [10
@@ -2022,18 +2012,29 @@ chapter 3.
 
 
 [17]
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 791.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 9.40002pt on input line 791.
+<../images/fig-container-exterior.png, id=556, 1606.0pt x 1204.5pt>
+File: ../images/fig-container-exterior.png Graphic file (type png)
+<use ../images/fig-container-exterior.png>
+Package pdftex.def Info: ../images/fig-container-exterior.png  used on input li
+ne 799.
+(pdftex.def)             Requested size: 345.70099pt x 259.2749pt.
+
 
 [18
 
-]
+ <../images/fig-container-exterior.png>]
 
 Package caption Warning: \setcaptiontype
-(caption)                outside box or environment on input line 819.
+(caption)                outside box or environment on input line 815.
 See the caption package documentation for explanation.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 819.
+(caption)                particular \caption on input line 815.
 See the caption package documentation for explanation.
 
 
@@ -2174,7 +2175,7 @@ chapter 6.
 ]
 chapter 7.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 12.22003pt on input line 1308.
+(Font)              scaled to size 12.22003pt on input line 1310.
 
 
 [51
@@ -2187,7 +2188,7 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 ]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1340.
+(caption)                particular \caption on input line 1342.
 See the caption package documentation for explanation.
 
 
@@ -2197,7 +2198,7 @@ See the caption package documentation for explanation.
 ]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1365.
+(caption)                particular \caption on input line 1364.
 See the caption package documentation for explanation.
 
 
@@ -2223,6 +2224,8 @@ See the caption package documentation for explanation.
 
 ]
 chapter 8.
+LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
+(Font)              scaled to size 12.22003pt on input line 1425.
 
 
 [59]
@@ -2379,7 +2382,7 @@ chapter 13.
 {/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1928.
+(caption)                particular \caption on input line 1903.
 See the caption package documentation for explanation.
 
 
@@ -2575,28 +2578,26 @@ chapter 20.
 
 [136
 
+
 ]
 chapter A.
 
 
-[137
-
-
-]
+[137]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 2465.
+(caption)                particular \caption on input line 2425.
 See the caption package documentation for explanation.
 
 
-Overfull \hbox (31.33563pt too wide) in paragraph at lines 2480--2480
+Overfull \hbox (31.33563pt too wide) in paragraph at lines 2440--2440
  []|\T1/phv/m/n/10 (-20) 3040$\OMS/lmsy/m/n/10 ^^B$\T1/phv/m/n/10 (-20) 1340$\O
 MS/lmsy/m/n/10 ^^B$\T1/phv/m/n/10 (-20) 2020mm|
  []
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 2482.
+(caption)                particular \caption on input line 2442.
 See the caption package documentation for explanation.
 
 
@@ -2606,7 +2607,7 @@ See the caption package documentation for explanation.
 ]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 2500.
+(caption)                particular \caption on input line 2460.
 See the caption package documentation for explanation.
 
 
@@ -2616,7 +2617,7 @@ See the caption package documentation for explanation.
 ]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 2514.
+(caption)                particular \caption on input line 2474.
 See the caption package documentation for explanation.
 
 
@@ -2631,7 +2632,7 @@ chapter B.
 
 
 ]
-Underfull \hbox (badness 1668) in paragraph at lines 2542--2549
+Underfull \hbox (badness 1668) in paragraph at lines 2502--2509
 \T1/phv/m/n/10 (+20) SonixED, H2020-EIC-SMEInst). Shows pre-treat-ment fil-tra-
 tion skids (SP-01--SP-4), dos-ing units for
  []
@@ -2682,7 +2683,7 @@ chapter D.
 
 [151]
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.52002pt on input line 2660.
+(Font)              scaled to size 7.52002pt on input line 2620.
 
 
 [152
@@ -2701,11 +2702,11 @@ Package rerunfilecheck Info: File `Salinbloc_Manual.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 48734 strings out of 473579
- 1041808 string characters out of 5728227
- 1645999 words of memory out of 5000000
- 70003 multiletter control sequences out of 15000+600000
- 663181 words of font info for 415 fonts, out of 8000000 for 9000
+ 48752 strings out of 473579
+ 1042165 string characters out of 5728227
+ 1645743 words of memory out of 5000000
+ 70010 multiletter control sequences out of 15000+600000
+ 663489 words of font info for 424 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  108i,20n,117p,10911b,1211s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/lo
@@ -2715,10 +2716,10 @@ f-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2024/texmf-dist/f
 onts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/ty
 pe1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/urw
 /helvetic/uhvro8a.pfb>
-Output written on Salinbloc_Manual.pdf (159 pages, 414778 bytes).
+Output written on Salinbloc_Manual.pdf (159 pages, 2610018 bytes).
 PDF statistics:
- 2327 PDF objects out of 2487 (max. 8388607)
- 2098 compressed objects within 21 object streams
- 435 named destinations out of 1000 (max. 500000)
- 97082 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 2332 PDF objects out of 2487 (max. 8388607)
+ 2101 compressed objects within 22 object streams
+ 433 named destinations out of 1000 (max. 500000)
+ 99127 words of extra memory for PDF output out of 106986 (max. 10000000)
 

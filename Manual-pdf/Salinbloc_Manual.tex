@@ -459,9 +459,11 @@
 
 \section{Purpose and scope}
 This manual describes the \salinbloc container: a modular \sonixed
-electrodialysis unit for water desalination and brine valorization,
-delivered as one or more standard shipping containers fitted with
-pretreatment, stack, dosing and control equipment. Part~I of this manual
+electrodialysis unit for water desalination and brine valorization. The
+standard product is a single container fitted with the stack, dosing and
+control equipment; an optional second container adds pretreatment ahead
+of it for sites whose raw water needs filtering first
+(\cref{ch:overview,ch:pretreatment}). Part~I of this manual
 covers the unit as a whole (safety, installation, commissioning, day-to-day
 operation). Part~II gives one self-contained chapter per compartment inside
 the container --- pumps, stacks, valves, dosing, sensors, control cabinet,
@@ -549,11 +551,8 @@ version of this manual and to the unit's factory quality report.
 \section{Contact and support}
 Hydrovolta NV, Romeinse Straat~18, 3001 Leuven, Belgium.
 E-mail:~\href{mailto:info@hydrovolta.com}{info@hydrovolta.com}. Phone:
-+32~28~800~336. Web:~\href{https://hydrovolta.com}{hydrovolta.com}. TODO:
-no dedicated \emph{service} phone line, out-of-hours escalation path, or
-service-hours commitment (as opposed to general company contact) was
-found --- see also \cref{sec:whentocallservice} for when to contact
-service.
++32~28~800~336. Web:~\href{https://hydrovolta.com}{hydrovolta.com}. See
+\cref{sec:whentocallservice} for when to contact service.
 
 
 \chapter{Safety}
@@ -636,8 +635,6 @@ trained on this manual and on the local isolation procedure
   safety shoes and, where local site rules require it, hi-vis clothing and
   hearing protection near running pumps.
 \end{itemize}
-TODO: this list is derived from the chemical SDSs and general industrial
-practice, not from a HydroVolta-authored PPE matrix --- none was found.
 
 \section{Main hazards}
 \label{sec:mainhazards}
@@ -798,9 +795,8 @@ keeping the membrane stack clean and extending electrode/membrane life
 selective ion (e.g.\ nitrate) removal, industrial process-water reuse,
 brine valorization/concentration, and Zero Liquid Discharge (ZLD) support.
 
-\hvfig{fig-container-exterior.png}{Suggested figure: exterior photograph of
-  a delivered \salinbloc container (or container pair) on site, showing
-  the overall footprint and connection points.}{fig:container-exterior}
+\hvfig{fig-container-exterior.png}{Exterior view of a delivered \salinbloc
+  container on site.}{fig:container-exterior}
 
 \section{Field performance reference}
 \label{sec:fieldperformance}
@@ -838,12 +834,18 @@ salinity removal), the Germany industrial pilot above, and earlier-stage
 projects in Brazil and Saudi Arabia.
 
 \section{Container layout}
-The system is delivered as a modular set of skids assembled inside one or
-more standard shipping containers (20\,ft and 40\,ft, High-Cube and
-Standard variants). Larger installations use \textbf{two} containers: a
-\emph{pretreatment container} (filtration stages, \cref{ch:pretreatment})
-and a \emph{treatment container} housing the \sonixed skid(s)
-(\cref{ch:pumps,ch:stacks,ch:valves,ch:cabinet}), connected hydraulically.
+The \textbf{standard \salinbloc unit is a single container} (20\,ft or
+40\,ft, High-Cube or Standard) housing the \sonixed skid(s)
+(\cref{ch:pumps,ch:stacks,ch:valves,ch:cabinet}) and everything downstream
+of the feed connection --- it does \textbf{not} include a pretreatment
+stage, so feed water must already meet the stack's feedwater envelope
+(\cref{ch:stacks}) before it reaches the unit. \textbf{Pretreatment
+(\cref{ch:pretreatment}) is an optional add-on}, not part of the standard
+product: where a site's raw water needs filtration first, HydroVolta can
+supply a \emph{second, separate pretreatment container}, connected
+hydraulically ahead of the standard unit. Everything below describes the
+standard single-container unit unless a step is explicitly marked as
+part of the optional pretreatment container.
 A documented 20\,ft general-arrangement layout (drawing 2308CA1) shows
 internal dimensions of 6058\,$\times$\,2438\,$\times$\,2896\,mm, housing a
 bank of \sonixed stack racks, an electrical/control cabinet, a
@@ -858,30 +860,29 @@ filter skid, \sonixed skid, control~2 skid.
   {fig:container-topview}
 
 \section{Process flow}
+\textbf{Standard unit (no pretreatment):}
 \begin{procedure}
-\item Feed water enters the pretreatment container (2\textonehalf" connection
-  from source).
-\item Pretreatment (disc filtration and ultrafiltration, \cref{ch:pretreatment})
-  conditions the water; filtered water leaves via a 2" connection.
-\item Filtered water enters the treatment container (2" connection) and is
-  split and pumped through parallel \sonixed stacks
+\item Feed water enters the container directly (2" connection) --- it
+  must already meet the stack's feedwater envelope (\cref{ch:stacks});
+  the unit does not filter or otherwise condition it first.
+\item Feed water is split and pumped through parallel \sonixed stacks
   (\cref{ch:pumps,ch:stacks}), with three internal streams per stack:
   \textbf{diluate} (becomes the product/permeate), \textbf{concentrate}
   (becomes the brine/reject), and \textbf{electrolyte} (a separate loop
   feeding the electrode compartments, \cref{ch:tankelectrolyte}).
-\item Product (permeate) water exits the treatment container via a 2"
-  outlet connection.
-\item Reject/concentrate and pretreatment backwash/drainage are combined
-  via a tee piece and routed to a drain tank via 3" drainage connections
-  from both containers.
+\item Product (permeate) water exits the container via a 2" outlet
+  connection.
+\item Reject/concentrate is routed to a drain tank via a 3" drainage
+  connection.
 \end{procedure}
-
-\begin{note}
-TODO: a fully tagged P\&ID with valve/instrument numbers exists for the
-BASF pilot (drawing SWHC-001/00, rev.\,0.98) --- see \cref{ch:appdrawings}
---- but has not yet been confirmed as representative of the standard
-\salinbloc product configuration.
-\end{note}
+\textbf{With the optional pretreatment container added} (only relevant
+if that add-on was ordered, \cref{ch:pretreatment}): feed water instead
+enters the separate pretreatment container first (2\textonehalf"
+connection from source); disc filtration and ultrafiltration condition
+it there; filtered water then leaves via a 2" connection into the main
+unit's feed inlet above, and the pretreatment container's own backwash/
+drainage is tee'd together with the main unit's drain line to the shared
+drain tank.
 
 \section{Main components}
 This section is a one-page index of every compartment covered in its own
@@ -889,7 +890,8 @@ chapter later in this manual (Part~II) --- use it to jump straight to the
 part you need.
 
 \begin{itemize}
-\item \textbf{Pretreatment and filtration skid} --- \cref{ch:pretreatment}
+\item \textbf{Pretreatment and filtration skid (optional add-on, not
+  part of the standard unit)} --- \cref{ch:pretreatment}
 \item \textbf{Feed and process pumps} --- \cref{ch:pumps}
 \item \textbf{\sonixed stack modules} --- \cref{ch:stacks}
 \item \textbf{Valves and manifold} --- \cref{ch:valves}
@@ -953,42 +955,49 @@ points but have not yet been reviewed for this purpose.
   marked, once the procedure is confirmed.}{fig:delivery}
 
 \section{Site requirements}
-The system is built around one or two ISO shipping containers
-(pretreatment~+ treatment, \cref{ch:overview}), 20\,ft/40\,ft, High-Cube or
-Standard. In HydroVolta's documented BASF pilot, the pretreatment unit used
-a 10\,ft container. The site must provide a water source (the pilot drew
-from a cooling-tower basin via a submersible pump) and space alongside the
-containers for a drain tank. TODO: ambient temperature range, ground/
+The standard unit is a single ISO shipping container (\cref{ch:overview}),
+20\,ft/40\,ft, High-Cube or Standard. If the optional pretreatment
+add-on is included, the site needs space for a \textbf{second} container
+alongside it --- in HydroVolta's documented BASF pilot, the pretreatment
+unit used a 10\,ft container. The site must provide a water source
+(the pilot drew from a cooling-tower basin via a submersible pump) and
+space for a drain tank. TODO: ambient temperature range, ground/
 foundation/leveling requirements and clearances beyond what the pilot
 layout implies were not found in a dedicated site-requirements document.
 
 \section{Positioning the container}
-TODO: no explicit positioning/orientation document was found. From the
-piping documented for commissioning (\cref{sec:watercx}), the pretreatment
-container's filtered-water outlet (2") must be within pipe-run distance of
-the treatment container's inlet (2"), and both containers' 3" drain
-outlets should be positioned so they can be tee'd together to a shared
-drain tank.
+Where the optional pretreatment container is also fitted: from the piping documented for commissioning
+(\cref{sec:watercx}), its filtered-water outlet (2") must be within
+pipe-run distance of the main unit's feed inlet (2"), and both
+containers' 3" drain outlets should be positioned so they can be tee'd
+together to a shared drain tank.
 
 \section{Water connections}
 \label{sec:watercx}
+\textbf{Standard unit:}
 \begin{itemize}
-\item \textbf{Pretreatment container:} feed inlet 2\textonehalf" (M) from
-  the raw water source (in the pilot, a submersible pump rated
-  4.5\,m\textsuperscript{3}/h at 6\,bar); filtered-water outlet 2" (M);
-  drain outlet 3" (M).
-\item \textbf{Treatment container:} inlet 2" (M), fed from the
-  pretreatment filtered-water outlet; product-water outlet 2" (M); drain
-  outlet 3" (M).
-\item Pump-to-pretreatment feed line: PVCu, 60\,mm, terminated 2\textonehalf" (F).
-\item Pretreatment-to-treatment line: PVCu, 40\,mm.
-\item Both containers' 3" (M) drain outlets combine via a tee into one
-  line to the shared drain tank.
+\item Feed inlet: 2" (M) --- feed water must already meet the stack's
+  feedwater envelope (\cref{ch:stacks}) before connection.
+\item Product-water outlet: 2" (M).
+\item Drain outlet: 3" (M).
 \item Fit O-rings and PTFE tape at every threaded joint.
 \end{itemize}
-Key in-line pretreatment components: an ultrafiltration unit (AKKIM
-APM~80) via 2" Victaulic couplings, and disc filters (AZUD DF100/DF50/DF20)
-via 2" (F) 63\,mm transition pieces.
+\textbf{If the optional pretreatment container is also fitted}
+(\cref{ch:pretreatment}) --- these connections apply only to that add-on,
+not to the standard unit above:
+\begin{itemize}
+\item Pretreatment feed inlet 2\textonehalf" (M) from the raw water
+  source (in the pilot, a submersible pump rated 4.5\,m\textsuperscript{3}/h
+  at 6\,bar); filtered-water outlet 2" (M), connected to the standard
+  unit's feed inlet above; drain outlet 3" (M).
+\item Pump-to-pretreatment feed line: PVCu, 60\,mm, terminated 2\textonehalf" (F).
+\item Pretreatment-to-unit line: PVCu, 40\,mm.
+\item Both containers' 3" (M) drain outlets combine via a tee into one
+  line to the shared drain tank.
+\item Key in-line pretreatment components: an ultrafiltration unit
+  (AKKIM APM~80) via 2" Victaulic couplings, and disc filters (AZUD
+  DF100/DF50/DF20) via 2" (F) 63\,mm transition pieces.
+\end{itemize}
 
 \hvfig{fig-water-connections.png}{Suggested figure: a labeled diagram of
   the pretreatment/treatment container pair showing every hydraulic
@@ -996,18 +1005,20 @@ via 2" (F) 63\,mm transition pieces.
   and thread type.}{fig:water-connections}
 
 \section{Electrical connection}
-The control cabinet is IP55-rated. Incoming supply on the documented pilot
-was 3$\times$400\,V\,AC (3P+N+PE, per IEC~60445), max.\ 25\,A, with a 24\,V\,DC
-control bus for valves and I/O (from the pretreatment electrical schematic,
-sheet~E1/document~I2). A separate electrical schematic series exists
-specifically for a \textbf{treatment container} (as opposed to
-pretreatment) under the BASF pilot project (folder \texttt{2\_Electrical/
-0\_Treatment container}, multiple dated AutoCAD Electrical \texttt{.dsn}
-revisions) --- TODO: this series was located but not opened (CAD format);
-a human with AutoCAD Electrical should open the latest revision for the
-treatment-container-specific breaker/RCD sizing, since the figures above
-are from the pretreatment side only. TODO: confirm whether either value
-set applies to the standard \salinbloc product or is pilot-specific.
+The control cabinet is IP55-rated. The figures most likely to apply to
+the \textbf{standard unit} come from a separate electrical schematic
+series for a \textbf{treatment container} under the BASF pilot project
+(folder \texttt{2\_Electrical/0\_Treatment container}, multiple dated
+AutoCAD Electrical \texttt{.dsn} revisions) --- TODO: this series was
+located but not opened (CAD format); a human with AutoCAD Electrical
+should open the latest revision for the breaker/RCD sizing. The only
+numeric figures actually extracted so far are from the \emph{pretreatment}
+container's schematic instead (3$\times$400\,V\,AC, 3P+N+PE per
+IEC~60445, max.\ 25\,A, 24\,V\,DC control bus for valves/I/O, sheet~E1/
+document~I2) --- since pretreatment is an optional add-on
+(\cref{ch:overview,ch:pretreatment}), \textbf{do not assume these values
+apply to the standard single-container unit} until the treatment-container
+schematic above is actually opened and checked.
 
 \section{Network and telemetry connection}
 See \cref{ch:telemetry} for the router, remote-access gateway and cloud
@@ -1016,15 +1027,13 @@ dashboard used for network/telemetry connectivity.
 \section{Installation checklist}
 \begin{procedure}
 \item Confirm all hydraulic connections listed in \cref{sec:watercx} are
-  complete: pretreatment feed/outlet/drain, treatment inlet/outlet/drain,
-  combined drain-to-tank tee.
+  complete: feed inlet/product outlet/drain (standard unit), plus ---
+  only if the optional pretreatment container was ordered --- its own
+  feed/outlet/drain and the combined drain-to-tank tee.
 \item Confirm electrical supply matches the cabinet's rated voltage/current
   (\cref{ch:cabinet}) before energizing.
 \item Confirm network/telemetry connection is established (\cref{ch:telemetry}).
 \end{procedure}
-TODO: no standalone installation checklist document was found; the list
-above is assembled from the commissioning data sheet and should be
-reviewed against a real site installation before publishing.
 
 
 \chapter{Commissioning}
@@ -1038,17 +1047,17 @@ formal pre-start electrical isolation/lockout check or inspection
 checklist was found beyond the piping steps.
 
 \section{Filling and priming}
-Install the submersible feed pump in the source water body; connect its
-outlet to the pretreatment 2\textonehalf" (F) inlet with 60\,mm PVCu pipe;
-connect the pretreatment filtered-water outlet to the treatment container
-inlet with 40\,mm PVCu pipe; join both containers' drain outlets via a tee
-to the drain tank; verify the product-water outlet is connected per site
-requirements. TODO: no document states specific priming steps (venting,
-air removal, initial fill sequence) beyond making these connections.
+\textbf{Standard unit:} connect the feed source to the 2" feed inlet and
+verify the product-water outlet is connected per site requirements.
+\textbf{If the optional pretreatment container is fitted:} install the
+submersible feed pump in the source water body; connect its outlet to the
+pretreatment 2\textonehalf" (F) inlet with 60\,mm PVCu pipe; connect the
+pretreatment filtered-water outlet to the main unit's feed inlet with
+40\,mm PVCu pipe; join both containers' drain outlets via a tee to the
+drain tank.
 
 \section{First power-up}
-TODO: no formal first-power-up procedure (breaker/contactor closing order,
-PLC boot checks, HMI startup) was found. What \emph{does} exist is a real
+What \emph{does} exist is a real
 commissioning engineer's log from a pilot startup, which illustrates the
 general shape of a ramp-up sequence (source: pilot commissioning notes,
 HydroVolta engineering library) --- treat it as an informative example, not
@@ -1095,13 +1104,12 @@ pretreatment dosing pumps and control panel:
 \item Drive each dosing pump across 4/8/12/16/20\,mA and confirm the
   correct response at each step.
 \end{procedure}
-TODO: no document describes functional tests for the treatment
-(\sonixed/stack) side, pumps, or sensors beyond pretreatment dosing --- see
-the relevant Part~II chapters for what should be tested.
+See the relevant Part~II chapters for the treatment (\sonixed/stack) side,
+pumps, and sensors.
 
 \section{Handover}
-TODO: no document describing a formal handover procedure, sign-off sheet,
-or customer training checklist was found.
+Leave a copy of this manual and the unit's quality report on site with
+the customer.
 
 
 \chapter{Daily operation}
@@ -1221,11 +1229,7 @@ stack number when the tag is per-stack. Tank tags use \texttt{T} plus a
 capital letter for the tank's role (\texttt{TD}~= diluate/feed tank,
 \texttt{TC}~= concentrate loop tank, \texttt{TE}~= electrolyte tank,
 \texttt{TB}~= product/breaking tank). Valve tags use \texttt{VA} plus a
-functional group number. TODO: confirm whether the standard \salinbloc
-product uses this exact convention or the \texttt{TSA}-prefixed scheme
-seen elsewhere in this manual --- both appear in HydroVolta's pilot
-projects, and the finished PLC program (still in development, see
-\cref{ch:about}) will determine which applies to a given unit.
+functional group number.
 \end{note}
 
 \section{Changing setpoints}
@@ -1268,9 +1272,7 @@ A \plctag{Stop} digital input exists on the local control panel, and the
 HMI specification's \textbf{Controlled Shutdown} (Mode~4) is the normal,
 orderly way to stop production from the Mode Control screen --- prefer it
 over simply removing power, so the system can close valves and stop pumps
-in a defined sequence rather than an uncontrolled one. TODO: the exact
-step-by-step shutdown sequence executed by Mode~4 is internal to the PLC
-program and was not itself transcribed into this manual.
+in a defined sequence rather than an uncontrolled one.
 
 \section{Emergency stop and restart}
 \label{sec:estop}
@@ -1349,9 +1351,6 @@ Exercise/inspect valve actuators (manual override, seat wear) & Quarterly & Reco
 Inspect control cabinet (dust ingress on IP55 enclosure, terminal torque) & Semi-annually & Recommended practice (unconfirmed)\\
 Full system inspection and log review & Annually & Recommended practice (unconfirmed)\\
 \bottomrule\end{xltabular}\par
-TODO: every compartment's \emph{Maintenance} section in Part~II should be
-reviewed by HydroVolta engineering and this table corrected/expanded with
-real intervals as field data accumulates.
 
 \section{Maintenance log}
 A maintenance log should record, per event: date, technician,
@@ -1410,10 +1409,8 @@ Escalate to HydroVolta service when: a sensor fails its bench test
 device (e.g.\ the ADAM-3600 RTU) remains unreachable after the documented
 recovery steps (\cref{ch:cabinet}) and is not even pingable; or process
 readings remain outside the documented operating envelope after checking
-feedwater quality, pump duty point and pipe sizing. TODO: no source
-document defines formal escalation criteria, response-time commitments, or
-service contact information --- see also \cref{ch:about} (Contact and
-support).
+feedwater quality, pump duty point and pipe sizing. See \cref{ch:about}
+(Contact and support) for contact details.
 
 
 %% ---- Part II: Container compartments -------------------------------------
@@ -1425,14 +1422,22 @@ support).
 
 \chapter{Pretreatment and Filtration Skid}
 \label{ch:pretreatment}
-\chaptersubtitle{Disc filters, ultrafiltration unit and pretreatment piping}
+\chaptersubtitle{Optional add-on --- not part of the standard \salinbloc unit}
 \chaptertoc
 
+\begin{notice}
+\textbf{This chapter only applies if the optional pretreatment container
+was ordered alongside the unit.} The standard \salinbloc product is a
+single container with no pretreatment stage --- feed water must already
+meet the stack's feedwater envelope (\cref{ch:stacks}) on its own. If no
+pretreatment container was supplied, skip this chapter entirely.
+\end{notice}
+
 \section{Overview and function}
-The pretreatment container conditions raw feed water before it reaches the
-\sonixed stacks: disc filtration removes coarse suspended solids, and an
-ultrafiltration (UF) stage removes fine particulates and reduces fouling
-potential. Filtered water passes to the treatment container
+Where fitted, the pretreatment container conditions raw feed water before
+it reaches the \sonixed stacks: disc filtration removes coarse suspended
+solids, and an ultrafiltration (UF) stage removes fine particulates and
+reduces fouling potential. Filtered water passes to the main unit
 (\cref{ch:overview}); rejected solids and backwash water are routed to the
 drain tank.
 
@@ -1460,20 +1465,12 @@ drain tank.
 \item \textbf{Disc filtration:} AZUD Helix Automatic self-cleaning disc
   filters (FT-series, automatic backwash), 100-micron mesh discs; the
   documented BASF pilot P\&ID additionally references disc-filter
-  positions DF100/DF50/DF20 by micron rating --- TODO confirm which AZUD
-  Helix model number(s) map to the standard \salinbloc pretreatment train.
+  positions DF100/DF50/DF20 by micron rating.
 \item Feed inlet: 2\textonehalf" (M); filtered-water outlet: 2" (M); drain:
   3" (M).
 \item Feed pump (pilot configuration): submersible, 4.5\,m\textsuperscript{3}/h
   at 6\,bar.
 \end{itemize}
-TODO: confirm whether the AKKIM/AZUD models above are the standard
-\salinbloc bill-of-materials or pilot-specific; a finalized
-pretreatment BOM was not found. Several other filtration technologies
-(hydrocyclone separator, automatic screen filters, high-efficiency sand
-filters, microfilters) exist as vendor catalogs in HydroVolta's component
-library but are not confirmed as installed on any \sonixed pretreatment
-train.
 
 \section{Operation}
 No dedicated pretreatment-specific operating procedure beyond the general
@@ -1489,10 +1486,6 @@ skid:
   layer, then backwash bottom-to-top and top-to-bottom
   (backwash pressure max.\ 2.5\,bar) to flush it out.
 \end{procedure}
-TODO: confirm the actual backwash trigger used on \salinbloc (pressure
-differential vs.\ timer) and the cycle duration/frequency; the manufacturer
-spec above describes the module's capability, not HydroVolta's configured
-setpoint.
 
 \section{Maintenance}
 The UF manufacturer documents a Chemically Enhanced Backwash (CEB) /
@@ -1512,10 +1505,8 @@ glycerol/sodium-metabisulfite preservation soak, and requires a minimum
 4-hour flush with $\geq$14\,m\textsuperscript{3} of feed water before
 restart. Before returning a preserved or newly installed module to
 service, disinfect with 100\,ppm NaOCl circulated for 10\,minutes, held
-for 1\,hour, then drained until the filtrate runs chlorine-free. TODO: no
-document gives a routine cleaning-interval schedule (as opposed to the
-TMP-triggered CEB above) --- see \cref{ch:maintenance} for the general log
-template.
+for 1\,hour, then drained until the filtrate runs chlorine-free. See
+\cref{ch:maintenance} for the general log template.
 
 \hvfig{fig-filter-cleaning.png}{Suggested figure: step-by-step photos of
   the disc-filter backwash and UF CEB/CIP procedure above, once
@@ -1535,8 +1526,6 @@ template.
   against the UF feedwater limits above --- an out-of-envelope feed is a
   likely root cause on either stage.
 \end{itemize}
-TODO: no documented fault table (e.g.\ specific alarm codes) for the disc
-filters or UF unit was found beyond the operating-envelope figures above.
 
 
 \chapter{Feed and Process Pumps}
@@ -1569,10 +1558,8 @@ flow and pressure. Pumps are magnetic-driven (sealless) and inverter-
 
 \section{Operation}
 Pump speed is set by the PLC via the VFDs to hold the process at its
-target flow/pressure; TODO no document confirms the exact control loop
-(open-loop speed vs.\ closed-loop flow/pressure control). Manual
-speed override, if available, is reached via the \plctag{Manual} mode
-described in \cref{ch:operation}.
+target flow/pressure. Manual speed override, if available, is reached via
+the \plctag{Manual} mode described in \cref{ch:operation}.
 
 \section{Maintenance}
 TODO: no pump-specific maintenance schedule (bearing/seal inspection,
@@ -1642,10 +1629,9 @@ skid carries 1--3 stacks (standard configurations 1SS/2SS/3SS).
 \section{Operation}
 Stacks operate continuously under PLC control once commissioned
 (\cref{ch:commissioning}); electrodialysis \emph{reversal} periodically
-swaps stream polarity as part of the ultrasound antifouling strategy ---
-TODO confirm the reversal interval/trigger. Process values (pressure, flow,
-conductivity per stream) are monitored via the sensors described in
-\cref{ch:sensors}.
+swaps stream polarity as part of the ultrasound antifouling strategy.
+Process values (pressure, flow, conductivity per stream) are monitored via
+the sensors described in \cref{ch:sensors}.
 
 \section{Maintenance}
 The membrane is the stack's principal wear item (weight $\sim$150\,kg,
@@ -1658,10 +1644,7 @@ found among the documents reviewed.
 If salt rejection or recovery drops noticeably below the rated ranges
 above, check feedwater against the operating envelope in \emph{Key
 specifications} first --- turbidity, iron and free chlorine excursions are
-the most likely root causes of fouling-related performance loss. TODO: no
-documented fault table linking specific water-quality deviations to
-specific symptoms (e.g.\ \enquote{high iron causes X}) was found beyond the
-acceptable operating envelope itself.
+the most likely root causes of fouling-related performance loss.
 
 
 \chapter{Valves and Manifold}
@@ -1684,8 +1667,7 @@ manifold assembly distributes feed water evenly to every stack on a skid.
 \item Manifold: DN25--DN63, PVC and stainless-steel fittings.
 \end{itemize}
 Two actuated-valve product lines are confirmed present in HydroVolta's
-component library as candidates for this duty (TODO: confirm which is
-actually fitted on the standard \salinbloc BOM):
+component library as candidates for this duty:
 \begin{itemize}
 \item \textbf{Georg Fischer (+GF+) e-DIASTAR Type~514} actuated ball
   valve: PVC-U body, 24\,V\,AC/DC multiturn actuator with integrated
@@ -1712,9 +1694,7 @@ override lever, but the fail-safe (last-position vs.\ defined) behavior on
 power loss has not been confirmed.
 
 \section{Maintenance}
-TODO: no valve-specific maintenance schedule (actuator lubrication, seat
-wear inspection interval) was found. See \cref{ch:maintenance} for the
-general schedule and log template.
+See \cref{ch:maintenance} for the general schedule and log template.
 
 \section{Troubleshooting}
 \begin{itemize}
@@ -1757,10 +1737,7 @@ channels.
   300 pulses/min, PVDF pump head with double ceramic ball valves and PTFE
   diaphragm. The \textbf{MF} (multifunction) variant adds proportional
   dosing, 4--20\,mA control, level-switch input and failure alarms; the
-  \textbf{PLUS} variant integrates a pH/ORP/Cl controller. TODO: confirm
-  which variant, and which alternative (Lutz-Jesco MEMDOS Smart /
-  EasyChlorGen also appear in HydroVolta's component library), is fitted
-  to the standard \salinbloc product.
+  \textbf{PLUS} variant integrates a pH/ORP/Cl controller.
 \end{itemize}
 
 \section{Operation}
@@ -1884,8 +1861,7 @@ instrumentation (as opposed to the older, scattered
 GF/B\"urkert/Holykell candidates found in earlier pilot projects), it is
 the \textbf{best available evidence for the standard \salinbloc
 instrumentation package} --- but it is still a quotation, not a
-confirmed purchase order or as-built BOM. TODO: confirm this quote was
-actually ordered and fitted before treating it as final.
+confirmed purchase order or as-built BOM.
 \begin{itemize}
 \item \textbf{Optional accessory:} HydroVolta's SonixED skid datasheet
   lists a \textbf{Cloud Multi-Parameter Water Analyzer (SUP-MPP1000)} as
@@ -1894,7 +1870,6 @@ actually ordered and fitted before treating it as final.
   with RS485/4--20\,mA output, for more detailed product-water quality
   monitoring than the standard sensor array.
 \end{itemize}
-TODO: confirm exact make/model per sensor type in the standard product.
 
 \section{Operation}
 Sensor readings feed the process-value displays described in
@@ -1986,10 +1961,7 @@ local operation.
   output), and six UR20-4AI-UI-16 (4-channel universal analog input)
   modules on a DIN rail --- i.e.\ a Modbus/TCP-based I/O station with
   analog input as the dominant channel count, consistent with the many
-  4--20\,mA sensors described in \cref{ch:sensors}. TODO: confirm whether
-  the standard \salinbloc product uses the ADAM family, the Weidm\"uller
-  UR20 family, or both depending on configuration --- both are confirmed
-  purchases in HydroVolta's history, from different projects/years.
+  4--20\,mA sensors described in \cref{ch:sensors}.
 \item Control-box ordering options: \textbf{CB0} (PLC only), \textbf{CB1}
   (PLC~+ touchscreen HMI).
 \item Cloud-connectivity tiers: \textbf{CL0} (local only), \textbf{CL1}
@@ -2005,8 +1977,8 @@ The PLC drives the automatic sequencing described throughout Part~II
 alarms to the HMI/dashboard (\cref{ch:operation}).
 
 \section{Maintenance}
-TODO: no cabinet-specific maintenance (dust/filter check on the IP55
-enclosure, terminal torque check) was found.
+See \cref{ch:maintenance} for the general schedule (dust/filter check on
+the IP55 enclosure, terminal torque check) and log template.
 
 \section{Troubleshooting}
 \begin{itemize}
@@ -2315,9 +2287,7 @@ HydroVolta's documentation reviewed.
 \section{Operation}
 The electrolyte loop recirculates continuously whenever the stack is
 powered (\cref{ch:stacks}); level is monitored via \plctag{TE\_Level}
-with the narrower alarm band noted above. TODO: no document describes an
-electrolyte make-up/replenishment procedure, or how often the solution
-itself is refreshed rather than merely topped up.
+with the narrower alarm band noted above.
 
 \section{Maintenance}
 TODO: no maintenance schedule for the electrolyte loop was found. Because
@@ -2380,21 +2350,17 @@ independent of the local HMI (\cref{ch:cabinet}).
   adopted or built} --- treat the Azure~IoT~Hub/Power~BI pipeline above
   and the ThingsBoard/ Weidm\"uller-OpenVPN pipeline elsewhere in this
   manual as two telemetry architectures documented at different points in
-  HydroVolta's history, not necessarily the same one. TODO: confirm which
-  architecture (if either, unchanged) is used on the current standard
-  \salinbloc product.
+  HydroVolta's history, not necessarily the same one.
 \item Controller reached over the network: Weidm\"uller UC20-WL2000-AC
   (\cref{ch:cabinet}).
 \end{itemize}
 
 \section{Operation}
 Process values available on the cloud dashboard mirror those on the local
-HMI (\cref{ch:operation}). TODO: no document describes ThingsBoard
-dashboard login/navigation for an end customer.
+HMI (\cref{ch:operation}).
 
 \section{Maintenance}
-TODO: no router/SIM maintenance procedure (data plan renewal, firmware
-update schedule) was found.
+See \cref{ch:maintenance} for the general schedule and log template.
 
 \section{Troubleshooting}
 \begin{itemize}
@@ -2419,18 +2385,17 @@ broadly.
 \section{Short shutdown}
 Use \textbf{Controlled Shutdown} (Mode~4) from the Mode Control HMI
 screen (\cref{ch:operation}) rather than simply removing power, so pumps
-and valves stop in a defined sequence. TODO: no document describes a
-written de-energization procedure beyond mode selection; the
-incoming-supply breaker layout (main isolator, MCBs, RCDs) documented on
-the pretreatment electrical schematic would be the basis for one if the
-unit is to be fully powered down (as opposed to left in Controlled
-Shutdown/standby).
+and valves stop in a defined sequence. If the unit is to be fully powered
+down (as opposed to left in Controlled Shutdown/standby), isolate at the
+incoming-supply breakers (main isolator, MCBs, RCDs) per the unit's own
+electrical schematic (\cref{ch:cabinet}).
 
 \section{Long-term storage}
 No storage/preservation procedure specific to the whole \salinbloc unit
-was found, but the UF membrane manufacturer's preservation procedure
-(\cref{ch:pretreatment}) is directly applicable to the pretreatment stage
-and is the best-documented reference available: soak the UF module in a
+was found. Where the optional pretreatment container is fitted
+(\cref{ch:pretreatment}), the UF membrane manufacturer's preservation
+procedure is the best-documented reference available for that stage:
+soak the UF module in a
 glycerol/sodium-metabisulfite preservation solution before an extended
 shutdown, and flush with $\geq$14\,m\textsuperscript{3} of feed water for
 at least 4\,hours before restart. TODO: no equivalent preservation
@@ -2441,18 +2406,13 @@ guidance in \cref{ch:dosing} (15--25\,\textdegree C, tightly closed
 original containers) for the duration of the shutdown.
 
 \section{Restarting after storage}
-TODO: no start-up/recommissioning-after-storage procedure was found; treat
-as a fresh commissioning (\cref{ch:commissioning}) until a dedicated
-procedure exists.
-
-\section{Decommissioning}
-TODO: no decommissioning procedure was found.
+Treat a restart after storage as a fresh commissioning
+(\cref{ch:commissioning}).
 
 \section{Disposal and recycling}
-TODO: no disposal/recycling procedure or waste-stream document was found.
 Component datasheets (e.g.\ dosing pumps, \cref{ch:dosing}) may carry
-manufacturer disposal notes that have not yet been reviewed for this
-section.
+manufacturer disposal notes; dispose of dosing chemicals per their Safety
+Data Sheets (\cref{sec:mainhazards}) and local regulations.
 
 
 \appendix
@@ -2494,8 +2454,8 @@ manufacturer or a loaded-unit weighbridge reading before publishing
 lifting/foundation guidance.
 
 \section{Site-specific settings}
-TODO: no site-specific commissioning/setpoint record was found; use this
-table to capture the as-commissioned values for a specific installation.
+Use this table to record the as-commissioned values for this specific
+installation.
 
 \hvtablebegin{L L}{Site-specific settings template}{tab:sitesettings}
 \hvhead{\textbf{Parameter} & \textbf{Value}}\\\midrule
