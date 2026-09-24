@@ -6,13 +6,15 @@ Repo: `GeorgeHydrovolta/HydroVolta-Main` — this is the **live** hydrovolta.com
 A second repo (`josbrik/HydroVolta`) exists on the same machine and is **not** live; do not edit it.
 
 Deployment: static site, no build step. Cloudflare Pages auto-deploys every push to `main`.
-A push is a publish. There is no staging.
+A push is a publish. There is no staging. Deploys take roughly 30–60 seconds.
+
+Last full audit: 2026-09-23. Last updated: 2026-09-24.
 
 ---
 
 ## 1. Site structure
 
-### Pages (13 HTML files in repo root)
+### Pages (14 HTML files in repo root)
 
 Cloudflare Pages strips `.html`, so the canonical live path has no extension.
 
@@ -23,7 +25,7 @@ Cloudflare Pages strips `.html`, so the canonical live path has no extension.
 | `brine-valorization.html` | `/brine-valorization` | Chemical recovery from concentrate | yes |
 | `technology.html` | `/technology` | SonixED™ deep-dive | yes |
 | `systems.html` | `/systems` | SalinBloc™ containers + engineered skids | yes |
-| `applications.html` | `/applications` | Sector applications | yes |
+| `applications.html` | `/applications` | Six sector applications | yes |
 | `projects.html` | `/projects` | Morocco, Perth, Brazil, Saudi | yes |
 | `about.html` | `/about` | Company, leadership, credentials | yes |
 | `contact.html` | `/contact` | Engineering-assessment intake form | yes |
@@ -31,35 +33,49 @@ Cloudflare Pages strips `.html`, so the canonical live path has no extension.
 | `privacy.html` | `/privacy` | Privacy policy | yes |
 | `calculator.html` | `/calculator` | Partner ED calculator | `noindex,nofollow` |
 | `salinbloc-manual.html` | `/salinbloc-manual` | Customer manual portal | `noindex,follow` |
+| `404.html` | *(served for any unmatched path)* | Error page | not linked, not in sitemap |
 
 11 indexable pages. This matches the ~11 real pages Search Console reports.
 
 ### Shared elements — there is no templating
 
-Nav, topbar and footer are **hand-copied into all 13 files**. There are no includes,
-no partials, no build step. Any nav or footer change is a 13-file edit — do it in
-one pass and verify all 13, or don't start.
+Nav, topbar and footer are **hand-copied into all 14 files**. There are no includes,
+no partials, no build step. Any nav or footer change is a 14-file edit — do it in
+one scripted pass and verify all 14, or don't start.
 
 - `css/site.css` — single stylesheet, all pages. Fonts: Archivo, Archivo Narrow,
   Plus Jakarta Sans (self-hosted woff2 in `fonts/`).
 - `js/site.js` — behaviour only: mobile nav, scroll reveal (`.rv`), hero slideshow,
-  auto year (`[data-year]`), active-nav highlight driven by `<body data-page="…">`.
+  auto year (`[data-year]`), active-nav highlight, cookie banner.
 - `js/manual.js` — manual page only.
-- Main nav (12 of 13 pages): Home · How it Works · Projects · Systems · About · Get in Touch.
-- Topbar (all pages): "Active in Morocco & Perth · Pilot contracts open · EIC Accelerator €2.2M awarded".
-- Footer (all pages): 9 page links + LinkedIn + Facebook.
+- **Main nav** (13 of 14 pages): Home · How it Works · Applications · Projects ·
+  Systems · About · Get in Touch.
+  `brine-valorization.html` is the exception — see open items.
+- Topbar (all pages): "Active in Morocco & Perth · Pilot contracts open ·
+  EIC Accelerator €2.2M awarded".
+- Footer: link *targets* are the same everywhere, but the markup and link *labels*
+  are **not** — there are 9 distinct footer variants. Ten pages use short labels
+  ("Groundwater", "Technology", "Projects"); `index.html`,
+  `brine-valorization.html` and `contact-us.html` use long ones
+  ("Groundwater Desalination", "SonixED™ Technology", "Reference Projects").
+  Do not assume the footers are identical — diff them before editing.
+
+### Responsive breakpoints (`css/site.css`)
+
+`900px` is the important one: the nav collapses to a hamburger at ≤900px, so the
+desktop nav must fit from 901px up. Others: 1160, 1040, 820, 720, 600, 700.
 
 ### Config files
 
 | File | Status |
 |---|---|
+| `404.html` | **present** — critical, see gotchas |
 | `robots.txt` | present, correct, points at the sitemap |
 | `sitemap.xml` | present, 10 URLs, all real, extension-less |
 | `_redirects` | present, 11 legacy WordPress paths → 301 |
 | `llms.txt` | present, accurate, kept in sync with site copy |
-| `_headers` | **absent** |
-| `404.html` | **absent — see work item 1** |
-| `wrangler.toml`, `functions/` | absent |
+| `_headers` | absent |
+| `wrangler.toml`, `functions/` | absent — do not create without asking |
 
 ### Other directories
 
@@ -85,144 +101,194 @@ one pass and verify all 13, or don't start.
 Never invent figures, client names or results. If a number is needed and not
 already on the site or supplied by George, write `[PLACEHOLDER]` and flag it.
 
+Also respect the site's **maturity labels**. Perth is an *active pilot* /
+*Utility Pilot Reference*, not a completed validation; Brazil is an LOI and Saudi
+an MOU. Existing copy hedges deliberately ("in suitable applications", "in
+selected cases") — keep those hedges when reusing a claim.
+
 ---
 
-## 3. Open work items
+## 3. Gotchas learned the hard way
 
-Status reflects the audit of 2026-09-23.
+**`404.html` must use root-relative URLs.** It is served *at the URL the visitor
+requested*, so relative paths resolve against that fake directory — from
+`/wp-admin/`, `css/site.css` becomes `/wp-admin/css/site.css`. This shipped broken
+once. Every other page sits at the root, so this is the only file with this
+constraint. Test it from a nested path, never from the root.
 
-### 1. SEO migration cleanup — **NOT DONE (critical)**
+**Never give `404.html` a canonical tag or `noindex`.** Self-canonicalising an
+error page, or pointing it at the homepage, recreates the soft-404 signal the
+file exists to remove. The 404 status is the signal Google acts on.
 
-The old site was WordPress on Rocket.net. Search Console shows ~3,000 ghost WordPress
-URLs (`/wp-content/`, `/wp-admin/`, `/category/`, `/tag/`, `/page/`, …) against ~11 real pages.
+**The nav's active-link highlight is coupled to `data-page`.** `site.js` strips a
+trailing `.html` from each nav `href` and compares it to `<body data-page="…">`.
+So nav links on the 13 standard pages must keep the relative `about.html`
+spelling — a root-relative `/about` silently breaks the highlight. (`404.html` is
+exempt; it has no matching page.)
 
-**Diagnosis complete.** Live checks on 2026-09-23 returned:
+**`git fetch` hangs in Claude Code sessions** — it waits on a credential prompt
+that has nowhere to appear. Pushes work off cached credentials
+(`GIT_TERMINAL_PROMPT=0 GIT_ASKPASS=echo git push`), but the remote-tracking ref
+can be stale, so `git status` may misreport ahead/behind. Use
+`git ls-remote origin refs/heads/main` to read the true remote state.
 
-```
-/wp-content/uploads/2023/01/foo.jpg   200
-/wp-admin/                            200
-/wp-login.php                         200
-/category/news/                       200
-/tag/water/                           200
-/page/2/                              200
-/feed/                                200
-/author/admin/                        200
-/wp-json/                             200
-/xmlrpc.php                           200
-/some-random-nonexistent-page/        200
-```
+**Coordinate with GitHub Desktop.** George also commits and pushes from Desktop.
+Twice a Desktop commit has swept up an uncommitted edit of Claude's, which
+happened to work but left a commit message describing changes that landed in a
+different commit. If Claude has edits in the working tree, re-read the git state
+before committing. Ask George to mention Desktop pushes.
 
-Every unknown URL returns **HTTP 200 with a byte-identical copy of the homepage**
-(22,772 bytes). Not a redirect — a 200. This is a soft-404 across an unbounded URL
-space and it is the direct cause of the ghost-URL problem.
+**`git commit -F` fails on long scratchpad paths** ("Filename too long"). Write
+the message to `.git/cmsg.txt` instead and delete it afterwards.
 
-**Root cause**: Cloudflare Pages looks for a top-level `404.html`. If none exists it
-assumes a single-page app and serves the root document for every unmatched path.
-This repo has no `404.html`, so the entire site is in SPA fallback mode.
+**Verify rendered output, not just curl.** A page can return the right status and
+the right HTML and still be visibly broken. Serve locally and check in the
+browser, at desktop width, at 901px, and on mobile.
 
-**Fix options, in order — all still to be approved:**
+---
 
-- **(a) Add `404.html` to the repo root.** One new file, no Cloudflare dashboard
-  change. Immediately turns all ~3,000 ghost URLs into real 404s, plus every future
-  typo'd URL. This is the highest-value single change available and should go first.
-- **(b) True 410 for known WordPress patterns.** `_redirects` **cannot** serve 410 —
-  Cloudflare Pages supports only 301, 302, 303, 307, 308 and 200 in that file
-  (verified against Cloudflare docs, 2026-09-23). The only in-repo way to return 410
-  is **Pages Functions**: a `functions/_middleware.js` that matches the WordPress
-  path patterns and returns `new Response(null, { status: 410 })`. This adds a
-  serverless layer to a currently static site — **ask George before creating
-  `functions/`.** Google treats 404 and 410 almost identically for deindexing;
-  410 is marginally faster. Option (a) alone is likely sufficient.
-- **(c)** Cloudflare dashboard Bulk Redirects — **do not touch without asking.**
+## 4. Open work items
 
-**Sitemap/robots**: already correct. `sitemap.xml` lists 10 URLs, all real, no ghosts;
-`robots.txt` points at it. Only gap: `/privacy` is indexable but missing from the sitemap.
+### 1. SEO migration cleanup — **DONE** (2026-09-23)
 
-### 2. Homepage headline — **NOT DONE**
+The old site was WordPress on Rocket.net; Search Console showed ~3,000 ghost URLs
+(`/wp-content/`, `/wp-admin/`, `/category/`, `/tag/`, `/page/`, …) against ~11 real pages.
 
-Current H1 is capability-led: *"Turn difficult groundwater into a reliable water
-supply at up to 98% recovery."* Needs rewriting to lead with the client's problem
-(nitrate). **Three options to be proposed; do not apply without George's approval.**
+**Root cause**: Cloudflare Pages looks for a top-level `404.html`; with none it
+assumes a single-page app and serves the root document for *every* unmatched path.
+The site had no `404.html`, so every non-existent URL returned **HTTP 200 with a
+byte-identical copy of the homepage** — a soft 404 across an unbounded URL space.
+
+**Fixed** by adding `404.html` (commits `d64e406`, `7496a97`). Verified live: 12
+ghost paths → 404, 11 real pages → 200, legacy 301s intact.
+
+**On 410**: `_redirects` **cannot** serve it — Cloudflare Pages supports only 301,
+302, 303, 307, 308 and 200 there. A true 410 needs `functions/_middleware.js`,
+which adds a serverless layer to a static site. Not done, and not needed: Google
+deindexes 404 and 410 at nearly the same rate. **Ask before creating `functions/`.**
+
+**Sitemap/robots**: were already correct.
+
+Remaining: `/?p=123`-style URLs still return 200, which is *correct* — that is the
+homepage with a query string, and its canonical consolidates it. Not fixable by
+path rules.
+
+### 2. Homepage headline — **DONE** (2026-09-24)
+
+Was capability-led: *"Turn difficult groundwater into a reliable water supply at up
+to 98% recovery."* Now leads with the problem (commits `8fe1c4e`, `facc71f`):
+
+> **Nitrate above the limit. Minerals your water still needs.**
+
+Lead paragraph: *"Reverse osmosis strips both. SonixED™ removes nitrate selectively
+while retaining calcium and magnesium — so the output needs no remineralisation.
+In active pilot with Perth Water Corporation across three utility sites, and a
+project pipeline across four continents."*
+
+Constraint card 01's heading was changed from "Nitrate above the limit. Minerals
+still needed." (which the new H1 duplicated) to **"RO solves one problem and
+creates another."** — which also makes cards 01/02/03 a parallel set.
+
+The `<title>` tag was **deliberately left unchanged** so any search movement is
+attributable to the H1 alone. Revisit separately.
+
+The new lead dropped the brine valorization mention from the hero; it remains via
+card 03 and two process-diagram hotspots.
 
 ### 3. Dedicated nitrate page — **NOT DONE**
 
-No `nitrate.html` exists. Nitrate content is currently scattered across
-`groundwater.html` and homepage card 01. New page to cover: EU Nitrates Directive
-and WHO limit; why RO is a poor fit (strips the calcium and magnesium the output
-still needs); how SonixED removes nitrate selectively; Perth as reference.
+No `nitrate.html` exists. Now the natural next piece: the homepage H1 raises
+nitrate, and this page should answer it. Cover: EU Nitrates Directive and WHO
+limit; why RO is a poor fit (strips the calcium and magnesium the output still
+needs); how SonixED removes nitrate selectively; Perth as reference.
 George supplies the figures — use `[PLACEHOLDER]` until then.
 
-### 4. Perth reference more prominent on homepage — **PARTIAL**
+Already on the site and safe to reuse: EU nitrate limit 50 mg/l NO₃⁻ and the
+December 2027 EU Groundwater Directive compliance deadline (`applications.html`,
+`llms.txt`).
 
-Perth currently appears three times: the topbar strip, a small reference block under
-homepage card 01 ("Perth Water Corporation · 3 utility sites · nitrate compliance ·
-active pilot"), and as the **second** project card, after Morocco. Not yet
-headline-level prominence.
+### 4. Perth reference more prominent on homepage — **PARTLY ADVANCED**
 
-### 5. Organization Schema.org — **DONE on homepage only**
+The new hero lead now names Perth above the fold ("In active pilot with Perth
+Water Corporation across three utility sites"). Perth also appears in the topbar,
+under constraint card 01, and as the second project card. Decide whether this is
+enough or a dedicated treatment is still wanted.
+
+### 5. Organization Schema.org — **ALREADY PRESENT**
 
 `index.html` carries a valid JSON-LD `Organization` block with `PostalAddress`,
 `ContactPoint`, `legalName`, `taxID` (BE0652996179), `foundingDate`, `logo` and
-`sameAs`. No other page has structured data. Possible follow-ups: add `streetAddress`
-and `postalCode`; consider `WebSite` and `Product` schema. Not urgent.
+`sameAs`. No other page has structured data. Optional follow-ups: add
+`streetAddress`/`postalCode`; consider `WebSite` and `Product` schema.
 
-### Additional defects found in the audit (not yet assigned)
+### Smaller defects — still open
 
-1. **272 internal links are written as `.html`**, and Pages 308-redirects each one to
-   the extension-less URL. Every internal click and crawl path costs a redirect hop.
-2. **`brine-valorization.html` carries a stale 11-link nav**; all other pages have 7.
-3. **`/groundwater`, `/brine-valorization` and `/applications` are absent from the
-   main nav** — reachable only via footer and in-body links.
-4. **`/contact` and `/contact-us` are two separate indexable contact pages**, both in
-   the sitemap. Cannibalisation risk. Consolidating means changing a URL — **ask first.**
-5. **Typo**, `brine-valorization.html:149`: "the integrated integrated desalination".
-6. **Address inconsistency**, `contact-us.html`: meta description says
+1. **`brine-valorization.html` has a stale 10-item nav** (Home · Groundwater ·
+   Brine Valorization · Technology · Systems · Applications · Projects · About ·
+   Contact · Get in Touch) while the other 13 pages have the 7-item nav.
+   Normalising it means *removing* links — **ask first.**
+2. **284 internal links are written as `.html`**, and Pages 308-redirects each to
+   the extension-less URL. Every internal click and crawl path costs a hop.
+3. **`/contact` and `/contact-us` are two indexable contact pages**, both in the
+   sitemap. Cannibalisation risk. Consolidating changes a URL — **ask first.**
+4. **Typo**, `brine-valorization.html`: "the integrated integrated desalination".
+5. **Address inconsistency**, `contact-us.html`: meta description says
    "Römische Straat 18"; body and everywhere else say "Romeinse straat 18".
    The German form is wrong and appears in search snippets.
-7. **`/privacy` missing from `sitemap.xml`.**
-8. **`README.md` is stale** — describes a "BPED" technology absent from the site and
-   names fonts the repo no longer uses.
-9. **`images/candidates/` is 129 MB across 75 photos, of which only 3 are referenced.**
-   Shipped on every deploy. Several unreferenced `.HEIC` files too (browsers can't
-   display HEIC).
-10. **No `_headers` file** — no security headers, no cache-control on static assets.
+6. **`/privacy` missing from `sitemap.xml`.**
+7. **`README.md` is stale** — describes a "BPED" technology absent from the site
+   and names fonts the repo no longer uses.
+8. **`images/candidates/` is 129 MB across 75 photos, of which only 3 are
+   referenced.** Shipped on every deploy. Several unreferenced `.HEIC` files too.
+9. **No `_headers` file** — no security headers, no cache-control on assets.
 
-### Verified clean
+### Verified clean (as of 2026-09-23 audit)
 
-- **No broken internal links.** Every `href`/`src`/`poster` across all 13 pages
-  resolves to a file that exists.
+- **No broken internal links** across all pages.
 - **Canonicals** present and correct on all 11 indexable pages, matching the sitemap.
-- **No carbon-capture or ocean positioning** remains in page copy or `llms.txt`.
-  The only survivors are three legacy redirect pairs in `_redirects`
+- **No carbon-capture or ocean positioning** in page copy or `llms.txt`. Only
+  survivors are legacy redirect pairs in `_redirects`
   (`/carbon-capture-co2-valorisation`, `/co2-valorisation` → `/technology.html`),
   which are inbound old URLs rather than claims.
 - **All files are valid UTF-8.**
-- **og:image and Twitter card tags** present on all 12 public pages.
+- **og:image and Twitter card tags** on all public pages.
+
+### Waiting on George
+
+- **Search Console → Indexing → Pages**: which reason rows hold the ~3,000 ghost
+  URLs, and their counts. Needed as the baseline to judge whether the 404 fix is
+  working. The fix went live 2026-09-23.
 
 ---
 
-## 4. Working rules
+## 5. Working rules
 
 - **Never commit or push without showing George the diff and getting an explicit OK.**
   A push to `main` publishes to the live site immediately.
 - **Never delete a page or change a URL path without asking.** SEO risk.
 - **One task at a time.** Keep changes minimal and consistent with existing style.
-- **Never add `noindex`.** (`calculator.html` and `salinbloc-manual.html` already have
-  it, deliberately — leave those alone.)
-- **Never touch Cloudflare configuration without asking.** This includes creating
+- **Never add `noindex`.** (`calculator.html` and `salinbloc-manual.html` already
+  have it, deliberately — leave those alone.)
+- **Never touch Cloudflare configuration without asking.** Includes creating
   `functions/`, `_headers`, or anything in the Cloudflare dashboard.
 - **Never invent numbers, client names or results.** Use `[PLACEHOLDER]`.
 - **Ask when unsure instead of guessing.**
+- **Verify on the live site after every push**, and say plainly when something
+  shipped broken.
 
 ### House style
 
 - Hand-written HTML, no framework, no build step. Match the surrounding markup.
-- Inline `style="…"` is used liberally in existing pages — follow suit rather than
-  adding new CSS classes for one-off tweaks.
-- Typographic entities are used throughout: `&mdash;`, `&ndash;`, `&thinsp;`,
-  `&rsquo;`, `&trade;`. Keep them.
+- Files are minified-ish: long single lines. Edit with exact-string replacement and
+  assert the match count is 1 before writing.
+- Inline `style="…"` is used liberally — follow suit rather than adding new CSS
+  classes for one-off tweaks.
+- Typographic entities throughout: `&mdash;`, `&ndash;`, `&thinsp;`, `&rsquo;`,
+  `&trade;`. Keep them.
 - `SonixED&trade;` and `SalinBloc&trade;` on first prominent use.
+- Voice: short declaratives, often two-part ("Active equipment. Operational data.").
+  Impersonal, no hype, no exclamation marks.
 - Sections use `class="section"`, `section--soft`, `section--dark`; reveal animation
   via `class="rv"` with `d1`/`d2`/`d3` delay modifiers.
 - New pages need: `<body data-page="…">`, canonical, og + twitter tags, the standard
-  nav, and the standard footer.
+  nav, and the standard footer. Add them to `sitemap.xml` and `llms.txt` too.
