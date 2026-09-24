@@ -151,7 +151,7 @@ browser, at desktop width, at 901px, and on mobile.
 
 ### 1. SEO migration cleanup — **DONE** (2026-09-23)
 
-The old site was WordPress on Rocket.net; Search Console showed ~3,000 ghost URLs
+The old site was WordPress on Rocket.net; Search Console showed ~1,950 ghost URLs
 (`/wp-content/`, `/wp-admin/`, `/category/`, `/tag/`, `/page/`, …) against ~11 real pages.
 
 **Root cause**: Cloudflare Pages looks for a top-level `404.html`; with none it
@@ -253,11 +253,59 @@ enough or a dedicated treatment is still wanted.
 - **All files are valid UTF-8.**
 - **og:image and Twitter card tags** on all public pages.
 
+### Search Console baseline — captured 2026-09-24, report dated 2026-09-21
+
+The report's "last update" was **2026-09-21**, two days *before* the 404 fix
+deployed, so this is a clean before-picture with zero effect from the fix in it.
+Compare future checks against this.
+
+| Reason | Source | Pages |
+|---|---|---|
+| Not found (404) | Website | 1,098 |
+| Alternate page with proper canonical tag | Website | 762 |
+| Page with redirect | Website | 72 |
+| Crawled – currently not indexed | Google systems | 19 |
+| Blocked due to access forbidden (403) | Website | 2 |
+| Duplicate without user-selected canonical | Website | 1 |
+| Server error (5xx) | Website | 0 |
+| Discovered – currently not indexed | Google systems | 0 |
+| **Total not indexed** | | **1,954** |
+| **Indexed** | | **11** |
+
+- The ghost-URL population is **~1,950, not the ~3,000** originally estimated.
+- **All 11 indexable pages are indexed.** Nothing real is missing from the index.
+- The 762 "Alternate page with proper canonical tag" was the soft-404 bucket:
+  ghost URLs were served the homepage HTML including its `rel=canonical` to `/`,
+  so Google consolidated them to the homepage rather than indexing them as
+  duplicates. That canonical was containing the damage.
+
+**Expected trajectory — read this before concluding the fix failed.** As Google
+re-crawls, the 762 migrate into "Not found (404)". So that row rises toward
+~1,860 while "Alternate page" falls toward 0, and the headline "not indexed"
+figure stays roughly **flat at ~1.95K for weeks**. That is the fix working.
+Watch the split between those two rows, not the total. Google only drops a URL
+from the report after 404ing it repeatedly over an extended period, so the total
+declines much later.
+
+**Do not run "Validate Fix" on the Not found (404) row.** Validation checks that
+the reported condition is gone — but 404 is the intended outcome here.
+
+Still to check:
+- The **19 "Crawled – currently not indexed"** — confirm no page worth indexing
+  is sitting in there. Probably all ghosts, since all 11 real pages are indexed.
+- The **2 × 403** — not reproducible on the live site on 2026-09-24 (ten likely
+  paths probed, all 404 or 200). Probably historical from the WordPress era, or
+  Cloudflare bot-blocking. Low priority.
+
+**"Page with redirect" (72) will grow**, because all 284 internal `.html` links
+308-redirect to their extension-less form. That makes the `.html` link cleanup a
+measurable crawl-budget issue rather than just tidiness.
+
 ### Waiting on George
 
-- **Search Console → Indexing → Pages**: which reason rows hold the ~3,000 ghost
-  URLs, and their counts. Needed as the baseline to judge whether the 404 fix is
-  working. The fix went live 2026-09-23.
+- Whether to normalise `brine-valorization.html`'s nav (removes links).
+- Whether Perth is now prominent enough on the homepage, or still wants a
+  dedicated treatment.
 
 ---
 
