@@ -59,7 +59,7 @@
   var activePage = document.body.getAttribute('data-page');
   if (activePage) {
     document.querySelectorAll('.nav__links a[href]').forEach(function(a) {
-      var href = a.getAttribute('href').replace(/\.html$/, '');
+      var href = a.getAttribute('href').replace(/\.html$/, '').replace(/^\//, '') || 'index';
       if (href === activePage) { a.setAttribute('aria-current', 'page'); }
     });
   }
@@ -123,7 +123,7 @@
       banner.id = 'cookie-banner';
       banner.innerHTML =
         '<p>We embed YouTube videos on this site. YouTube may set cookies when you play a video. ' +
-        'See our <a href="privacy.html">Privacy Policy</a> for details.</p>' +
+        'See our <a href="/privacy">Privacy Policy</a> for details.</p>' +
         '<div class="cookie-actions">' +
         '<button class="btn btn--gold btn--sm" id="cookie-accept">Accept cookies</button>' +
         '<button class="btn btn--ghost btn--sm" id="cookie-decline">Essential only</button>' +
