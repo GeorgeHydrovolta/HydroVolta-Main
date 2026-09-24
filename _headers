@@ -1,0 +1,35 @@
+# Hydrovolta — Cloudflare Pages response headers
+#
+# Cloudflare already sends X-Content-Type-Options: nosniff and
+# Referrer-Policy: strict-origin-when-cross-origin on every response, so those
+# are not repeated here.
+#
+# Cache-Control is deliberately NOT set under /* — that would catch HTML too,
+# and HTML must keep its max-age=0, must-revalidate so a deploy is visible
+# immediately. Only specific asset paths get a cache policy below.
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=15552000
+
+# Self-hosted woff2. Filenames encode weight and style, so the bytes behind a
+# given name never change — safe to treat as immutable.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Brochures, datasheets and manual PDFs. Large, rarely replaced, and the manual
+# chapters are already cache-busted with a query string by manual.js.
+/downloads/*
+  Cache-Control: public, max-age=2592000
+
+# Images are occasionally replaced under the same filename, so this is a week
+# rather than a year — a swapped image reaches returning visitors reasonably
+# soon without re-downloading 237 MB of assets on every visit.
+/images/*
+  Cache-Control: public, max-age=604800
+
+# /css/* and /js/* deliberately keep Cloudflare's 4-hour default. Their
+# filenames carry no content hash, so a long max-age would leave returning
+# visitors on stale CSS or JS until it expired. Add content hashing or a
+# query-string version first, then lengthen this.
