@@ -8,7 +8,7 @@ A second repo (`josbrik/HydroVolta`) exists on the same machine and is **not** l
 Deployment: static site, no build step. Cloudflare Pages auto-deploys every push to `main`.
 A push is a publish. There is no staging. Deploys take roughly 30–60 seconds.
 
-Last full audit: 2026-09-23. Last updated: 2026-09-24.
+Last full audit: 2026-09-23. Last updated: 2026-09-24 (after the internal-link rewrite).
 
 ---
 
@@ -36,6 +36,10 @@ Cloudflare Pages strips `.html`, so the canonical live path has no extension.
 | `404.html` | *(served for any unmatched path)* | Error page | not linked, not in sitemap |
 
 11 indexable pages. This matches the ~11 real pages Search Console reports.
+
+A 15th file, `nitrate-removal.html`, exists in the working tree **untracked and
+unpublished** pending figures — see work item 3. It carries the standard nav and
+footer, so include it when doing a site-wide chrome edit, but do not commit it.
 
 ### Shared elements — there is no templating
 
@@ -71,7 +75,7 @@ desktop nav must fit from 901px up. Others: 1160, 1040, 820, 720, 600, 700.
 |---|---|
 | `404.html` | **present** — critical, see gotchas |
 | `robots.txt` | present, correct, points at the sitemap |
-| `sitemap.xml` | present, 10 URLs, all real, extension-less |
+| `sitemap.xml` | present, 11 URLs — exactly the 11 published indexable pages |
 | `_redirects` | present, 11 legacy WordPress paths → 301 |
 | `llms.txt` | present, accurate, kept in sync with site copy |
 | `_headers` | absent |
@@ -120,11 +124,23 @@ constraint. Test it from a nested path, never from the root.
 error page, or pointing it at the homepage, recreates the soft-404 signal the
 file exists to remove. The 404 status is the signal Google acts on.
 
-**The nav's active-link highlight is coupled to `data-page`.** `site.js` strips a
-trailing `.html` from each nav `href` and compares it to `<body data-page="…">`.
-So nav links on the 13 standard pages must keep the relative `about.html`
-spelling — a root-relative `/about` silently breaks the highlight. (`404.html` is
-exempt; it has no matching page.)
+**The nav's active-link highlight is coupled to `data-page`.** `site.js` derives a
+key from each nav `href` and compares it to `<body data-page="…">`. As of
+2026-09-24 it strips a trailing `.html` *and* a leading `/`, falling back to
+`index` when the result is empty:
+
+```js
+var href = a.getAttribute('href').replace(/\.html$/, '').replace(/^\//, '') || 'index';
+```
+
+So `/technology`, `technology.html` and `technology` all match. Any change to nav
+href spelling must be checked against this line — a mismatch produces no error,
+the highlight just silently stops appearing. It only runs in a browser, so curl
+cannot detect the regression; load a page and check for `aria-current="page"`.
+
+**`site.js` builds links of its own at runtime.** The cookie banner constructs its
+own privacy-policy anchor in JS. A search of the HTML for link spellings will miss
+it. Check `js/site.js` whenever link formats change.
 
 **`git fetch` hangs in Claude Code sessions** — it waits on a credential prompt
 that has nowhere to appear. Pushes work off cached credentials
@@ -144,6 +160,15 @@ the message to `.git/cmsg.txt` instead and delete it afterwards.
 **Verify rendered output, not just curl.** A page can return the right status and
 the right HTML and still be visibly broken. Serve locally and check in the
 browser, at desktop width, at 901px, and on mobile.
+
+**`python -m http.server` is not a faithful preview and will mislead you.** It
+serves `.webp` as `application/octet-stream`, which Chrome refuses to render, so
+every image looks broken — this was diagnosed once by loading a known-good page
+and seeing 11 of 12 images "fail". It also has no extension-less routing, so all
+the site's root-relative links 404 locally. Use a preview server that sets the
+correct MIME types, maps `/about` to `about.html`, and serves `404.html` for
+unmatched paths. When a local result looks broken, test the same thing on an
+existing page before believing it.
 
 ---
 
@@ -195,17 +220,40 @@ attributable to the H1 alone. Revisit separately.
 The new lead dropped the brine valorization mention from the hero; it remains via
 card 03 and two process-diagram hotspots.
 
-### 3. Dedicated nitrate page — **NOT DONE**
+### 3. Dedicated nitrate page — **DRAFTED, awaiting figures** (2026-09-24)
 
-No `nitrate.html` exists. Now the natural next piece: the homepage H1 raises
-nitrate, and this page should answer it. Cover: EU Nitrates Directive and WHO
-limit; why RO is a poor fit (strips the calcium and magnesium the output still
-needs); how SonixED removes nitrate selectively; Perth as reference.
-George supplies the figures — use `[PLACEHOLDER]` until then.
+`nitrate-removal.html` exists in the working tree, **untracked and unpublished**.
+It is deliberately not committed, not in `sitemap.xml`, not in `llms.txt` and not
+in the nav, because it still carries 13 `[PLACEHOLDER]` markers. Publishing
+placeholder text to a live site would be worse than not publishing.
 
-Already on the site and safe to reuse: EU nitrate limit 50 mg/l NO₃⁻ and the
-December 2027 EU Groundwater Directive compliance deadline (`applications.html`,
-`llms.txt`).
+URL chosen: `/nitrate-removal` rather than `/nitrate`, for the keyword match, and
+consistent with the two-word `brine-valorization`.
+
+Structure: hero → regulatory context (3 cards) → why RO is a poor fit (3 cards) →
+mechanism, dark section (EDR / SEL / US) → performance comparison table → Perth →
+fit / not-fit → CTA. Validated: tag balance, single H1, canonical, og/twitter,
+standard nav and footer, no broken links, no overflow at desktop or mobile, table
+fits its container and scrolls inside its wrapper on mobile.
+
+**Regulatory claims verified against primary sources, not memory:**
+
+- Drinking Water Directive (EU) 2020/2184 — nitrate 50 mg/l, nitrite 0.5 mg/l,
+  Annex I Part B. In force since member-state transposition by 12 January 2023.
+- WHO Guidelines for Drinking-water Quality — 50 mg/l as the nitrate ion, a
+  short-term exposure guideline protecting bottle-fed infants against
+  methaemoglobinaemia.
+- Nitrates Directive 91/676/EEC — 50 mg/l to identify polluted groundwater and
+  designate Nitrate Vulnerable Zones; 170 kg N/ha/yr manure cap inside an NVZ.
+
+**The 13 figures George still owes**, all numeric:
+
+- Comparison table: nitrate removal (both columns), calcium retained %,
+  magnesium retained %, RO recovery range, energy kWh/m³ (both), feed TDS range.
+- Perth: feed nitrate, product nitrate, feed TDS, recovery %, in operation since.
+
+An interim option if the full set is slow: publish with the comparison table
+trimmed to what is already verifiable, and add the rest later.
 
 ### 4. Perth reference more prominent on homepage — **PARTLY ADVANCED**
 
@@ -223,24 +271,45 @@ enough or a dedicated treatment is still wanted.
 
 ### Smaller defects — still open
 
+Each of the four remaining needs George's judgement, not just an edit.
+
 1. **`brine-valorization.html` has a stale 10-item nav** (Home · Groundwater ·
    Brine Valorization · Technology · Systems · Applications · Projects · About ·
    Contact · Get in Touch) while the other 13 pages have the 7-item nav.
    Normalising it means *removing* links — **ask first.**
-2. **284 internal links are written as `.html`**, and Pages 308-redirects each to
-   the extension-less URL. Every internal click and crawl path costs a hop.
-3. **`/contact` and `/contact-us` are two indexable contact pages**, both in the
+2. **`/contact` and `/contact-us` are two indexable contact pages**, both in the
    sitemap. Cannibalisation risk. Consolidating changes a URL — **ask first.**
-4. **Typo**, `brine-valorization.html`: "the integrated integrated desalination".
-5. **Address inconsistency**, `contact-us.html`: meta description says
-   "Römische Straat 18"; body and everywhere else say "Romeinse straat 18".
-   The German form is wrong and appears in search snippets.
-6. **`/privacy` missing from `sitemap.xml`.**
-7. **`README.md` is stale** — describes a "BPED" technology absent from the site
-   and names fonts the repo no longer uses.
-8. **`images/candidates/` is 129 MB across 75 photos, of which only 3 are
-   referenced.** Shipped on every deploy. Several unreferenced `.HEIC` files too.
-9. **No `_headers` file** — no security headers, no cache-control on assets.
+3. **`README.md` is stale** — describes a "BPED" technology absent from the site
+   and names fonts the repo no longer uses. Needs George to say what is current.
+4. **`images/candidates/` is 129 MB across 75 photos, of which only 3 are
+   referenced.** Shipped on every deploy. Several unreferenced `.HEIC` files too
+   (browsers cannot display HEIC). Deleting files George may still want.
+
+Also **no `_headers` file** — no security headers, no cache-control on assets.
+That is Cloudflare configuration, so **do not create it without asking.**
+
+### Fixed since the audit
+
+- **Internal `.html` links** — all 307 now point at the canonical extension-less
+  URL (`79e845a`). No URL changed; the links simply pointed at the redirecting
+  spelling. Removed ~307 308-hops per full crawl. Required the `site.js`
+  highlight fix in the gotchas above.
+- **Doubled word** on `brine-valorization.html` (`e9afdee`).
+- **Address in `contact-us.html`'s meta description** — was "Römische Straat 18",
+  now "Romeinse straat 18", matching the body (`e9afdee`). It appears in the
+  search snippet.
+- **`/privacy` added to `sitemap.xml`** (`e9afdee`). The sitemap now covers all
+  11 published indexable pages exactly — verified against the filesystem.
+- **`index.html` footer `<li>`** — the Privacy link was a bare `<a>` inside the
+  `<ul>` with an orphan `</li>` (`d64e406`).
+- **False regulatory claim** — the site said "EU Groundwater Directive compliance
+  deadline December 2027 creates near-term procurement urgency" in three places
+  (`applications.html`, `groundwater.html`, `llms.txt`). The directive was
+  misnamed, the date did not correspond to a treatment obligation, and the
+  framing pointed at a future deadline when the obligation is already binding.
+  Replaced with the Drinking Water Directive's 50 mg/l parametric value, in force
+  since January 2023 (`8a31eb1`). The correction is commercially stronger than
+  what it replaced.
 
 ### Verified clean (as of 2026-09-23 audit)
 
@@ -338,5 +407,8 @@ measurable crawl-budget issue rather than just tidiness.
   Impersonal, no hype, no exclamation marks.
 - Sections use `class="section"`, `section--soft`, `section--dark`; reveal animation
   via `class="rv"` with `d1`/`d2`/`d3` delay modifiers.
+- **Internal links are root-relative and extension-less**: `/about`, `/` for the
+  homepage. Never `about.html` — Pages 308-redirects that spelling. Real file
+  paths (`pdfjs/web/viewer.html`, `css/site.css`) are not page links; leave them.
 - New pages need: `<body data-page="…">`, canonical, og + twitter tags, the standard
   nav, and the standard footer. Add them to `sitemap.xml` and `llms.txt` too.
