@@ -40,7 +40,7 @@ SonixED™ patent granted 2021. The ultrasound anti-scaling mechanism prevents s
 
 ## Target applications
 
-Brackish groundwater treatment, selective nitrate removal, hard water treatment, cooling tower blowdown recovery, seawater RO brine valorization, agricultural water supply, municipal drinking water compliance (EU nitrate limit 50 mg/l NO₃⁻, deadline December 2027).
+Brackish groundwater treatment, selective nitrate removal, hard water treatment, cooling tower blowdown recovery, seawater RO brine valorization, agricultural water supply, municipal drinking water compliance (EU Drinking Water Directive parametric value 50 mg/l NO₃⁻, in force).
 
 ## Who Hydrovolta works with
 
