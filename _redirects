@@ -23,3 +23,7 @@
 /solutions                              /systems.html                   301
 /salinbloc/                             /systems.html                   301
 /salinbloc                              /systems.html                   301
+
+# Retired duplicate contact page (removed 2026-10-02) -> the engineering assessment form
+/contact-us/                            /contact                        301
+/contact-us                             /contact                        301
