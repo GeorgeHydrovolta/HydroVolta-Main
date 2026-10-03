@@ -64,6 +64,45 @@
     });
   }
 
+  // ── CAMPAIGN ATTRIBUTION ──────────────────────────────
+  // Capture ad parameters once, carry them for the whole session, and submit
+  // them with every form so each lead in the CRM arrives with its source.
+  // Last click wins: a fresh gclid or utm_* on the URL overwrites the stored one,
+  // matching how Google Ads attributes a conversion.
+  (function() {
+    var KEYS  = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'gclid'];
+    var STORE = 'hv_attribution';
+    var stored = {};
+
+    try { stored = JSON.parse(sessionStorage.getItem(STORE) || '{}') || {}; } catch (e) { stored = {}; }
+
+    var params = null;
+    try { params = new URLSearchParams(window.location.search); } catch (e) {}
+
+    if (params) {
+      var changed = false;
+      KEYS.forEach(function(k) {
+        var v = params.get(k);
+        if (v) { stored[k] = v; changed = true; }
+      });
+      if (changed) {
+        try { sessionStorage.setItem(STORE, JSON.stringify(stored)); } catch (e) {}
+      }
+    }
+
+    document.querySelectorAll('form').forEach(function(form) {
+      KEYS.forEach(function(k) {
+        if (!stored[k]) return;
+        if (form.querySelector('[name="' + k + '"]')) return;
+        var input = document.createElement('input');
+        input.type  = 'hidden';
+        input.name  = k;
+        input.value = stored[k];
+        form.appendChild(input);
+      });
+    });
+  })();
+
   // ── COOKIE CONSENT ────────────────────────────────────
   function loadYouTube() {
     document.querySelectorAll('.yt-embed[data-src]').forEach(function(wrap) {
