@@ -40,10 +40,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div class="formbox rv d1">
-        <div style="text-align:center;margin-bottom:2rem;padding-bottom:1.75rem;border-bottom:1px solid rgba(255,255,255,.12)">
-          <a class="btn btn--ghost" href="TODO-BOOKING-URL">Book a 20-minute call</a>
-          <p style="font-size:.82rem;color:rgba(255,255,255,.45);margin-top:.75rem">Or send the water data below &mdash; it is the faster route to a technical answer.</p>
-        </div>
+        <p style="text-align:center;font-size:.85rem;color:rgba(255,255,255,.55);margin-bottom:1.75rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,.12)">Prefer to talk first? Email us at <a id="email-first" href="mailto:info@hydrovolta.com" style="color:var(--gl);text-decoration:underline">info@hydrovolta.com</a>.</p>
         <form id="assessment-form">
           <div class="formgrid">
             <div class="fg"><label for="f-org">Organisation *</label><input id="f-org" name="organisation" type="text" required placeholder="Company, utility, municipality..."></div>
@@ -140,4 +137,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 })();
 </script>
 
+<script>
+(function() {
+  var link = document.getElementById('email-first');
+  if (!link) return;
+  link.addEventListener('click', function() {
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'email_click', page_path: location.pathname });
+    } catch (e) {}
+  });
+})();
+</script>
 <script src="js/site.js"></script></body></html>

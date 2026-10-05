@@ -146,6 +146,12 @@ revealed, `js`-side code pushes
 `{event:'generate_lead', form_name:<the form's id>, page_path:location.pathname}`.
 Each landing page form carries its own id so `form_name` distinguishes them.
 
+**Online booking deliberately not used at current team size; revisit later.**
+There is no booking link anywhere on the site. /contact offers the assessment
+form plus a plain mailto line ("Prefer to talk first? Email us at
+info@hydrovolta.com"), which pushes an `email_click` event. No phone number is
+published on any page.
+
 **Campaign attribution.** `js/site.js` captures `utm_source`, `utm_medium`,
 `utm_campaign`, `utm_term` and `gclid` into `sessionStorage` under
 `hv_attribution` (last click wins) and appends them as hidden inputs to every
