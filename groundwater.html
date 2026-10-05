@@ -24,8 +24,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div><strong>50&ndash;90%</strong><span>CIP reduction in validated contexts</span></div>
     </div>
   </div>
-  <div class="hero__visual hero__visual--right">
-    <img loading="lazy" width="700" height="375" class="active" src="images/about_dieter_cropped.webp" alt="Hydrovolta engineer on site" fetchpriority="high" style="object-fit:contain;object-position:center top;background:#f4f7fb">
+  <div class="hero__copy" style="padding-left:0">
+    <div class="formbox" style="padding:1.75rem 2rem;background:var(--n1);border-color:rgba(255,255,255,.14)">
+      <h2 style="font-size:1.05rem;margin-bottom:.35rem;color:var(--w)">Send your water analysis</h2>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.55);margin-bottom:1.25rem">TDS and hardness are enough to start. We respond within 3 business days.</p>
+      <form id="lp_groundwater">
+        <div class="fg"><label for="g-org">Organisation *</label><input id="g-org" name="organisation" type="text" required placeholder="Utility, company, municipality"></div>
+        <div class="fg" style="margin-top:.75rem"><label for="g-name">Name and role *</label><input id="g-name" name="contact_person" type="text" required placeholder="Name and role"></div>
+        <div class="fg" style="margin-top:.75rem"><label for="g-email">Work email *</label><input id="g-email" name="email" type="email" required placeholder="name@organisation.com"></div>
+        <div class="fg" style="margin-top:.75rem"><label for="g-country">Country *</label><input id="g-country" name="country" type="text" required placeholder="Country or region"></div>
+        <div class="fg" style="margin-top:.75rem"><label for="g-source">Water source type *</label><select id="g-source" name="water_source" required><option value="">Select…</option><option>Borehole / well</option><option>Surface water</option><option>Coastal aquifer</option><option>Process water</option><option>Not yet characterised</option></select></div>
+        <div class="fg" style="margin-top:.75rem"><label for="g-file">Water analysis (optional)</label><input id="g-file" name="attachment" type="file" style="padding:.5rem"></div>
+        <div class="actions" style="justify-content:center;margin-top:1.25rem"><button id="g-submit" type="submit" class="btn btn--gold" style="width:100%">Request an assessment</button></div>
+        <p style="text-align:center;font-size:.76rem;color:rgba(255,255,255,.45);margin-top:.85rem">We use your details and water data only to assess your project. <a href="/privacy" style="color:rgba(255,255,255,.7);text-decoration:underline">See our privacy policy</a>.</p>
+      </form>
+      <div id="lp_groundwater-error" hidden style="margin-top:1rem;padding:.75rem 1rem;background:rgba(220,60,60,.15);border:1px solid rgba(220,60,60,.3);border-radius:8px;color:#f5a5a5;font-size:.82rem">Something went wrong. Please email <a href="mailto:info@hydrovolta.com" style="color:#f5a5a5;text-decoration:underline">info@hydrovolta.com</a>.</div>
+      <div id="lp_groundwater-success" hidden style="text-align:center;padding:2rem 1rem">
+        <p style="font-family:var(--fd);font-size:1.05rem;color:var(--w);margin-bottom:.5rem">Assessment request received</p>
+        <p style="font-size:.85rem;color:rgba(255,255,255,.6)">Our engineering team will review your water data and respond within 3 business days.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -106,4 +124,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 <section class="cta-strip"><div class="cta-strip__in"><span class="ey ey--lt">Assess your source</span><h2>Send your groundwater analysis.</h2><p>TDS, hardness, nitrate, silica, target flow, target use. We assess fit and design the configuration around your specific chemistry.</p><div class="actions"><a class="btn btn--gold" href="/contact">Request Assessment</a><a class="btn btn--ghost" href="/projects">View References</a></div></div></section>
-</main><section class="logos"><div class="wrap"><p>Institutional partners &amp; backing</p><div class="logos__row"><picture><source srcset="/images/opt/EIC_logo.webp" type="image/webp"><img width="1600" height="538" src="images/EIC_logo.webp" alt="EIC" loading="lazy"></picture><img width="363" height="139" src="images/flanders_logo.webp" alt="Flanders" loading="lazy"><img width="256" height="197" src="images/watereu_logo.webp" alt="Water Europe" loading="lazy"><img width="275" height="183" src="images/watergroep_logo.webp" alt="De Watergroep" loading="lazy"><img width="381" height="132" src="images/farys_logo.webp" alt="Farys" loading="lazy"><img width="200" height="200" src="images/GSTIC_logo.webp" alt="GSTIC" loading="lazy"><img width="225" height="225" src="images/aquatech_logo.webp" alt="Aquatech" loading="lazy"></div></div></section><footer class="footer"><div class="wrap"><div class="footer__grid"><div><h4>Hydrovolta</h4><p>High-recovery treatment for brackish groundwater, hard water, and saline sources. Modular and project-engineered systems. Founded 2016, Leuven, Belgium.</p></div><div><h4>Solutions</h4><ul><li><a href="/groundwater">Groundwater</a></li><li><a href="/brine-valorization">Brine Valorization</a></li><li><a href="/technology">Technology</a></li><li><a href="/systems">Systems</a></li></ul></div><div><h4>Company</h4><ul><li><a href="/projects">Projects</a></li><li><a href="/applications">Applications</a></li><li><a href="/about">About</a></li><li><a href="/privacy">Privacy</a></li></ul></div><div><h4>Start with water data</h4><p>TDS, hardness, nitrate, silica, target flow, and any brine analysis.</p><p style="margin-top:1rem"><a class="btn btn--gold btn--sm" href="/contact">Request assessment</a></p></div></div><div class="footer__bottom"><p>&copy; <span data-year></span> Hydrovolta NV &middot; All rights reserved &middot; Leuven, Belgium</p><p>SonixED&trade; &middot; SalinBloc&trade; &middot; Integrated brine valorization</p><div class="footer__social"><a href="https://be.linkedin.com/company/hydrovolta" target="_blank" rel="noopener" aria-label="Hydrovolta on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a><a href="https://www.facebook.com/hydrovolta/" target="_blank" rel="noopener" aria-label="Hydrovolta on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a></div></div></div></footer><script src="js/site.js"></script></body></html>
+</main><section class="logos"><div class="wrap"><p>Institutional partners &amp; backing</p><div class="logos__row"><picture><source srcset="/images/opt/EIC_logo.webp" type="image/webp"><img width="1600" height="538" src="images/EIC_logo.webp" alt="EIC" loading="lazy"></picture><img width="363" height="139" src="images/flanders_logo.webp" alt="Flanders" loading="lazy"><img width="256" height="197" src="images/watereu_logo.webp" alt="Water Europe" loading="lazy"><img width="275" height="183" src="images/watergroep_logo.webp" alt="De Watergroep" loading="lazy"><img width="381" height="132" src="images/farys_logo.webp" alt="Farys" loading="lazy"><img width="200" height="200" src="images/GSTIC_logo.webp" alt="GSTIC" loading="lazy"><img width="225" height="225" src="images/aquatech_logo.webp" alt="Aquatech" loading="lazy"></div></div></section><footer class="footer"><div class="wrap"><div class="footer__grid"><div><h4>Hydrovolta</h4><p>High-recovery treatment for brackish groundwater, hard water, and saline sources. Modular and project-engineered systems. Founded 2016, Leuven, Belgium.</p></div><div><h4>Solutions</h4><ul><li><a href="/groundwater">Groundwater</a></li><li><a href="/brine-valorization">Brine Valorization</a></li><li><a href="/technology">Technology</a></li><li><a href="/systems">Systems</a></li></ul></div><div><h4>Company</h4><ul><li><a href="/projects">Projects</a></li><li><a href="/applications">Applications</a></li><li><a href="/about">About</a></li><li><a href="/privacy">Privacy</a></li></ul></div><div><h4>Start with water data</h4><p>TDS, hardness, nitrate, silica, target flow, and any brine analysis.</p><p style="margin-top:1rem"><a class="btn btn--gold btn--sm" href="/contact">Request assessment</a></p></div></div><div class="footer__bottom"><p>&copy; <span data-year></span> Hydrovolta NV &middot; All rights reserved &middot; Leuven, Belgium</p><p>SonixED&trade; &middot; SalinBloc&trade; &middot; Integrated brine valorization</p><div class="footer__social"><a href="https://be.linkedin.com/company/hydrovolta" target="_blank" rel="noopener" aria-label="Hydrovolta on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a><a href="https://www.facebook.com/hydrovolta/" target="_blank" rel="noopener" aria-label="Hydrovolta on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a></div></div></div></footer><script>
+(function() {
+  var FORMSPREE_ENDPOINT = 'https://formspree.io/f/mnjyqrge';
+  var form = document.getElementById('lp_groundwater');
+  var btn = document.getElementById('g-submit');
+  var success = document.getElementById('lp_groundwater-success');
+  var error = document.getElementById('lp_groundwater-error');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault(); btn.disabled = true; btn.textContent = 'Sending…'; error.hidden = true;
+    fetch(FORMSPREE_ENDPOINT, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+    .then(function(res) {
+      if (res.ok) {
+        try {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: 'generate_lead', form_name: form.getAttribute('id'), page_path: location.pathname });
+        } catch (e) {}
+        form.hidden = true; success.hidden = false;
+      } else { throw new Error(); }
+    })
+    .catch(function() { error.hidden = false; btn.disabled = false; btn.textContent = 'Request an assessment'; });
+  });
+})();
+</script>
+<script src="js/site.js"></script></body></html>
