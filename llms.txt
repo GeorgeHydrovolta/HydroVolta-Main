@@ -23,7 +23,7 @@ Hydrovolta also offers downstream brine valorization: recovering Mg(OH)₂, Ca(O
 ## Active projects and references
 
 - **Morocco (2025–2028, Active)**: First commercial demonstration of integrated SonixED™ desalination + brine valorization. Seawater-intruded coastal aquifer ~7,000 ppm TDS. Funded by Flanders Climate Action Program.
-- **Perth, Australia (Active pilot)**: Water Corporation Perth — selective nitrate and salinity removal across three public utility sites. Contracted after 18-month technical appraisal. Cloud telemetry and regulatory compliance logging active.
+- **Perth, Australia (Active pilot)**: Water Corporation Perth — selective nitrate and salinity removal at one utility site; three more bores at other Perth locations to be piloted in 2027. Contracted after 18-month technical appraisal. Cloud telemetry and regulatory compliance logging active.
 - **Germany (Completed pilot, Feb–May 2023)**: Cooling tower blowdown at a chemical industry facility. Head-to-head comparison vs. RO and EDR: SonixED™ achieved 90–98% recovery, $0.30–0.40/m³ treatment cost vs. RO $0.60–1.00/m³. Case study PDF available.
 - **Brazil (LOI signed)**: Remote groundwater remediation, nitrate and salinity co-contamination.
 - **Saudi Arabia (MOU signed)**: Selective ion recovery from deep brackish groundwater; Mg(OH)₂ and Ca(OH)₂ valorization for permeate remineralisation.
