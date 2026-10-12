@@ -1,6 +1,6 @@
 # Hydrovolta
 
-> Hydrovolta NV is a Belgian water technology company (founded 2016, Leuven, Belgium) that develops high-recovery desalination and brine valorization systems for brackish groundwater, hard water, and saline sources. KBO: BE0652996179.
+> Hydrovolta BV is a Belgian water technology company (founded 2016, Leuven, Belgium) that develops high-recovery desalination and brine valorization systems for brackish groundwater, hard water, and saline sources. KBO: BE0652996179.
 
 ## What Hydrovolta does
 

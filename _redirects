@@ -27,3 +27,6 @@
 # Retired duplicate contact page (removed 2026-10-02) -> the engineering assessment form
 /contact-us/                            /contact                        301
 /contact-us                             /contact                        301
+
+# /mining-water retired 2026-10; mine water is covered by the applications page
+/mining-water                           /applications                   301

@@ -187,6 +187,8 @@ h3{font-size:1.2rem}
 .logos__row{display:flex;align-items:center;justify-content:center;gap:3rem;flex-wrap:wrap}
 .logos__row img{height:32px;width:auto;opacity:.42;filter:grayscale(1);transition:var(--tr)}
 .logos__row img:hover{opacity:.82;filter:none}
+.logos__row figure{display:flex;flex-direction:column;align-items:center;gap:.45rem;margin:0}
+.logos__role{font-family:var(--fd);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--l);opacity:.7;margin:0}
 
 /* Form */
 .formbox{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:var(--rxl);padding:2.75rem 3rem;position:relative;z-index:1}
