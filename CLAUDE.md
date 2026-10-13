@@ -112,6 +112,55 @@ selected cases") — keep those hedges when reusing a claim.
 
 ---
 
+## 2a. Analytics and tag stack
+
+| Thing | Value |
+|---|---|
+| GTM container | `GTM-5XJF94PN` |
+| GA4 measurement ID | `G-QYSVYFR8VR` |
+| Google Ads account | `523-238-1827` |
+| Form backend | Formspree, `https://formspree.io/f/mnjyqrge` |
+
+**GTM is the only tag on the site.** There is no `gtag.js` anywhere and none
+should be added — GA4 is configured inside the GTM container, not in the repo.
+The inline `gtag()` function in each page's head is the Consent Mode dataLayer
+shim, which is a different thing from gtag.js.
+
+**Where the IDs live.** `GTM-5XJF94PN` is inlined in the `<head>` and in the
+`<noscript>` of **every HTML file** (14 at time of writing, including the
+untracked `nitrate-removal.html` draft). Changing the container ID means editing
+all of them — do it with a scripted pass and assert the match count. The GA4 ID
+`G-QYSVYFR8VR` does **not** appear in the repo at all; it lives only in GTM.
+
+**Order is load-bearing.** In every page the Consent Mode v2 default block must
+execute before the GTM snippet, or Consent Mode does not apply and tags can fire
+before the visitor chooses. Verify in a browser, not by reading source order:
+`window.dataLayer[0]` must be the `consent default` call and `gtm.start` must
+come after it.
+
+**Consent defaults** are `denied` for `ad_storage`, `ad_user_data`,
+`ad_personalization` and `analytics_storage`, with `wait_for_update: 500`.
+
+**Lead event.** On a successful Formspree submit, before `#form-success` is
+revealed, `js`-side code pushes
+`{event:'generate_lead', form_name:<the form's id>, page_path:location.pathname}`.
+Each landing page form carries its own id so `form_name` distinguishes them.
+
+**Online booking deliberately not used at current team size; revisit later.**
+There is no booking link anywhere on the site. /contact offers the assessment
+form plus a plain mailto line ("Prefer to talk first? Email us at
+info@hydrovolta.com"), which pushes an `email_click` event. No phone number is
+published on any page.
+
+**Campaign attribution.** `js/site.js` captures `utm_source`, `utm_medium`,
+`utm_campaign`, `utm_term` and `gclid` into `sessionStorage` under
+`hv_attribution` (last click wins) and appends them as hidden inputs to every
+form on the page, so each lead reaches the CRM with its source. All storage
+access is wrapped in try/catch; private-mode failures degrade to no attribution
+rather than a broken form.
+
+---
+
 ## 3. Gotchas learned the hard way
 
 **`404.html` must use root-relative URLs.** It is served *at the URL the visitor
@@ -384,8 +433,9 @@ measurable crawl-budget issue rather than just tidiness.
   A push to `main` publishes to the live site immediately.
 - **Never delete a page or change a URL path without asking.** SEO risk.
 - **One task at a time.** Keep changes minimal and consistent with existing style.
-- **Never add `noindex`.** (`calculator.html` and `salinbloc-manual.html` already
-  have it, deliberately — leave those alone.)
+- **Never add `noindex` except to unpublished drafts; remove it on approval.**
+  (`calculator.html` and `salinbloc-manual.html` carry it deliberately — leave
+  those alone.)
 - **Never touch Cloudflare configuration without asking.** Includes creating
   `functions/`, `_headers`, or anything in the Cloudflare dashboard.
 - **Never invent numbers, client names or results.** Use `[PLACEHOLDER]`.
