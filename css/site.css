@@ -362,6 +362,8 @@ h3{font-size:1.2rem}
   .hero__visual{min-height:220px}
   .split__image img{height:200px}
   h1{font-size:clamp(1.5rem,7vw,2rem)}
+  .formbox{padding:1.75rem 1.25rem}
+  .btn{white-space:normal}
 }
 
 /* ── PHOTO PAIR ──────────────────────────────────────────────  */
@@ -374,7 +376,7 @@ h3{font-size:1.2rem}
   .hero__in{grid-template-columns:1fr;gap:3rem}
   .hero__media{max-width:520px}
   .head{grid-template-columns:1fr;gap:1.5rem}
-  .split{grid-template-columns:1fr;gap:2.5rem}
+  .split{grid-template-columns:minmax(0,1fr);gap:2.5rem}
   .trust__in{grid-template-columns:1fr 1fr}
   .grid--4{grid-template-columns:1fr 1fr}
   .grid--3{grid-template-columns:1fr 1fr}
