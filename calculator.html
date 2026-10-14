@@ -36,12 +36,7 @@
 .c-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem}
 .cfield{display:flex;flex-direction:column;gap:.35rem}
 .cfield label{font-size:.8rem;font-weight:600;color:var(--m);font-family:var(--fd);text-transform:uppercase;letter-spacing:.05em}
-.cfield input,.cfield select{padding:.75rem 1rem;font-size:.95rem;font-family:var(--fb);border:1px solid var(--b);border-radius:8px;background:var(--w);color:var(--n1);transition:.2s;min-width:0;width:100%}
-.cfield select:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(201,162,42,.15)}
-.cnote{font-size:.78rem;color:var(--m);line-height:1.6;margin-top:.75rem}
-.cnote b{color:var(--n1)}
-.c-grid-ion{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem}
-@media(max-width:640px){.c-grid-ion{grid-template-columns:1fr 1fr}}
+.cfield input{padding:.75rem 1rem;font-size:.95rem;font-family:var(--fb);border:1px solid var(--b);border-radius:8px;background:var(--w);color:var(--n1);transition:.2s}
 .cfield input:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(201,162,42,.15)}
 /* Result cards */
 .rcard{background:var(--s);border-radius:10px;padding:1rem 1.1rem;border:1px solid var(--b)}
@@ -113,7 +108,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="calc-header">
     <span class="calc-badge">Partner tool &mdash; confidential</span>
     <h1>Electrodialysis &mdash; Mass Balance &amp; Energy Calculator</h1>
-    <p>Preliminary sizing tool for SonixED&trade; ED systems. Enter the feed water, pick the sizing mode and the membrane types, and the tool estimates stage count or stack circulation, the ion split between product and concentrate, and the energy envelope. All outputs include &plusmn;10% engineering tolerance.</p>
+    <p>Preliminary sizing tool for SonixED&trade; ED systems. Enter your feed water parameters to estimate stage count, reject characteristics, and energy envelope. All outputs include &plusmn;10% engineering tolerance.</p>
   </div>
 
   <div class="cerr" id="errorBox"></div>
@@ -121,13 +116,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- INPUTS -->
   <div class="csec">
     <p class="csec-title">Input parameters</p>
-    <div class="cfield" style="margin-bottom:1rem">
-      <label>Sizing mode</label>
-      <select id="mode" onchange="syncUI();calc()">
-        <option value="auto" selected>Auto-size stages (SonixED) &mdash; the tool picks the number of stages</option>
-        <option value="fixed">Fixed stacks + circulation &mdash; you fix the number of stacks; the tool solves the diluate circulation</option>
-      </select>
-    </div>
     <div class="c-grid-2">
       <div class="cfield">
         <label>Permeate inlet salinity (mg/L)</label>
@@ -149,82 +137,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <hr class="divider">
-
-  <!-- TECHNICAL CONFIGURATION -->
-  <div class="csec">
-    <p class="csec-title">Technical configuration</p>
-    <div class="c-grid-2">
-      <div class="cfield">
-        <label>Cation-exchange membrane</label>
-        <select id="cem" onchange="syncUI();calc()">
-          <option value="std" selected>Standard CEM &mdash; removes all cations</option>
-          <option value="mono">Monovalent-selective CEM &mdash; retains Ca&sup2;&#8314; and Mg&sup2;&#8314;</option>
-        </select>
-      </div>
-      <div class="cfield">
-        <label>Anion-exchange membrane</label>
-        <select id="aem" onchange="syncUI();calc()">
-          <option value="std" selected>Standard AEM &mdash; removes all anions</option>
-          <option value="mono">Monovalent-selective AEM &mdash; retains SO&#8324;&sup2;&#8315;</option>
-        </select>
-      </div>
-      <div class="cfield" id="f_tc" style="display:none">
-        <label>Divalent cation transport factor &theta;<sub>c</sub></label>
-        <input type="number" id="tc" value="0.15" min="0" max="1" step="0.01" oninput="calc()">
-      </div>
-      <div class="cfield" id="f_ta" style="display:none">
-        <label>Divalent anion transport factor &theta;<sub>a</sub></label>
-        <input type="number" id="ta" value="0.15" min="0" max="1" step="0.01" oninput="calc()">
-      </div>
-      <div class="cfield" id="f_stacks" style="display:none">
-        <label>Number of stacks (fixed)</label>
-        <input type="number" id="n_stacks" value="2" min="1" max="12" step="1" oninput="calc()">
-      </div>
-    </div>
-    <p class="cnote">&theta; is the transport of a divalent ion relative to a monovalent ion of the same sign: 1.0 means it moves as fast, 0 means it stays in the product. <b>The 0.15 defaults are a provisional assumption, not measured Hydrovolta data</b> &mdash; set them from the membrane datasheet or pilot results before an output leaves the building.</p>
-  </div>
-
-  <hr class="divider">
-
-  <!-- FEED ION COMPOSITION -->
-  <div class="csec">
-    <p class="csec-title">Feed ion composition</p>
-    <div class="c-grid-ion">
-      <div class="cfield">
-        <label>Na&#8314; (mg/L)</label>
-        <input type="number" id="ion_na" value="450" min="0" step="1" oninput="calc()">
-      </div>
-      <div class="cfield">
-        <label>K&#8314; (mg/L)</label>
-        <input type="number" id="ion_k" value="15" min="0" step="1" oninput="calc()">
-      </div>
-      <div class="cfield">
-        <label>Ca&sup2;&#8314; (mg/L)</label>
-        <input type="number" id="ion_ca" value="180" min="0" step="1" oninput="calc()">
-      </div>
-      <div class="cfield">
-        <label>Mg&sup2;&#8314; (mg/L)</label>
-        <input type="number" id="ion_mg" value="60" min="0" step="1" oninput="calc()">
-      </div>
-      <div class="cfield">
-        <label>Cl&#8315; (mg/L)</label>
-        <input type="number" id="ion_cl" value="780" min="0" step="1" oninput="calc()">
-      </div>
-      <div class="cfield">
-        <label>SO&#8324;&sup2;&#8315; (mg/L)</label>
-        <input type="number" id="ion_so4" value="380" min="0" step="1" oninput="calc()">
-      </div>
-      <div class="cfield">
-        <label>NO&#8323;&#8315; (mg/L)</label>
-        <input type="number" id="ion_no3" value="60" min="0" step="1" oninput="calc()">
-      </div>
-      <div class="cfield">
-        <label>HCO&#8323;&#8315; (mg/L)</label>
-        <input type="number" id="ion_hco3" value="115" min="0" step="1" oninput="calc()">
-      </div>
-    </div>
-    <p class="cnote">The split is normalised to the permeate inlet salinity above, so the entered numbers set the <i>ratio</i> between ions and the inlet salinity sets the total. Entered sum: <b id="ion_sum">&mdash;</b> mg/L &middot; normalisation factor <b id="ion_norm">&mdash;</b> &middot; charge balance <b id="ion_cb">&mdash;</b>. The defaults are a generic brackish groundwater &mdash; replace them with the water analysis.</p>
-  </div>
 
   <!-- MASS BALANCE -->
   <div class="csec">
@@ -251,49 +163,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="rcard-unit blue">stages</p>
       </div>
     </div>
-  </div>
-
-  <!-- CIRCULATION (fixed-stack mode) -->
-  <div class="csec" id="sec_circ" style="display:none">
-    <p class="csec-title">Stacks and diluate circulation</p>
-    <div class="c-grid-3">
-      <div class="rcard blue">
-        <p class="rcard-label blue">Passes through the array</p>
-        <p class="rcard-value blue" id="n_passes">&mdash;</p>
-        <p class="rcard-unit blue">passes</p>
-      </div>
-      <div class="rcard blue">
-        <p class="rcard-label blue">Diluate circulation ratio</p>
-        <p class="rcard-value blue" id="circ_ratio">&mdash;</p>
-        <p class="rcard-unit blue">&times; product flow</p>
-      </div>
-      <div class="rcard blue">
-        <p class="rcard-label blue">Diluate circulation flow</p>
-        <p class="rcard-value blue" id="circ_flow">&mdash;</p>
-        <p class="rcard-unit blue">m&sup3;/h</p>
-      </div>
-    </div>
-    <p class="cnote">Each pass sends the diluate through every stack in the array. <b id="circ_note">&mdash;</b></p>
-  </div>
-
-  <hr class="divider" id="hr_circ" style="display:none">
-
-  <!-- ION RESULTS -->
-  <div class="csec">
-    <p class="csec-title">Ion balance &mdash; product and concentrate</p>
-    <div id="ionWarn" class="cwarn"></div>
-    <div class="ctbl-wrap">
-      <table class="ctbl">
-        <thead>
-          <tr><th>Ion</th><th>Feed (mg/L)</th><th>Product (mg/L)</th><th>Concentrate (mg/L)</th><th>Removal</th><th>Retained in product</th></tr>
-        </thead>
-        <tbody id="ionBody"></tbody>
-        <tfoot>
-          <tr><td>TDS</td><td id="tds_feed">&mdash;</td><td id="tds_prod">&mdash;</td><td id="tds_conc">&mdash;</td><td id="tds_rem">&mdash;</td><td>&mdash;</td></tr>
-        </tfoot>
-      </table>
-    </div>
-    <p class="cnote">Removal is per ion. A monovalent-selective membrane keeps the divalent ions of its own sign in the product, so the product TDS falls more slowly than the monovalent ions do, and the stage count rises to hit the same target.</p>
   </div>
 
   <hr class="divider">
@@ -403,13 +272,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="eq-box">
       <div><b>Q_total</b> = Q_permeate / (RR / 100)</div>
       <div><b>Q_reject</b> = Q_total &minus; Q_permeate</div>
-      <div><b>Feed split</b> = entered ion concentrations normalised so that &Sigma;C<sub>i</sub> = C_in</div>
-      <div><b>&theta;<sub>i</sub></b> = 1 for monovalent ions; &theta;<sub>c</sub> or &theta;<sub>a</sub> for a divalent ion facing a monovalent-selective membrane</div>
-      <div><b>C<sub>i</sub>(f)</b> = C<sub>i,feed</sub> &times; f<sup>&theta;i</sup>, where f is the monovalent fraction left after a stage pass (f = 0.5<sup>n</sup>)</div>
-      <div><b>Auto-size</b>: solve &Sigma;C<sub>i</sub>(f) = C_out for f, then N = ceil(log&sub2;(1/f))</div>
-      <div><b>Fixed stacks</b>: passes P = ceil(N / stacks) &nbsp;&middot;&nbsp; circulation ratio = P &nbsp;&middot;&nbsp; stage passes = stacks &times; P</div>
-      <div><b>C_concentrate,i</b> = (Q_total &times; C<sub>i,feed</sub> &minus; Q_permeate &times; C<sub>i,product</sub>) / Q_reject</div>
-      <div><b>E_stage (kWh/m&sup3;)</b> = [ (0.0635 / 0.92) &times; 0.001 &times; TDS_inlet + 0.10033 ] &times; 1.2</div>
+      <div><b>C_reject</b> = (Q_total &times; C_in &minus; Q_permeate &times; C_out) / Q_reject</div>
+      <div><b>N_stages</b> = ceil( log&sub2;(C_in / C_out) )</div>
+      <div><b>C_stage_n</b>: inlet = C_in / 2&sup(n&minus;1) &nbsp;&middot;&nbsp; outlet = C_in / 2&sup;n</div>
+      <div><b>E_stage (kWh/m&sup3;)</b> = [ (0.0635 / 0.92) &times; 0.001 &times; C_inlet + 0.10033 ] &times; 1.2</div>
       <div><b>E_total (kWh/h)</b> = &Sigma; E_stage(i) &times; Q_permeate</div>
     </div>
     <p style="margin-top:.75rem;font-size:.78rem;color:var(--m)">Preliminary estimates only &mdash; &plusmn;10% engineering tolerance applied. Contact Hydrovolta for site-specific engineering assessment.</p>
@@ -422,20 +288,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script src="js/site.js"></script>
 <script>
-// Ion table and stage cap are read by calc(), which the password gate can call as
-// soon as the page loads, so they are declared before the gate runs.
-var IONS = [
-  { k: 'na',   label: 'Na⁺',            z: 1, sign: 'c', eq: 22.99 },
-  { k: 'k',    label: 'K⁺',             z: 1, sign: 'c', eq: 39.10 },
-  { k: 'ca',   label: 'Ca²⁺',      z: 2, sign: 'c', eq: 20.04 },
-  { k: 'mg',   label: 'Mg²⁺',      z: 2, sign: 'c', eq: 12.15 },
-  { k: 'cl',   label: 'Cl⁻',            z: 1, sign: 'a', eq: 35.45 },
-  { k: 'so4',  label: 'SO₄²⁻', z: 2, sign: 'a', eq: 48.03 },
-  { k: 'no3',  label: 'NO₃⁻',      z: 1, sign: 'a', eq: 62.00 },
-  { k: 'hco3', label: 'HCO₃⁻',     z: 1, sign: 'a', eq: 61.02 }
-];
-var MAX_STAGES = 14;
-
 // ── PASSWORD GATE ──────────────────────────────────────
 (function(){
   var PWD_HASH = '8e9f3f4e2c1a5b6d7e0f1234567890abcdef1234567890abcdef1234567890ab';
@@ -452,7 +304,6 @@ var MAX_STAGES = 14;
   function unlock() {
     document.getElementById('gate').classList.add('hidden');
     sessionStorage.setItem('hv_calc_auth','1');
-    syncUI();
     calc();
   }
 
@@ -480,228 +331,83 @@ var MAX_STAGES = 14;
 })();
 
 // ── CALCULATOR ─────────────────────────────────────────
-// Ion-level model. With both membranes standard and auto sizing, every output
-// reduces to the original lumped-TDS model exactly.
 function energySpec(c_inlet) {
   return ((0.06350 / 0.92) * 0.001 * c_inlet + 0.10033) * 1.2;
 }
 
-function val(id) { return parseFloat(document.getElementById(id).value); }
-
-// Show only the fields the chosen mode and membranes need.
-function syncUI() {
-  var fixed = document.getElementById('mode').value === 'fixed';
-  var cemMono = document.getElementById('cem').value === 'mono';
-  var aemMono = document.getElementById('aem').value === 'mono';
-  document.getElementById('f_stacks').style.display = fixed ? 'flex' : 'none';
-  document.getElementById('f_tc').style.display = cemMono ? 'flex' : 'none';
-  document.getElementById('f_ta').style.display = aemMono ? 'flex' : 'none';
-  document.getElementById('sec_circ').style.display = fixed ? 'block' : 'none';
-  document.getElementById('hr_circ').style.display = fixed ? 'block' : 'none';
-  document.querySelector('.rcard.blue .rcard-label.blue').textContent =
-    fixed ? 'Stage passes total' : 'Stages required';
-}
-
-// Transport of each ion relative to a monovalent ion of the same sign.
-function thetaFor(ion, cemMono, aemMono, tc, ta) {
-  if (ion.z === 1) return 1;
-  return ion.sign === 'c' ? (cemMono ? tc : 1) : (aemMono ? ta : 1);
-}
-
-// Product TDS when the monovalent ions are left at fraction f of the feed.
-function tdsAt(feed, theta, f) {
-  var t = 0;
-  for (var i = 0; i < IONS.length; i++) t += feed[i] * Math.pow(f, theta[i]);
-  return t;
-}
-
-// Monovalent fraction that hits the target product TDS. Monotonic in f.
-function solveFraction(feed, theta, target) {
-  var lo = 1e-12, hi = 1;
-  if (tdsAt(feed, theta, lo) > target) return null;   // divalents alone exceed the target
-  for (var i = 0; i < 200; i++) {
-    var mid = Math.sqrt(lo * hi);
-    if (tdsAt(feed, theta, mid) > target) hi = mid; else lo = mid;
-  }
-  return Math.sqrt(lo * hi);
-}
-
 function calc() {
-  var c_in  = val('c_in');
-  var c_out = val('c_out');
-  var q_p   = val('q_p');
-  var rr    = val('rr');
-  var mode  = document.getElementById('mode').value;
-  var cemMono = document.getElementById('cem').value === 'mono';
-  var aemMono = document.getElementById('aem').value === 'mono';
-  var tc = val('tc');
-  var ta = val('ta');
-  var stacks = Math.max(1, Math.round(val('n_stacks')));
-  document.getElementById('errorBox').style.display = 'none';
+  var c_in   = parseFloat(document.getElementById('c_in').value);
+  var c_out  = parseFloat(document.getElementById('c_out').value);
+  var q_p    = parseFloat(document.getElementById('q_p').value);
+  var rr     = parseFloat(document.getElementById('rr').value);
+  var errBox = document.getElementById('errorBox');
+  errBox.style.display = 'none';
 
-  if ([c_in, c_out, q_p, rr].some(isNaN)) { showErr('All fields are required.'); return; }
-  if (rr <= 0 || rr >= 100)  { showErr('Recovery rate must be between 1% and 99%.'); return; }
-  if (c_out >= c_in)         { showErr('Outlet salinity must be less than inlet salinity.'); return; }
-  if (q_p <= 0)              { showErr('Permeate flowrate must be greater than 0.'); return; }
-  if (cemMono && (isNaN(tc) || tc < 0 || tc > 1)) { showErr('Divalent cation transport factor must be between 0 and 1.'); return; }
-  if (aemMono && (isNaN(ta) || ta < 0 || ta > 1)) { showErr('Divalent anion transport factor must be between 0 and 1.'); return; }
-  if (mode === 'fixed' && (isNaN(stacks) || stacks < 1)) { showErr('Number of stacks must be at least 1.'); return; }
+  if ([c_in, c_out, q_p, rr].some(isNaN))    { showErr('All fields are required.'); return; }
+  if (rr <= 0 || rr >= 100)                   { showErr('Recovery rate must be between 1% and 99%.'); return; }
+  if (c_out >= c_in)                          { showErr('Outlet salinity must be less than inlet salinity.'); return; }
+  if (q_p <= 0)                               { showErr('Permeate flowrate must be greater than 0.'); return; }
 
-  // ── feed composition, normalised to the inlet salinity ──
-  var entered = [], sum = 0, i;
-  for (i = 0; i < IONS.length; i++) {
-    var v = val('ion_' + IONS[i].k);
-    if (isNaN(v) || v < 0) { showErr('Feed ion concentrations must be zero or greater.'); return; }
-    entered.push(v); sum += v;
-  }
-  if (sum <= 0) { showErr('Enter at least one feed ion concentration.'); return; }
-  var norm = c_in / sum;
-  var feed = entered.map(function (v) { return v * norm; });
-
-  var meqC = 0, meqA = 0;
-  for (i = 0; i < IONS.length; i++) {
-    var meq = feed[i] / IONS[i].eq;
-    if (IONS[i].sign === 'c') meqC += meq; else meqA += meq;
-  }
-  var cb = (meqC + meqA) > 0 ? Math.abs(meqC - meqA) / ((meqC + meqA) / 2) * 100 : 0;
-  document.getElementById('ion_sum').textContent  = sum.toFixed(0);
-  document.getElementById('ion_norm').textContent = norm.toFixed(3) + '×';
-  document.getElementById('ion_cb').textContent   = cb.toFixed(1) + '% ' + (cb <= 5 ? '(within 5%)' : '(check the analysis)');
-
-  var theta = IONS.map(function (ion) { return thetaFor(ion, cemMono, aemMono, tc, ta); });
-
-  // ── sizing ──
-  var fTarget = solveFraction(feed, theta, c_out);
-  var nNeeded = fTarget === null ? Infinity : Math.ceil(Math.log(1 / fTarget) / Math.log(2));
-  var capped = false, passes = 1, nSteps;
-
-  if (mode === 'fixed') {
-    if (!isFinite(nNeeded)) { passes = Math.ceil(MAX_STAGES / stacks); capped = true; }
-    else {
-      passes = Math.max(1, Math.ceil(nNeeded / stacks));
-      if (passes * stacks > MAX_STAGES) { passes = Math.max(1, Math.floor(MAX_STAGES / stacks)); capped = true; }
-    }
-    nSteps = stacks * passes;
-  } else {
-    if (!isFinite(nNeeded) || nNeeded > MAX_STAGES) { nSteps = MAX_STAGES; capped = true; }
-    else nSteps = Math.max(1, nNeeded);
-  }
-
-  var fAch = Math.pow(0.5, nSteps);
-  var prod = [], j;
-  for (i = 0; i < IONS.length; i++) prod.push(feed[i] * Math.pow(fAch, theta[i]));
-  var tdsProd = prod.reduce(function (a, b) { return a + b; }, 0);
-
-  // ── mass balance ──
   var q_total  = q_p / (rr / 100);
   var q_reject = q_total - q_p;
-  var conc = [];
-  for (i = 0; i < IONS.length; i++) {
-    conc.push(q_reject > 0 ? (q_total * feed[i] - q_p * prod[i]) / q_reject : 0);
-  }
-  var tdsConc = conc.reduce(function (a, b) { return a + b; }, 0);
+  var c_reject = q_reject > 0 ? (q_total * c_in - q_p * c_out) / q_reject : 0;
+  var n_exact  = Math.log(c_in / c_out) / Math.log(2);
+  var n_stages = Math.ceil(n_exact);
 
   document.getElementById('q_total').textContent  = q_total.toFixed(2);
   document.getElementById('q_reject').textContent = q_reject.toFixed(2);
-  document.getElementById('c_reject').textContent = tdsConc.toFixed(0);
-  document.getElementById('n_stages').textContent = nSteps;
+  document.getElementById('c_reject').textContent = c_reject.toFixed(0);
+  document.getElementById('n_stages').textContent = n_stages;
 
-  if (mode === 'fixed') {
-    document.getElementById('n_passes').textContent  = passes;
-    document.getElementById('circ_ratio').textContent = passes.toFixed(0);
-    document.getElementById('circ_flow').textContent  = (q_p * passes).toFixed(2);
-    document.getElementById('circ_note').textContent =
-      stacks + ' stack' + (stacks > 1 ? 's' : '') + ' × ' + passes + ' pass' + (passes > 1 ? 'es' : '') +
-      ' = ' + nSteps + ' stage passes. Diluate leaves the array at ' + tdsProd.toFixed(0) + ' mg/L.';
-  }
-
-  // ── warnings ──
-  var warnNote = document.getElementById('warnNote');
-  var ionWarn  = document.getElementById('ionWarn');
-  var msgs = [];
-  if (capped) {
-    msgs.push('Target ' + c_out.toFixed(0) + ' mg/L is not reachable within ' + MAX_STAGES +
-      ' stage passes with these membranes — the run shown stops at ' + nSteps +
-      ' and reaches ' + tdsProd.toFixed(0) + ' mg/L.');
-  } else if (Math.abs(tdsProd - c_out) > 0.5) {
-    msgs.push('Whole stages overshoot the target: ' + nSteps + ' stage passes reach ' +
-      tdsProd.toFixed(1) + ' mg/L against a target of ' + c_out.toFixed(0) + ' mg/L (last row highlighted).');
-  }
-  if (cemMono || aemMono) {
-    var kept = [];
-    for (i = 0; i < IONS.length; i++) if (IONS[i].z === 2 && theta[i] < 1) kept.push(IONS[i].label);
-    if (kept.length) {
-      var floorTds = tdsAt(feed, theta, 1e-12);
-      msgs.push('Selective membranes retain ' + kept.join(', ') + '. Product floor with these transport factors: ' +
-        floorTds.toFixed(1) + ' mg/L.');
-    }
-  }
-  if (msgs.length) { warnNote.textContent = msgs[0]; warnNote.style.display = 'block'; }
-  else { warnNote.style.display = 'none'; }
-  if (msgs.length > 1) { ionWarn.textContent = msgs[1]; ionWarn.style.display = 'block'; }
-  else { ionWarn.style.display = 'none'; }
-
-  // ── diagram ──
   document.getElementById('svgFeed').textContent   = 'Q = ' + q_total.toFixed(2) + ' m³/h';
   document.getElementById('svgCin').textContent    = 'C_in = ' + c_in.toFixed(0) + ' mg/L';
   document.getElementById('svgRR').textContent     = 'Recovery = ' + rr.toFixed(0) + '%';
-  document.getElementById('svgStages').textContent = mode === 'fixed'
-    ? ('Stacks: ' + stacks + ' × ' + passes + ' passes') : ('Stages: ' + nSteps);
-  document.getElementById('svgPerm').textContent   = 'Q=' + q_p.toFixed(2) + ' m³/h | ' + tdsProd.toFixed(0) + ' mg/L';
-  document.getElementById('svgRej').textContent    = 'Q=' + q_reject.toFixed(2) + ' m³/h | ' + tdsConc.toFixed(0) + ' mg/L';
+  document.getElementById('svgStages').textContent = 'Stages: ' + n_stages;
+  document.getElementById('svgPerm').textContent   = 'Q=' + q_p.toFixed(2) + ' m³/h | ' + c_out.toFixed(0) + ' mg/L';
+  document.getElementById('svgRej').textContent    = 'Q=' + q_reject.toFixed(2) + ' m³/h | ' + c_reject.toFixed(0) + ' mg/L';
 
-  // ── ion table ──
-  var ionBody = document.getElementById('ionBody');
-  ionBody.innerHTML = '';
-  for (i = 0; i < IONS.length; i++) {
-    var removal = feed[i] > 0 ? (1 - prod[i] / feed[i]) * 100 : 0;
-    var sel = theta[i] < 1 ? ' style="background:#eaf3de"' : '';
-    var tr = document.createElement('tr');
-    tr.innerHTML =
-      '<td' + sel + '>' + IONS[i].label + '</td>' +
-      '<td' + sel + '>' + feed[i].toFixed(1) + '</td>' +
-      '<td' + sel + '>' + prod[i].toFixed(1) + '</td>' +
-      '<td' + sel + '>' + conc[i].toFixed(1) + '</td>' +
-      '<td' + sel + '>' + removal.toFixed(1) + '%</td>' +
-      '<td' + sel + '>' + (theta[i] < 1 ? 'retained (θ = ' + theta[i].toFixed(2) + ')' : '—') + '</td>';
-    ionBody.appendChild(tr);
+  var warnNote = document.getElementById('warnNote');
+  var hasRem   = Math.abs(n_exact - n_stages) > 0.001;
+  if (hasRem) {
+    var achievable = (c_in / Math.pow(2, n_stages)).toFixed(1);
+    warnNote.textContent = 'Target ' + c_out + ' mg/L not exact in whole stages — ' + n_stages + ' stages achieves ' + achievable + ' mg/L (last row highlighted).';
+    warnNote.style.display = 'block';
+  } else {
+    warnNote.style.display = 'none';
   }
-  document.getElementById('tds_feed').textContent = c_in.toFixed(0);
-  document.getElementById('tds_prod').textContent = tdsProd.toFixed(1);
-  document.getElementById('tds_conc').textContent = tdsConc.toFixed(1);
-  document.getElementById('tds_rem').textContent  = ((1 - tdsProd / c_in) * 100).toFixed(1) + '%';
 
-  // ── stage profile and energy ──
-  var tbody = document.getElementById('stagesBody');
-  tbody.innerHTML = '';
+  var tbody        = document.getElementById('stagesBody');
+  tbody.innerHTML  = '';
   var e_total_spec = 0;
-  for (j = 1; j <= nSteps; j++) {
-    var fIn = Math.pow(0.5, j - 1), fOut = Math.pow(0.5, j);
-    var tdsIn = tdsAt(feed, theta, fIn), tdsOut = tdsAt(feed, theta, fOut);
-    var e_spec = energySpec(tdsIn);
-    var e_lo = e_spec * 0.9, e_hi = e_spec * 1.1;
+
+  for (var i = 1; i <= n_stages; i++) {
+    var cin_i  = c_in / Math.pow(2, i - 1);
+    var cout_i = c_in / Math.pow(2, i);
+    var e_spec = energySpec(cin_i);
+    var e_lo   = e_spec * 0.9;
+    var e_hi   = e_spec * 1.1;
+    var e_abs  = e_spec * q_p;
     e_total_spec += e_spec;
-    var label = mode === 'fixed'
-      ? ('Pass ' + Math.ceil(j / stacks) + ' · stack ' + (((j - 1) % stacks) + 1))
-      : ('Stage ' + j);
-    var row = document.createElement('tr');
-    if (j === nSteps) row.className = 'last-row';
-    row.innerHTML =
-      '<td>' + label + (j === nSteps ? ' ✓' : '') + '</td>' +
-      '<td>' + tdsIn.toFixed(1) + '</td>' +
-      '<td>' + tdsOut.toFixed(1) + '</td>' +
-      '<td>' + (tdsIn > 0 ? ((1 - tdsOut / tdsIn) * 100).toFixed(1) : '0.0') + '%</td>' +
+
+    var tr = document.createElement('tr');
+    if (i === n_stages) tr.className = 'last-row';
+    tr.innerHTML =
+      '<td>Stage ' + i + (i === n_stages ? ' ✓' : '') + '</td>' +
+      '<td>' + cin_i.toFixed(1) + '</td>' +
+      '<td>' + cout_i.toFixed(1) + '</td>' +
+      '<td>50%</td>' +
       '<td>' + e_spec.toFixed(4) + '</td>' +
       '<td style="color:var(--m)">' + e_lo.toFixed(4) + '</td>' +
       '<td style="color:var(--m)">' + e_hi.toFixed(4) + '</td>' +
-      '<td>' + (e_spec * q_p).toFixed(3) + '</td>' +
+      '<td>' + e_abs.toFixed(3) + '</td>' +
       '<td style="color:var(--m)">' + (e_lo * q_p).toFixed(3) + '</td>' +
       '<td style="color:var(--m)">' + (e_hi * q_p).toFixed(3) + '</td>';
-    tbody.appendChild(row);
+    tbody.appendChild(tr);
   }
 
   var e_total_abs = e_total_spec * q_p;
-  var e_avg = e_total_spec / nSteps;
+  var e_avg       = e_total_spec / n_stages;
+
   document.getElementById('e_total_spec').textContent       = e_total_spec.toFixed(4);
   document.getElementById('e_total_spec_range').textContent = (e_total_spec * 0.9).toFixed(4) + ' – ' + (e_total_spec * 1.1).toFixed(4) + ' kWh/m³';
   document.getElementById('e_total_abs').textContent        = e_total_abs.toFixed(3);
@@ -723,14 +429,10 @@ function showErr(msg) {
   b.style.display = 'block';
   ['q_total','q_reject','c_reject','n_stages','e_total_spec','e_total_abs','e_avg',
    'e_total_spec_range','e_total_abs_range','e_avg_range',
-   'foot_spec','foot_spec_lo','foot_spec_hi','foot_abs','foot_abs_lo','foot_abs_hi',
-   'tds_feed','tds_prod','tds_conc','tds_rem','n_passes','circ_ratio','circ_flow']
-    .forEach(function (id) { var el = document.getElementById(id); if (el) el.textContent = '—'; });
+   'foot_spec','foot_spec_lo','foot_spec_hi','foot_abs','foot_abs_lo','foot_abs_hi']
+    .forEach(function(id){ document.getElementById(id).textContent = '—'; });
   document.getElementById('stagesBody').innerHTML = '';
-  document.getElementById('ionBody').innerHTML = '';
   document.getElementById('svgEnergy').textContent = '—';
 }
-
-syncUI();
 </script>
 </body></html>
