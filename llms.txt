@@ -1,32 +1,42 @@
 # Hydrovolta
 
-> Hydrovolta BV is a Belgian water technology company (founded 2016, Leuven, Belgium) that develops high-recovery desalination and brine valorization systems for brackish groundwater, hard water, and saline sources. KBO: BE0652996179.
+> Hydrovolta BV is a Belgian water technology company (founded 2016, Leuven, Belgium) that develops high-recovery treatment and brine valorization systems for brackish groundwater, hard water and other brackish water where reverse osmosis struggles. KBO: BE0652996179.
 
 ## What Hydrovolta does
 
-Hydrovolta's core product is SonixED™ — a patented electrodialysis reversal (EDR) system enhanced with ultrasound anti-scaling technology and selective ion-exchange membranes. It is designed for difficult water sources in the 1,500–20,000 ppm TDS range where conventional reverse osmosis (RO) fails due to silica fouling, high hardness, or brine disposal constraints.
+Hydrovolta's core product is SonixED™ — a patented electrodialysis reversal (EDR) system enhanced with ultrasound anti-scaling technology and selective ion-exchange membranes. It is designed for difficult water sources in the 1–20 g/L TDS range where conventional reverse osmosis (RO) struggles with silica fouling, high hardness, or brine disposal constraints.
+
+Recovery depends on feed salinity:
+
+- 1–3 g/L TDS: up to 95% recovery in a single pass, leaving as little as 5% brine
+- 3–10 g/L TDS: about 90% recovery, about 10% brine
+- 10–20 g/L TDS: 75–85% recovery, 15–25% brine
+
+Conventional RO recovers roughly half to two-thirds of a brackish feed.
 
 Key differentiators vs. RO:
-- Water recovery up to 98% (vs. RO 50–75%)
-- Energy consumption 0.19–0.7 kWh/m³ (vs. RO 2.0–4.0 kWh/m³)
-- Selective nitrate and sodium removal while retaining calcium and magnesium
-- 50–90% reduction in chemical cleaning (CIP) in validated contexts
-- Residual brine 2–5% vs. RO 25–50% — dramatically reduces disposal burden
 
-Hydrovolta also offers downstream brine valorization: recovering Mg(OH)₂, Ca(OH)₂, and other mineral compounds from concentrated brine streams. This enables a near-zero liquid discharge pathway for inland sites.
+- Higher recovery on the same feed, so less of the source is lost to brine
+- Selective nitrate and sodium removal while retaining calcium and magnesium, so the product needs no remineralisation
+- 50–90% reduction in chemical cleaning (CIP) in validated contexts
+- Stable output under variable TDS; polarity reversal cleans membranes without chemicals
+
+Not the use case: seawater (~35 g/L), sources whose problem is organic or microbiological rather than ionic, and projects that actually want demineralised water.
+
+Hydrovolta also offers downstream brine valorization: recovering HCl, NaOH, Mg(OH)₂, Ca(OH)₂ and other compounds from concentrated brine streams, where the brine chemistry and the economics support it.
 
 ## Systems
 
-- **SalinBloc™**: Containerised modular treatment units (20 ft and 40 ft ISO containers) for pilots, agricultural sites, utility pilots, and remote communities. Cloud telemetry and automated operation from day one.
-- **Large-scale skid-mounted systems**: Project-engineered process trains for municipal, industrial, and agro-industrial applications. Full SCADA integration.
+- **SalinBloc™**: Containerised modular treatment units (20 ft and 40 ft ISO containers) for agricultural sites, utility pilots, decentralised installations and remote communities. Cloud telemetry and automated operation from day one.
+- **Large-scale skid-mounted systems**: Project-engineered process trains for high-volume agro-industrial, municipal and industrial applications. Full SCADA integration.
 
 ## Active projects and references
 
-- **Morocco (2025–2028, Active)**: First commercial demonstration of integrated SonixED™ desalination + brine valorization. Seawater-intruded coastal aquifer ~7,000 ppm TDS. Funded by Flanders Climate Action Program.
-- **Perth, Australia (Active pilot)**: Water Corporation Perth — selective nitrate and salinity removal at one utility site; three more bores at other Perth locations to be piloted in 2027. Contracted after 18-month technical appraisal. Cloud telemetry and regulatory compliance logging active.
-- **Germany (Completed pilot, Feb–May 2023)**: Cooling tower blowdown at a chemical industry facility. Head-to-head comparison vs. RO and EDR: SonixED™ achieved 90–98% recovery, $0.30–0.40/m³ treatment cost vs. RO $0.60–1.00/m³. Case study PDF available.
-- **Brazil (LOI signed)**: Remote groundwater remediation, nitrate and salinity co-contamination.
-- **Saudi Arabia (MOU signed)**: Selective ion recovery from deep brackish groundwater; Mg(OH)₂ and Ca(OH)₂ valorization for permeate remineralisation.
+- **Perth, Australia (active pilot)**: Water Corporation — selective nitrate and salinity removal. Feed TDS 1–3 g/L, recovery >95%, energy 0.4 kWh/m³. One site operating; three more bores at other Perth locations to be piloted in 2027. Contracted after an 18-month technical appraisal.
+- **Morocco (2025–2028, active)**: Integrated SonixED™ treatment with downstream brine valorization. Coastal brackish aquifer, 7–18 g/L TDS (varies). Train: AC → UF → SonixED™ → BMED. Funded by the Flanders Climate Action Program.
+- **Chemical plant, Germany (technical case study, 90-day pilot, Feb–May 2023)**: Industrial cooling water. Feed TDS 4.5 g/L, silica 85 mg/l, high hardness. Head-to-head against RO and standard EDR on the same feed water: SonixED™ 90–98% recovery, 0.19–0.7 kWh/m³, $0.30–0.40/m³ total treatment cost, against RO 50–75%, 2.0–4.0 kWh/m³, $0.60–1.00/m³. These figures describe that cooling-water pilot, not groundwater generally; groundwater results follow the salinity table above.
+- **Brazil (LOI signed)**: Remote groundwater treatment, nitrate and salinity together.
+- **Saudi Arabia (MOU signed)**: Selective ion recovery from deep brackish groundwater.
 
 ## Funding and institutional backing
 
@@ -34,17 +44,24 @@ Hydrovolta also offers downstream brine valorization: recovering Mg(OH)₂, Ca(O
 - Flanders Climate Action Program
 - Partners: VITO, CNR, De Watergroep, Farys, Water Europe, GSTIC, Aquatech
 
+## Awards
+
+- Water Europe Innovation Award 2024 — winner, Technology & Service Providers and SMEs category
+- Accadueo H₂O Innovation Award 2023 (Bologna) — winner, Machines and Plants category
+- Global Prize for Innovation in Desalination 2022 — special mention
+- Aquatech Innovation Award 2021 — nominee
+
 ## Technology patent
 
 SonixED™ patent granted 2021. The ultrasound anti-scaling mechanism prevents silica nucleation before deposit formation — a specific failure mode of conventional membranes in high-silica and high-hardness groundwater.
 
 ## Target applications
 
-Brackish groundwater treatment, selective nitrate removal, hard water treatment, cooling tower blowdown recovery, seawater RO brine valorization, agricultural water supply, municipal drinking water compliance (EU Drinking Water Directive parametric value 50 mg/l NO₃⁻, in force).
+Brackish groundwater treatment, brackish water desalination, selective nitrate removal, hard water treatment, irrigation and agricultural water supply, remote and decentralised supply, industrial process water and drainage, cooling tower blowdown recovery, brine valorization for existing desalination operators, municipal drinking water compliance (EU Drinking Water Directive parametric value 50 mg/l NO₃⁻, in force).
 
 ## Who Hydrovolta works with
 
-Water utilities, municipal authorities, agro-industrial operators, mining and chemical industry facilities with challenging process water.
+Growers and agro-industrial operators, water utilities and public water programmes, remote communities, and industrial facilities with challenging process water or a concentrated brine stream.
 
 ## Contact
 
@@ -56,7 +73,10 @@ Water utilities, municipal authorities, agro-industrial operators, mining and ch
 ## Site pages
 
 - Homepage: https://hydrovolta.com/
-- Groundwater treatment: https://hydrovolta.com/groundwater
+- Brackish groundwater treatment: https://hydrovolta.com/groundwater
+- Brackish water for irrigation: https://hydrovolta.com/irrigation
+- Nitrate and salinity removal: https://hydrovolta.com/nitrate-removal
+- Electrodialysis vs reverse osmosis: https://hydrovolta.com/electrodialysis-vs-reverse-osmosis
 - Brine valorization: https://hydrovolta.com/brine-valorization
 - Technology (SonixED™ detail): https://hydrovolta.com/technology
 - Systems (SalinBloc™): https://hydrovolta.com/systems
