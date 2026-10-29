@@ -95,6 +95,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var error   = document.getElementById('form-error');
 
   if (!form) return;
+  var errorHTML = error ? error.innerHTML : '';
+  function fail(detail) {
+    if (error) {
+      error.innerHTML = errorHTML + (detail ? ' <span style="opacity:.8">(' +
+        String(detail).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + ')</span>' : '');
+      error.hidden = false;
+    }
+    btn.disabled = false; btn.textContent = 'Initiate engineering review';
+  }
+  // An empty file input still serialises as a file part, which turns every
+  // submission into an upload. Only send the field when a file is chosen.
+  function payloadFor(theForm) {
+    var body = new FormData(theForm);
+    var input = theForm.querySelector('input[type="file"]');
+    if (input) {
+      if (!input.files || !input.files.length) { body.delete(input.name); }
+      else if (input.files[0].size > 8388608) { return null; }
+    }
+    return body;
+  }
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -102,7 +122,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     btn.textContent = 'Sending…';
     error.hidden = true;
 
-    var data = new FormData(form);
+    var data = payloadFor(form);
+    if (!data) { fail('that file is larger than 8 MB — email it to us instead'); return; }
 
     fetch(FORMSPREE_ENDPOINT, {
       method: 'POST',
@@ -124,15 +145,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         form.hidden = true;
         success.hidden = false;
       } else {
-        return res.json().then(function(body) {
-          throw new Error(body.error || 'Server error');
+        return res.json().catch(function () { return {}; }).then(function (body) {
+          var first = body.errors && body.errors[0] && body.errors[0].message;
+          throw new Error(first || body.error || ('HTTP ' + res.status));
         });
       }
     })
-    .catch(function() {
-      error.hidden = false;
-      btn.disabled = false;
-      btn.textContent = 'Initiate engineering review';
+    .catch(function (err) {
+      if (window.console && console.error) { console.error('Form submit failed:', err); }
+      fail(err && err.message ? err.message : null);
     });
   });
 })();
