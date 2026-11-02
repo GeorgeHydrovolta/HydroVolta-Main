@@ -125,9 +125,9 @@
         .catch(function (e) {
           if (window.console && console.error) { console.error('Download request failed:', e); }
           var why = (e && e.message ? String(e.message) : 'Something went wrong').replace(/\.$/, '');
-          err.innerHTML = why +
-            '. Email <a href="mailto:info@hydrovolta.com" style="color:#a32d2d;text-decoration:underline">' +
-            'info@hydrovolta.com</a> and we will send it.';
+          // the server sometimes names the mailbox itself; do not say it twice
+          err.innerHTML = /info@hydrovolta\.com/i.test(why) ? why
+            : why + '. Email <a href="mailto:info@hydrovolta.com" style="color:#a32d2d;text-decoration:underline">info@hydrovolta.com</a> and we will send it.';
           err.hidden = false;
           send.disabled = false;
           send.textContent = 'Send me the document';

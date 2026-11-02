@@ -87,16 +87,16 @@ export async function onRequestPost({ request, env }) {
     textbody: rows.map(([k, v]) => k + ': ' + v).join('\n'),
   });
 
-  // The lead notification must not cost the visitor their download, but a
-  // misconfigured mailer should be loud rather than silent.
-  if (!sent.ok && sent.detail === 'not configured') {
-    return json({ error: 'Downloads are not available right now. Email info@hydrovolta.com and we will send it.' }, 503);
-  }
+  // A broken or unconfigured mailer must never cost the visitor their
+  // document. Hand the file over and make the lost lead loud in the logs.
   if (!sent.ok) {
-    console.error('Download lead not delivered:', sent.detail, '|', email, '|', file);
+    console.error('DOWNLOAD LEAD NOT EMAILED (' + sent.detail + '):',
+      JSON.stringify({ name: name, email: email, organisation: organisation, file: file, page: page }));
   }
 
-  const url = await signDownload(env.DOWNLOAD_SECRET || env.ZEPTOMAIL_TOKEN, '/' + file, 900);
+  const key = env.DOWNLOAD_SECRET || env.ZEPTOMAIL_TOKEN;
+  // With no key configured the gate serves files unsigned, so send the plain path.
+  const url = key ? await signDownload(key, '/' + file, 900) : '/' + file;
   return json({ ok: true, url: url, title: title });
 }
 

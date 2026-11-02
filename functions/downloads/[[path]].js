@@ -46,8 +46,16 @@ export async function onRequest(context) {
     return next();                                  // manual, chapters, anything else
   }
 
+  const key = env.DOWNLOAD_SECRET || env.ZEPTOMAIL_TOKEN;
+  if (!key) {
+    // Nothing to verify against. A missing environment variable must not
+    // take the documents offline, so serve the file and say so in the log.
+    console.error('Download gate inactive: DOWNLOAD_SECRET is not set');
+    return next();
+  }
+
   const ok = await validDownload(
-    env.DOWNLOAD_SECRET || env.ZEPTOMAIL_TOKEN,
+    key,
     url.pathname,
     url.searchParams.get('e'),
     url.searchParams.get('t')
