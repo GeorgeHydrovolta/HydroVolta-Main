@@ -96,16 +96,17 @@
         if (attr[k]) data.append(k, attr[k]);
       });
 
-      fetch('/api/download', { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+      fetch('/api/download', { method: 'POST', body: data })
         .then(function (res) {
-          return res.json().catch(function () { return {}; }).then(function (body) {
-            if (!res.ok || !body.ok) {
+          var type = res.headers.get('content-type') || '';
+          if (!res.ok || type.indexOf('application/json') > -1) {
+            return res.json().catch(function () { return {}; }).then(function (body) {
               throw new Error(body.error || 'HTTP ' + res.status);
-            }
-            return body;
-          });
+            });
+          }
+          return res.blob();                       // the file itself
         })
-        .then(function (body) {
+        .then(function (blob) {
           try {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
@@ -114,12 +115,14 @@
               page_path: location.pathname
             });
           } catch (e) {}
+          var href = URL.createObjectURL(blob);
           var a = document.createElement('a');
-          a.href = body.url;
-          a.setAttribute('download', '');
+          a.href = href;
+          a.setAttribute('download', path.split('/').pop());
           document.body.appendChild(a);
           a.click();
           a.remove();
+          setTimeout(function () { URL.revokeObjectURL(href); }, 30000);
           dialog.close();
         })
         .catch(function (e) {

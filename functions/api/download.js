@@ -1,15 +1,21 @@
 /**
  * Gated download — Cloudflare Pages Function.
  *
- * A visitor gives a name and a work email, this records the lead by emailing
- * it to info@, and answers with a short-lived signed link to the file. The
- * link is what functions/downloads/[[path]].js checks before serving.
+ * A visitor gives a name and a work email; this records the lead by emailing
+ * it to info@ and then streams the file back in the same response. The bytes
+ * only ever leave through this handler, so the gate needs no signing key and
+ * no configuration: functions/downloads/[[path]].js refuses the four gated
+ * paths outright.
+ *
+ * A mailer that is missing or failing must never cost the visitor the
+ * document. In that case the lead is written to the log and the file is still
+ * served.
  *
  * Only the marketing PDFs are gated. The SalinBloc manual and its chapters
  * belong to existing customers and stay open.
  */
 import {
-  json, esc, EMAIL_RE, wrongOrigin, recipients, verifyTurnstile, sendMail, signDownload,
+  json, esc, EMAIL_RE, wrongOrigin, recipients, verifyTurnstile, sendMail,
 } from '../_lib/mail.js';
 
 // path -> the human name used in the notification
@@ -35,7 +41,7 @@ export async function onRequestPost({ request, env }) {
   }
 
   if ((form.get('company_website') || '').toString().trim() !== '') {
-    return json({ error: 'Please try again.' }, 400);   // honeypot: no link handed out
+    return json({ error: 'Please try again.' }, 400);   // honeypot: no file handed over
   }
 
   const turnstile = await verifyTurnstile(
@@ -59,6 +65,13 @@ export async function onRequestPost({ request, env }) {
   if (!EMAIL_RE.test(email)) return json({ error: 'That email address does not look right.' }, 400);
   if (name.length > MAX_FIELD || email.length > MAX_FIELD || organisation.length > MAX_FIELD) {
     return json({ error: 'That is longer than we can accept.' }, 400);
+  }
+
+  // Fetch the asset first: no point emailing a lead for a file we cannot serve.
+  const asset = await env.ASSETS.fetch(new URL('/' + file, request.url));
+  if (!asset.ok) {
+    console.error('Gated file missing from the build:', file, asset.status);
+    return json({ error: 'That document is temporarily unavailable. Email info@hydrovolta.com and we will send it.' }, 404);
   }
 
   const title = GATED[file];
@@ -87,17 +100,20 @@ export async function onRequestPost({ request, env }) {
     textbody: rows.map(([k, v]) => k + ': ' + v).join('\n'),
   });
 
-  // A broken or unconfigured mailer must never cost the visitor their
-  // document. Hand the file over and make the lost lead loud in the logs.
+  // A broken or unconfigured mailer must never cost the visitor the document.
+  // Make the lost lead loud instead: this shows up in `wrangler pages tail`.
   if (!sent.ok) {
-    console.error('DOWNLOAD LEAD NOT EMAILED (' + sent.detail + '):',
+    console.error('DOWNLOAD LEAD NOT EMAILED (' + sent.detail + '): ' +
       JSON.stringify({ name: name, email: email, organisation: organisation, file: file, page: page }));
   }
 
-  const key = env.DOWNLOAD_SECRET || env.ZEPTOMAIL_TOKEN;
-  // With no key configured the gate serves files unsigned, so send the plain path.
-  const url = key ? await signDownload(key, '/' + file, 900) : '/' + file;
-  return json({ ok: true, url: url, title: title });
+  const headers = new Headers();
+  headers.set('content-type', asset.headers.get('content-type') || 'application/pdf');
+  headers.set('content-disposition',
+    'attachment; filename="' + file.split('/').pop().replace(/[^A-Za-z0-9._-]/g, '') + '"');
+  headers.set('cache-control', 'private, no-store');
+  headers.set('x-robots-tag', 'noindex');
+  return new Response(asset.body, { status: 200, headers: headers });
 }
 
 export async function onRequest(context) {
