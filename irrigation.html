@@ -33,7 +33,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="fg" style="margin-top:.75rem"><label for="i-email">Work email *</label><input id="i-email" name="email" type="email" required placeholder="name@organisation.com"></div>
         <div class="fg" style="margin-top:.75rem"><label for="i-country">Country *</label><input id="i-country" name="country" type="text" required placeholder="Country or region"></div>
         <div class="fg" style="margin-top:.75rem"><label for="i-source">Water source type *</label><select id="i-source" name="water_source" required><option value="">Select…</option><option>Borehole / well</option><option>Surface water</option><option>Coastal aquifer</option><option>Mixed / blended source</option><option>Not yet characterised</option></select></div>
-        <div class="fg" style="margin-top:.75rem"><label for="i-file">Water analysis (optional)</label><input id="i-file" name="attachment" type="file" style="padding:.5rem"></div>
+        <div class="fg full"><p style="font-size:.82rem;color:rgba(255,255,255,.55);margin:0">Have a water or brine analysis? Email it to <a href="mailto:info@hydrovolta.com?subject=Water%20analysis" style="color:var(--gl);text-decoration:underline">info@hydrovolta.com</a> and we will match it to your enquiry.</p></div>
         <div class="actions" style="justify-content:center;margin-top:1.25rem"><button id="i-submit" type="submit" class="btn btn--gold" style="width:100%">Request an irrigation assessment</button></div>
         <p style="text-align:center;font-size:.76rem;color:rgba(255,255,255,.45);margin-top:.85rem">We use your details and water data only to assess your project. <a href="/privacy" style="color:rgba(255,255,255,.7);text-decoration:underline">See our privacy policy</a>.</p>
       </form>
@@ -158,13 +158,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var success = document.getElementById('lp_irrigation-success');
   var error   = document.getElementById('lp_irrigation-error');
   if (!form) return;
+  var errorHTML = error ? error.innerHTML : '';
+  function fail(detail) {
+    if (error) {
+      error.innerHTML = errorHTML + (detail ? ' <span style="opacity:.8">(' +
+        String(detail).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + ')</span>' : '');
+      error.hidden = false;
+    }
+    btn.disabled = false; btn.textContent = 'Request an irrigation assessment';
+  }
+  // An empty file input still serialises as a file part, which turns every
+  // submission into an upload. Only send the field when a file is chosen.
+  function payloadFor(theForm) {
+    var body = new FormData(theForm);
+    var input = theForm.querySelector('input[type="file"]');
+    if (input) {
+      if (!input.files || !input.files.length) { body.delete(input.name); }
+      else if (input.files[0].size > 8388608) { return null; }
+    }
+    return body;
+  }
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     btn.disabled = true;
     btn.textContent = 'Sending…';
     error.hidden = true;
+    var data = payloadFor(form);
+    if (!data) { fail('that file is larger than 8 MB — email it to us instead'); return; }
     fetch(FORMSPREE_ENDPOINT, {
-      method: 'POST', body: new FormData(form),
+      method: 'POST', body: data,
       headers: { 'Accept': 'application/json' }
     })
     .then(function(res) {
@@ -179,12 +201,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         } catch (e) {}
         form.hidden = true;
         success.hidden = false;
-      } else { throw new Error(); }
+      } else {
+        return res.json().catch(function () { return {}; }).then(function (body) {
+          var first = body.errors && body.errors[0] && body.errors[0].message;
+          throw new Error(first || body.error || ('HTTP ' + res.status));
+        });
+      }
     })
-    .catch(function() {
-      error.hidden = false;
-      btn.disabled = false;
-      btn.textContent = 'Request an irrigation assessment';
+    .catch(function (err) {
+      if (window.console && console.error) { console.error('Form submit failed:', err); }
+      fail(err && err.message ? err.message : null);
     });
   });
 })();
