@@ -96,16 +96,17 @@
         if (attr[k]) data.append(k, attr[k]);
       });
 
-      fetch('/api/download', { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+      fetch('/api/download', { method: 'POST', body: data })
         .then(function (res) {
-          return res.json().catch(function () { return {}; }).then(function (body) {
-            if (!res.ok || !body.ok) {
+          var type = res.headers.get('content-type') || '';
+          if (!res.ok || type.indexOf('application/json') > -1) {
+            return res.json().catch(function () { return {}; }).then(function (body) {
               throw new Error(body.error || 'HTTP ' + res.status);
-            }
-            return body;
-          });
+            });
+          }
+          return res.blob();                       // the file itself
         })
-        .then(function (body) {
+        .then(function (blob) {
           try {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
@@ -114,20 +115,22 @@
               page_path: location.pathname
             });
           } catch (e) {}
+          var href = URL.createObjectURL(blob);
           var a = document.createElement('a');
-          a.href = body.url;
-          a.setAttribute('download', '');
+          a.href = href;
+          a.setAttribute('download', path.split('/').pop());
           document.body.appendChild(a);
           a.click();
           a.remove();
+          setTimeout(function () { URL.revokeObjectURL(href); }, 30000);
           dialog.close();
         })
         .catch(function (e) {
           if (window.console && console.error) { console.error('Download request failed:', e); }
           var why = (e && e.message ? String(e.message) : 'Something went wrong').replace(/\.$/, '');
-          err.innerHTML = why +
-            '. Email <a href="mailto:info@hydrovolta.com" style="color:#a32d2d;text-decoration:underline">' +
-            'info@hydrovolta.com</a> and we will send it.';
+          // the server sometimes names the mailbox itself; do not say it twice
+          err.innerHTML = /info@hydrovolta\.com/i.test(why) ? why
+            : why + '. Email <a href="mailto:info@hydrovolta.com" style="color:#a32d2d;text-decoration:underline">info@hydrovolta.com</a> and we will send it.';
           err.hidden = false;
           send.disabled = false;
           send.textContent = 'Send me the document';
