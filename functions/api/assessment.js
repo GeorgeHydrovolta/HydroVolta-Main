@@ -3,20 +3,26 @@
  *
  * Replaces Formspree. The browser posts the form to this URL on hydrovolta.com,
  * so the submission never touches a third-party form service; this function
- * validates it and hands it to Zoho ZeptoMail, which delivers it to info@.
+ * validates it and hands it to Zoho ZeptoMail, which delivers it to the sales
+ * and info mailboxes.
  *
  * Secrets (Cloudflare Pages → Settings → Environment variables, encrypted —
  * never in this repository):
  *   ZEPTOMAIL_TOKEN   Send Mail Token from the ZeptoMail Mail Agent
  *   TURNSTILE_SECRET  Cloudflare Turnstile secret key
+ *   DOWNLOAD_SECRET   signing key for gated download links
  * Plain variables, with the defaults below if unset:
  *   MAIL_FROM         forms@hydrovolta.com   (must be on the verified domain)
- *   MAIL_TO           info@hydrovolta.com
+ *   MAIL_TO           info@hydrovolta.com,sales@hydrovolta.com (comma separated)
+ *   DOWNLOAD_MAIL_TO  info@hydrovolta.com    (gated downloads)
  *   ZEPTOMAIL_HOST    https://api.zeptomail.eu   (EU data centre)
  *
  * Responds with the same JSON shape the front end already handles:
  *   { ok: true } | { error: "…" }
  */
+import {
+  json, esc, EMAIL_RE, wrongOrigin, recipients, base64, verifyTurnstile, sendMail,
+} from '../_lib/mail.js';
 
 const MAX_ATTACHMENT = 8 * 1024 * 1024;   // ZeptoMail caps the whole message at 15 MB
 const MAX_FIELD = 2000;
@@ -45,51 +51,9 @@ const FIELDS = {
   gclid:          ['gclid', false],
 };
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-function json(body, status) {
-  return new Response(JSON.stringify(body), {
-    status: status || 200,
-    headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' },
-  });
-}
-
-function esc(s) {
-  return String(s)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-function base64(buffer) {
-  const bytes = new Uint8Array(buffer);
-  let binary = '';
-  // btoa takes a string; chunk it so a large file cannot blow the call stack.
-  for (let i = 0; i < bytes.length; i += 0x8000) {
-    binary += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
-  }
-  return btoa(binary);
-}
-
-async function verifyTurnstile(token, ip, secret) {
-  if (!secret) return { ok: true, skipped: true };   // not configured yet
-  if (!token) return { ok: false, reason: 'captcha missing' };
-  const body = new FormData();
-  body.append('secret', secret);
-  body.append('response', token);
-  if (ip) body.append('remoteip', ip);
-  const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-    method: 'POST', body,
-  });
-  const out = await res.json().catch(() => ({}));
-  return { ok: out.success === true, reason: (out['error-codes'] || []).join(', ') };
-}
-
 export async function onRequestPost({ request, env }) {
-  // Same-origin only. A browser always sends Origin on a cross-origin POST.
-  const origin = request.headers.get('Origin');
-  if (origin) {
-    const here = new URL(request.url).origin;
-    if (origin !== here) return json({ error: 'Cross-origin submissions are not accepted.' }, 403);
+  if (wrongOrigin(request)) {
+    return json({ error: 'Cross-origin submissions are not accepted.' }, 403);
   }
 
   let form;
@@ -153,12 +117,11 @@ export async function onRequestPost({ request, env }) {
       esc(values[key]).replace(/\n/g, '<br>') + '</td></tr>')
     .join('');
 
-  const subject = 'Assessment request — ' + values.organisation + ' (' + values.country + ')';
   const payload = {
     from: { address: env.MAIL_FROM || 'forms@hydrovolta.com', name: 'Hydrovolta website' },
-    to: [{ email_address: { address: env.MAIL_TO || 'info@hydrovolta.com', name: 'Hydrovolta' } }],
+    to: recipients(env.MAIL_TO, 'info@hydrovolta.com,sales@hydrovolta.com'),
     reply_to: [{ address: values.email, name: values.contact_person }],
-    subject: subject,
+    subject: 'Assessment request — ' + values.organisation + ' (' + values.country + ')',
     htmlbody:
       '<div style="font-family:system-ui,sans-serif;font-size:14px;line-height:1.6">' +
       '<p style="margin:0 0 14px">New assessment request from the website.</p>' +
@@ -173,32 +136,12 @@ export async function onRequestPost({ request, env }) {
   };
   if (attachments.length) payload.attachments = attachments;
 
-  if (!env.ZEPTOMAIL_TOKEN) {
-    return json({ error: 'Mail delivery is not configured yet.' }, 503);
-  }
-
-  const host = (env.ZEPTOMAIL_HOST || 'https://api.zeptomail.eu').replace(/\/$/, '');
-  let res, body;
-  try {
-    res = await fetch(host + '/v1.1/email', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Zoho-enczapikey ' + env.ZEPTOMAIL_TOKEN,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-    body = await res.json().catch(() => ({}));
-  } catch (err) {
-    return json({ error: 'Mail service unreachable.' }, 502);
-  }
-
-  if (!res.ok) {
-    // Log for the Cloudflare tail; never echo the token or the raw provider body.
-    console.error('ZeptoMail rejected the message', res.status, JSON.stringify(body).slice(0, 500));
-    const detail = (body && (body.message || body.error)) || ('HTTP ' + res.status);
-    return json({ error: 'Mail service error: ' + detail }, 502);
+  const sent = await sendMail(env, payload);
+  if (!sent.ok) {
+    if (sent.detail === 'not configured') {
+      return json({ error: 'Mail delivery is not configured yet.' }, 503);
+    }
+    return json({ error: 'Mail service error: ' + sent.detail }, sent.status || 502);
   }
 
   return json({ ok: true });
