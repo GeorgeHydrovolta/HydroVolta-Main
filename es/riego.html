@@ -37,13 +37,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="formbox" style="padding:1.75rem 2rem;background:var(--n1);border-color:rgba(255,255,255,.14)">
       <h2 style="font-size:1.05rem;margin-bottom:.35rem;color:var(--w)">Envíe su análisis de agua</h2>
       <p style="font-size:.82rem;color:rgba(255,255,255,.55);margin-bottom:1.25rem">Con la conductividad y el sodio es suficiente para empezar. Respondemos en 3 días laborables.</p>
-      <form id="lp_riego">
+      <form id="lp_riego"><input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
         <div class="fg"><label for="r-org">Organización *</label><input id="r-org" name="organisation" type="text" required placeholder="Comunidad de regantes, explotación, cooperativa"></div>
         <div class="fg" style="margin-top:.75rem"><label for="r-name">Nombre y cargo *</label><input id="r-name" name="contact_person" type="text" required placeholder="Nombre y cargo"></div>
         <div class="fg" style="margin-top:.75rem"><label for="r-email">Correo profesional *</label><input id="r-email" name="email" type="email" required placeholder="nombre@organizacion.com"></div>
         <div class="fg" style="margin-top:.75rem"><label for="r-country">País *</label><input id="r-country" name="country" type="text" required placeholder="País o región"></div>
         <div class="fg" style="margin-top:.75rem"><label for="r-source">Tipo de fuente de agua *</label><select id="r-source" name="water_source" required><option value="">Seleccione…</option><option>Pozo o sondeo</option><option>Agua superficial</option><option>Acuífero costero</option><option>Fuente mixta</option><option>Aún sin caracterizar</option></select></div>
-        <div class="fg full"><p style="font-size:.82rem;color:rgba(255,255,255,.55);margin:0">&iquest;Tiene un an&aacute;lisis de agua? Env&iacute;elo a <a href="mailto:info@hydrovolta.com?subject=An%C3%A1lisis%20de%20agua" style="color:var(--gl);text-decoration:underline">info@hydrovolta.com</a> y lo asociaremos a su solicitud.</p></div>
+        <div class="fg full"><label for="r-file">Análisis de agua (opcional)</label><input id="r-file" name="attachment" type="file" style="padding:.5rem"><p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:.35rem">PDF, CSV o imagen de hasta 8&nbsp;MB.</p></div>
         <div class="actions" style="justify-content:center;margin-top:1.25rem"><button id="r-submit" type="submit" class="btn btn--gold" style="width:100%">Solicitar una evaluación</button></div>
         <p style="text-align:center;font-size:.76rem;color:rgba(255,255,255,.45);margin-top:.85rem">Utilizamos sus datos y su análisis de agua únicamente para evaluar su proyecto. <a href="/privacy" style="color:rgba(255,255,255,.7);text-decoration:underline">Consulte nuestra política de privacidad</a>.</p>
       </form>
@@ -158,7 +158,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </main><section class="logos"><div class="wrap"><p>Institutional partners &amp; backing</p><div class="logos__row"><picture><source srcset="/images/opt/EIC_logo.webp" type="image/webp"><img width="1600" height="538" src="/images/EIC_logo.webp" alt="EIC" loading="lazy"></picture><figure><img width="363" height="139" src="/images/flanders_logo.webp" alt="Flanders" loading="lazy"><p class="logos__role">Funder</p></figure><figure><img width="256" height="197" src="/images/watereu_logo.webp" alt="Water Europe" loading="lazy"><p class="logos__role">Award</p></figure><figure><img width="275" height="183" src="/images/watergroep_logo.webp" alt="De Watergroep" loading="lazy"><p class="logos__role">Partner</p></figure><figure><img width="381" height="132" src="/images/farys_logo.webp" alt="Farys" loading="lazy"><p class="logos__role">Partner</p></figure><figure><img width="200" height="200" src="/images/GSTIC_logo.webp" alt="GSTIC" loading="lazy"><p class="logos__role">Partner</p></figure><figure><img width="225" height="225" src="/images/aquatech_logo.webp" alt="Aquatech" loading="lazy"><p class="logos__role">Partner</p></figure><!-- client: BASF - name only after BASF sign-off --><!-- enable after written logo approval<figure><img width="200" height="200" src="images/CLIENT_LOGO_PENDING.webp" alt="Pilot client" loading="lazy"><p class="logos__role">Pilot client</p></figure>--><!-- enable after written logo approval<figure><img width="200" height="200" src="images/water-corporation-logo.webp" alt="Water Corporation" loading="lazy"><p class="logos__role">Utility client</p></figure>--></div></div></section><footer class="footer"><div class="wrap"><div class="footer__grid"><div><h4>Hydrovolta</h4><p>High-recovery treatment for brackish groundwater &mdash; and other brackish water where RO struggles. Modular and project-engineered systems. Founded 2016, Leuven, Belgium.</p></div><div><h4>Solutions</h4><ul><li><a href="/groundwater">Groundwater</a></li><li><a href="/brine-valorization">Brine Valorization</a></li><li><a href="/technology">Technology</a></li><li><a href="/systems">Systems</a></li></ul></div><div><h4>Company</h4><ul><li><a href="/projects">Projects</a></li><li><a href="/applications">Applications</a></li><li><a href="/about">About</a></li><li><a href="/privacy">Privacy</a></li></ul></div><div><h4>Start with water data</h4><p>TDS, hardness, nitrate, silica, target flow, and any brine analysis.</p><p style="margin-top:1rem"><a class="btn btn--gold btn--sm" href="/contact">Request assessment</a></p></div></div><div class="footer__bottom"><p>&copy; <span data-year></span> Hydrovolta BV &middot; All rights reserved &middot; Leuven, Belgium</p><p>SonixED&trade; &middot; SalinBloc&trade; &middot; Integrated brine valorization</p><div class="footer__social"><a href="https://be.linkedin.com/company/hydrovolta" target="_blank" rel="noopener" aria-label="Hydrovolta on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a><a href="https://www.facebook.com/hydrovolta/" target="_blank" rel="noopener" aria-label="Hydrovolta on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>Facebook</a></div></div></div></footer><script>
 (function() {
-  var FORMSPREE_ENDPOINT = 'https://formspree.io/f/mnjyqrge';
+  var ASSESSMENT_ENDPOINT = '/api/assessment';   // Zoho ZeptoMail, same origin
   var form    = document.getElementById('lp_riego');
   var btn     = document.getElementById('r-submit');
   var success = document.getElementById('lp_riego-success');
@@ -177,6 +177,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   // submission into an upload. Only send the field when a file is chosen.
   function payloadFor(theForm) {
     var body = new FormData(theForm);
+  if (!body.get('form_name')) { body.append('form_name', theForm.id); }
+  if (!body.get('page_path')) { body.append('page_path', location.pathname); }
     var input = theForm.querySelector('input[type="file"]');
     if (input) {
       if (!input.files || !input.files.length) { body.delete(input.name); }
@@ -191,7 +193,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     error.hidden = true;
     var data = payloadFor(form);
     if (!data) { fail('that file is larger than 8 MB — email it to us instead'); return; }
-    fetch(FORMSPREE_ENDPOINT, {
+    fetch(ASSESSMENT_ENDPOINT, {
       method: 'POST', body: data,
       headers: { 'Accept': 'application/json' }
     })
