@@ -69,7 +69,10 @@ export async function sendMail(env, message) {
     res = await fetch(host + '/v1.1/email', {
       method: 'POST',
       headers: {
-        'Authorization': 'Zoho-enczapikey ' + env.ZEPTOMAIL_TOKEN,
+        // Zoho shows the token both bare and prefixed; accept either paste.
+        'Authorization': /^Zoho-enczapikey\s/i.test(env.ZEPTOMAIL_TOKEN)
+          ? env.ZEPTOMAIL_TOKEN.trim()
+          : 'Zoho-enczapikey ' + String(env.ZEPTOMAIL_TOKEN).trim(),
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
