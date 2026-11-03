@@ -63,13 +63,16 @@ export async function verifyTurnstile(token, ip, secret) {
  */
 export async function sendMail(env, message) {
   if (!env.ZEPTOMAIL_TOKEN) return { ok: false, status: 503, detail: 'not configured' };
-  const host = (env.ZEPTOMAIL_HOST || 'https://api.zeptomail.eu').replace(/\/$/, '');
+  const host = (env.ZEPTOMAIL_HOST || 'https://cpaas.zoho.com').replace(/\/$/, '');
   let res, body;
   try {
     res = await fetch(host + '/v1.1/email', {
       method: 'POST',
       headers: {
-        'Authorization': 'Zoho-enczapikey ' + env.ZEPTOMAIL_TOKEN,
+        // Zoho shows the token both bare and prefixed; accept either paste.
+        'Authorization': /^Zoho-enczapikey\s/i.test(env.ZEPTOMAIL_TOKEN)
+          ? env.ZEPTOMAIL_TOKEN.trim()
+          : 'Zoho-enczapikey ' + String(env.ZEPTOMAIL_TOKEN).trim(),
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
