@@ -70,7 +70,7 @@
   // Last click wins: a fresh gclid or utm_* on the URL overwrites the stored one,
   // matching how Google Ads attributes a conversion.
   (function() {
-    var KEYS  = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'gclid'];
+    var KEYS  = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid'];
     var STORE = 'hv_attribution';
     var stored = {};
 
@@ -90,7 +90,49 @@
       }
     }
 
+    // The first page of the session is the landing page; the page's own lang
+    // attribute tells the CRM which language the enquiry came in.
+    try {
+      if (!stored.landing_page) {
+        stored.landing_page = location.pathname;
+        sessionStorage.setItem(STORE, JSON.stringify(stored));
+      }
+    } catch (e) {}
+
+    var EXTRA = {
+      landing_page: stored.landing_page || location.pathname,
+      language: document.documentElement.getAttribute('lang') || 'en'
+    };
+
     document.querySelectorAll('form').forEach(function(form) {
+      Object.keys(EXTRA).forEach(function(k) {
+        if (form.querySelector('[name="' + k + '"]')) return;
+        var hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.name = k;
+        hidden.value = EXTRA[k];
+        form.appendChild(hidden);
+      });
+      // Stamp the consent the moment the box is ticked. Doing it on submit
+      // is too late: the page's own handler builds the payload first.
+      var box = form.querySelector('[name="marketing_consent"]');
+      if (box) {
+        box.addEventListener('change', function () {
+          var when = form.querySelector('[name="marketing_consent_date"]');
+          if (box.checked) {
+            if (!when) {
+              when = document.createElement('input');
+              when.type = 'hidden';
+              when.name = 'marketing_consent_date';
+              form.appendChild(when);
+            }
+            when.value = new Date().toISOString();
+          } else if (when) {
+            when.remove();
+          }
+        });
+      }
+
       KEYS.forEach(function(k) {
         if (!stored[k]) return;
         if (form.querySelector('[name="' + k + '"]')) return;
