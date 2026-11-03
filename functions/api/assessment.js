@@ -15,7 +15,7 @@
  *   MAIL_FROM         forms@hydrovolta.com   (must be on the verified domain)
  *   MAIL_TO           info@hydrovolta.com,sales@hydrovolta.com (comma separated)
  *   DOWNLOAD_MAIL_TO  info@hydrovolta.com    (gated downloads)
- *   ZEPTOMAIL_HOST    https://api.zeptomail.eu   (EU data centre)
+ *   ZEPTOMAIL_HOST    https://cpaas.zoho.com  (only if the Mail Agent shows another host)
  *
  * Responds with the same JSON shape the front end already handles:
  *   { ok: true } | { error: "…" }

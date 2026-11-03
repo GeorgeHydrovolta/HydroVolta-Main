@@ -63,7 +63,7 @@ export async function verifyTurnstile(token, ip, secret) {
  */
 export async function sendMail(env, message) {
   if (!env.ZEPTOMAIL_TOKEN) return { ok: false, status: 503, detail: 'not configured' };
-  const host = (env.ZEPTOMAIL_HOST || 'https://api.zeptomail.eu').replace(/\/$/, '');
+  const host = (env.ZEPTOMAIL_HOST || 'https://cpaas.zoho.com').replace(/\/$/, '');
   let res, body;
   try {
     res = await fetch(host + '/v1.1/email', {
