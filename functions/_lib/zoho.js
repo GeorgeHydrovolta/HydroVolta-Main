@@ -34,7 +34,7 @@ const FIELDS = {
   utm_medium: 'UTM_Medium',
   utm_campaign: 'UTM_Campaign',
   utm_content: 'UTM_Content',
-  gclid: 'GCLID',
+  gclid: 'Google_Click_ID',   // Zoho reserves GCLID as a system keyword
   landing_page: 'Landing_Page',
   language: 'Form_Language',
   marketing_consent: 'Marketing_Consent',
@@ -46,7 +46,7 @@ const LABELS = {
   Project_Stream: 'Project stream', Buyer_Type: 'Buyer type', TDS: 'TDS',
   Flow_m3_day: 'Flow (m3/day)', Water_Source: 'Water source',
   UTM_Source: 'utm_source', UTM_Medium: 'utm_medium', UTM_Campaign: 'utm_campaign',
-  UTM_Content: 'utm_content', GCLID: 'gclid', Landing_Page: 'Landing page',
+  UTM_Content: 'utm_content', Google_Click_ID: 'gclid', Landing_Page: 'Landing page',
   Form_Language: 'Language', Marketing_Consent: 'Marketing consent',
   Marketing_Consent_Date: 'Marketing consent date', Lead_Source: 'Lead source',
 };
@@ -89,6 +89,7 @@ async function moduleFields(api, token) {
     for (const f of (json.fields || [])) {
       map[f.api_name] = {
         type: f.data_type,
+        length: f.length,
         values: (f.pick_list_values || []).map((v) => v.actual_value),
       };
     }
@@ -125,8 +126,20 @@ export async function createLead(env, values, file) {
 
   function put(record, name, value) {
     if (value === '' || value === undefined || value === null) return;
-    if (accepts(name, value)) { record[name] = value; return; }
-    overflow.push((LABELS[name] || name) + ': ' + value);
+    if (!accepts(name, value)) {
+      overflow.push((LABELS[name] || name) + ': ' + value);
+      return;
+    }
+    // The form allows 2000 characters where most of these columns hold 255.
+    // Over-length makes Zoho refuse the whole record, so the field gets what
+    // fits and Description keeps the rest.
+    const f = known && known[name];
+    if (f && f.length && typeof value === 'string' && value.length > f.length) {
+      record[name] = value.slice(0, f.length);
+      overflow.push((LABELS[name] || name) + ' (full value): ' + value);
+      return;
+    }
+    record[name] = value;
   }
 
   const record = {
@@ -155,7 +168,7 @@ export async function createLead(env, values, file) {
     values.target_output ? 'Target output: ' + values.target_output : '',
     values.notes ? 'Notes: ' + values.notes : '',
     file ? 'Water analysis attached: ' + file.name : '',
-    overflow.length ? '\n--- fields not yet in the CRM ---\n' + overflow.join('\n') : '',
+    overflow.length ? '\n--- values the CRM fields could not take ---\n' + overflow.join('\n') : '',
   ].filter(Boolean).join('\n');
   if (description) record.Description = description;
 
