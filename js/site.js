@@ -145,6 +145,29 @@
     });
   })();
 
+  // ── LANGUAGE MENU ─────────────────────────────────────
+  // Only approved languages are rendered; the rest sit commented out in the
+  // markup. If English is the only one, the control has nothing to offer.
+  (function () {
+    var wrap = document.getElementById('lang-menu');
+    var btn  = document.getElementById('lang-btn');
+    var list = document.getElementById('lang-list');
+    if (!wrap || !btn || !list) return;
+    if (list.querySelectorAll('a').length < 2) { wrap.hidden = true; return; }
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = !list.hidden;
+      list.hidden = open;
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+    document.addEventListener('click', function () {
+      if (!list.hidden) { list.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !list.hidden) { list.hidden = true; btn.setAttribute('aria-expanded', 'false'); btn.focus(); }
+    });
+  })();
+
   // ── COOKIE CONSENT ────────────────────────────────────
   // Four categories: necessary, analytics, marketing, video.
   // Stored in localStorage under 'hv_consent'. Version 2 is a JSON object;
