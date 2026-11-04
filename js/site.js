@@ -153,15 +153,17 @@
     var btn  = document.getElementById('lang-btn');
     var list = document.getElementById('lang-list');
     if (!wrap || !btn || !list) return;
-    // Only English is approved so far. The brief wants it shown, so keep the
-    // chip and make it inert rather than opening a menu of one.
-    if (list.querySelectorAll('a').length < 2) {
-      wrap.classList.add('lang--single');
-      btn.setAttribute('aria-disabled', 'true');
-      btn.removeAttribute('aria-haspopup');
-      btn.removeAttribute('aria-expanded');
-      return;
-    }
+    // Mark the language being read, so opening the menu always shows
+    // something true even while English is the only approved page.
+    var here = (document.documentElement.getAttribute('lang') || 'en').toLowerCase();
+    var links = list.querySelectorAll('a');
+    Array.prototype.forEach.call(links, function (a) {
+      if ((a.getAttribute('hreflang') || '').toLowerCase() !== here) return;
+      a.setAttribute('aria-current', 'true');
+      a.style.fontWeight = '600';
+      if (a.textContent.indexOf('✓') === -1) { a.textContent = a.textContent + ' ✓'; }
+    });
+
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
       var open = !list.hidden;
