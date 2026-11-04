@@ -25,6 +25,7 @@
 import {
   json, esc, EMAIL_RE, wrongOrigin, recipients, base64, verifyTurnstile, sendMail,
 } from '../_lib/mail.js';
+import { createLead, zohoConfigured } from '../_lib/zoho.js';
 
 const MAX_ATTACHMENT = 8 * 1024 * 1024;   // ZeptoMail caps the whole message at 15 MB
 const MAX_FIELD = 2000;
@@ -144,6 +145,21 @@ export async function onRequestPost({ request, env }) {
       .map(([key, spec]) => spec[0] + ': ' + values[key]).join('\n'),
   };
   if (attachments.length) payload.attachments = attachments;
+
+  // The CRM record comes first, but never gates the enquiry: if Zoho is
+  // unreachable or unconfigured the email still goes, and the failure is
+  // loud in the log rather than silent.
+  let lead = { ok: false, detail: 'not configured' };
+  if (zohoConfigured(env)) {
+    lead = await createLead(env, values, attachments.length ? file : null);
+    if (!lead.ok) {
+      console.error('CRM LEAD NOT CREATED (' + lead.detail + '): ' +
+        JSON.stringify({ email: values.email, organisation: values.organisation }));
+    }
+  }
+  if (lead.ok) {
+    payload.subject += ' [CRM ' + lead.id + ']';
+  }
 
   const sent = await sendMail(env, payload);
   if (!sent.ok) {
