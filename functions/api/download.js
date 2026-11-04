@@ -86,7 +86,7 @@ export async function onRequestPost({ request, env }) {
 
   const sent = await sendMail(env, {
     from: { address: env.MAIL_FROM || 'forms@hydrovolta.com', name: 'Hydrovolta website' },
-    to: recipients(env.DOWNLOAD_MAIL_TO, 'info@hydrovolta.com'),
+    to: recipients(env.DOWNLOAD_MAIL_TO, 'info@hydrovolta.com,george@hydrovolta.com'),
     reply_to: [{ address: email, name: name }],
     subject: 'Document download — ' + title + (organisation ? ' (' + organisation + ')' : ''),
     htmlbody:

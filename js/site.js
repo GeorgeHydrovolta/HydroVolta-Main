@@ -101,7 +101,8 @@
     } catch (e) {}
 
     var EXTRA = {
-      landing_page: stored.landing_page || location.pathname,
+      // Zoho's Landing_Page is a URL field, so send an absolute URL, not a path
+      landing_page: location.origin + (stored.landing_page || location.pathname),
       language: document.documentElement.getAttribute('lang') || 'en'
     };
 
