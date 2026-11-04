@@ -13,7 +13,9 @@
  *   DOWNLOAD_SECRET   signing key for gated download links
  * Plain variables, with the defaults below if unset:
  *   MAIL_FROM         forms@hydrovolta.com   (must be on the verified domain)
- *   MAIL_TO           info@hydrovolta.com,sales@hydrovolta.com (comma separated)
+ *   MAIL_TO           info@,sales@,george@hydrovolta.com (comma separated).
+ *                     george@ is the fallback while leads are email-only; drop it
+ *                     once a test lead has landed in Zoho CRM.
  *   DOWNLOAD_MAIL_TO  info@hydrovolta.com    (gated downloads)
  *   ZEPTOMAIL_HOST    https://cpaas.zoho.com  (only if the Mail Agent shows another host)
  *
@@ -126,7 +128,7 @@ export async function onRequestPost({ request, env }) {
 
   const payload = {
     from: { address: env.MAIL_FROM || 'forms@hydrovolta.com', name: 'Hydrovolta website' },
-    to: recipients(env.MAIL_TO, 'info@hydrovolta.com,sales@hydrovolta.com'),
+    to: recipients(env.MAIL_TO, 'info@hydrovolta.com,sales@hydrovolta.com,george@hydrovolta.com'),
     reply_to: [{ address: values.email, name: values.contact_person }],
     subject: 'Assessment request — ' + values.organisation + ' (' + values.country + ')',
     htmlbody:
