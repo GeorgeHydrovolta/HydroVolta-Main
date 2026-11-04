@@ -159,6 +159,12 @@ export async function onRequestPost({ request, env }) {
   }
   if (lead.ok) {
     payload.subject += ' [CRM ' + lead.id + ']';
+  } else if (zohoConfigured(env)) {
+    // These notifications go to our own mailboxes, so the reason the CRM
+    // refused belongs here: without it the only copy is the Cloudflare log.
+    payload.subject += ' [CRM FAILED]';
+    payload.htmlbody = payload.htmlbody.replace('</div>', '<p style="margin-top:16px;padding:10px 12px;background:#fcebeb;border:1px solid #e24b4a;border-radius:6px;color:#a32d2d;font-size:13px"><strong>Not written to Zoho CRM.</strong><br>Reason: ' + esc(lead.detail) + '</p></div>');
+    payload.textbody += '\n\nNot written to Zoho CRM. Reason: ' + lead.detail;
   }
 
   const sent = await sendMail(env, payload);
