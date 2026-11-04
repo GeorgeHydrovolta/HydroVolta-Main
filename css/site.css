@@ -396,6 +396,9 @@ h3{font-size:1.2rem}
 
 /* ── LANGUAGE MENU ───────────────────────────────────── */
 .lang{position:relative;display:inline-flex;align-items:center;margin-left:.35rem}
+.lang[hidden]{display:none}
+.lang--single .lang__btn{cursor:default;border-style:dashed}
+.lang--single .lang__btn:hover{color:var(--m);border-color:var(--b)}
 .lang__btn{display:inline-flex;align-items:center;gap:.35rem;padding:.45rem .6rem;background:none;border:1px solid var(--b);border-radius:var(--r);color:var(--m);font-family:var(--fd);font-size:.78rem;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:var(--tr)}
 .lang__btn:hover{color:var(--n1);border-color:var(--n2)}
 .lang__list{position:absolute;top:calc(100% + .4rem);right:0;min-width:160px;background:var(--w);border:1px solid var(--b);border-radius:var(--r);box-shadow:0 12px 32px rgba(0,25,51,.14);padding:.35rem;z-index:60}
