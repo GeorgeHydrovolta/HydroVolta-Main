@@ -70,7 +70,7 @@
   // Last click wins: a fresh gclid or utm_* on the URL overwrites the stored one,
   // matching how Google Ads attributes a conversion.
   (function() {
-    var KEYS  = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'gclid'];
+    var KEYS  = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid'];
     var STORE = 'hv_attribution';
     var stored = {};
 
@@ -90,7 +90,49 @@
       }
     }
 
+    // The first page of the session is the landing page; the page's own lang
+    // attribute tells the CRM which language the enquiry came in.
+    try {
+      if (!stored.landing_page) {
+        stored.landing_page = location.pathname;
+        sessionStorage.setItem(STORE, JSON.stringify(stored));
+      }
+    } catch (e) {}
+
+    var EXTRA = {
+      landing_page: stored.landing_page || location.pathname,
+      language: document.documentElement.getAttribute('lang') || 'en'
+    };
+
     document.querySelectorAll('form').forEach(function(form) {
+      Object.keys(EXTRA).forEach(function(k) {
+        if (form.querySelector('[name="' + k + '"]')) return;
+        var hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.name = k;
+        hidden.value = EXTRA[k];
+        form.appendChild(hidden);
+      });
+      // Stamp the consent the moment the box is ticked. Doing it on submit
+      // is too late: the page's own handler builds the payload first.
+      var box = form.querySelector('[name="marketing_consent"]');
+      if (box) {
+        box.addEventListener('change', function () {
+          var when = form.querySelector('[name="marketing_consent_date"]');
+          if (box.checked) {
+            if (!when) {
+              when = document.createElement('input');
+              when.type = 'hidden';
+              when.name = 'marketing_consent_date';
+              form.appendChild(when);
+            }
+            when.value = new Date().toISOString();
+          } else if (when) {
+            when.remove();
+          }
+        });
+      }
+
       KEYS.forEach(function(k) {
         if (!stored[k]) return;
         if (form.querySelector('[name="' + k + '"]')) return;
@@ -100,6 +142,29 @@
         input.value = stored[k];
         form.appendChild(input);
       });
+    });
+  })();
+
+  // ── LANGUAGE MENU ─────────────────────────────────────
+  // Only approved languages are rendered; the rest sit commented out in the
+  // markup. If English is the only one, the control has nothing to offer.
+  (function () {
+    var wrap = document.getElementById('lang-menu');
+    var btn  = document.getElementById('lang-btn');
+    var list = document.getElementById('lang-list');
+    if (!wrap || !btn || !list) return;
+    if (list.querySelectorAll('a').length < 2) { wrap.hidden = true; return; }
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = !list.hidden;
+      list.hidden = open;
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+    document.addEventListener('click', function () {
+      if (!list.hidden) { list.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !list.hidden) { list.hidden = true; btn.setAttribute('aria-expanded', 'false'); btn.focus(); }
     });
   })();
 
@@ -195,6 +260,8 @@
         consent_video: !!c.video
       });
     } catch (e) {}
+    // let the conversion layer pick up a fresh marketing choice
+    try { window.dispatchEvent(new CustomEvent('hv:consent', { detail: c })); } catch (e) {}
     if (c.video) { loadYouTube(); } else { buildPlaceholders(); }
   }
 

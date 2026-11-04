@@ -49,6 +49,13 @@ const FIELDS = {
   utm_campaign:   ['utm_campaign', false],
   utm_term:       ['utm_term', false],
   gclid:          ['gclid', false],
+  buyer_type:     ['Buyer type', false],
+  phone:          ['WhatsApp / phone', false],
+  utm_content:    ['utm_content', false],
+  landing_page:   ['Landing page', false],
+  language:       ['Language', false],
+  marketing_consent:      ['Marketing consent', false],
+  marketing_consent_date: ['Marketing consent date', false],
 };
 
 export async function onRequestPost({ request, env }) {
