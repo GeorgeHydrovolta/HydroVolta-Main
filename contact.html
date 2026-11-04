@@ -134,12 +134,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         // Lead conversion signal. Pushed BEFORE the success state is shown so the
         // event is recorded even if the user navigates away immediately after.
         try {
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({
-            event: 'generate_lead',
-            form_name: form.getAttribute('id'),
-            page_path: location.pathname
-          });
+          if (typeof window.hvTrackLead === 'function') {
+            window.hvTrackLead({
+              form_name: form.getAttribute('id'),
+              page_path: location.pathname,
+              language: document.documentElement.lang || 'en',
+              buyer_type: (form.querySelector('[name="buyer_type"]') || {}).value || '',
+              country: (form.querySelector('[name="country"]') || {}).value || '',
+              submission_id: String(Date.now())
+            });
+          }
         } catch (e) {}
         form.hidden = true;
         success.hidden = false;
@@ -170,4 +174,4 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   });
 })();
 </script>
-<script src="js/site.js"></script></body></html>
+<script src="js/site.js"></script><script src="js/conversions.js" defer></script></body></html>

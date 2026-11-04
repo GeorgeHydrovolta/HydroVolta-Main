@@ -237,6 +237,8 @@
         consent_video: !!c.video
       });
     } catch (e) {}
+    // let the conversion layer pick up a fresh marketing choice
+    try { window.dispatchEvent(new CustomEvent('hv:consent', { detail: c })); } catch (e) {}
     if (c.video) { loadYouTube(); } else { buildPlaceholders(); }
   }
 
