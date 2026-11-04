@@ -58,7 +58,8 @@
   // Active nav link highlight
   var activePage = document.body.getAttribute('data-page');
   if (activePage) {
-    document.querySelectorAll('.nav__links a[href]').forEach(function(a) {
+    // Skip the language list: its links point at pages, not nav sections.
+    document.querySelectorAll('.nav__links a[href]:not(.lang__list a)').forEach(function(a) {
       var href = a.getAttribute('href').replace(/\.html$/, '').replace(/^\//, '') || 'index';
       if (href === activePage) { a.setAttribute('aria-current', 'page'); }
     });
