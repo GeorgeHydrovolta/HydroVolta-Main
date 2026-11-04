@@ -102,6 +102,15 @@ export async function onRequestPost({ request, env }) {
     }
     values[key] = value;
   }
+  // The consent timestamp is an audit record, so the server's receipt time
+  // decides it. A browser clock can be wrong, and anything posted directly
+  // could claim any time at all.
+  // Written as 2026-11-04T20:17:08+00:00: Zoho CRM date/time fields reject both
+  // the trailing Z and the milliseconds that toISOString() produces.
+  values.marketing_consent_date = values.marketing_consent === 'yes'
+    ? new Date().toISOString().replace(/\.\d{3}Z$/, '+00:00')
+    : '';
+
   if (!EMAIL_RE.test(values.email)) {
     return json({ error: 'That work email address does not look right.' }, 400);
   }
