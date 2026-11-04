@@ -102,6 +102,15 @@ export async function onRequestPost({ request, env }) {
     }
     values[key] = value;
   }
+  // The consent timestamp is an audit record, so the server's receipt time
+  // decides it. A browser clock can be wrong, and anything posted directly
+  // could claim any time at all.
+  // Written as 2026-11-04T20:17:08+00:00: Zoho CRM date/time fields reject both
+  // the trailing Z and the milliseconds that toISOString() produces.
+  values.marketing_consent_date = values.marketing_consent === 'yes'
+    ? new Date().toISOString().replace(/\.\d{3}Z$/, '+00:00')
+    : '';
+
   if (!EMAIL_RE.test(values.email)) {
     return json({ error: 'That work email address does not look right.' }, 400);
   }
@@ -159,6 +168,12 @@ export async function onRequestPost({ request, env }) {
   }
   if (lead.ok) {
     payload.subject += ' [CRM ' + lead.id + ']';
+  } else if (zohoConfigured(env)) {
+    // These notifications go to our own mailboxes, so the reason the CRM
+    // refused belongs here: without it the only copy is the Cloudflare log.
+    payload.subject += ' [CRM FAILED]';
+    payload.htmlbody = payload.htmlbody.replace('</div>', '<p style="margin-top:16px;padding:10px 12px;background:#fcebeb;border:1px solid #e24b4a;border-radius:6px;color:#a32d2d;font-size:13px"><strong>Not written to Zoho CRM.</strong><br>Reason: ' + esc(lead.detail) + '</p></div>');
+    payload.textbody += '\n\nNot written to Zoho CRM. Reason: ' + lead.detail;
   }
 
   const sent = await sendMail(env, payload);
