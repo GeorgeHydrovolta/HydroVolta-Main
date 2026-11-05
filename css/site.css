@@ -480,3 +480,95 @@ h3{font-size:1.2rem}
 @media(max-width:700px){
   .serial-form{flex-direction:column}
 }
+
+
+/* ── Process diagram ──────────────────────────────────────────────────────
+   Replaces images/process_diagram_*.webp. The labels are real text, so they
+   translate per language, can be selected and read aloud, and a wrong figure
+   is a one-line edit rather than a new export. Icons are inline SVG and
+   inherit currentColor, so the component works on light and dark sections. */
+.pdiag{margin:0}
+.pdiag__steps{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;align-items:start}
+.pdiag__step{position:relative;padding:0 .55rem;text-align:center}
+.pdiag__step::before{content:'';position:absolute;left:-7px;top:30px;width:11px;height:11px;
+  border-top:2px solid var(--g);border-right:2px solid var(--g);transform:rotate(45deg)}
+.pdiag__step:first-child::before{display:none}
+/* The rendered objects, cropped out of the original diagram artwork. Fixed
+   box height with the image bottom-aligned, so five pictures of different
+   proportions still sit on one baseline. */
+.pdiag__fig{height:122px;margin:0 0 .75rem;display:flex;align-items:flex-end;justify-content:center}
+.pdiag__fig img{max-height:122px;max-width:100%;width:auto;height:auto;display:block}
+.pdiag__n{display:inline-block;font-family:var(--fd);font-size:.68rem;font-weight:700;letter-spacing:.14em;
+  color:var(--g);margin-bottom:.3rem}
+.pdiag__step h3{font-size:.95rem;margin-bottom:.4rem;line-height:1.25}
+.pdiag__step p{font-size:.83rem;color:var(--m);line-height:1.6;margin:0}
+
+.pdiag__branch{margin-top:2rem;display:grid;grid-template-columns:auto 1fr;gap:1.25rem;align-items:center;
+  background:var(--s);border:1px solid var(--b);border-radius:var(--rl);padding:1.15rem 1.4rem}
+.pdiag__yield{font-family:var(--fd);font-weight:700;color:var(--n1);font-size:1.05rem;line-height:1.3;white-space:nowrap}
+.pdiag__yield span{display:block;font-family:var(--fb);font-weight:400;font-size:.78rem;color:var(--m);
+  letter-spacing:0;text-transform:none;white-space:normal}
+.pdiag__branch p{font-size:.86rem;color:var(--m);line-height:1.65;margin:0}
+
+.pdiag__gains{margin-top:1.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
+  border-top:1px solid var(--b);padding-top:1.35rem}
+.pdiag__gain strong{display:block;font-family:var(--fd);color:var(--n1);font-size:1rem;margin-bottom:.15rem}
+.pdiag__gain span{font-size:.8rem;color:var(--m);line-height:1.55}
+
+/* dark sections */
+.section--dark .pdiag__step h3{color:var(--w)}
+.section--dark .pdiag__step p,.section--dark .pdiag__branch p,.section--dark .pdiag__gain span{color:rgba(255,255,255,.65)}
+.section--dark .pdiag__branch{background:rgba(255,255,255,.05);border-color:var(--bd)}
+.section--dark .pdiag__yield,.section--dark .pdiag__gain strong{color:var(--w)}
+
+@media(max-width:1040px){
+  .pdiag__steps{grid-template-columns:repeat(3,1fr);gap:1.5rem .5rem}
+  .pdiag__step:nth-child(3n+1)::before{display:none}
+  .pdiag__gains{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  .pdiag__steps{grid-template-columns:1fr;gap:1.6rem}
+  .pdiag__step{padding:0}
+  .pdiag__step::before,.pdiag__step:nth-child(3n+1)::before{display:block;left:50%;top:-16px;
+    margin-left:-6px;transform:rotate(135deg)}
+  .pdiag__step:first-child::before{display:none}
+  .pdiag__branch{grid-template-columns:1fr;gap:.6rem;text-align:left}
+  .pdiag__yield{white-space:normal}
+  .pdiag__gains{grid-template-columns:1fr;gap:.85rem}
+}
+
+
+/* ── Homepage flow diagram ────────────────────────────────────────────────
+   The artwork carries no text; the labels below sit on top of it. Sizes are
+   in cqw (percent of the container width), so the whole composition scales
+   like the single image it replaces. Positions are percentages measured off
+   the artwork. */
+.hwf{position:relative;container-type:inline-size;margin:0}
+.hwf__art{display:block;width:100%;height:auto;border-radius:var(--r)}
+.hwf__head,.hwf__zone,.hwf__pill,.hwf__card{position:absolute;left:var(--x);top:var(--y);
+  transform:translate(-50%,-50%);text-align:center}
+.hwf__card{transform:translateY(-50%);text-align:left;width:var(--w)}
+.hwf__ey{font-family:var(--fd);font-weight:700;letter-spacing:.22em;color:var(--n3);font-size:1.02cqw}
+.hwf__h{font-family:var(--fb);font-weight:800;color:var(--t);font-size:3.2cqw;line-height:1.22;
+  margin:.5cqw 0 0;white-space:nowrap}
+.hwf__h em{font-style:normal;color:var(--n3)}
+.hwf__zone h3{font-family:var(--fb);font-weight:700;color:var(--t);font-size:1.6cqw;margin:0 0 .5cqw;white-space:nowrap}
+.hwf__stat{font-family:var(--fb);font-weight:700;color:var(--n3);font-size:1.2cqw;margin:0 0 .35cqw;white-space:nowrap}
+.hwf__stat--big{font-size:1.8cqw}
+.hwf__zone p{font-size:1.02cqw;color:var(--m);margin:0 0 .25cqw;line-height:1.45;white-space:nowrap}
+.hwf__pill{font-size:1.26cqw;color:#a8841f;white-space:nowrap}
+.hwf__card .hwf__tag{font-family:var(--fd);font-weight:700;letter-spacing:.14em;color:#a8841f;
+  font-size:.8cqw;display:block;margin-bottom:.2cqw}
+.hwf__card h3{font-family:var(--fb);font-weight:700;color:var(--t);font-size:1.38cqw;margin:0 0 .35cqw}
+.hwf__card p{font-size:.9cqw;color:var(--m);line-height:1.42;margin:0}
+.hwf__card a{color:var(--n3)}
+
+@media(max-width:760px){
+  /* The labels stay ON the artwork at every width. A 1672px composition
+     cannot shrink to a phone and stay readable, so instead of reflowing the
+     text underneath, the diagram keeps its proportions and scrolls
+     sideways - the same thing the comparison tables do. 1100px keeps the
+     type the same size a desktop visitor sees. */
+  .hwf-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -1.25rem;padding:0 1.25rem}
+  .hwf{width:1100px}
+}
