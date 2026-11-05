@@ -158,6 +158,10 @@
     // Mark the language being read, so opening the menu always shows
     // something true even while English is the only approved page.
     var here = (document.documentElement.getAttribute('lang') || 'en').toLowerCase();
+    // The chip is written as EN in the markup of every page. On a translated
+    // page that is simply wrong, so it follows <html lang> instead.
+    var chip = btn.querySelector('span');
+    if (chip) { chip.textContent = here.slice(0, 2).toUpperCase(); }
     var links = list.querySelectorAll('a');
     Array.prototype.forEach.call(links, function (a) {
       if ((a.getAttribute('hreflang') || '').toLowerCase() !== here) return;
