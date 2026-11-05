@@ -429,8 +429,43 @@ measurable crawl-budget issue rather than just tidiness.
 
 ## 5. Working rules
 
-- **Never commit or push without showing George the diff and getting an explicit OK.**
-  A push to `main` publishes to the live site immediately.
+### Permanent project rules &mdash; set by George, 5 November 2026
+
+These supersede the older "show the diff and get an OK before pushing" rule.
+They are not negotiable and not per-task; they hold for every session.
+
+1. **Never push directly to `main`.**
+2. **Never merge a pull request.**
+3. **Never deploy directly to Cloudflare production.**
+4. **Always work on a feature branch and open a pull request.**
+5. **Always show the exact diff, the branch name and the Cloudflare preview
+   URL** (`<branch>.hydrovolta.pages.dev`) before asking George to merge.
+6. **Never change Google Ads** budgets, bids, campaign status, billing or
+   account access.
+7. **Never publish, send, schedule or share anything publicly** without
+   George&rsquo;s explicit approval.
+8. **Never enter passwords, card details, API keys, tokens or 2FA codes.**
+9. **Never delete records, pages, URLs, or permanently delete files**
+   without explicit approval.
+10. **Never submit a live form or create a test lead without asking first.**
+    `/api/assessment` emails info@, sales@ and george@ and writes to the CRM.
+11. **Never add real IDs, secrets, tokens or credentials to the repository.**
+    Use Cloudflare environment variables.
+12. **Zoho stays read-only** until George approves a narrow list of write
+    actions. The CRM connector is read-only; the deployed Function writes
+    leads as the site, which is a different thing.
+13. **Do not use Microsoft 365 send, vidIQ publishing or social scheduling**
+    unless George explicitly asks.
+14. **Stop and ask** if a task needs production deployment, billing, DNS,
+    secrets, or Google Ads publishing.
+
+No Claude session has Cloudflare access &mdash; no dashboard, no DNS, no
+variables, no secrets, no billing. Retrying a deployment and setting or
+deleting a variable are George&rsquo;s actions. Say so plainly rather than
+working around it.
+
+### Everything else
+
 - **Never delete a page or change a URL path without asking.** SEO risk.
 - **One task at a time.** Keep changes minimal and consistent with existing style.
 - **Never add `noindex` except to unpublished drafts; remove it on approval.**
