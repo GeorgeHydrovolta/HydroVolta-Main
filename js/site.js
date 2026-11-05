@@ -1,6 +1,64 @@
 /* Hydrovolta site.js v2 */
 (function(){
 
+  // ── Interface strings ───────────────────────────────────────────────────
+  // The cookie banner and the YouTube placeholder are built here, not in the
+  // page markup, so a translated page would otherwise show English controls.
+  // A grep of the HTML will not find these. Keyed off <html lang>, English
+  // for any language not listed.
+  var STRINGS = {
+    en: {
+      cookieAria:   'Cookie preferences',
+      cookieIntro:  'We use cookies for analytics, advertising measurement and embedded YouTube video. ' +
+                    'Necessary cookies are always on. See our <a href="/privacy">Privacy Policy</a>.',
+      acceptAll:    'Accept all',
+      rejectAll:    'Reject all',
+      settings:     'Settings',
+      savePrefs:    'Save preferences',
+      optNecessary: '<strong>Necessary</strong> — required for the site to work. Always on.',
+      optAnalytics: '<strong>Analytics</strong> — how the site is used, in aggregate.',
+      optMarketing: '<strong>Marketing</strong> — advertising measurement.',
+      optVideo:     '<strong>Video</strong> — play embedded YouTube video here.',
+      ytNotice:     'This video is hosted on YouTube. Accept video cookies to play it here, or watch directly on YouTube.',
+      ytAccept:     'Accept &amp; play',
+      ytWatch:      'Watch on YouTube'
+    },
+    fr: {
+      cookieAria:   'Préférences de cookies',
+      cookieIntro:  "Nous utilisons des cookies pour la mesure d'audience, la mesure publicitaire et les vidéos " +
+                    'YouTube intégrées. Les cookies nécessaires sont toujours actifs. Consultez notre ' +
+                    '<a href="/privacy">politique de confidentialité</a>.',
+      acceptAll:    'Tout accepter',
+      rejectAll:    'Tout refuser',
+      settings:     'Paramètres',
+      savePrefs:    'Enregistrer mes préférences',
+      optNecessary: '<strong>Nécessaires</strong> — indispensables au fonctionnement du site. Toujours actifs.',
+      optAnalytics: "<strong>Mesure d'audience</strong> — l'usage du site, de façon agrégée.",
+      optMarketing: '<strong>Marketing</strong> — mesure publicitaire.',
+      optVideo:     '<strong>Vidéo</strong> — lire ici les vidéos YouTube intégrées.',
+      ytNotice:     'Cette vidéo est hébergée sur YouTube. Acceptez les cookies vidéo pour la lire ici, ou regardez-la directement sur YouTube.',
+      ytAccept:     'Accepter et lire',
+      ytWatch:      'Voir sur YouTube'
+    },
+    ar: {
+      cookieAria:   'تفضيلات ملفات تعريف الارتباط',
+      cookieIntro:  'نستخدم ملفات تعريف الارتباط لقياس الأداء وقياس الإعلانات وتشغيل فيديوهات YouTube المضمّنة. ' +
+                    'الملفات الضرورية مفعّلة دائمًا. اطّلع على <a href="/privacy">سياسة الخصوصية</a>.',
+      acceptAll:    'قبول الكل',
+      rejectAll:    'رفض الكل',
+      settings:     'الإعدادات',
+      savePrefs:    'حفظ التفضيلات',
+      optNecessary: '<strong>ضرورية</strong> — لازمة لعمل الموقع. مفعّلة دائمًا.',
+      optAnalytics: '<strong>قياس الأداء</strong> — كيفية استخدام الموقع، بشكل مجمّع.',
+      optMarketing: '<strong>التسويق</strong> — قياس الإعلانات.',
+      optVideo:     '<strong>الفيديو</strong> — تشغيل فيديوهات YouTube المضمّنة هنا.',
+      ytNotice:     'هذا الفيديو مستضاف على YouTube. اقبل ملفات تعريف الارتباط الخاصة بالفيديو لتشغيله هنا، أو شاهده مباشرة على YouTube.',
+      ytAccept:     'قبول وتشغيل',
+      ytWatch:      'مشاهدة على YouTube'
+    }
+  };
+  var T = STRINGS[(document.documentElement.getAttribute('lang') || 'en').slice(0, 2).toLowerCase()] || STRINGS.en;
+
   // Auto year
   document.querySelectorAll('[data-year]').forEach(function(el){
     el.textContent = new Date().getFullYear();
@@ -210,10 +268,10 @@
     document.querySelectorAll('.yt-embed[data-src]').forEach(function(wrap) {
       wrap.className = 'yt-placeholder';
       wrap.innerHTML = '<div class="yt-placeholder-inner">' +
-        '<p>This video is hosted on YouTube. Accept video cookies to play it here, or watch directly on YouTube.</p>' +
+        '<p>' + T.ytNotice + '</p>' +
         '<div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center">' +
-        '<button class="btn btn--gold btn--sm yt-accept-btn">Accept &amp; play</button>' +
-        '<a href="' + wrap.getAttribute('data-src').replace('youtube-nocookie.com/embed','youtube.com/watch?v=').replace(/\?.*$/, '') + '" target="_blank" rel="noopener" class="btn btn--out btn--sm">Watch on YouTube</a>' +
+        '<button class="btn btn--gold btn--sm yt-accept-btn">' + T.ytAccept + '</button>' +
+        '<a href="' + wrap.getAttribute('data-src').replace('youtube-nocookie.com/embed','youtube.com/watch?v=').replace(/\?.*$/, '') + '" target="_blank" rel="noopener" class="btn btn--out btn--sm">' + T.ytWatch + '</a>' +
         '</div></div>';
     });
     document.querySelectorAll('.yt-accept-btn').forEach(function(b) {
@@ -312,23 +370,22 @@
     banner.id = 'cookie-banner';
     banner.setAttribute('role', 'dialog');
     banner.setAttribute('aria-live', 'polite');
-    banner.setAttribute('aria-label', 'Cookie preferences');
+    banner.setAttribute('aria-label', T.cookieAria);
     banner.innerHTML =
       '<div class="cookie-main">' +
-        '<p>We use cookies for analytics, advertising measurement and embedded YouTube video. ' +
-        'Necessary cookies are always on. See our <a href="/privacy">Privacy Policy</a>.</p>' +
+        '<p>' + T.cookieIntro + '</p>' +
         '<div class="cookie-actions">' +
-          '<button class="btn btn--ghost btn--sm" id="cookie-accept">Accept all</button>' +
-          '<button class="btn btn--ghost btn--sm" id="cookie-reject">Reject all</button>' +
-          '<button class="btn btn--ghost btn--sm" id="cookie-settings" aria-expanded="false" aria-controls="cookie-panel">Settings</button>' +
+          '<button class="btn btn--ghost btn--sm" id="cookie-accept">' + T.acceptAll + '</button>' +
+          '<button class="btn btn--ghost btn--sm" id="cookie-reject">' + T.rejectAll + '</button>' +
+          '<button class="btn btn--ghost btn--sm" id="cookie-settings" aria-expanded="false" aria-controls="cookie-panel">' + T.settings + '</button>' +
         '</div>' +
       '</div>' +
       '<div class="cookie-panel" id="cookie-panel" hidden>' +
-        '<label class="cookie-opt"><input type="checkbox" checked disabled> <span><strong>Necessary</strong> — required for the site to work. Always on.</span></label>' +
-        '<label class="cookie-opt"><input type="checkbox" id="opt-analytics"' + (preset.analytics ? ' checked' : '') + '> <span><strong>Analytics</strong> — how the site is used, in aggregate.</span></label>' +
-        '<label class="cookie-opt"><input type="checkbox" id="opt-marketing"' + (preset.marketing ? ' checked' : '') + '> <span><strong>Marketing</strong> — advertising measurement.</span></label>' +
-        '<label class="cookie-opt"><input type="checkbox" id="opt-video"' + (preset.video ? ' checked' : '') + '> <span><strong>Video</strong> — play embedded YouTube video here.</span></label>' +
-        '<div class="cookie-actions"><button class="btn btn--gold btn--sm" id="cookie-save">Save preferences</button></div>' +
+        '<label class="cookie-opt"><input type="checkbox" checked disabled> <span>' + T.optNecessary + '</span></label>' +
+        '<label class="cookie-opt"><input type="checkbox" id="opt-analytics"' + (preset.analytics ? ' checked' : '') + '> <span>' + T.optAnalytics + '</span></label>' +
+        '<label class="cookie-opt"><input type="checkbox" id="opt-marketing"' + (preset.marketing ? ' checked' : '') + '> <span>' + T.optMarketing + '</span></label>' +
+        '<label class="cookie-opt"><input type="checkbox" id="opt-video"' + (preset.video ? ' checked' : '') + '> <span>' + T.optVideo + '</span></label>' +
+        '<div class="cookie-actions"><button class="btn btn--gold btn--sm" id="cookie-save">' + T.savePrefs + '</button></div>' +
       '</div>';
     document.body.appendChild(banner);
 
