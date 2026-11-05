@@ -13,12 +13,29 @@
  * network for a visitor who declines. GA4 and Google Ads run through the
  * existing GTM container and Consent Mode v2.
  *
+ * GOOGLE ADS NEEDS TWO TAGS IN GTM. There is no gtag.js on this site — GTM is
+ * the only tag, and the inline gtag() in each page head is the Consent Mode
+ * dataLayer shim. A gtag('event','conversion') call here would push an
+ * arguments object into the dataLayer and fire nothing at all. So a lead
+ * pushes the named event `ads_conversion_lead` instead, and the container
+ * needs:
+ *
+ *   1. Conversion Linker          — trigger All Pages
+ *   2. Google Ads Conversion Tracking — conversion ID 863150284,
+ *      label clLsCMrQmrIdEMzBypsD, trigger: custom event ads_conversion_lead
+ *
+ * Until both exist in the published container, the push happens and nothing
+ * records it. The ID and label below are the source of truth for the value,
+ * and are also carried on the event as send_to so the two cannot drift apart
+ * unnoticed.
+ *
  * ──────────────────────────────────────────────────────────────────────────
- * PLACEHOLDERS — replace these four values and nothing else:
+ * PLACEHOLDERS — LinkedIn and Meta are still waiting on real values. Anything
+ * containing PLACEHOLDER is treated as unset and skipped entirely.
  */
 var HV_IDS = {
-  adsConversionId:    'AW-PLACEHOLDER',          // e.g. AW-123456789
-  adsConversionLabel: 'PLACEHOLDER_LABEL',       // the bit after the slash
+  adsConversionId:    'AW-863150284',            // Google Ads, 5 Nov 2026
+  adsConversionLabel: 'clLsCMrQmrIdEMzBypsD',
   linkedinPartnerId:  'PLACEHOLDER_LI_PARTNER',  // e.g. 1234567
   linkedinConversionId: 'PLACEHOLDER_LI_CONV',   // numeric conversion id
   metaPixelId:        'PLACEHOLDER_META_PIXEL'   // e.g. 123456789012345
@@ -114,14 +131,19 @@ var HV_IDS = {
 
     if (!c.marketing) return;
 
-    // Google Ads — through the same gtag the consent shim already defines.
+    // Google Ads — a named dataLayer event for the GTM conversion tag to
+    // trigger on. Not gtag('event','conversion'): without gtag.js on the page
+    // that call pushes an arguments object and records nothing.
     if (configured(HV_IDS.adsConversionId) && configured(HV_IDS.adsConversionLabel)) {
       try {
-        if (typeof gtag === 'function') {
-          gtag('event', 'conversion', {
-            send_to: HV_IDS.adsConversionId + '/' + HV_IDS.adsConversionLabel
-          });
-        }
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'ads_conversion_lead',
+          send_to: HV_IDS.adsConversionId + '/' + HV_IDS.adsConversionLabel,
+          form_name: detail.form_name || '',
+          page_path: detail.page_path || location.pathname,
+          country: detail.country || ''
+        });
       } catch (e) {}
     }
 
