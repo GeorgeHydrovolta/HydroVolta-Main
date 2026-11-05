@@ -30,6 +30,11 @@
   html[dir="rtl"] .actions{justify-content:flex-start}
   html[dir="rtl"] input,html[dir="rtl"] select,html[dir="rtl"] textarea{direction:rtl;text-align:right}
   html[dir="rtl"] .num{margin-left:auto;margin-right:0}
+  /* The blanket right-align above beats .cta-strip's own centring on
+     specificity, which left the closing strip flush right and its buttons
+     hard against the edge. The strip stays centred in both directions. */
+  html[dir="rtl"] .cta-strip h2,html[dir="rtl"] .cta-strip p{text-align:center}
+  html[dir="rtl"] .cta-strip .actions{justify-content:center}
 </style>
 </head>
 <body data-page="ar">
