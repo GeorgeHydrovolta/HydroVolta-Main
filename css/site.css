@@ -536,3 +536,45 @@ h3{font-size:1.2rem}
   .pdiag__yield{white-space:normal}
   .pdiag__gains{grid-template-columns:1fr;gap:.85rem}
 }
+
+
+/* ── Homepage flow diagram ────────────────────────────────────────────────
+   The artwork carries no text; the labels below sit on top of it. Sizes are
+   in cqw (percent of the container width), so the whole composition scales
+   like the single image it replaces. Positions are percentages measured off
+   the artwork. */
+.hwf{position:relative;container-type:inline-size;margin:0}
+.hwf__art{display:block;width:100%;height:auto;border-radius:var(--r)}
+.hwf__head,.hwf__zone,.hwf__pill,.hwf__card{position:absolute;left:var(--x);top:var(--y);
+  transform:translate(-50%,-50%);text-align:center}
+.hwf__card{transform:translateY(-50%);text-align:left;width:26cqw}
+.hwf__ey{font-family:var(--fd);font-weight:700;letter-spacing:.22em;color:var(--n3);font-size:1.02cqw}
+.hwf__h{font-family:var(--fb);font-weight:800;color:var(--t);font-size:3.2cqw;line-height:1.22;
+  margin:.5cqw 0 0;white-space:nowrap}
+.hwf__h em{font-style:normal;color:var(--n3)}
+.hwf__zone h3{font-family:var(--fb);font-weight:700;color:var(--t);font-size:1.6cqw;margin:0 0 .5cqw;white-space:nowrap}
+.hwf__stat{font-family:var(--fb);font-weight:700;color:var(--n3);font-size:1.2cqw;margin:0 0 .35cqw;white-space:nowrap}
+.hwf__stat--big{font-size:1.8cqw}
+.hwf__zone p{font-size:1.02cqw;color:var(--m);margin:0 0 .25cqw;line-height:1.45;white-space:nowrap}
+.hwf__pill{font-size:1.26cqw;color:#a8841f;white-space:nowrap}
+.hwf__card .hwf__tag{font-family:var(--fd);font-weight:700;letter-spacing:.14em;color:#a8841f;
+  font-size:.8cqw;display:block;margin-bottom:.2cqw}
+.hwf__card h3{font-family:var(--fb);font-weight:700;color:var(--t);font-size:1.38cqw;margin:0 0 .35cqw}
+.hwf__card p{font-size:.96cqw;color:var(--m);line-height:1.4;margin:0}
+.hwf__card a{color:var(--n3)}
+
+@media(max-width:760px){
+  .hwf{container-type:normal}
+  .hwf__head,.hwf__zone,.hwf__pill,.hwf__card{position:static;transform:none;text-align:left;
+    width:auto;margin:0 0 1.25rem}
+  .hwf__art{margin:1rem 0 1.5rem}
+  .hwf__ey{font-size:.72rem}
+  .hwf__h{font-size:1.5rem;white-space:normal}
+  .hwf__zone h3{font-size:1.05rem;white-space:normal}
+  .hwf__stat{font-size:.95rem;white-space:normal}
+  .hwf__stat--big{font-size:1.1rem}
+  .hwf__zone p,.hwf__card p{font-size:.88rem;white-space:normal}
+  .hwf__pill{font-size:.9rem;white-space:normal}
+  .hwf__card .hwf__tag{font-size:.7rem}
+  .hwf__card h3{font-size:1rem}
+}
