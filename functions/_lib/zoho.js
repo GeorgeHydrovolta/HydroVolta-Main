@@ -53,6 +53,7 @@ const LABELS = {
 
 let cachedToken = null;    // per isolate; Zoho tokens last an hour
 let cachedFields = null;   // per isolate; module metadata changes rarely
+let fieldsProblem = null;  // why the last metadata read failed, for the report
 
 export function zohoConfigured(env) {
   return Boolean(env.ZOHO_CLIENT_ID && env.ZOHO_CLIENT_SECRET && env.ZOHO_REFRESH_TOKEN);
@@ -83,7 +84,11 @@ async function moduleFields(api, token) {
     const res = await fetch(api + '/crm/v6/settings/fields?module=Leads', {
       headers: { 'Authorization': 'Zoho-oauthtoken ' + token },
     });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      fieldsProblem = 'fields read HTTP ' + res.status + (body.code ? ' ' + body.code : '');
+      return null;
+    }
     const json = await res.json().catch(() => ({}));
     const map = {};
     for (const f of (json.fields || [])) {
@@ -96,8 +101,21 @@ async function moduleFields(api, token) {
     cachedFields = { value: map, expires: Date.now() + 600000 };   // 10 minutes
     return map;
   } catch (err) {
+    fieldsProblem = 'fields read failed: ' + err.message;
     return null;
   }
+}
+
+/**
+ * "OAUTH_SCOPE_MISMATCH: permission denied" rather than "permission denied".
+ * The code is the half that says whether to fix the token or the profile.
+ */
+function why(out) {
+  const first = out.first || {};
+  const parts = [first.code, first.message].filter(Boolean);
+  if (!parts.length) parts.push('HTTP ' + out.res.status);
+  const detail = parts.join(': ');
+  return fieldsProblem ? detail + ' (' + fieldsProblem + ')' : detail;
 }
 
 export async function createLead(env, values, file) {
@@ -192,24 +210,24 @@ export async function createLead(env, values, file) {
 
   // Last resort: a lead with the essentials beats no lead at all.
   if (!out.res.ok || !out.first || out.first.code !== 'SUCCESS') {
-    const why = (out.first && (out.first.message || out.first.code)) || ('HTTP ' + out.res.status);
-    console.error('Zoho rejected the full record:', why, JSON.stringify(out.json).slice(0, 300));
+    const reason = why(out);
+    console.error('Zoho rejected the full record:', reason, JSON.stringify(out.json).slice(0, 300));
     const minimal = {
       Company: record.Company,
       Last_Name: record.Last_Name,
       Email: record.Email,
-      Description: [description, 'Full record was rejected by the CRM: ' + why]
+      Description: [description, 'Full record was rejected by the CRM: ' + reason]
         .filter(Boolean).join('\n'),
     };
     try {
       out = await post(minimal);
     } catch (err) {
-      return { ok: false, detail: why };
+      return { ok: false, detail: reason };
     }
     if (!out.res.ok || !out.first || out.first.code !== 'SUCCESS') {
-      const why2 = (out.first && (out.first.message || out.first.code)) || ('HTTP ' + out.res.status);
-      console.error('Zoho rejected the minimal record too:', why2);
-      return { ok: false, detail: why2 };
+      const reason2 = why(out);
+      console.error('Zoho rejected the minimal record too:', reason2);
+      return { ok: false, detail: reason2 };
     }
     console.error('Zoho accepted a reduced lead; fields missing from the module:', overflow.length);
   }
