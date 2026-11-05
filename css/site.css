@@ -564,17 +564,11 @@ h3{font-size:1.2rem}
 .hwf__card a{color:var(--n3)}
 
 @media(max-width:760px){
-  .hwf{container-type:normal}
-  .hwf__head,.hwf__zone,.hwf__pill,.hwf__card{position:static;transform:none;text-align:left;
-    width:auto !important;margin:0 0 1.25rem}
-  .hwf__art{margin:1rem 0 1.5rem}
-  .hwf__ey{font-size:.72rem}
-  .hwf__h{font-size:1.5rem;white-space:normal}
-  .hwf__zone h3{font-size:1.05rem;white-space:normal}
-  .hwf__stat{font-size:.95rem;white-space:normal}
-  .hwf__stat--big{font-size:1.1rem}
-  .hwf__zone p,.hwf__card p{font-size:.88rem;white-space:normal}
-  .hwf__pill{font-size:.9rem;white-space:normal}
-  .hwf__card .hwf__tag{font-size:.7rem}
-  .hwf__card h3{font-size:1rem}
+  /* The labels stay ON the artwork at every width. A 1672px composition
+     cannot shrink to a phone and stay readable, so instead of reflowing the
+     text underneath, the diagram keeps its proportions and scrolls
+     sideways - the same thing the comparison tables do. 1100px keeps the
+     type the same size a desktop visitor sees. */
+  .hwf-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -1.25rem;padding:0 1.25rem}
+  .hwf{width:1100px}
 }
