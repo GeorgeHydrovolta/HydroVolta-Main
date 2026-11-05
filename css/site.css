@@ -493,8 +493,11 @@ h3{font-size:1.2rem}
 .pdiag__step::before{content:'';position:absolute;left:-7px;top:30px;width:11px;height:11px;
   border-top:2px solid var(--g);border-right:2px solid var(--g);transform:rotate(45deg)}
 .pdiag__step:first-child::before{display:none}
-.pdiag__ico{width:58px;height:58px;margin:0 auto .7rem;border-radius:50%;display:flex;
-  align-items:center;justify-content:center;background:var(--s);border:1px solid var(--b);color:var(--n2)}
+/* The rendered objects, cropped out of the original diagram artwork. Fixed
+   box height with the image bottom-aligned, so five pictures of different
+   proportions still sit on one baseline. */
+.pdiag__fig{height:122px;margin:0 0 .75rem;display:flex;align-items:flex-end;justify-content:center}
+.pdiag__fig img{max-height:122px;max-width:100%;width:auto;height:auto;display:block}
 .pdiag__n{display:inline-block;font-family:var(--fd);font-size:.68rem;font-weight:700;letter-spacing:.14em;
   color:var(--g);margin-bottom:.3rem}
 .pdiag__step h3{font-size:.95rem;margin-bottom:.4rem;line-height:1.25}
@@ -513,7 +516,6 @@ h3{font-size:1.2rem}
 .pdiag__gain span{font-size:.8rem;color:var(--m);line-height:1.55}
 
 /* dark sections */
-.section--dark .pdiag__ico{background:rgba(255,255,255,.06);border-color:var(--bd);color:var(--gl)}
 .section--dark .pdiag__step h3{color:var(--w)}
 .section--dark .pdiag__step p,.section--dark .pdiag__branch p,.section--dark .pdiag__gain span{color:rgba(255,255,255,.65)}
 .section--dark .pdiag__branch{background:rgba(255,255,255,.05);border-color:var(--bd)}
