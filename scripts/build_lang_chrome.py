@@ -44,7 +44,7 @@ SPECIAL = {
     'calculator.html': ('en', ''),
     'salinbloc-manual.html': ('en', ''),
     'ar/index.html': ('ar', 'irrigation'),
-    'nl/index.html': ('nl', 'irrigation'),
+    'nl/irrigatie.html': ('nl', 'irrigation'),
     'pt/index.html': ('pt', 'irrigation'),
     'es/riego.html': ('es', 'irrigation'),
 }

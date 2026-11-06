@@ -44,6 +44,9 @@ CODES = [c for c, _, _, _, _ in LANGUAGES]
 # ─── which languages the switcher offers ────────────────────────────────────
 # Today's live state. nl, es and pt have only an ad landing page, which is not
 # a language version of the site, so they are not offered.
+# Dutch is built and complete but stays out until George has read it: his
+# rule is that a language appears here only once its pages are approved.
+# Adding 'nl' is the single edit that publishes it to visitors.
 IN_MENU = ['en', 'fr', 'ar']
 
 # ─── which pages exist, per language ────────────────────────────────────────
@@ -61,17 +64,21 @@ EN_UNLISTED = ['calculator', 'salinbloc-manual']
 PAGES = {
     'en': {s: s for s in EN_PAGES},
     'fr': {s: s for s in EN_PAGES},
-    # The ad landing pages. Each is the irrigation page for its language, and
-    # each sits at its language root rather than at an /irrigation path.
+    # Dutch is a full mirror as of 2026-11-06. Its irrigation page is the
+    # former ad landing page, moved from /nl/ to /nl/irrigatie, so Dutch has
+    # one irrigation page rather than a landing page and a mirror.
+    'nl': dict({s: s for s in EN_PAGES if s != 'irrigation'}, irrigation='irrigatie'),
+    # Still only an ad landing page, sitting at the language root.
     'ar': {'irrigation': ''},
-    'nl': {'irrigation': ''},
     'pt': {'irrigation': ''},
     'es': {'irrigation': 'riego'},
 }
 
 # ─── which pages are approved: indexable, in the sitemap, in hreflang ───────
 # 'lang:slug'. English is approved throughout. /ar/ is approved and indexed
-# today. Everything else is a draft awaiting a native reader.
+# today. Everything else is a draft awaiting a native reader - including
+# nl:irrigation, which was already a noindex draft before it was moved to
+# /nl/irrigatie, despite being a live ad destination.
 APPROVED = set(['en:' + s for s in EN_PAGES]) | {'ar:irrigation'}
 
 

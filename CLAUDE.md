@@ -64,6 +64,27 @@ one scripted pass and verify all 14, or don't start.
   ("Groundwater Desalination", "SonixED™ Technology", "Reference Projects").
   Do not assume the footers are identical — diff them before editing.
 
+### Language sites
+
+| prefix | state |
+|---|---|
+| `/` | English, 13 indexable pages. The source every translation is built from. |
+| `/fr/` | 13 pages. Complete, `noindex`, in the switcher, awaiting a native reader. |
+| `/nl/` | 13 pages as of 2026-11-06. Complete, `noindex`, **not** in the switcher yet. |
+| `/ar/` | ad landing page only. Indexable and in the sitemap. |
+| `/es/`, `/pt/` | ad landing page only (`/es/riego`, `/pt/`). Both `noindex` drafts. |
+
+**One irrigation page per language.** The ad landing pages are that language's
+irrigation page, not a separate thing: `/nl/irrigatie` is the former `/nl/`,
+moved so `/nl/` could become the Dutch homepage. `/ar/` and `/es/riego` have
+not moved yet — `/ar/` has live Egypt and Jordan campaigns pointing at it, so
+that move is staged: deploy `/ar/irrigation` first, George switches the Ads
+final URLs, and only then does `/ar/` become the Arabic homepage.
+
+Dutch leads reach the CRM as `nl` with no hidden field: `js/site.js` reads the
+submitted `language` from `<html lang>`. Form ids are **unchanged** across
+languages (`assessment-form`, `lp_groundwater`, …) so leads still group.
+
 ### Languages — the one exception to "no templating"
 
 As of 2026-11-06 the **language switcher and the hreflang tags are generated**,
@@ -78,6 +99,10 @@ not hand-copied. Everything about languages is decided in one file:
   in all 33 HTML files from that list. Run it after any edit to `languages.py`.
 - `scripts/mark_en_downloads.py` — labels English-only PDFs "(EN)" on
   non-English pages. Idempotent; re-run after each new language is built.
+
+**To publish a finished language**, three things flip together: add its code to
+`IN_MENU`, add its pages to `APPROVED`, and drop the `robots` meta from the
+pages. Then run `build_lang_chrome.py` and add the sitemap entries.
 
 This is **not** a build step — nothing runs on deploy. Edit the list, run the
 script, commit what it changed. Never hand-edit a switcher block: the next run
