@@ -572,3 +572,38 @@ h3{font-size:1.2rem}
   .hwf-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -1.25rem;padding:0 1.25rem}
   .hwf{width:1100px}
 }
+
+
+/* ── Arabic, right to left ────────────────────────────────────────────────
+   Every rule is scoped to html[dir="rtl"] or html[lang="ar"], so none of it
+   reaches another language. Moved here from the inline block on /ar/, which
+   was the only Arabic page when they were written.
+
+   System Arabic stack: no third-party font request, so nothing loads before
+   the visitor has chosen. Swap for a self-hosted Noto Naskh woff2 if the
+   brand look matters more than the extra 80 KB. */
+html[lang="ar"] body{font-family:"Noto Naskh Arabic","Geeza Pro","Segoe UI",Tahoma,"Arabic Typesetting",serif}
+html[dir="rtl"] .nav__in,html[dir="rtl"] .wrap{direction:rtl}
+html[dir="rtl"] .fg label,html[dir="rtl"] .lead,html[dir="rtl"] h1,html[dir="rtl"] h2,
+html[dir="rtl"] h3,html[dir="rtl"] p,html[dir="rtl"] td,html[dir="rtl"] th{text-align:right}
+html[dir="rtl"] .actions{justify-content:flex-start}
+html[dir="rtl"] input,html[dir="rtl"] select,html[dir="rtl"] textarea{direction:rtl;text-align:right}
+html[dir="rtl"] .num{margin-left:auto;margin-right:0}
+/* the blanket right-align above beats .cta-strip's own centring on
+   specificity, which left the closing strip flush right and its buttons hard
+   against the edge. The strip stays centred in both directions. */
+html[dir="rtl"] .cta-strip h2,html[dir="rtl"] .cta-strip p{text-align:center}
+html[dir="rtl"] .cta-strip .actions{justify-content:center}
+/* the split hero's gutter is a physical padding-left in two places; mirrored
+   here so the copy column keeps its margin on the outside edge */
+html[dir="rtl"] .hero__copy{padding:3.5rem 2rem 3.5rem 3rem}
+@media(min-width:1160px){
+  html[dir="rtl"] .hero__copy{padding-left:2rem;padding-right:calc((100vw - 1160px)/2 + 2rem)}
+}
+@media(max-width:900px){
+  html[dir="rtl"] .hero__copy{padding:3rem 1.5rem 2rem}
+}
+/* a left border reads as an opening accent in LTR; in RTL it belongs on the
+   right. Used by the translation-precedence note on the privacy pages. */
+html[dir="rtl"] .note-precedence{border-left:0;border-right:3px solid var(--g);
+  border-radius:var(--r) 0 0 var(--r)}

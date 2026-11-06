@@ -49,6 +49,15 @@ SPECIAL = {
     'es/riego.html': ('es', 'irrigation'),
 }
 
+# Files this script must not touch.
+#
+# ar/irrigation.html is, for now, a deliberate byte-for-byte copy of /ar/ with
+# a canonical pointing back at it, while the Egypt and Jordan Ads final URLs
+# are switched over. Regenerating its switcher would make the two pages differ
+# and would give a canonicalised duplicate its own hreflang set. Remove it from
+# here at step 3, when /ar/irrigation becomes the real Arabic irrigation page.
+SKIP = {'ar/irrigation.html'}
+
 SWITCHER = re.compile(r'<div class="lang" id="lang-menu">.*?</div>\s*</div>', re.S)
 ALTERNATE = re.compile(r'[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*"\s*/?>\n?')
 CANONICAL = re.compile(r'(<link rel="canonical" href="[^"]*"\s*/?>)')
@@ -103,6 +112,8 @@ def main():
     files = sorted(glob.glob('*.html')) + sorted(glob.glob('*/*.html'))
     changed = switched = flagged = 0
     for path in files:
+        if path.replace(os.sep, '/') in SKIP:
+            continue
         lang, slug = identify(path)
         s = before = io.open(path, encoding='utf-8').read()
 
