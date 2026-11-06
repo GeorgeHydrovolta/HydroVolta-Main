@@ -118,8 +118,23 @@
   if (activePage) {
     // Skip the language list: its links point at pages, not nav sections.
     document.querySelectorAll('.nav__links a[href]:not(.lang__list a)').forEach(function(a) {
-      var href = a.getAttribute('href').replace(/\.html$/, '').replace(/^\//, '') || 'index';
-      if (href === activePage) { a.setAttribute('aria-current', 'page'); }
+      // Derive a key from the href that matches <body data-page>.
+      //
+      // The earlier version stripped only a trailing .html and a leading
+      // slash, so /fr/systems produced "fr/systems" while the page carried
+      // data-page="fr-systems". It never matched: every French page has been
+      // shipping with no current-page highlight at all. The failure is silent
+      // by design - a mismatch raises nothing, the highlight just stops - so
+      // it survived a full audit. Translated pages now outnumber English ones,
+      // so the separator is normalised instead of the convention being
+      // changed in every file.
+      //
+      //   /                -> index         /fr/        -> fr-index
+      //   /systems         -> systems       /fr/systems -> fr-systems
+      var key = a.getAttribute('href').replace(/\.html$/, '').replace(/^\/|\/$/g, '');
+      key = key ? key.replace(/\//g, '-') : 'index';
+      if (/^[a-z]{2}$/.test(key)) { key += '-index'; }   // a language root
+      if (key === activePage) { a.setAttribute('aria-current', 'page'); }
     });
   }
 
