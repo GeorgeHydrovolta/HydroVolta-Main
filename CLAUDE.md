@@ -72,16 +72,18 @@ one scripted pass and verify all 14, or don't start.
 | `/fr/` | 13 pages. Complete, `noindex`, in the switcher, awaiting a native reader. |
 | `/nl/` | 13 pages as of 2026-11-06. Complete, `noindex`, **not** in the switcher yet. |
 | `/es/` | 13 pages as of 2026-11-06. Complete, `noindex`, **not** in the switcher yet. |
-| `/ar/` | 12 pages as of 2026-11-06, **no homepage yet**. `/ar/` is still the ad landing page; the mirror pages are `noindex`. |
+| `/ar/` | 13 pages as of 2026-11-06. Complete, `noindex`, **in** the switcher (it was already). `/ar/irrigation` is the one approved and indexed Arabic page. |
 | `/pt/` | ad landing page only, at `/pt/`. A `noindex` draft. |
 
 **One irrigation page per language.** The ad landing pages are that language's
 irrigation page, not a separate thing: `/nl/irrigatie` is the former `/nl/`,
 moved so `/nl/` could become the Dutch homepage. **Spanish needed no move** —
-its landing page already sat at `/es/riego`, leaving `/es/` free. `/ar/` is the
-one still to move, and it is staged because live Egypt and Jordan campaigns
-point at it: deploy `/ar/irrigation` first, George switches the Ads final URLs,
-and only then does `/ar/` become the Arabic homepage.
+its landing page already sat at `/es/riego`, leaving `/es/` free. **Arabic is
+done too**: `/ar/irrigation` shipped first as a copy, George switched the Egypt
+and Jordan Ads final URLs to it, and `/ar/` then became the Arabic homepage.
+`/ar/irrigation` keeps the `lp_ar` form, the sitemap entry and the hreflang
+pair with `/irrigation`; the Arabic homepage is a `noindex` draft like the
+rest of the translated pages.
 
 Dutch leads reach the CRM as `nl` with no hidden field: `js/site.js` reads the
 submitted `language` from `<html lang>`. Form ids are **unchanged** across

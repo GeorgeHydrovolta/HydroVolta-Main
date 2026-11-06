@@ -77,7 +77,9 @@ PAGES = {
     # still the irrigation landing page and there is no Arabic home page yet.
     # At step 3, once George has switched the two Ads final URLs, 'irrigation'
     # moves to 'irrigation' and '' is added for the homepage.
-    'ar': dict({s: s for s in EN_PAGES if s not in ('', 'irrigation')}, irrigation=''),
+    # Step 3, 2026-11-06: /ar/ is the Arabic homepage and the former ad landing
+    # page is /ar/irrigation, where the Egypt and Jordan campaigns now point.
+    'ar': {s: s for s in EN_PAGES},
     # Still only an ad landing page, sitting at the language root.
     'pt': {'irrigation': ''},
 }

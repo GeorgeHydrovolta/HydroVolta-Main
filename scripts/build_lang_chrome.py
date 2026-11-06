@@ -43,7 +43,10 @@ SPECIAL = {
     '404.html': ('en', ''),
     'calculator.html': ('en', ''),
     'salinbloc-manual.html': ('en', ''),
-    'ar/index.html': ('ar', 'irrigation'),
+    # ar/index.html was the irrigation landing page until step 3. It is the
+    # Arabic homepage now, so it is identified normally - slug '' - and the
+    # special case is gone. Leaving it here put hreflang on a noindex draft.
+
     'nl/irrigatie.html': ('nl', 'irrigation'),
     'pt/index.html': ('pt', 'irrigation'),
     'es/riego.html': ('es', 'irrigation'),
@@ -56,7 +59,10 @@ SPECIAL = {
 # are switched over. Regenerating its switcher would make the two pages differ
 # and would give a canonicalised duplicate its own hreflang set. Remove it from
 # here at step 3, when /ar/irrigation becomes the real Arabic irrigation page.
-SKIP = {'ar/irrigation.html'}
+# Step 3 is done: the Ads final URLs point at /ar/irrigation, /ar/ is the
+# Arabic homepage, and the copy is a page in its own right. Nothing is
+# pinned any more.
+SKIP = set()
 
 SWITCHER = re.compile(r'<div class="lang" id="lang-menu">.*?</div>\s*</div>', re.S)
 ALTERNATE = re.compile(r'[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*"\s*/?>\n?')
