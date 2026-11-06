@@ -72,8 +72,13 @@ PAGES = {
     # ad landing page already sat at /es/riego rather than at /es/, so the
     # language root was free and /es/riego is the Spanish irrigation page.
     'es': dict({s: s for s in EN_PAGES if s != 'irrigation'}, irrigation='riego'),
+    # Arabic is a full mirror as of 2026-11-06, EXCEPT the homepage. /ar/ is a
+    # live Google Ads destination for the Egypt and Jordan campaigns, so it is
+    # still the irrigation landing page and there is no Arabic home page yet.
+    # At step 3, once George has switched the two Ads final URLs, 'irrigation'
+    # moves to 'irrigation' and '' is added for the homepage.
+    'ar': dict({s: s for s in EN_PAGES if s not in ('', 'irrigation')}, irrigation=''),
     # Still only an ad landing page, sitting at the language root.
-    'ar': {'irrigation': ''},
     'pt': {'irrigation': ''},
 }
 
@@ -102,8 +107,26 @@ def url(lang, slug):
 
 def menu_url(lang, slug):
     """Where the switcher's entry for `lang` points, from a page whose English
-    slug is `slug`. Falls back to that language's home when the counterpart
-    does not exist, which is better than a 404."""
+    slug is `slug`.
+
+    The counterpart page, when it exists - but never a DOWNGRADE. A language
+    that already has approved pages (Arabic: /ar/ is indexed and reviewed)
+    only ever links to approved ones, because sending a live visitor from an
+    approved page to an unreviewed draft is worse than sending them to the
+    approved page in that language.
+
+    A language with no approved pages at all (French today) is offered in the
+    menu as a draft throughout, so there the counterpart is the right target
+    and this rule does not apply.
+
+    Falling back to that language's irrigation page, then its home, is better
+    than a 404.
+    """
+    has_approved = any(k.startswith(lang + ':') for k in APPROVED)
+    if has_approved and exists(lang, slug) and not approved(lang, slug):
+        for fallback in ('irrigation', ''):
+            if exists(lang, fallback) and approved(lang, fallback):
+                return url(lang, fallback)
     return url(lang, slug) or url(lang, 'irrigation') or url(lang, '')
 
 

@@ -72,7 +72,7 @@ one scripted pass and verify all 14, or don't start.
 | `/fr/` | 13 pages. Complete, `noindex`, in the switcher, awaiting a native reader. |
 | `/nl/` | 13 pages as of 2026-11-06. Complete, `noindex`, **not** in the switcher yet. |
 | `/es/` | 13 pages as of 2026-11-06. Complete, `noindex`, **not** in the switcher yet. |
-| `/ar/` | ad landing page only. Indexable and in the sitemap. |
+| `/ar/` | 12 pages as of 2026-11-06, **no homepage yet**. `/ar/` is still the ad landing page; the mirror pages are `noindex`. |
 | `/pt/` | ad landing page only, at `/pt/`. A `noindex` draft. |
 
 **One irrigation page per language.** The ad landing pages are that language's
@@ -113,6 +113,19 @@ overwrites it.
 hreflang is only emitted for a page that is itself approved, and only when two
 or more languages are approved for that page family, so a `noindex` draft never
 appears as a language alternate.
+
+**The switcher never downgrades.** A language that already has approved pages
+links only to approved ones: from `/groundwater`, the Arabic entry goes to
+`/ar/` (approved), not to `/ar/groundwater` (a draft). A language with no
+approved pages at all, French today, is a draft throughout, so there the
+per-page counterpart is the right target. `menu_url()` in `languages.py`.
+
+**Arabic numerals need bidi isolation.** `50&ndash;90%` inside a right-to-left
+line is two European number runs with neutrals between, and the bidi algorithm
+lays them out right-to-left, so the page shows `90%&ndash;50`. The Arabic pages
+wrap every numeric range in `&#8294;` … `&#8297;` (U+2066 LRI / U+2069 PDI).
+Use the characters, **not** a `<span dir="ltr">`: a span adds line-break
+opportunities and split one proof tile across four lines.
 
 ### Responsive breakpoints (`css/site.css`)
 
