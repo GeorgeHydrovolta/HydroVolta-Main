@@ -64,6 +64,29 @@ one scripted pass and verify all 14, or don't start.
   ("Groundwater Desalination", "SonixED™ Technology", "Reference Projects").
   Do not assume the footers are identical — diff them before editing.
 
+### Languages — the one exception to "no templating"
+
+As of 2026-11-06 the **language switcher and the hreflang tags are generated**,
+not hand-copied. Everything about languages is decided in one file:
+
+- `scripts/languages.py` — which languages exist, which the switcher offers
+  (`IN_MENU`), which pages exist per language (`PAGES`), and which of those are
+  approved (`APPROVED`). Two separate gates on purpose: **IN_MENU** makes a
+  language reachable by a visitor; **APPROVED** is what drops `noindex`, adds
+  the sitemap entry and allows hreflang. French is in the menu and not approved.
+- `scripts/build_lang_chrome.py` — rewrites the switcher and the hreflang block
+  in all 33 HTML files from that list. Run it after any edit to `languages.py`.
+- `scripts/mark_en_downloads.py` — labels English-only PDFs "(EN)" on
+  non-English pages. Idempotent; re-run after each new language is built.
+
+This is **not** a build step — nothing runs on deploy. Edit the list, run the
+script, commit what it changed. Never hand-edit a switcher block: the next run
+overwrites it.
+
+hreflang is only emitted for a page that is itself approved, and only when two
+or more languages are approved for that page family, so a `noindex` draft never
+appears as a language alternate.
+
 ### Responsive breakpoints (`css/site.css`)
 
 `900px` is the important one: the nav collapses to a hamburger at ≤900px, so the
