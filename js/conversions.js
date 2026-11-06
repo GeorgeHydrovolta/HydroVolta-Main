@@ -13,21 +13,27 @@
  * network for a visitor who declines. GA4 and Google Ads run through the
  * existing GTM container and Consent Mode v2.
  *
- * GOOGLE ADS NEEDS TWO TAGS IN GTM. There is no gtag.js on this site — GTM is
- * the only tag, and the inline gtag() in each page head is the Consent Mode
- * dataLayer shim. A gtag('event','conversion') call here would push an
- * arguments object into the dataLayer and fire nothing at all. So a lead
- * pushes the named event `ads_conversion_lead` instead, and the container
- * needs:
+ * GOOGLE ADS NEEDS NO GTM TAG. An earlier version of this comment said it
+ * needed two, on the reasoning that the repository contains no gtag.js. That
+ * was wrong: it described the source, not the running page. The Google tag
+ * AW-863150284 is installed inside container GTM-5XJF94PN, and it processes
+ * gtag-style dataLayer pushes — which is how Consent Mode on this site has
+ * always worked. Checked on the live site:
  *
- *   1. Conversion Linker          — trigger All Pages
- *   2. Google Ads Conversion Tracking — conversion ID 863150284,
- *      label clLsCMrQmrIdEMzBypsD, trigger: custom event ads_conversion_lead
+ *   gtag('event','conversion',{send_to:'AW-863150284/clLsCMrQmrIdEMzBypsD',
+ *                              transaction_id:'…'})
+ *   -> googleadservices.com/pagead/conversion/863150284/
+ *        label = clLsCMrQmrIdEMzBypsD
+ *        oid   = the transaction_id
+ *        gcs   = G111   (fires only once marketing consent is granted)
  *
- * Until both exist in the published container, the push happens and nothing
- * records it. The ID and label below are the source of truth for the value,
- * and are also carried on the event as send_to so the two cannot drift apart
- * unnoticed.
+ * The Google tag also sets the _gcl cookies, so a separate Conversion Linker
+ * tag is not required either.
+ *
+ * A lead still pushes `hv_lead_submitted` to the dataLayer, as the single
+ * signal anything else can read. Do not attach a Google Ads Conversion
+ * Tracking tag to that event: the conversion is already sent from here, and
+ * a second sender would double-count.
  *
  * ──────────────────────────────────────────────────────────────────────────
  * PLACEHOLDERS — LinkedIn and Meta are still waiting on real values. Anything
@@ -104,25 +110,73 @@ var HV_IDS = {
   document.addEventListener('DOMContentLoaded', applyMarketing);
 
   // ── the lead itself ──────────────────────────────────────────────────────
+  // hvTrackLead is called by a form's success branch and nowhere else: after
+  // the Pages Function has answered OK, which means Turnstile passed and the
+  // enquiry was accepted. Never on a click, never on a validation error,
+  // never on a failed submit.
   var fired = {};
+  var FIRED_KEY = 'hv_lead_fired';
+
+  /** A unique id per submission, used as the Google Ads transaction_id. */
+  function newLeadId() {
+    try {
+      if (window.crypto && typeof crypto.randomUUID === 'function') {
+        return 'hv-' + crypto.randomUUID();
+      }
+    } catch (e) {}
+    return 'hv-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+  }
+
+  /**
+   * True if this form already reported a lead moments ago. The in-memory
+   * guard covers two handlers in one page; the sessionStorage one covers a
+   * back-button return or a bfcache restore, where the page object is new
+   * but the submission is the same.
+   */
+  function duplicate(form) {
+    if (fired[form]) return true;
+    fired[form] = true;
+    try {
+      var map = JSON.parse(sessionStorage.getItem(FIRED_KEY) || '{}');
+      var now = Date.now();
+      if (map[form] && now - map[form] < 30000) return true;
+      map[form] = now;
+      sessionStorage.setItem(FIRED_KEY, JSON.stringify(map));
+    } catch (e) {}       // private mode: the in-memory guard still applies
+    return false;
+  }
 
   window.hvTrackLead = function (detail) {
     detail = detail || {};
-    // One submission, one set of conversions, however many handlers call us.
-    var key = (detail.form_name || 'form') + '|' + (detail.submission_id || '');
-    if (fired[key]) return;
-    fired[key] = true;
+    var form = detail.form_name || 'form';
+    if (duplicate(form)) return;
 
+    var leadId = detail.lead_id || newLeadId();
+    var lang = detail.language || document.documentElement.getAttribute('lang') || 'en';
+    var path = detail.page_path || location.pathname;
     var c = consent();
+
+    // The signal itself. No network traffic on its own, so it is pushed
+    // whatever the consent choice; what reads it decides.
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'hv_lead_submitted',
+        lead_id: leadId,
+        form_language: lang,
+        page_path: path,
+        form_name: form
+      });
+    } catch (e) {}
 
     if (c.analytics) {
       try {
-        window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: 'generate_lead',
-          form_name: detail.form_name || '',
-          page_path: detail.page_path || location.pathname,
-          language: detail.language || document.documentElement.lang || 'en',
+          lead_id: leadId,
+          form_name: form,
+          page_path: path,
+          language: lang,
           buyer_type: detail.buyer_type || '',
           country: detail.country || ''
         });
@@ -131,19 +185,25 @@ var HV_IDS = {
 
     if (!c.marketing) return;
 
-    // Google Ads — a named dataLayer event for the GTM conversion tag to
-    // trigger on. Not gtag('event','conversion'): without gtag.js on the page
-    // that call pushes an arguments object and records nothing.
+    // Google Ads. The Google tag AW-863150284 is installed in the GTM
+    // container and processes gtag-style dataLayer pushes - the same route
+    // Consent Mode already uses - so this records the conversion without a
+    // GTM tag of its own. Verified on the live site: the call produces
+    // googleadservices.com/pagead/conversion/863150284/ with the label and
+    // the transaction_id as oid.
+    //
+    // Do NOT also add a Google Ads Conversion Tracking tag in GTM triggered
+    // by hv_lead_submitted: it would fire a second time. transaction_id
+    // would collapse the pair at Google's end, but the honest arrangement is
+    // one sender.
     if (configured(HV_IDS.adsConversionId) && configured(HV_IDS.adsConversionLabel)) {
       try {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-          event: 'ads_conversion_lead',
-          send_to: HV_IDS.adsConversionId + '/' + HV_IDS.adsConversionLabel,
-          form_name: detail.form_name || '',
-          page_path: detail.page_path || location.pathname,
-          country: detail.country || ''
-        });
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'conversion', {
+            send_to: HV_IDS.adsConversionId + '/' + HV_IDS.adsConversionLabel,
+            transaction_id: leadId
+          });
+        }
       } catch (e) {}
     }
 
