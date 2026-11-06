@@ -44,9 +44,9 @@ CODES = [c for c, _, _, _, _ in LANGUAGES]
 # ─── which languages the switcher offers ────────────────────────────────────
 # Today's live state. nl, es and pt have only an ad landing page, which is not
 # a language version of the site, so they are not offered.
-# Dutch is built and complete but stays out until George has read it: his
-# rule is that a language appears here only once its pages are approved.
-# Adding 'nl' is the single edit that publishes it to visitors.
+# Dutch and Spanish are built and complete but stay out until George has had
+# them read: his rule is that a language appears here only once its pages are
+# approved. Adding 'nl' or 'es' is the single edit that publishes one.
 IN_MENU = ['en', 'fr', 'ar']
 
 # ─── which pages exist, per language ────────────────────────────────────────
@@ -68,10 +68,13 @@ PAGES = {
     # former ad landing page, moved from /nl/ to /nl/irrigatie, so Dutch has
     # one irrigation page rather than a landing page and a mirror.
     'nl': dict({s: s for s in EN_PAGES if s != 'irrigation'}, irrigation='irrigatie'),
+    # Spanish is a full mirror as of 2026-11-06. It needed no URL move: its
+    # ad landing page already sat at /es/riego rather than at /es/, so the
+    # language root was free and /es/riego is the Spanish irrigation page.
+    'es': dict({s: s for s in EN_PAGES if s != 'irrigation'}, irrigation='riego'),
     # Still only an ad landing page, sitting at the language root.
     'ar': {'irrigation': ''},
     'pt': {'irrigation': ''},
-    'es': {'irrigation': 'riego'},
 }
 
 # ─── which pages are approved: indexable, in the sitemap, in hreflang ───────
