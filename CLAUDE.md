@@ -70,8 +70,8 @@ one scripted pass and verify all 14, or don't start.
 |---|---|
 | `/` | English, 13 indexable pages. The source every translation is built from. |
 | `/fr/` | 13 pages. Complete, `noindex`, in the switcher, awaiting a native reader. |
-| `/nl/` | 13 pages as of 2026-11-06. Complete, `noindex`, **not** in the switcher yet. |
-| `/es/` | 13 pages as of 2026-11-06. Complete, `noindex`, **not** in the switcher yet. |
+| `/nl/` | 13 pages as of 2026-11-06. Complete, `noindex`, in the switcher since 2026-11-07, awaiting a native reader. |
+| `/es/` | 13 pages as of 2026-11-06. Complete, `noindex`, in the switcher since 2026-11-07, awaiting a native reader. |
 | `/ar/` | 13 pages as of 2026-11-06. Complete, `noindex`, **in** the switcher (it was already). `/ar/irrigation` is the one approved and indexed Arabic page. |
 | `/pt/` | ad landing page only, at `/pt/`. A `noindex` draft. |
 
