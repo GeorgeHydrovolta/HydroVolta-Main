@@ -42,12 +42,15 @@ PREFIX = {c: p for c, _, _, _, p in LANGUAGES}
 CODES = [c for c, _, _, _, _ in LANGUAGES]
 
 # ─── which languages the switcher offers ────────────────────────────────────
-# Today's live state. nl, es and pt have only an ad landing page, which is not
-# a language version of the site, so they are not offered.
-# Dutch and Spanish are built and complete but stay out until George has had
-# them read: his rule is that a language appears here only once its pages are
-# approved. Adding 'nl' or 'es' is the single edit that publishes one.
-IN_MENU = ['en', 'fr', 'ar']
+# Dutch and Spanish join French here: complete, reachable by a visitor who
+# asks for them, still `noindex` until a native reader has been through them.
+# That is what the two gates are for. Leaving them out of the menu made them
+# dead ends - a visitor who landed on /nl/ saw a switcher offering English,
+# French and Arabic, with no way back to Dutch and no sign Dutch existed.
+#
+# pt is still only an ad landing page, which is not a language version of the
+# site, so it stays out.
+IN_MENU = ['en', 'nl', 'fr', 'es', 'ar']
 
 # ─── which pages exist, per language ────────────────────────────────────────
 # Keyed by the English slug, because that is what identifies a page across
