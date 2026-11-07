@@ -64,6 +64,71 @@ one scripted pass and verify all 14, or don't start.
   ("Groundwater Desalination", "SonixED™ Technology", "Reference Projects").
   Do not assume the footers are identical — diff them before editing.
 
+### Language sites
+
+| prefix | state |
+|---|---|
+| `/` | English, 13 indexable pages. The source every translation is built from. |
+| `/fr/` | 13 pages. Complete, `noindex`, in the switcher, awaiting a native reader. |
+| `/nl/` | 13 pages as of 2026-11-06. Complete, `noindex`, **not** in the switcher yet. |
+| `/es/` | 13 pages as of 2026-11-06. Complete, `noindex`, **not** in the switcher yet. |
+| `/ar/` | 13 pages as of 2026-11-06. Complete, `noindex`, **in** the switcher (it was already). `/ar/irrigation` is the one approved and indexed Arabic page. |
+| `/pt/` | ad landing page only, at `/pt/`. A `noindex` draft. |
+
+**One irrigation page per language.** The ad landing pages are that language's
+irrigation page, not a separate thing: `/nl/irrigatie` is the former `/nl/`,
+moved so `/nl/` could become the Dutch homepage. **Spanish needed no move** —
+its landing page already sat at `/es/riego`, leaving `/es/` free. **Arabic is
+done too**: `/ar/irrigation` shipped first as a copy, George switched the Egypt
+and Jordan Ads final URLs to it, and `/ar/` then became the Arabic homepage.
+`/ar/irrigation` keeps the `lp_ar` form, the sitemap entry and the hreflang
+pair with `/irrigation`; the Arabic homepage is a `noindex` draft like the
+rest of the translated pages.
+
+Dutch leads reach the CRM as `nl` with no hidden field: `js/site.js` reads the
+submitted `language` from `<html lang>`. Form ids are **unchanged** across
+languages (`assessment-form`, `lp_groundwater`, …) so leads still group.
+
+### Languages — the one exception to "no templating"
+
+As of 2026-11-06 the **language switcher and the hreflang tags are generated**,
+not hand-copied. Everything about languages is decided in one file:
+
+- `scripts/languages.py` — which languages exist, which the switcher offers
+  (`IN_MENU`), which pages exist per language (`PAGES`), and which of those are
+  approved (`APPROVED`). Two separate gates on purpose: **IN_MENU** makes a
+  language reachable by a visitor; **APPROVED** is what drops `noindex`, adds
+  the sitemap entry and allows hreflang. French is in the menu and not approved.
+- `scripts/build_lang_chrome.py` — rewrites the switcher and the hreflang block
+  in all 33 HTML files from that list. Run it after any edit to `languages.py`.
+- `scripts/mark_en_downloads.py` — labels English-only PDFs "(EN)" on
+  non-English pages. Idempotent; re-run after each new language is built.
+
+**To publish a finished language**, three things flip together: add its code to
+`IN_MENU`, add its pages to `APPROVED`, and drop the `robots` meta from the
+pages. Then run `build_lang_chrome.py` and add the sitemap entries.
+
+This is **not** a build step — nothing runs on deploy. Edit the list, run the
+script, commit what it changed. Never hand-edit a switcher block: the next run
+overwrites it.
+
+hreflang is only emitted for a page that is itself approved, and only when two
+or more languages are approved for that page family, so a `noindex` draft never
+appears as a language alternate.
+
+**The switcher never downgrades.** A language that already has approved pages
+links only to approved ones: from `/groundwater`, the Arabic entry goes to
+`/ar/` (approved), not to `/ar/groundwater` (a draft). A language with no
+approved pages at all, French today, is a draft throughout, so there the
+per-page counterpart is the right target. `menu_url()` in `languages.py`.
+
+**Arabic numerals need bidi isolation.** `50&ndash;90%` inside a right-to-left
+line is two European number runs with neutrals between, and the bidi algorithm
+lays them out right-to-left, so the page shows `90%&ndash;50`. The Arabic pages
+wrap every numeric range in `&#8294;` … `&#8297;` (U+2066 LRI / U+2069 PDI).
+Use the characters, **not** a `<span dir="ltr">`: a span adds line-break
+opportunities and split one proof tile across four lines.
+
 ### Responsive breakpoints (`css/site.css`)
 
 `900px` is the important one: the nav collapses to a hamburger at ≤900px, so the
