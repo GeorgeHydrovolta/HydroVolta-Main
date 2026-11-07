@@ -8,13 +8,15 @@ A second repo (`josbrik/HydroVolta`) exists on the same machine and is **not** l
 Deployment: static site, no build step. Cloudflare Pages auto-deploys every push to `main`.
 A push is a publish. There is no staging. Deploys take roughly 30–60 seconds.
 
-Last full audit: 2026-09-23. Last updated: 2026-09-24 (after the internal-link rewrite).
+Last full audit: 2026-09-23. Last updated: 2026-11-07 (file inventory and
+config table re-checked against the repo and the live site; several items
+listed as open had already been fixed).
 
 ---
 
 ## 1. Site structure
 
-### Pages (14 HTML files in repo root)
+### Pages (16 HTML files in repo root)
 
 Cloudflare Pages strips `.html`, so the canonical live path has no extension.
 
@@ -29,39 +31,53 @@ Cloudflare Pages strips `.html`, so the canonical live path has no extension.
 | `projects.html` | `/projects` | Morocco, Perth, Brazil, Saudi | yes |
 | `about.html` | `/about` | Company, leadership, credentials | yes |
 | `contact.html` | `/contact` | Engineering-assessment intake form | yes |
-| `contact-us.html` | `/contact-us` | General contact details | yes |
 | `privacy.html` | `/privacy` | Privacy policy | yes |
+| `irrigation.html` | `/irrigation` | Brackish water for irrigation | yes |
+| `nitrate-removal.html` | `/nitrate-removal` | Nitrate as the entry-point problem | yes |
+| `electrodialysis-vs-reverse-osmosis.html` | `/electrodialysis-vs-reverse-osmosis` | Head-to-head comparison | yes |
 | `calculator.html` | `/calculator` | Partner ED calculator | `noindex,nofollow` |
 | `salinbloc-manual.html` | `/salinbloc-manual` | Customer manual portal | `noindex,follow` |
 | `404.html` | *(served for any unmatched path)* | Error page | not linked, not in sitemap |
 
-11 indexable pages. This matches the ~11 real pages Search Console reports.
+13 indexable English pages. `sitemap.xml` lists those 13 plus `/ar/irrigation`,
+the one approved Arabic page — 14 URLs.
 
-A 15th file, `nitrate-removal.html`, exists in the working tree **untracked and
-unpublished** pending figures — see work item 3. It carries the standard nav and
-footer, so include it when doing a site-wide chrome edit, but do not commit it.
+`contact-us.html` was **removed on 2026-10-02**; `/contact-us` and `/contact-us/`
+301 to `/contact` in `_redirects`. Do not re-create it.
 
 ### Shared elements — there is no templating
 
-Nav, topbar and footer are **hand-copied into all 14 files**. There are no includes,
-no partials, no build step. Any nav or footer change is a 14-file edit — do it in
-one scripted pass and verify all 14, or don't start.
+Nav, topbar and footer are **hand-copied into every page**. There are no includes,
+no partials, no build step. The repo holds 70 HTML files: 16 in the root, 53 under
+the language prefixes (13 each for `fr`, `nl`, `es`, `ar`, plus `pt/index.html`),
+and one vendored `pdfjs/web/viewer.html` that is not a site page. So a nav or
+footer change is a **69-file edit** — do it in one scripted pass and verify all 69,
+or don't start.
+
+The language switcher and the hreflang tags are the exception: those are
+generated. See "Languages" below, and never hand-edit a switcher block.
 
 - `css/site.css` — single stylesheet, all pages. Fonts: Archivo, Archivo Narrow,
   Plus Jakarta Sans (self-hosted woff2 in `fonts/`).
 - `js/site.js` — behaviour only: mobile nav, scroll reveal (`.rv`), hero slideshow,
   auto year (`[data-year]`), active-nav highlight, cookie banner.
 - `js/manual.js` — manual page only.
-- **Main nav** (13 of 14 pages): Home · How it Works · Applications · Projects ·
-  Systems · About · Get in Touch.
-  `brine-valorization.html` is the exception — see open items.
-- Topbar (all pages): "Active in Morocco & Perth · Pilot contracts open ·
-  EIC Accelerator €2.2M awarded".
-- Footer: link *targets* are the same everywhere, but the markup and link *labels*
-  are **not** — there are 9 distinct footer variants. Ten pages use short labels
-  ("Groundwater", "Technology", "Projects"); `index.html`,
-  `brine-valorization.html` and `contact-us.html` use long ones
-  ("Groundwater Desalination", "SonixED™ Technology", "Reference Projects").
+- **Main nav**, identical on all 69 site pages: Home · How it Works ·
+  Applications · Projects · Systems · About · Get in Touch. Verified 2026-11-07 by
+  diffing every page's nav against `index.html` — zero differences.
+  `brine-valorization.html`'s stale 10-item nav is **fixed**.
+- Topbar, identical on all 16 root pages: "EIC Accelerator &euro;2.2M awarded
+  &middot; Active in Morocco &amp; Perth &middot; Water Corporation extends pilots
+  to three more Perth bores". It carries **no link** — it used to point at
+  `/news/water-corporation-perth-bores`, which 404s; the anchor was removed
+  2026-11-06 and must not come back until that page exists.
+- Footer: link *targets* are the same everywhere, but the markup is **not**.
+  Counted 2026-11-07 across the 16 root pages: **7 distinct variants**. Eight
+  pages share one; `404.html`, `privacy.html` and `salinbloc-manual.html` share
+  a second; `index.html`, `applications.html`, `brine-valorization.html`,
+  `calculator.html` and `contact.html` each have their own.
+  The old long labels ("Groundwater Desalination", "SonixED™ Technology",
+  "Reference Projects") are **gone** — every footer now uses the short ones.
   Do not assume the footers are identical — diff them before editing.
 
 ### Language sites
@@ -139,12 +155,23 @@ desktop nav must fit from 901px up. Others: 1160, 1040, 820, 720, 600, 700.
 | File | Status |
 |---|---|
 | `404.html` | **present** — critical, see gotchas |
-| `robots.txt` | present, correct, points at the sitemap |
-| `sitemap.xml` | present, 11 URLs — exactly the 11 published indexable pages |
-| `_redirects` | present, 11 legacy WordPress paths → 301 |
+| `robots.txt` | present, points at the sitemap — **but the file the repo serves is not what visitors get.** Cloudflare **Managed Content** prepends a large block before it: a `Content-Signal: search=yes,ai-train=no,use=reference` line and `Disallow: /` for ~35 AI training crawlers (GPTBot, ClaudeBot, Google-Extended, CCBot, Bytespider…). That block is a Cloudflare zone setting, not in this repo, and editing `robots.txt` will not remove it. `curl https://hydrovolta.com/robots.txt` to see what is actually served |
+| `sitemap.xml` | present, **14 URLs** — the 13 indexable English pages + `/ar/irrigation` |
+| `_redirects` | present, **25 rules** — legacy WordPress paths and `/contact-us` → 301 |
 | `llms.txt` | present, accurate, kept in sync with site copy |
-| `_headers` | absent |
-| `wrangler.toml`, `functions/` | absent — do not create without asking |
+| `_headers` | **present** — security headers on `/*`, cache policy on fonts/downloads/images. `/css/*` and `/js/*` deliberately keep Cloudflare's 4-hour default because their filenames carry no content hash |
+| `functions/` | **present** — Pages Functions: `/api/assessment`, `/api/download`, `/downloads/[[path]]` |
+| `wrangler.toml` | absent — do not create without asking |
+
+**A Pages Function overrides `_headers`.** Four marketing PDFs under
+`/downloads/` are gated: `functions/downloads/[[path]].js` serves an HTML
+lead-capture wall in their place, with its own `cache-control: no-store`, so the
+`/downloads/*` rule in `_headers` never reaches them. Everything else under
+`/downloads/` — the manual and its chapters — falls through via `context.next()`
+and does get the 30-day cache. Verified 2026-11-07: the four gated PDFs return
+`no-store` and `text/html`, the manual chapters return
+`public, max-age=2592000`. If a cache header on an asset is not what `_headers`
+says, check `functions/` before editing `_headers`.
 
 ### Other directories
 
@@ -302,9 +329,10 @@ byte-identical copy of the homepage** — a soft 404 across an unbounded URL spa
 ghost paths → 404, 11 real pages → 200, legacy 301s intact.
 
 **On 410**: `_redirects` **cannot** serve it — Cloudflare Pages supports only 301,
-302, 303, 307, 308 and 200 there. A true 410 needs `functions/_middleware.js`,
-which adds a serverless layer to a static site. Not done, and not needed: Google
-deindexes 404 and 410 at nearly the same rate. **Ask before creating `functions/`.**
+302, 303, 307, 308 and 200 there. A true 410 needs `functions/_middleware.js`.
+Not done, and not needed: Google deindexes 404 and 410 at nearly the same rate.
+`functions/` now exists for the API endpoints, so adding a middleware is no longer
+a new serverless layer — but it would run on **every** request, so still ask.
 
 **Sitemap/robots**: were already correct.
 
@@ -334,12 +362,12 @@ attributable to the H1 alone. Revisit separately.
 The new lead dropped the brine valorization mention from the hero; it remains via
 card 03 and two process-diagram hotspots.
 
-### 3. Dedicated nitrate page — **DRAFTED, awaiting figures** (2026-09-24)
+### 3. Dedicated nitrate page — **DONE** (shipped; verified 2026-11-07)
 
-`nitrate-removal.html` exists in the working tree, **untracked and unpublished**.
-It is deliberately not committed, not in `sitemap.xml`, not in `llms.txt` and not
-in the nav, because it still carries 13 `[PLACEHOLDER]` markers. Publishing
-placeholder text to a live site would be worse than not publishing.
+`nitrate-removal.html` is committed, live at `/nitrate-removal`, indexable, in
+`sitemap.xml` and in `llms.txt`. **Zero `[PLACEHOLDER]` markers remain** — none
+anywhere in the repo — so the 13 figures listed below were supplied. The list is
+kept as the record of what the page's numbers rest on.
 
 URL chosen: `/nitrate-removal` rather than `/nitrate`, for the keyword match, and
 consistent with the two-word `brine-valorization`.
@@ -360,14 +388,15 @@ fits its container and scrolls inside its wrapper on mobile.
 - Nitrates Directive 91/676/EEC — 50 mg/l to identify polluted groundwater and
   designate Nitrate Vulnerable Zones; 170 kg N/ha/yr manure cap inside an NVZ.
 
-**The 13 figures George still owes**, all numeric:
+**The 13 figures the page depends on** — supplied, listed here so a future edit
+knows which numbers are load-bearing:
 
 - Comparison table: nitrate removal (both columns), calcium retained %,
   magnesium retained %, RO recovery range, energy kWh/m³ (both), feed TDS range.
 - Perth: feed nitrate, product nitrate, feed TDS, recovery %, in operation since.
 
-An interim option if the full set is slow: publish with the comparison table
-trimmed to what is already verifiable, and add the rest later.
+The regulatory citations above were checked against primary sources rather than
+recalled, and should be re-checked before being reused anywhere else.
 
 ### 4. Perth reference more prominent on homepage — **PARTLY ADVANCED**
 
@@ -383,24 +412,26 @@ enough or a dedicated treatment is still wanted.
 `sameAs`. No other page has structured data. Optional follow-ups: add
 `streetAddress`/`postalCode`; consider `WebSite` and `Product` schema.
 
-### Smaller defects — still open
+### Smaller defects — one left
 
-Each of the four remaining needs George's judgement, not just an edit.
+Three of the four listed in the September audit were fixed without this file
+being updated. Re-checked against the repo on 2026-11-07:
 
-1. **`brine-valorization.html` has a stale 10-item nav** (Home · Groundwater ·
-   Brine Valorization · Technology · Systems · Applications · Projects · About ·
-   Contact · Get in Touch) while the other 13 pages have the 7-item nav.
-   Normalising it means *removing* links — **ask first.**
-2. **`/contact` and `/contact-us` are two indexable contact pages**, both in the
-   sitemap. Cannibalisation risk. Consolidating changes a URL — **ask first.**
-3. **`README.md` is stale** — describes a "BPED" technology absent from the site
-   and names fonts the repo no longer uses. Needs George to say what is current.
+1. ~~`brine-valorization.html`'s stale 10-item nav~~ — **fixed.** All 69 site
+   pages now carry the identical 7-item nav.
+2. ~~`/contact` and `/contact-us` both indexable~~ — **fixed.** `contact-us.html`
+   was removed on 2026-10-02 and both spellings 301 to `/contact`.
+3. ~~`README.md` describes a "BPED" technology~~ — **fixed.** It was rewritten;
+   no occurrence of "BPED" remains, and it points at this file for the details.
 4. **`images/candidates/` is 129 MB across 75 photos, of which only 3 are
-   referenced.** Shipped on every deploy. Several unreferenced `.HEIC` files too
-   (browsers cannot display HEIC). Deleting files George may still want.
+   referenced** — **still open.** Shipped on every deploy. Several unreferenced
+   `.HEIC` files too (browsers cannot display HEIC). Deleting files George may
+   still want, so **ask first**.
 
-Also **no `_headers` file** — no security headers, no cache-control on assets.
-That is Cloudflare configuration, so **do not create it without asking.**
+`_headers` now exists and is live — the response headers are observable on
+hydrovolta.com. Changing it is still Cloudflare-adjacent configuration: edit it
+deliberately, and bear in mind a wrong `Cache-Control` under `/*` would catch
+HTML and hide a deploy.
 
 ### Fixed since the audit
 
@@ -536,8 +567,11 @@ working around it.
 - **Never add `noindex` except to unpublished drafts; remove it on approval.**
   (`calculator.html` and `salinbloc-manual.html` carry it deliberately — leave
   those alone.)
-- **Never touch Cloudflare configuration without asking.** Includes creating
-  `functions/`, `_headers`, or anything in the Cloudflare dashboard.
+- **Never touch Cloudflare configuration without asking.** `_headers` and
+  `functions/` already exist, so this now means adding a `_middleware.js`, a
+  `wrangler.toml`, a new Function, or anything in the Cloudflare dashboard.
+  No Claude session has dashboard, DNS, variable, secret or billing access —
+  say so plainly rather than working around it.
 - **Never invent numbers, client names or results.** Use `[PLACEHOLDER]`.
 - **Ask when unsure instead of guessing.**
 - **Verify on the live site after every push**, and say plainly when something
