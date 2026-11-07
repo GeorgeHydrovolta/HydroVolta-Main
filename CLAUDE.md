@@ -155,13 +155,23 @@ desktop nav must fit from 901px up. Others: 1160, 1040, 820, 720, 600, 700.
 | File | Status |
 |---|---|
 | `404.html` | **present** — critical, see gotchas |
-| `robots.txt` | present, correct, points at the sitemap |
+| `robots.txt` | present, points at the sitemap — **but the file the repo serves is not what visitors get.** Cloudflare **Managed Content** prepends a large block before it: a `Content-Signal: search=yes,ai-train=no,use=reference` line and `Disallow: /` for ~35 AI training crawlers (GPTBot, ClaudeBot, Google-Extended, CCBot, Bytespider…). That block is a Cloudflare zone setting, not in this repo, and editing `robots.txt` will not remove it. `curl https://hydrovolta.com/robots.txt` to see what is actually served |
 | `sitemap.xml` | present, **14 URLs** — the 13 indexable English pages + `/ar/irrigation` |
 | `_redirects` | present, **25 rules** — legacy WordPress paths and `/contact-us` → 301 |
 | `llms.txt` | present, accurate, kept in sync with site copy |
 | `_headers` | **present** — security headers on `/*`, cache policy on fonts/downloads/images. `/css/*` and `/js/*` deliberately keep Cloudflare's 4-hour default because their filenames carry no content hash |
 | `functions/` | **present** — Pages Functions: `/api/assessment`, `/api/download`, `/downloads/[[path]]` |
 | `wrangler.toml` | absent — do not create without asking |
+
+**A Pages Function overrides `_headers`.** Four marketing PDFs under
+`/downloads/` are gated: `functions/downloads/[[path]].js` serves an HTML
+lead-capture wall in their place, with its own `cache-control: no-store`, so the
+`/downloads/*` rule in `_headers` never reaches them. Everything else under
+`/downloads/` — the manual and its chapters — falls through via `context.next()`
+and does get the 30-day cache. Verified 2026-11-07: the four gated PDFs return
+`no-store` and `text/html`, the manual chapters return
+`public, max-age=2592000`. If a cache header on an asset is not what `_headers`
+says, check `functions/` before editing `_headers`.
 
 ### Other directories
 
