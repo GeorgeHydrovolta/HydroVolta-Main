@@ -72,6 +72,63 @@ SVG = ('<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="curr
        'stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/>'
        '<path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg>')
 
+# ── flags ───────────────────────────────────────────────────────────────────
+# Inline SVG, not emoji. Windows ships no regional-indicator glyphs, so
+# "\U0001F1EC\U0001F1E7" renders as the letters GB in every browser on Windows
+# - which is most of the B2B audience. These are a few hundred bytes each, need
+# no request, and look the same everywhere.
+#
+# A flag is a country and these are languages, so none of this is exact. Each
+# choice and its alternatives:
+#
+#   en  United Kingdom. The usual European convention; swap for the US flag if
+#       the audience reads as more American.
+#   nl  Netherlands. Hydrovolta is Belgian, but the Dutch tricolour is what
+#       readers expect for "Nederlands"; the Belgian flag would read as French
+#       to half the country.
+#   fr  France.
+#   es  Spain, civil flag - no coat of arms, which does not survive 18px.
+#   ar  Saudi Arabia, chosen by George on 2026-11-07. It is the usual choice
+#       for an Arabic language switcher. Two things follow from the shahada it
+#       carries: keep the official 3:2 proportions, which this viewbox is, and
+#       never crop, rotate or distort it. At 18px the inscription cannot be
+#       legible, so it is drawn as a calligraphic band above the sword rather
+#       than as fake Arabic letterforms.
+#
+# Viewbox is 60x40 for all five so they share one size and sit on one baseline.
+FLAG = {
+    'en': ('<rect width="60" height="40" fill="#012169"/>'
+           '<path d="M0 0 60 40M60 0 0 40" stroke="#fff" stroke-width="8"/>'
+           '<path d="M0 0 60 40M60 0 0 40" stroke="#C8102E" stroke-width="4"/>'
+           '<path d="M30 0V40M0 20H60" stroke="#fff" stroke-width="13"/>'
+           '<path d="M30 0V40M0 20H60" stroke="#C8102E" stroke-width="8"/>'),
+    'nl': ('<rect width="60" height="40" fill="#21468B"/>'
+           '<rect width="60" height="26.7" fill="#fff"/>'
+           '<rect width="60" height="13.3" fill="#AE1C28"/>'),
+    'fr': ('<rect width="60" height="40" fill="#ED2939"/>'
+           '<rect width="40" height="40" fill="#fff"/>'
+           '<rect width="20" height="40" fill="#002395"/>'),
+    'es': ('<rect width="60" height="40" fill="#AA151B"/>'
+           '<rect y="10" width="60" height="20" fill="#F1BF00"/>'),
+    'pt': ('<rect width="60" height="40" fill="#DA291C"/>'
+           '<rect width="24" height="40" fill="#046A38"/>'
+           '<circle cx="24" cy="20" r="7" fill="none" stroke="#FFE900" stroke-width="2"/>'),
+    'ar': ('<rect width="60" height="40" fill="#006C35"/>'
+           '<path d="M11 16q3.5-4.5 7 0t7 0 7 0 7 0" fill="none" stroke="#fff" '
+           'stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
+           '<path d="M18 10.5V13M32 10.5V13M46 10.5V13" stroke="#fff" '
+           'stroke-width="1.6" stroke-linecap="round"/>'
+           '<path d="M14 27H43" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>'
+           '<path d="M14 27l5.5-3v6Z" fill="#fff"/>'
+           '<path d="M43 23.5V30.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>'
+           '<path d="M43 27h5" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>'),
+}
+
+
+def flag(code):
+    return ('<svg class="lang__flag" viewBox="0 0 60 40" width="18" height="12" '
+            'aria-hidden="true" focusable="false">%s</svg>' % FLAG[code])
+
 
 def identify(path):
     """(language, English slug) for a file path."""
@@ -92,8 +149,11 @@ def switcher(lang, slug):
     for code in L.IN_MENU:
         href = L.menu_url(code, slug)
         assert href, 'no URL for %s on page %r' % (code, slug)
-        rows.append('      <a href="%s" hreflang="%s" lang="%s">%s</a>'
-                    % (href, code, code, L.LABEL[code]))
+        # The label is wrapped so the Arabic one can be laid out right-to-left
+        # without flipping the row: the flag stays in the same column for every
+        # entry, which is what makes the list read as a list.
+        rows.append('      <a href="%s" hreflang="%s" lang="%s">%s<span>%s</span></a>'
+                    % (href, code, code, flag(code), L.LABEL[code]))
     return ('<div class="lang" id="lang-menu">\n'
             '      <button type="button" class="lang__btn" id="lang-btn" aria-expanded="false" '
             'aria-haspopup="true" aria-label="%s">\n'

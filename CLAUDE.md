@@ -120,6 +120,15 @@ not hand-copied. Everything about languages is decided in one file:
 - `scripts/mark_en_downloads.py` — labels English-only PDFs "(EN)" on
   non-English pages. Idempotent; re-run after each new language is built.
 
+**Flags are inline SVG, not emoji**, in the `FLAG` table in
+`build_lang_chrome.py`. Emoji flags are not an option: Windows ships no
+regional-indicator glyphs, so `🇬🇧` renders as the letters **GB** in every
+browser on Windows. Each flag is a few hundred bytes, needs no request and
+looks identical everywhere. Changing one is a single line in that table plus a
+rebuild. The set is en=United Kingdom, nl=Netherlands, fr=France,
+es=Spain (civil flag, no arms), ar=Saudi Arabia, pt=Portugal. Saudi Arabia
+carries the shahada, so keep its 3:2 proportions and never crop or distort it.
+
 **To publish a finished language**, three things flip together: add its code to
 `IN_MENU`, add its pages to `APPROVED`, and drop the `robots` meta from the
 pages. Then run `build_lang_chrome.py` and add the sitemap entries.
@@ -282,6 +291,14 @@ cannot detect the regression; load a page and check for `aria-current="page"`.
 **`site.js` builds links of its own at runtime.** The cookie banner constructs its
 own privacy-policy anchor in JS. A search of the HTML for link spellings will miss
 it. Check `js/site.js` whenever link formats change.
+
+**`site.js` also rewrites the language menu at runtime**, and assigning
+`textContent` there destroys markup. The current-language tick used to be added
+with `a.textContent = a.textContent + ' ✓'`, which replaces **every child** of
+the anchor — so the moment flags were added, the flag silently vanished from
+whichever language was being read, and from that one only. It now writes into
+the label `<span>`. Anything added inside a switcher anchor must survive that
+function; the markup is generated, the tick is not.
 
 **`git fetch` hangs in Claude Code sessions** — it waits on a credential prompt
 that has nowhere to appear. Pushes work off cached credentials

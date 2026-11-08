@@ -402,9 +402,15 @@ h3{font-size:1.2rem}
 .lang__btn:hover{color:var(--n1);border-color:var(--n2)}
 .lang__list{position:absolute;top:calc(100% + .4rem);right:0;min-width:160px;background:var(--w);border:1px solid var(--b);border-radius:var(--r);box-shadow:0 12px 32px rgba(0,25,51,.14);padding:.35rem;z-index:60}
 .lang__list[hidden]{display:none}
-.lang__list a{display:block;padding:.5rem .7rem;border-radius:8px;font-size:.88rem;color:var(--t)}
+.lang__list a{display:flex;align-items:center;gap:.55rem;padding:.5rem .7rem;border-radius:8px;font-size:.88rem;color:var(--t)}
 .lang__list a:hover{background:var(--s)}
-.lang__list a[lang="ar"]{direction:rtl;text-align:right}
+/* Hairline via box-shadow, not border: a border would change the box and the
+   flags would stop lining up with the globe in the button. Needed because the
+   white band of the Dutch and French flags vanishes against the white menu. */
+.lang__flag{flex:0 0 auto;display:block;width:18px;height:12px;border-radius:2px;box-shadow:0 0 0 1px rgba(0,25,51,.18)}
+/* RTL on the label only. Putting it on the anchor would move the Arabic flag
+   to the other edge and leave the column ragged. */
+.lang__list a[lang="ar"] span{direction:rtl;unicode-bidi:isolate}
 @media(max-width:900px){.lang{margin:.75rem 0 0}.lang__list{right:auto;left:0}}
 
 /* ── COOKIE BANNER ───────────────────────────────────── */
