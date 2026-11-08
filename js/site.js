@@ -240,7 +240,12 @@
       if ((a.getAttribute('hreflang') || '').toLowerCase() !== here) return;
       a.setAttribute('aria-current', 'true');
       a.style.fontWeight = '600';
-      if (a.textContent.indexOf('✓') === -1) { a.textContent = a.textContent + ' ✓'; }
+      // Write into the label span, never the anchor. Assigning textContent on
+      // the anchor replaces ALL its children, which silently deleted the flag
+      // SVG from whichever language was being read. Falls back to the anchor
+      // so this keeps working if a label is ever emitted without its span.
+      var label = a.querySelector('span') || a;
+      if (label.textContent.indexOf('✓') === -1) { label.textContent = label.textContent + ' ✓'; }
     });
 
     btn.addEventListener('click', function (e) {
