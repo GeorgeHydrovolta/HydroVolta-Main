@@ -8,9 +8,11 @@ A second repo (`josbrik/HydroVolta`) exists on the same machine and is **not** l
 Deployment: static site, no build step. Cloudflare Pages auto-deploys every push to `main`.
 A push is a publish. There is no staging. Deploys take roughly 30–60 seconds.
 
-Last full audit: 2026-09-23. Last updated: 2026-11-07 (file inventory and
-config table re-checked against the repo and the live site; several items
-listed as open had already been fixed).
+Last full audit: 2026-09-23. Last updated: 2026-11-08 (the Portuguese site, the
+bare-`<option>` CRM trap, and the deploy that reached GitHub without reaching
+Cloudflare). The 2026-11-07 pass re-checked the file inventory and config table
+against the repo and the live site; several items listed as open had already
+been fixed.
 
 ---
 
@@ -339,6 +341,23 @@ before committing. Ask George to mention Desktop pushes.
 
 **`git commit -F` fails on long scratchpad paths** ("Filename too long"). Write
 the message to `.git/cmsg.txt` instead and delete it afterwards.
+
+**A merge can reach GitHub without Cloudflare deploying it.** On 2026-11-08 the
+Portuguese merge (`bc6e59d`) sat on `main` for over an hour with no production
+deployment, while every other merge that evening deployed in 30–60 seconds.
+The branch preview had built from the identical tree in 30 seconds, so the
+connection and the content were both fine — webhooks fire for branch pushes and
+that one push to `main` was simply not picked up. Two things this teaches:
+
+- **Confirm the deploy, not the push.** `git ls-remote` proving `main` is correct
+  says nothing about what Cloudflare built. Check a string that only the new
+  build contains — a switcher row, an asset `?v=`, a page that should now exist —
+  against `hydrovolta.pages.dev` as well as the custom domain, so a stale edge
+  cache cannot be mistaken for a missing deploy.
+- **Retry re-runs the deployment you clicked, not the newest commit.** If no
+  deployment exists for the merge, the top of the list is the *previous* commit,
+  and retrying it rebuilds that one and changes nothing. The fix is a fresh push
+  to `main`, which is a new merge commit — not a retry.
 
 **Verify rendered output, not just curl.** A page can return the right status and
 the right HTML and still be visibly broken. Serve locally and check in the
