@@ -48,7 +48,10 @@ SPECIAL = {
     # special case is gone. Leaving it here put hreflang on a noindex draft.
 
     'nl/irrigatie.html': ('nl', 'irrigation'),
-    'pt/index.html': ('pt', 'irrigation'),
+    # pt/index.html was the irrigation landing page until 2026-11-08. It is
+    # the Portuguese homepage now, so it is identified normally - slug '' -
+    # and the landing page is the special case instead.
+    'pt/irrigacao.html': ('pt', 'irrigation'),
     'es/riego.html': ('es', 'irrigation'),
 }
 

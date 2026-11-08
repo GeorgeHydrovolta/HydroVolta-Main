@@ -89,7 +89,7 @@ generated. See "Languages" below, and never hand-edit a switcher block.
 | `/nl/` | 13 pages as of 2026-11-06. Complete, `noindex`, in the switcher since 2026-11-07, awaiting a native reader. |
 | `/es/` | 13 pages as of 2026-11-06. Complete, `noindex`, in the switcher since 2026-11-07, awaiting a native reader. |
 | `/ar/` | 13 pages as of 2026-11-06. Complete, `noindex`, **in** the switcher (it was already). `/ar/irrigation` is the one approved and indexed Arabic page. |
-| `/pt/` | ad landing page only, at `/pt/`. A `noindex` draft. |
+| `/pt/` | 13 pages as of 2026-11-08. Complete, `noindex`, in the switcher, awaiting a native reader. **European Portuguese (pt-PT)** throughout. |
 
 **One irrigation page per language.** The ad landing pages are that language's
 irrigation page, not a separate thing: `/nl/irrigatie` is the former `/nl/`,
@@ -97,6 +97,11 @@ moved so `/nl/` could become the Dutch homepage. **Spanish needed no move** —
 its landing page already sat at `/es/riego`, leaving `/es/` free. **Arabic is
 done too**: `/ar/irrigation` shipped first as a copy, George switched the Egypt
 and Jordan Ads final URLs to it, and `/ar/` then became the Arabic homepage.
+**Portuguese moved in one go** on 2026-11-08: `/pt/irrigacao` is the former
+`/pt/`. No staging was needed because nothing pointed at `/pt/` &mdash; it was
+the only page on the site carrying a visible "DRAFT &mdash; not published"
+banner, which is not somewhere you send paid traffic. That banner is gone; the
+`noindex` is not.
 `/ar/irrigation` keeps the `lp_ar` form, the sitemap entry and the hreflang
 pair with `/irrigation`; the Arabic homepage is a `noindex` draft like the
 rest of the translated pages.
@@ -146,6 +151,14 @@ links only to approved ones: from `/groundwater`, the Arabic entry goes to
 `/ar/` (approved), not to `/ar/groundwater` (a draft). A language with no
 approved pages at all, French today, is a draft throughout, so there the
 per-page counterpart is the right target. `menu_url()` in `languages.py`.
+
+**European Portuguese, not Brazilian.** `scripts/languages.py` declares the
+locale `pt_PT`, and every other language here is its European variety. The
+glossary is fixed in `pt_build.py`: *osmose inversa* (not *reversa*), *caudal*
+(not *vaz&atilde;o*), *controlo* (not *controle*), *pr&eacute;mio*, *campanha*
+(not *safra*), *ultrassons*. The old landing page mixed the two varieties,
+sometimes inside one sentence; `pt_normalise.py` lists every form that was
+changed, so a native reviewer can see exactly what moved.
 
 **Arabic numerals need bidi isolation.** `50&ndash;90%` inside a right-to-left
 line is two European number runs with neutrals between, and the bidi algorithm
@@ -287,6 +300,18 @@ So `/technology`, `technology.html` and `technology` all match. Any change to na
 href spelling must be checked against this line — a mismatch produces no error,
 the highlight just silently stops appearing. It only runs in a browser, so curl
 cannot detect the regression; load a page and check for `aria-current="page"`.
+
+**A bare `<option>` submits its own label.** The English pages write their
+selects as `<option>Borehole / well</option>`, with no value attribute, and an
+option without a value submits its visible text. So translating the label in
+place makes that language submit its own string: the CRM's Water source and
+Country picklists then hold one value per language per answer. Every
+translated option must be `<option value="Borehole / well">Furo ou
+po&ccedil;o</option>` &mdash; English value, translated label. This was live
+and wrong on the Spanish, Dutch and Arabic forms until 2026-11-08, including
+`/ar/irrigation`, where the Egypt and Jordan campaigns land; 277 options were
+corrected across 22 pages. A disabled separator row carries no value, because
+it can never be submitted.
 
 **`site.js` builds links of its own at runtime.** The cookie banner constructs its
 own privacy-policy anchor in JS. A search of the HTML for link spellings will miss

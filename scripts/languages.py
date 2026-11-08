@@ -48,9 +48,9 @@ CODES = [c for c, _, _, _, _ in LANGUAGES]
 # dead ends - a visitor who landed on /nl/ saw a switcher offering English,
 # French and Arabic, with no way back to Dutch and no sign Dutch existed.
 #
-# pt is still only an ad landing page, which is not a language version of the
-# site, so it stays out.
-IN_MENU = ['en', 'nl', 'fr', 'es', 'ar']
+# Portuguese joins them on 2026-11-08, on the same terms: complete, reachable,
+# still `noindex`.
+IN_MENU = ['en', 'nl', 'fr', 'es', 'pt', 'ar']
 
 # ─── which pages exist, per language ────────────────────────────────────────
 # Keyed by the English slug, because that is what identifies a page across
@@ -83,8 +83,13 @@ PAGES = {
     # Step 3, 2026-11-06: /ar/ is the Arabic homepage and the former ad landing
     # page is /ar/irrigation, where the Egypt and Jordan campaigns now point.
     'ar': {s: s for s in EN_PAGES},
-    # Still only an ad landing page, sitting at the language root.
-    'pt': {'irrigation': ''},
+    # Portuguese is a full mirror as of 2026-11-08. Like Dutch, its landing
+    # page had to move off the language root - it sat at /pt/ - so /pt/ could
+    # become the Portuguese homepage and the landing page become
+    # /pt/irrigacao. Unlike Arabic, the move needed no staging: nothing
+    # pointed at /pt/. It was the only page on the site carrying a visible
+    # "DRAFT - not published" banner, which is not a live ad destination.
+    'pt': dict({s: s for s in EN_PAGES if s != 'irrigation'}, irrigation='irrigacao'),
 }
 
 # ─── which pages are approved: indexable, in the sitemap, in hreflang ───────
